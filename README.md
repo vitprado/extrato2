@@ -1,5 +1,7 @@
 # Projeto exTrato - Sistema de Trato Bovino
 
+![IMAGEM DO LOGOTIPO DO SISTEMA](http://url/to/logo.jpg)
+
 Consiste em um sistema que auxilia no processo de trabalho feito em campo na Balança de Trato Bovino, isto é, a **`EX3001L`**.
 O sistema conta com as seguintes características:
 
