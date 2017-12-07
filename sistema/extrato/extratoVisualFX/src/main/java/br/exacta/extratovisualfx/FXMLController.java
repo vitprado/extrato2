@@ -11,12 +11,19 @@ import javafx.scene.control.TextField;
 
 import br.exacta.persistencia.Equipamento;
 import br.exacta.dao.EquipamentoDAO;
+import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
+import java.sql.Date;
+import java.time.Instant;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.util.Callback;
+import jdk.nashorn.internal.objects.Global;
 
 public class FXMLController implements Initializable {
     
@@ -44,18 +51,19 @@ public class FXMLController implements Initializable {
         lstEquipamentos.setCellFactory(new Callback<ListView<Equipamento>, ListCell<Equipamento>>() {
             @Override
             public ListCell<Equipamento> call(ListView<Equipamento> param) {
-                ListCell<Equipamento> listCell = new ListCell(){
+                ListCell<Equipamento> listCell;
+                listCell = new ListCell(){
                     @Override
                     protected void updateItem(Object item, boolean empty) {
                         super.updateItem(item, empty); 
                         if(item != null){
                             Equipamento equipamento = (Equipamento) item;
-                            setText(equipamento.getEpqPlaca().toString());
                             setText(equipamento.getEpqPlaca());
-                            setText(equipamento.getEqpDescricao());                                                       
+                            setText(equipamento.getEqpDescricao());  
+                            setText(equipamento.getEqpDataCadastro().toString());
                         }
                         else{
-                            setText("Erro ao cadastrar!!");
+                            setText("");
                         }
                     }
                     
@@ -70,13 +78,50 @@ public class FXMLController implements Initializable {
             @Override
             public void handle(ActionEvent event){
                 if(!txtPlaca.getText().trim().isEmpty() && !txtDesc.getText().trim().isEmpty()){
-                    //Equipamento novoEquipamento = new Equipamento(get());
+                    Equipamento novoEquipamento = new Equipamento(getID());
+                    novoEquipamento.setEpqPlaca(txtPlaca.getText());
+                    novoEquipamento.setEqpDescricao(txtDesc.getText());
+                    novoEquipamento.setEqpDataCadastro(java.util.Date.from(Instant.now()));
+                                        
+                    try {
+                        equipamentoDAO.adicionarEquipamento(novoEquipamento);
+                    } catch (Exception ex) {
+                        Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listaEquipamentos.add(novoEquipamento);
                 }
             }
         });
         
         // REMOVER EQUIPAMENTO
+        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Equipamento itemSelecionado = lstEquipamentos.getSelectionModel().getSelectedItem();
+                if(itemSelecionado != null){
+                    try {
+                        equipamentoDAO.removerEquipamento(itemSelecionado.getEqpCodigo());
+                    } catch (NonexistentEntityException ex) {
+                        Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listaEquipamentos.remove(itemSelecionado);
+                }
+            }
+        });
         
     }   
-
+    // RETORNO DA ID
+    public int getID(){
+        List<Equipamento> todosEquipamentos = equipamentoDAO.getTodosEquipamentos();
+        int maxID = 0;
+        
+        if(!todosEquipamentos.isEmpty()){
+            for(Equipamento equipamento:todosEquipamentos){
+                if(equipamento.getEqpCodigo()>maxID)
+                    maxID = equipamento.getEqpCodigo();
+            }
+        }
+        
+        return ++maxID;
+    }
 }
