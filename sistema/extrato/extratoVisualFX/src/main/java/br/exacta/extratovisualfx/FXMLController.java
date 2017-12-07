@@ -13,6 +13,8 @@ import br.exacta.persistencia.Equipamento;
 import br.exacta.dao.EquipamentoDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.util.Callback;
 
@@ -42,9 +44,39 @@ public class FXMLController implements Initializable {
         lstEquipamentos.setCellFactory(new Callback<ListView<Equipamento>, ListCell<Equipamento>>() {
             @Override
             public ListCell<Equipamento> call(ListView<Equipamento> param) {
-                ListCell<Equipamento> listCell = new ListCell();
+                ListCell<Equipamento> listCell = new ListCell(){
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty); 
+                        if(item != null){
+                            Equipamento equipamento = (Equipamento) item;
+                            setText(equipamento.getEpqPlaca().toString());
+                            setText(equipamento.getEpqPlaca());
+                            setText(equipamento.getEqpDescricao());                                                       
+                        }
+                        else{
+                            setText("Erro ao cadastrar!!");
+                        }
+                    }
+                    
+                };
+                
                 return listCell;
             }
         });
-    }    
+        
+        // ADICIONAR EQUIPAMENTO 
+        btnAdicionar.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                if(!txtPlaca.getText().trim().isEmpty() && !txtDesc.getText().trim().isEmpty()){
+                    //Equipamento novoEquipamento = new Equipamento(get());
+                }
+            }
+        });
+        
+        // REMOVER EQUIPAMENTO
+        
+    }   
+
 }
