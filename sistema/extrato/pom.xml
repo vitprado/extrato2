@@ -9,8 +9,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
   <modules>
-    <module>DesktopFX</module>
-    <module>Persistencia</module>
+    <module>extratoVisualFX</module>
+    <module>persistencias</module>
   </modules>
     <name>Extrato</name>
 </project>
