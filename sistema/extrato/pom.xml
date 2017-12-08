@@ -10,7 +10,7 @@
     </properties>
   <modules>
     <module>extratoVisualFX</module>
-    <module>persistencias</module>
+    <module>persistencia</module>
   </modules>
     <name>Extrato</name>
 </project>

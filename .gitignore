@@ -18,18 +18,9 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-sistema/extrato_versao_anterior/nbproject/private/
-sistema/extrato/desktopFX/target/
-
 # Maven
-
 log/
-
 target/
-sistema/extrato/extratoTelas/nbproject/private/
-sistema/extrato/telasFX/nbproject/private/
 
 # Derby Database
 sistema/extrato/extratoVisualFX/extrato/
