@@ -12,9 +12,9 @@
     <class>br.exacta.persistencia.Equipamento</class>
     <class>br.exacta.persistencia.NivelAcesso</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/extrato"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:extrato;create=true"/>
       <property name="javax.persistence.jdbc.user" value="extrato"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.password" value="extrato"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>

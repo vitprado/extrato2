@@ -23,11 +23,11 @@
         <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
         <dependency>
             <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
+            <artifactId>derby</artifactId>
             <version>10.14.1.0</version>
         </dependency>
+        
 
- 
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
