@@ -39,25 +39,48 @@ public class NivelAcesso implements Serializable {
     @Column(name = "NVA_DESCRICAO")
     private String nvaDescricao;
 
+    /**
+     *
+     */
     public NivelAcesso() {
     }
 
+    /**
+     *
+     * @param nvaCodigo
+     */
     public NivelAcesso(Integer nvaCodigo) {
         this.nvaCodigo = nvaCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getNvaCodigo() {
         return nvaCodigo;
     }
 
+    /**
+     *
+     * @param nvaCodigo
+     */
     public void setNvaCodigo(Integer nvaCodigo) {
         this.nvaCodigo = nvaCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNvaDescricao() {
         return nvaDescricao;
     }
 
+    /**
+     *
+     * @param nvaDescricao
+     */
     public void setNvaDescricao(String nvaDescricao) {
         this.nvaDescricao = nvaDescricao;
     }
@@ -76,10 +99,7 @@ public class NivelAcesso implements Serializable {
             return false;
         }
         NivelAcesso other = (NivelAcesso) object;
-        if ((this.nvaCodigo == null && other.nvaCodigo != null) || (this.nvaCodigo != null && !this.nvaCodigo.equals(other.nvaCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.nvaCodigo == null && other.nvaCodigo != null) || (this.nvaCodigo != null && !this.nvaCodigo.equals(other.nvaCodigo)));
     }
 
     @Override

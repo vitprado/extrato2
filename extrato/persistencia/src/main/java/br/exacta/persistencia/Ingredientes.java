@@ -53,54 +53,106 @@ public class Ingredientes implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date ingDataCadastro;
 
+    /**
+     *
+     */
     public Ingredientes() {
     }
 
+    /**
+     *
+     * @param ingCodigo
+     */
     public Ingredientes(Integer ingCodigo) {
         this.ingCodigo = ingCodigo;
     }
 
+    /**
+     *
+     * @param ingCodigo
+     * @param ingDataCadastro
+     */
     public Ingredientes(Integer ingCodigo, Date ingDataCadastro) {
         this.ingCodigo = ingCodigo;
         this.ingDataCadastro = ingDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIngCodigo() {
         return ingCodigo;
     }
 
+    /**
+     *
+     * @param ingCodigo
+     */
     public void setIngCodigo(Integer ingCodigo) {
         this.ingCodigo = ingCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIngNome() {
         return ingNome;
     }
 
+    /**
+     *
+     * @param ingNome
+     */
     public void setIngNome(String ingNome) {
         this.ingNome = ingNome;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIngAbreviacao() {
         return ingAbreviacao;
     }
 
+    /**
+     *
+     * @param ingAbreviacao
+     */
     public void setIngAbreviacao(String ingAbreviacao) {
         this.ingAbreviacao = ingAbreviacao;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIngTolerancia() {
         return ingTolerancia;
     }
 
+    /**
+     *
+     * @param ingTolerancia
+     */
     public void setIngTolerancia(Integer ingTolerancia) {
         this.ingTolerancia = ingTolerancia;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getIngDataCadastro() {
         return ingDataCadastro;
     }
 
+    /**
+     *
+     * @param ingDataCadastro
+     */
     public void setIngDataCadastro(Date ingDataCadastro) {
         this.ingDataCadastro = ingDataCadastro;
     }
@@ -119,10 +171,7 @@ public class Ingredientes implements Serializable {
             return false;
         }
         Ingredientes other = (Ingredientes) object;
-        if ((this.ingCodigo == null && other.ingCodigo != null) || (this.ingCodigo != null && !this.ingCodigo.equals(other.ingCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.ingCodigo == null && other.ingCodigo != null) || (this.ingCodigo != null && !this.ingCodigo.equals(other.ingCodigo)));
     }
 
     @Override

@@ -50,46 +50,90 @@ public class Curral implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date curDataCadastro;
 
+    /**
+     *
+     */
     public Curral() {
     }
 
+    /**
+     *
+     * @param curCodigo
+     */
     public Curral(Integer curCodigo) {
         this.curCodigo = curCodigo;
     }
 
+    /**
+     *
+     * @param curCodigo
+     * @param curDataCadastro
+     */
     public Curral(Integer curCodigo, Date curDataCadastro) {
         this.curCodigo = curCodigo;
         this.curDataCadastro = curDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCurCodigo() {
         return curCodigo;
     }
 
+    /**
+     *
+     * @param curCodigo
+     */
     public void setCurCodigo(Integer curCodigo) {
         this.curCodigo = curCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCurDescricao() {
         return curDescricao;
     }
 
+    /**
+     *
+     * @param curDescricao
+     */
     public void setCurDescricao(String curDescricao) {
         this.curDescricao = curDescricao;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getCurRfid() {
         return curRfid;
     }
 
+    /**
+     *
+     * @param curRfid
+     */
     public void setCurRfid(Integer curRfid) {
         this.curRfid = curRfid;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCurDataCadastro() {
         return curDataCadastro;
     }
 
+    /**
+     *
+     * @param curDataCadastro
+     */
     public void setCurDataCadastro(Date curDataCadastro) {
         this.curDataCadastro = curDataCadastro;
     }
@@ -108,10 +152,7 @@ public class Curral implements Serializable {
             return false;
         }
         Curral other = (Curral) object;
-        if ((this.curCodigo == null && other.curCodigo != null) || (this.curCodigo != null && !this.curCodigo.equals(other.curCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.curCodigo == null && other.curCodigo != null) || (this.curCodigo != null && !this.curCodigo.equals(other.curCodigo)));
     }
 
     @Override

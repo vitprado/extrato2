@@ -51,47 +51,92 @@ public class Equipamento implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date eqpDataCadastro;
 
+    /**
+     *
+     */
     public Equipamento() {
     }
 
+    /**
+     *
+     * @param eqpCodigo
+     */
     public Equipamento(Integer eqpCodigo) {
         this.eqpCodigo = eqpCodigo;
     }
 
+    /**
+     *
+     * @param eqpCodigo
+     * @param epqPlaca
+     * @param eqpDataCadastro
+     */
     public Equipamento(Integer eqpCodigo, String epqPlaca, Date eqpDataCadastro) {
         this.eqpCodigo = eqpCodigo;
         this.epqPlaca = epqPlaca;
         this.eqpDataCadastro = eqpDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getEqpCodigo() {
         return eqpCodigo;
     }
 
+    /**
+     *
+     * @param eqpCodigo
+     */
     public void setEqpCodigo(Integer eqpCodigo) {
         this.eqpCodigo = eqpCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEpqPlaca() {
         return epqPlaca;
     }
 
+    /**
+     *
+     * @param epqPlaca
+     */
     public void setEpqPlaca(String epqPlaca) {
         this.epqPlaca = epqPlaca;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEqpDescricao() {
         return eqpDescricao;
     }
 
+    /**
+     *
+     * @param eqpDescricao
+     */
     public void setEqpDescricao(String eqpDescricao) {
         this.eqpDescricao = eqpDescricao;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEqpDataCadastro() {
         return eqpDataCadastro;
     }
 
+    /**
+     *
+     * @param eqpDataCadastro
+     */
     public void setEqpDataCadastro(Date eqpDataCadastro) {
         this.eqpDataCadastro = eqpDataCadastro;
     }
@@ -110,10 +155,7 @@ public class Equipamento implements Serializable {
             return false;
         }
         Equipamento other = (Equipamento) object;
-        if ((this.eqpCodigo == null && other.eqpCodigo != null) || (this.eqpCodigo != null && !this.eqpCodigo.equals(other.eqpCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.eqpCodigo == null && other.eqpCodigo != null) || (this.eqpCodigo != null && !this.eqpCodigo.equals(other.eqpCodigo)));
     }
 
     @Override

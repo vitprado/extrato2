@@ -5,9 +5,9 @@
  */
 package br.exacta.dao;
 
-import br.exacta.jpacontroller.EquipamentoJpaController;
+import br.exacta.jpacontroller.EmpresaJpaController;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.persistencia.Equipamento;
+import br.exacta.persistencia.Empresa;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,17 +16,17 @@ import javax.persistence.Persistence;
  *
  * @author Thales
  */
-public class EquipamentoDAO {
+public class EmpresaDAO {
     
-    private final EquipamentoJpaController equipamentoController;
+    private final EmpresaJpaController empresaController;
     private final EntityManagerFactory emf;
-
+    
     /**
      *
      */
-    public EquipamentoDAO() {
+    public EmpresaDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
-        equipamentoController = new EquipamentoJpaController(emf);
+        empresaController = new EmpresaJpaController(emf);
     }
     
     // MÉTODOS DE ACESSO 
@@ -34,57 +34,58 @@ public class EquipamentoDAO {
             - ADICIONAR, LISTAR, EDITAR, E REMOVER
     */
     
-    // ADICIONAR EQUIPAMENTO
+    // ADICIONAR EMPRESA
+
+    /**
+     *
+     * @param empresa
+     * @throws Exception
+     */
+    public void adicionarEmpresa(Empresa empresa) throws Exception{
+        empresaController.create(empresa);
+    }
+    
+    // EDITAR EMPRESA
 
     /**
      *
      * @param equipamento
      * @throws Exception
      */
-    public void adicionarEquipamento(Equipamento equipamento) throws Exception{
-        equipamentoController.create(equipamento);
+    public void editarEmpresa(Empresa equipamento) throws Exception{
+        empresaController.edit(equipamento);
     }
     
-    // EDITAR EQUIPAMENTO
-
-    /**
-     *
-     * @param equipamento
-     * @throws Exception
-     */
-    public void editarEquipamento(Equipamento equipamento) throws Exception{
-        equipamentoController.edit(equipamento);
-    }
-    
-    // REMOVER EQUIPAMENTO
+    // REMOVER EMPRESA
 
     /**
      *
      * @param equipamentoID
      * @throws NonexistentEntityException
      */
-    public void removerEquipamento(int equipamentoID) throws NonexistentEntityException{
-        equipamentoController.destroy(equipamentoID);
+    public void removerEmpresa(int equipamentoID) throws NonexistentEntityException{
+        empresaController.destroy(equipamentoID);
     }
     
-    // LISTAR TODOS EQUIPAMENTOS
+    // LISTAR TODOS EMPRESAS
 
     /**
      *
      * @return
      */
-    public List<Equipamento> getTodosEquipamentos(){
-        return equipamentoController.findEquipamentoEntities();
+    public List<Empresa> getTodasEmpresas(){
+        return empresaController.findEmpresaEntities();
     }
     
-    // LISTAR EQUIPAMENTO POR ID
+    // LISTAR EMPRESA POR ID
 
     /**
      *
      * @param equipamentoID
      * @return
      */
-    public Equipamento getEquipamentoId(int equipamentoID){
-        return equipamentoController.findEquipamento(equipamentoID);
+    public Empresa getEmpresaId(int equipamentoID){
+        return empresaController.findEmpresa(equipamentoID);
     }
+    
 }

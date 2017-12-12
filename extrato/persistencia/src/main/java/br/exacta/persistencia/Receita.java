@@ -50,35 +50,68 @@ public class Receita implements Serializable {
     public Receita() {
     }
 
+    /**
+     *
+     * @param rctCodigo
+     */
     public Receita(Integer rctCodigo) {
         this.rctCodigo = rctCodigo;
     }
 
+    /**
+     *
+     * @param rctCodigo
+     * @param rctDataCadastro
+     */
     public Receita(Integer rctCodigo, Date rctDataCadastro) {
         this.rctCodigo = rctCodigo;
         this.rctDataCadastro = rctDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getRctCodigo() {
         return rctCodigo;
     }
 
+    /**
+     *
+     * @param rctCodigo
+     */
     public void setRctCodigo(Integer rctCodigo) {
         this.rctCodigo = rctCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRctNome() {
         return rctNome;
     }
 
+    /**
+     *
+     * @param rctNome
+     */
     public void setRctNome(String rctNome) {
         this.rctNome = rctNome;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getRctDataCadastro() {
         return rctDataCadastro;
     }
 
+    /**
+     *
+     * @param rctDataCadastro
+     */
     public void setRctDataCadastro(Date rctDataCadastro) {
         this.rctDataCadastro = rctDataCadastro;
     }
@@ -97,10 +130,7 @@ public class Receita implements Serializable {
             return false;
         }
         Receita other = (Receita) object;
-        if ((this.rctCodigo == null && other.rctCodigo != null) || (this.rctCodigo != null && !this.rctCodigo.equals(other.rctCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.rctCodigo == null && other.rctCodigo != null) || (this.rctCodigo != null && !this.rctCodigo.equals(other.rctCodigo)));
     }
 
     @Override

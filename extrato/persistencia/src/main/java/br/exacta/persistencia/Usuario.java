@@ -53,54 +53,106 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date usuDataCadastro;
 
+    /**
+     *
+     */
     public Usuario() {
     }
 
+    /**
+     *
+     * @param usuCodigo
+     */
     public Usuario(Integer usuCodigo) {
         this.usuCodigo = usuCodigo;
     }
 
+    /**
+     *
+     * @param usuCodigo
+     * @param usuDataCadastro
+     */
     public Usuario(Integer usuCodigo, Date usuDataCadastro) {
         this.usuCodigo = usuCodigo;
         this.usuDataCadastro = usuDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getUsuCodigo() {
         return usuCodigo;
     }
 
+    /**
+     *
+     * @param usuCodigo
+     */
     public void setUsuCodigo(Integer usuCodigo) {
         this.usuCodigo = usuCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsuNome() {
         return usuNome;
     }
 
+    /**
+     *
+     * @param usuNome
+     */
     public void setUsuNome(String usuNome) {
         this.usuNome = usuNome;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsuLogin() {
         return usuLogin;
     }
 
+    /**
+     *
+     * @param usuLogin
+     */
     public void setUsuLogin(String usuLogin) {
         this.usuLogin = usuLogin;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsuSenha() {
         return usuSenha;
     }
 
+    /**
+     *
+     * @param usuSenha
+     */
     public void setUsuSenha(String usuSenha) {
         this.usuSenha = usuSenha;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getUsuDataCadastro() {
         return usuDataCadastro;
     }
 
+    /**
+     *
+     * @param usuDataCadastro
+     */
     public void setUsuDataCadastro(Date usuDataCadastro) {
         this.usuDataCadastro = usuDataCadastro;
     }
@@ -119,10 +171,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.usuCodigo == null && other.usuCodigo != null) || (this.usuCodigo != null && !this.usuCodigo.equals(other.usuCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.usuCodigo == null && other.usuCodigo != null) || (this.usuCodigo != null && !this.usuCodigo.equals(other.usuCodigo)));
     }
 
     @Override

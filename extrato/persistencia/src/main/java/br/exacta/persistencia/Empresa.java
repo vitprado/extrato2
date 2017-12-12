@@ -59,66 +59,130 @@ public class Empresa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date empDataCadastro;
 
+    /**
+     *
+     */
     public Empresa() {
     }
 
+    /**
+     *
+     * @param empCodigo
+     */
     public Empresa(Integer empCodigo) {
         this.empCodigo = empCodigo;
     }
 
+    /**
+     *
+     * @param empCodigo
+     * @param empDataCadastro
+     */
     public Empresa(Integer empCodigo, Date empDataCadastro) {
         this.empCodigo = empCodigo;
         this.empDataCadastro = empDataCadastro;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getEmpCodigo() {
         return empCodigo;
     }
 
+    /**
+     *
+     * @param empCodigo
+     */
     public void setEmpCodigo(Integer empCodigo) {
         this.empCodigo = empCodigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpRazaoSocial() {
         return empRazaoSocial;
     }
 
+    /**
+     *
+     * @param empRazaoSocial
+     */
     public void setEmpRazaoSocial(String empRazaoSocial) {
         this.empRazaoSocial = empRazaoSocial;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpNomeFantasia() {
         return empNomeFantasia;
     }
 
+    /**
+     *
+     * @param empNomeFantasia
+     */
     public void setEmpNomeFantasia(String empNomeFantasia) {
         this.empNomeFantasia = empNomeFantasia;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpCnpj() {
         return empCnpj;
     }
 
+    /**
+     *
+     * @param empCnpj
+     */
     public void setEmpCnpj(String empCnpj) {
         this.empCnpj = empCnpj;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpInscEstadual() {
         return empInscEstadual;
     }
 
+    /**
+     *
+     * @param empInscEstadual
+     */
     public void setEmpInscEstadual(String empInscEstadual) {
         this.empInscEstadual = empInscEstadual;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmpEndereco() {
         return empEndereco;
     }
 
+    /**
+     *
+     * @param empEndereco
+     */
     public void setEmpEndereco(String empEndereco) {
         this.empEndereco = empEndereco;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getEmpDataCadastro() {
         return empDataCadastro;
     }
@@ -141,10 +205,7 @@ public class Empresa implements Serializable {
             return false;
         }
         Empresa other = (Empresa) object;
-        if ((this.empCodigo == null && other.empCodigo != null) || (this.empCodigo != null && !this.empCodigo.equals(other.empCodigo))) {
-            return false;
-        }
-        return true;
+        return !((this.empCodigo == null && other.empCodigo != null) || (this.empCodigo != null && !this.empCodigo.equals(other.empCodigo)));
     }
 
     @Override
