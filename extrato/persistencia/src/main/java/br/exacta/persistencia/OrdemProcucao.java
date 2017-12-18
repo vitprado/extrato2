@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -32,6 +34,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "OrdemProcucao.findByOrdCodigo", query = "SELECT o FROM OrdemProcucao o WHERE o.ordCodigo = :ordCodigo")
     , @NamedQuery(name = "OrdemProcucao.findByOrdDataCadastro", query = "SELECT o FROM OrdemProcucao o WHERE o.ordDataCadastro = :ordDataCadastro")})
 public class OrdemProcucao implements Serializable {
+
+    @JoinColumn(name = "CUR_CODIGO", referencedColumnName = "CUR_CODIGO")
+    @ManyToOne
+    private Curral curCodigo;
+    @JoinColumn(name = "EQP_CODIGO", referencedColumnName = "EQP_CODIGO")
+    @ManyToOne
+    private Equipamento eqpCodigo;
+    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO")
+    @ManyToOne
+    private Receita rctCodigo;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -120,6 +132,30 @@ public class OrdemProcucao implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.OrdemProcucao[ ordCodigo=" + ordCodigo + " ]";
+    }
+
+    public Curral getCurCodigo() {
+        return curCodigo;
+    }
+
+    public void setCurCodigo(Curral curCodigo) {
+        this.curCodigo = curCodigo;
+    }
+
+    public Equipamento getEqpCodigo() {
+        return eqpCodigo;
+    }
+
+    public void setEqpCodigo(Equipamento eqpCodigo) {
+        this.eqpCodigo = eqpCodigo;
+    }
+
+    public Receita getRctCodigo() {
+        return rctCodigo;
+    }
+
+    public void setRctCodigo(Receita rctCodigo) {
+        this.rctCodigo = rctCodigo;
     }
     
 }

@@ -8,13 +8,15 @@ package br.exacta.jpacontroller;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Equipamento;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import br.exacta.persistencia.OrdemProcucao;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -32,11 +34,29 @@ public class EquipamentoJpaController implements Serializable {
     }
 
     public void create(Equipamento equipamento) {
+        if (equipamento.getOrdemProcucaoList() == null) {
+            equipamento.setOrdemProcucaoList(new ArrayList<OrdemProcucao>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<OrdemProcucao> attachedOrdemProcucaoList = new ArrayList<OrdemProcucao>();
+            for (OrdemProcucao ordemProcucaoListOrdemProcucaoToAttach : equipamento.getOrdemProcucaoList()) {
+                ordemProcucaoListOrdemProcucaoToAttach = em.getReference(ordemProcucaoListOrdemProcucaoToAttach.getClass(), ordemProcucaoListOrdemProcucaoToAttach.getOrdCodigo());
+                attachedOrdemProcucaoList.add(ordemProcucaoListOrdemProcucaoToAttach);
+            }
+            equipamento.setOrdemProcucaoList(attachedOrdemProcucaoList);
             em.persist(equipamento);
+            for (OrdemProcucao ordemProcucaoListOrdemProcucao : equipamento.getOrdemProcucaoList()) {
+                Equipamento oldEqpCodigoOfOrdemProcucaoListOrdemProcucao = ordemProcucaoListOrdemProcucao.getEqpCodigo();
+                ordemProcucaoListOrdemProcucao.setEqpCodigo(equipamento);
+                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
+                if (oldEqpCodigoOfOrdemProcucaoListOrdemProcucao != null) {
+                    oldEqpCodigoOfOrdemProcucaoListOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListOrdemProcucao);
+                    oldEqpCodigoOfOrdemProcucaoListOrdemProcucao = em.merge(oldEqpCodigoOfOrdemProcucaoListOrdemProcucao);
+                }
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -50,7 +70,34 @@ public class EquipamentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Equipamento persistentEquipamento = em.find(Equipamento.class, equipamento.getEqpCodigo());
+            List<OrdemProcucao> ordemProcucaoListOld = persistentEquipamento.getOrdemProcucaoList();
+            List<OrdemProcucao> ordemProcucaoListNew = equipamento.getOrdemProcucaoList();
+            List<OrdemProcucao> attachedOrdemProcucaoListNew = new ArrayList<OrdemProcucao>();
+            for (OrdemProcucao ordemProcucaoListNewOrdemProcucaoToAttach : ordemProcucaoListNew) {
+                ordemProcucaoListNewOrdemProcucaoToAttach = em.getReference(ordemProcucaoListNewOrdemProcucaoToAttach.getClass(), ordemProcucaoListNewOrdemProcucaoToAttach.getOrdCodigo());
+                attachedOrdemProcucaoListNew.add(ordemProcucaoListNewOrdemProcucaoToAttach);
+            }
+            ordemProcucaoListNew = attachedOrdemProcucaoListNew;
+            equipamento.setOrdemProcucaoList(ordemProcucaoListNew);
             equipamento = em.merge(equipamento);
+            for (OrdemProcucao ordemProcucaoListOldOrdemProcucao : ordemProcucaoListOld) {
+                if (!ordemProcucaoListNew.contains(ordemProcucaoListOldOrdemProcucao)) {
+                    ordemProcucaoListOldOrdemProcucao.setEqpCodigo(null);
+                    ordemProcucaoListOldOrdemProcucao = em.merge(ordemProcucaoListOldOrdemProcucao);
+                }
+            }
+            for (OrdemProcucao ordemProcucaoListNewOrdemProcucao : ordemProcucaoListNew) {
+                if (!ordemProcucaoListOld.contains(ordemProcucaoListNewOrdemProcucao)) {
+                    Equipamento oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao = ordemProcucaoListNewOrdemProcucao.getEqpCodigo();
+                    ordemProcucaoListNewOrdemProcucao.setEqpCodigo(equipamento);
+                    ordemProcucaoListNewOrdemProcucao = em.merge(ordemProcucaoListNewOrdemProcucao);
+                    if (oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao != null && !oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao.equals(equipamento)) {
+                        oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListNewOrdemProcucao);
+                        oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao = em.merge(oldEqpCodigoOfOrdemProcucaoListNewOrdemProcucao);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -79,6 +126,11 @@ public class EquipamentoJpaController implements Serializable {
                 equipamento.getEqpCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The equipamento with id " + id + " no longer exists.", enfe);
+            }
+            List<OrdemProcucao> ordemProcucaoList = equipamento.getOrdemProcucaoList();
+            for (OrdemProcucao ordemProcucaoListOrdemProcucao : ordemProcucaoList) {
+                ordemProcucaoListOrdemProcucao.setEqpCodigo(null);
+                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
             }
             em.remove(equipamento);
             em.getTransaction().commit();

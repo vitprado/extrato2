@@ -7,7 +7,9 @@ package br.exacta.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +38,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Curral.findByCurRfid", query = "SELECT c FROM Curral c WHERE c.curRfid = :curRfid")
     , @NamedQuery(name = "Curral.findByCurDataCadastro", query = "SELECT c FROM Curral c WHERE c.curDataCadastro = :curDataCadastro")})
 public class Curral implements Serializable {
+
+    @OneToMany(mappedBy = "curCodigo")
+    private List<OrdemProcucao> ordemProcucaoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curral")
+    private List<Trato> tratoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -158,6 +167,24 @@ public class Curral implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.Curral[ curCodigo=" + curCodigo + " ]";
+    }
+
+    @XmlTransient
+    public List<OrdemProcucao> getOrdemProcucaoList() {
+        return ordemProcucaoList;
+    }
+
+    public void setOrdemProcucaoList(List<OrdemProcucao> ordemProcucaoList) {
+        this.ordemProcucaoList = ordemProcucaoList;
+    }
+
+    @XmlTransient
+    public List<Trato> getTratoList() {
+        return tratoList;
+    }
+
+    public void setTratoList(List<Trato> tratoList) {
+        this.tratoList = tratoList;
     }
     
 }

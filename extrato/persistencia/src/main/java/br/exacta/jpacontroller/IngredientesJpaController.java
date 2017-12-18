@@ -5,16 +5,20 @@
  */
 package br.exacta.jpacontroller;
 
+import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Ingredientes;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import br.exacta.persistencia.Receita;
+import java.util.ArrayList;
+import java.util.List;
+import br.exacta.persistencia.ReceitaTemIngredientes;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -32,11 +36,42 @@ public class IngredientesJpaController implements Serializable {
     }
 
     public void create(Ingredientes ingredientes) {
+        if (ingredientes.getReceitaList() == null) {
+            ingredientes.setReceitaList(new ArrayList<Receita>());
+        }
+        if (ingredientes.getReceitaTemIngredientesList() == null) {
+            ingredientes.setReceitaTemIngredientesList(new ArrayList<ReceitaTemIngredientes>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Receita> attachedReceitaList = new ArrayList<Receita>();
+            for (Receita receitaListReceitaToAttach : ingredientes.getReceitaList()) {
+                receitaListReceitaToAttach = em.getReference(receitaListReceitaToAttach.getClass(), receitaListReceitaToAttach.getRctCodigo());
+                attachedReceitaList.add(receitaListReceitaToAttach);
+            }
+            ingredientes.setReceitaList(attachedReceitaList);
+            List<ReceitaTemIngredientes> attachedReceitaTemIngredientesList = new ArrayList<ReceitaTemIngredientes>();
+            for (ReceitaTemIngredientes receitaTemIngredientesListReceitaTemIngredientesToAttach : ingredientes.getReceitaTemIngredientesList()) {
+                receitaTemIngredientesListReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListReceitaTemIngredientesToAttach.getReceitaTemIngredientesPK());
+                attachedReceitaTemIngredientesList.add(receitaTemIngredientesListReceitaTemIngredientesToAttach);
+            }
+            ingredientes.setReceitaTemIngredientesList(attachedReceitaTemIngredientesList);
             em.persist(ingredientes);
+            for (Receita receitaListReceita : ingredientes.getReceitaList()) {
+                receitaListReceita.getIngredientesList().add(ingredientes);
+                receitaListReceita = em.merge(receitaListReceita);
+            }
+            for (ReceitaTemIngredientes receitaTemIngredientesListReceitaTemIngredientes : ingredientes.getReceitaTemIngredientesList()) {
+                Ingredientes oldIngredientesOfReceitaTemIngredientesListReceitaTemIngredientes = receitaTemIngredientesListReceitaTemIngredientes.getIngredientes();
+                receitaTemIngredientesListReceitaTemIngredientes.setIngredientes(ingredientes);
+                receitaTemIngredientesListReceitaTemIngredientes = em.merge(receitaTemIngredientesListReceitaTemIngredientes);
+                if (oldIngredientesOfReceitaTemIngredientesListReceitaTemIngredientes != null) {
+                    oldIngredientesOfReceitaTemIngredientesListReceitaTemIngredientes.getReceitaTemIngredientesList().remove(receitaTemIngredientesListReceitaTemIngredientes);
+                    oldIngredientesOfReceitaTemIngredientesListReceitaTemIngredientes = em.merge(oldIngredientesOfReceitaTemIngredientesListReceitaTemIngredientes);
+                }
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -45,12 +80,66 @@ public class IngredientesJpaController implements Serializable {
         }
     }
 
-    public void edit(Ingredientes ingredientes) throws NonexistentEntityException, Exception {
+    public void edit(Ingredientes ingredientes) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Ingredientes persistentIngredientes = em.find(Ingredientes.class, ingredientes.getIngCodigo());
+            List<Receita> receitaListOld = persistentIngredientes.getReceitaList();
+            List<Receita> receitaListNew = ingredientes.getReceitaList();
+            List<ReceitaTemIngredientes> receitaTemIngredientesListOld = persistentIngredientes.getReceitaTemIngredientesList();
+            List<ReceitaTemIngredientes> receitaTemIngredientesListNew = ingredientes.getReceitaTemIngredientesList();
+            List<String> illegalOrphanMessages = null;
+            for (ReceitaTemIngredientes receitaTemIngredientesListOldReceitaTemIngredientes : receitaTemIngredientesListOld) {
+                if (!receitaTemIngredientesListNew.contains(receitaTemIngredientesListOldReceitaTemIngredientes)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain ReceitaTemIngredientes " + receitaTemIngredientesListOldReceitaTemIngredientes + " since its ingredientes field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            List<Receita> attachedReceitaListNew = new ArrayList<Receita>();
+            for (Receita receitaListNewReceitaToAttach : receitaListNew) {
+                receitaListNewReceitaToAttach = em.getReference(receitaListNewReceitaToAttach.getClass(), receitaListNewReceitaToAttach.getRctCodigo());
+                attachedReceitaListNew.add(receitaListNewReceitaToAttach);
+            }
+            receitaListNew = attachedReceitaListNew;
+            ingredientes.setReceitaList(receitaListNew);
+            List<ReceitaTemIngredientes> attachedReceitaTemIngredientesListNew = new ArrayList<ReceitaTemIngredientes>();
+            for (ReceitaTemIngredientes receitaTemIngredientesListNewReceitaTemIngredientesToAttach : receitaTemIngredientesListNew) {
+                receitaTemIngredientesListNewReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getReceitaTemIngredientesPK());
+                attachedReceitaTemIngredientesListNew.add(receitaTemIngredientesListNewReceitaTemIngredientesToAttach);
+            }
+            receitaTemIngredientesListNew = attachedReceitaTemIngredientesListNew;
+            ingredientes.setReceitaTemIngredientesList(receitaTemIngredientesListNew);
             ingredientes = em.merge(ingredientes);
+            for (Receita receitaListOldReceita : receitaListOld) {
+                if (!receitaListNew.contains(receitaListOldReceita)) {
+                    receitaListOldReceita.getIngredientesList().remove(ingredientes);
+                    receitaListOldReceita = em.merge(receitaListOldReceita);
+                }
+            }
+            for (Receita receitaListNewReceita : receitaListNew) {
+                if (!receitaListOld.contains(receitaListNewReceita)) {
+                    receitaListNewReceita.getIngredientesList().add(ingredientes);
+                    receitaListNewReceita = em.merge(receitaListNewReceita);
+                }
+            }
+            for (ReceitaTemIngredientes receitaTemIngredientesListNewReceitaTemIngredientes : receitaTemIngredientesListNew) {
+                if (!receitaTemIngredientesListOld.contains(receitaTemIngredientesListNewReceitaTemIngredientes)) {
+                    Ingredientes oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes = receitaTemIngredientesListNewReceitaTemIngredientes.getIngredientes();
+                    receitaTemIngredientesListNewReceitaTemIngredientes.setIngredientes(ingredientes);
+                    receitaTemIngredientesListNewReceitaTemIngredientes = em.merge(receitaTemIngredientesListNewReceitaTemIngredientes);
+                    if (oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes != null && !oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes.equals(ingredientes)) {
+                        oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes.getReceitaTemIngredientesList().remove(receitaTemIngredientesListNewReceitaTemIngredientes);
+                        oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes = em.merge(oldIngredientesOfReceitaTemIngredientesListNewReceitaTemIngredientes);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -68,7 +157,7 @@ public class IngredientesJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -79,6 +168,22 @@ public class IngredientesJpaController implements Serializable {
                 ingredientes.getIngCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ingredientes with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            List<ReceitaTemIngredientes> receitaTemIngredientesListOrphanCheck = ingredientes.getReceitaTemIngredientesList();
+            for (ReceitaTemIngredientes receitaTemIngredientesListOrphanCheckReceitaTemIngredientes : receitaTemIngredientesListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Ingredientes (" + ingredientes + ") cannot be destroyed since the ReceitaTemIngredientes " + receitaTemIngredientesListOrphanCheckReceitaTemIngredientes + " in its receitaTemIngredientesList field has a non-nullable ingredientes field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            List<Receita> receitaList = ingredientes.getReceitaList();
+            for (Receita receitaListReceita : receitaList) {
+                receitaListReceita.getIngredientesList().remove(ingredientes);
+                receitaListReceita = em.merge(receitaListReceita);
             }
             em.remove(ingredientes);
             em.getTransaction().commit();

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="652.0" prefWidth="1225.0" style="-fx-background-color: #F5F5F5;" stylesheets="@../../java/br/exacta/css/Metro-UI.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.EquipamentoController">
+   <children>
+      <Text fill="#a5aab2" layoutX="316.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inteface responsável pelo cadastro de todos os equipamentos">
+         <font>
+            <Font name="Segoe UI Semilight" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#2b579a" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos">
+         <font>
+            <Font name="Segoe UI Semilight" size="48.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="958.0" layoutY="99.0" prefHeight="560.0" prefWidth="277.0" style="-fx-border-color: white white white #cccccc;">
+         <children>
+            <Text fill="#2b579a" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ações do sistema">
+               <font>
+                  <Font name="Segoe UI Semilight" size="24.0" />
+               </font>
+            </Text>
+            <VBox layoutX="14.0" layoutY="56.0" spacing="3.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="492.0" prefWidth="250.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="btnCek" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#aksiCek" prefHeight="75.0" prefWidth="250.0" styleClass="btn" text="NOVO">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnCek1" defaultButton="true" mnemonicParsing="false" onAction="#aksiCek" prefHeight="75.0" prefWidth="250.0" styleClass="btn" text="EDITAR">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnCek11" defaultButton="true" mnemonicParsing="false" onAction="#aksiCek" prefHeight="75.0" prefWidth="250.0" styleClass="btn" text="REMOVER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnCek111" defaultButton="true" mnemonicParsing="false" onAction="#aksiCek" prefHeight="75.0" prefWidth="250.0" styleClass="btn" text="SALVAR" textAlignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Label layoutX="13.0" layoutY="623.0" text="*Campos obrigatórios" textFill="#9a3434" />
+      <ProgressBar fx:id="bar" layoutY="94.0" prefHeight="17.0" prefWidth="1235.0" progress="0.0" />
+      <ImageView fx:id="imgLoad" fitHeight="33.0" fitWidth="40.0" layoutX="809.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../../../../../../EXACTA%20BALANÇAS/EXTRATO/MODELO%20DE%20LAYOUT/JavaFX-MetroUI-master/src/herudi/img/301.GIF" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

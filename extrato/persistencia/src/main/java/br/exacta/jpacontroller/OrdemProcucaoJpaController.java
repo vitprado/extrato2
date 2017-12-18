@@ -6,15 +6,18 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.persistencia.OrdemProcucao;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import br.exacta.persistencia.Curral;
+import br.exacta.persistencia.Equipamento;
+import br.exacta.persistencia.OrdemProcucao;
+import br.exacta.persistencia.Receita;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -36,7 +39,34 @@ public class OrdemProcucaoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Curral curCodigo = ordemProcucao.getCurCodigo();
+            if (curCodigo != null) {
+                curCodigo = em.getReference(curCodigo.getClass(), curCodigo.getCurCodigo());
+                ordemProcucao.setCurCodigo(curCodigo);
+            }
+            Equipamento eqpCodigo = ordemProcucao.getEqpCodigo();
+            if (eqpCodigo != null) {
+                eqpCodigo = em.getReference(eqpCodigo.getClass(), eqpCodigo.getEqpCodigo());
+                ordemProcucao.setEqpCodigo(eqpCodigo);
+            }
+            Receita rctCodigo = ordemProcucao.getRctCodigo();
+            if (rctCodigo != null) {
+                rctCodigo = em.getReference(rctCodigo.getClass(), rctCodigo.getRctCodigo());
+                ordemProcucao.setRctCodigo(rctCodigo);
+            }
             em.persist(ordemProcucao);
+            if (curCodigo != null) {
+                curCodigo.getOrdemProcucaoList().add(ordemProcucao);
+                curCodigo = em.merge(curCodigo);
+            }
+            if (eqpCodigo != null) {
+                eqpCodigo.getOrdemProcucaoList().add(ordemProcucao);
+                eqpCodigo = em.merge(eqpCodigo);
+            }
+            if (rctCodigo != null) {
+                rctCodigo.getOrdemProcucaoList().add(ordemProcucao);
+                rctCodigo = em.merge(rctCodigo);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -50,7 +80,50 @@ public class OrdemProcucaoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            OrdemProcucao persistentOrdemProcucao = em.find(OrdemProcucao.class, ordemProcucao.getOrdCodigo());
+            Curral curCodigoOld = persistentOrdemProcucao.getCurCodigo();
+            Curral curCodigoNew = ordemProcucao.getCurCodigo();
+            Equipamento eqpCodigoOld = persistentOrdemProcucao.getEqpCodigo();
+            Equipamento eqpCodigoNew = ordemProcucao.getEqpCodigo();
+            Receita rctCodigoOld = persistentOrdemProcucao.getRctCodigo();
+            Receita rctCodigoNew = ordemProcucao.getRctCodigo();
+            if (curCodigoNew != null) {
+                curCodigoNew = em.getReference(curCodigoNew.getClass(), curCodigoNew.getCurCodigo());
+                ordemProcucao.setCurCodigo(curCodigoNew);
+            }
+            if (eqpCodigoNew != null) {
+                eqpCodigoNew = em.getReference(eqpCodigoNew.getClass(), eqpCodigoNew.getEqpCodigo());
+                ordemProcucao.setEqpCodigo(eqpCodigoNew);
+            }
+            if (rctCodigoNew != null) {
+                rctCodigoNew = em.getReference(rctCodigoNew.getClass(), rctCodigoNew.getRctCodigo());
+                ordemProcucao.setRctCodigo(rctCodigoNew);
+            }
             ordemProcucao = em.merge(ordemProcucao);
+            if (curCodigoOld != null && !curCodigoOld.equals(curCodigoNew)) {
+                curCodigoOld.getOrdemProcucaoList().remove(ordemProcucao);
+                curCodigoOld = em.merge(curCodigoOld);
+            }
+            if (curCodigoNew != null && !curCodigoNew.equals(curCodigoOld)) {
+                curCodigoNew.getOrdemProcucaoList().add(ordemProcucao);
+                curCodigoNew = em.merge(curCodigoNew);
+            }
+            if (eqpCodigoOld != null && !eqpCodigoOld.equals(eqpCodigoNew)) {
+                eqpCodigoOld.getOrdemProcucaoList().remove(ordemProcucao);
+                eqpCodigoOld = em.merge(eqpCodigoOld);
+            }
+            if (eqpCodigoNew != null && !eqpCodigoNew.equals(eqpCodigoOld)) {
+                eqpCodigoNew.getOrdemProcucaoList().add(ordemProcucao);
+                eqpCodigoNew = em.merge(eqpCodigoNew);
+            }
+            if (rctCodigoOld != null && !rctCodigoOld.equals(rctCodigoNew)) {
+                rctCodigoOld.getOrdemProcucaoList().remove(ordemProcucao);
+                rctCodigoOld = em.merge(rctCodigoOld);
+            }
+            if (rctCodigoNew != null && !rctCodigoNew.equals(rctCodigoOld)) {
+                rctCodigoNew.getOrdemProcucaoList().add(ordemProcucao);
+                rctCodigoNew = em.merge(rctCodigoNew);
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -79,6 +152,21 @@ public class OrdemProcucaoJpaController implements Serializable {
                 ordemProcucao.getOrdCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ordemProcucao with id " + id + " no longer exists.", enfe);
+            }
+            Curral curCodigo = ordemProcucao.getCurCodigo();
+            if (curCodigo != null) {
+                curCodigo.getOrdemProcucaoList().remove(ordemProcucao);
+                curCodigo = em.merge(curCodigo);
+            }
+            Equipamento eqpCodigo = ordemProcucao.getEqpCodigo();
+            if (eqpCodigo != null) {
+                eqpCodigo.getOrdemProcucaoList().remove(ordemProcucao);
+                eqpCodigo = em.merge(eqpCodigo);
+            }
+            Receita rctCodigo = ordemProcucao.getRctCodigo();
+            if (rctCodigo != null) {
+                rctCodigo.getOrdemProcucaoList().remove(ordemProcucao);
+                rctCodigo = em.merge(rctCodigo);
             }
             em.remove(ordemProcucao);
             em.getTransaction().commit();

@@ -11,6 +11,7 @@
   <modules>
     <module>extratoVisualFX</module>
     <module>persistencia</module>
+    <module>mavenproject1/json</module>
   </modules>
     <name>Extrato</name>
 </project>

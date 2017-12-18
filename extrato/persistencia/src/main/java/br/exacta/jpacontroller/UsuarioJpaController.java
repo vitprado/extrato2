@@ -6,15 +6,17 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.persistencia.Usuario;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import br.exacta.persistencia.Empresa;
+import br.exacta.persistencia.NivelAcesso;
+import br.exacta.persistencia.Usuario;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -36,7 +38,25 @@ public class UsuarioJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Empresa empCodigo = usuario.getEmpCodigo();
+            if (empCodigo != null) {
+                empCodigo = em.getReference(empCodigo.getClass(), empCodigo.getEmpCodigo());
+                usuario.setEmpCodigo(empCodigo);
+            }
+            NivelAcesso nvaCodigo = usuario.getNvaCodigo();
+            if (nvaCodigo != null) {
+                nvaCodigo = em.getReference(nvaCodigo.getClass(), nvaCodigo.getNvaCodigo());
+                usuario.setNvaCodigo(nvaCodigo);
+            }
             em.persist(usuario);
+            if (empCodigo != null) {
+                empCodigo.getUsuarioList().add(usuario);
+                empCodigo = em.merge(empCodigo);
+            }
+            if (nvaCodigo != null) {
+                nvaCodigo.getUsuarioList().add(usuario);
+                nvaCodigo = em.merge(nvaCodigo);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -50,7 +70,36 @@ public class UsuarioJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Usuario persistentUsuario = em.find(Usuario.class, usuario.getUsuCodigo());
+            Empresa empCodigoOld = persistentUsuario.getEmpCodigo();
+            Empresa empCodigoNew = usuario.getEmpCodigo();
+            NivelAcesso nvaCodigoOld = persistentUsuario.getNvaCodigo();
+            NivelAcesso nvaCodigoNew = usuario.getNvaCodigo();
+            if (empCodigoNew != null) {
+                empCodigoNew = em.getReference(empCodigoNew.getClass(), empCodigoNew.getEmpCodigo());
+                usuario.setEmpCodigo(empCodigoNew);
+            }
+            if (nvaCodigoNew != null) {
+                nvaCodigoNew = em.getReference(nvaCodigoNew.getClass(), nvaCodigoNew.getNvaCodigo());
+                usuario.setNvaCodigo(nvaCodigoNew);
+            }
             usuario = em.merge(usuario);
+            if (empCodigoOld != null && !empCodigoOld.equals(empCodigoNew)) {
+                empCodigoOld.getUsuarioList().remove(usuario);
+                empCodigoOld = em.merge(empCodigoOld);
+            }
+            if (empCodigoNew != null && !empCodigoNew.equals(empCodigoOld)) {
+                empCodigoNew.getUsuarioList().add(usuario);
+                empCodigoNew = em.merge(empCodigoNew);
+            }
+            if (nvaCodigoOld != null && !nvaCodigoOld.equals(nvaCodigoNew)) {
+                nvaCodigoOld.getUsuarioList().remove(usuario);
+                nvaCodigoOld = em.merge(nvaCodigoOld);
+            }
+            if (nvaCodigoNew != null && !nvaCodigoNew.equals(nvaCodigoOld)) {
+                nvaCodigoNew.getUsuarioList().add(usuario);
+                nvaCodigoNew = em.merge(nvaCodigoNew);
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -79,6 +128,16 @@ public class UsuarioJpaController implements Serializable {
                 usuario.getUsuCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.", enfe);
+            }
+            Empresa empCodigo = usuario.getEmpCodigo();
+            if (empCodigo != null) {
+                empCodigo.getUsuarioList().remove(usuario);
+                empCodigo = em.merge(empCodigo);
+            }
+            NivelAcesso nvaCodigo = usuario.getNvaCodigo();
+            if (nvaCodigo != null) {
+                nvaCodigo.getUsuarioList().remove(usuario);
+                nvaCodigo = em.merge(nvaCodigo);
             }
             em.remove(usuario);
             em.getTransaction().commit();
