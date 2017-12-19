@@ -7,7 +7,6 @@ package br.exacta.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,9 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Equipamento.findByEqpDescricao", query = "SELECT e FROM Equipamento e WHERE e.eqpDescricao = :eqpDescricao")
     , @NamedQuery(name = "Equipamento.findByEqpDataCadastro", query = "SELECT e FROM Equipamento e WHERE e.eqpDataCadastro = :eqpDataCadastro")})
 public class Equipamento implements Serializable {
-
-    @OneToMany(mappedBy = "eqpCodigo")
-    private List<OrdemProcucao> ordemProcucaoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -167,15 +161,6 @@ public class Equipamento implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.Equipamento[ eqpCodigo=" + eqpCodigo + " ]";
-    }
-
-    @XmlTransient
-    public List<OrdemProcucao> getOrdemProcucaoList() {
-        return ordemProcucaoList;
-    }
-
-    public void setOrdemProcucaoList(List<OrdemProcucao> ordemProcucaoList) {
-        this.ordemProcucaoList = ordemProcucaoList;
     }
     
 }

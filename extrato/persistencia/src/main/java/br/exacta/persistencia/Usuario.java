@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -37,13 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usuario.findByUsuSenha", query = "SELECT u FROM Usuario u WHERE u.usuSenha = :usuSenha")
     , @NamedQuery(name = "Usuario.findByUsuDataCadastro", query = "SELECT u FROM Usuario u WHERE u.usuDataCadastro = :usuDataCadastro")})
 public class Usuario implements Serializable {
-
-    @JoinColumn(name = "EMP_CODIGO", referencedColumnName = "EMP_CODIGO")
-    @ManyToOne
-    private Empresa empCodigo;
-    @JoinColumn(name = "NVA_CODIGO", referencedColumnName = "NVA_CODIGO")
-    @ManyToOne
-    private NivelAcesso nvaCodigo;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -186,22 +177,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.Usuario[ usuCodigo=" + usuCodigo + " ]";
-    }
-
-    public Empresa getEmpCodigo() {
-        return empCodigo;
-    }
-
-    public void setEmpCodigo(Empresa empCodigo) {
-        this.empCodigo = empCodigo;
-    }
-
-    public NivelAcesso getNvaCodigo() {
-        return nvaCodigo;
-    }
-
-    public void setNvaCodigo(NivelAcesso nvaCodigo) {
-        this.nvaCodigo = nvaCodigo;
     }
     
 }

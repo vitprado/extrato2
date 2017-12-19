@@ -6,7 +6,6 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.CurralJpaController;
-import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Curral;
 import java.util.List;
@@ -64,7 +63,7 @@ public class CurralDAO {
      * @param curralID
      * @throws NonexistentEntityException
      */
-    public void removerCurral(int curralID) throws NonexistentEntityException, IllegalOrphanException{
+    public void removerCurral(int curralID) throws NonexistentEntityException{
         curralController.destroy(curralID);
     }
     

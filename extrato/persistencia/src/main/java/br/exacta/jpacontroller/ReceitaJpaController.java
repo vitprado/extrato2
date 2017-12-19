@@ -5,21 +5,16 @@
  */
 package br.exacta.jpacontroller;
 
-import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
+import br.exacta.persistencia.Receita;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import br.exacta.persistencia.Ingredientes;
-import java.util.ArrayList;
-import java.util.List;
-import br.exacta.persistencia.OrdemProcucao;
-import br.exacta.persistencia.Receita;
-import br.exacta.persistencia.Trato;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -37,60 +32,11 @@ public class ReceitaJpaController implements Serializable {
     }
 
     public void create(Receita receita) {
-        if (receita.getIngredientesList() == null) {
-            receita.setIngredientesList(new ArrayList<Ingredientes>());
-        }
-        if (receita.getOrdemProcucaoList() == null) {
-            receita.setOrdemProcucaoList(new ArrayList<OrdemProcucao>());
-        }
-        if (receita.getTratoList() == null) {
-            receita.setTratoList(new ArrayList<Trato>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Ingredientes> attachedIngredientesList = new ArrayList<Ingredientes>();
-            for (Ingredientes ingredientesListIngredientesToAttach : receita.getIngredientesList()) {
-                ingredientesListIngredientesToAttach = em.getReference(ingredientesListIngredientesToAttach.getClass(), ingredientesListIngredientesToAttach.getIngCodigo());
-                attachedIngredientesList.add(ingredientesListIngredientesToAttach);
-            }
-            receita.setIngredientesList(attachedIngredientesList);
-            List<OrdemProcucao> attachedOrdemProcucaoList = new ArrayList<OrdemProcucao>();
-            for (OrdemProcucao ordemProcucaoListOrdemProcucaoToAttach : receita.getOrdemProcucaoList()) {
-                ordemProcucaoListOrdemProcucaoToAttach = em.getReference(ordemProcucaoListOrdemProcucaoToAttach.getClass(), ordemProcucaoListOrdemProcucaoToAttach.getOrdCodigo());
-                attachedOrdemProcucaoList.add(ordemProcucaoListOrdemProcucaoToAttach);
-            }
-            receita.setOrdemProcucaoList(attachedOrdemProcucaoList);
-            List<Trato> attachedTratoList = new ArrayList<Trato>();
-            for (Trato tratoListTratoToAttach : receita.getTratoList()) {
-                tratoListTratoToAttach = em.getReference(tratoListTratoToAttach.getClass(), tratoListTratoToAttach.getTratoPK());
-                attachedTratoList.add(tratoListTratoToAttach);
-            }
-            receita.setTratoList(attachedTratoList);
             em.persist(receita);
-            for (Ingredientes ingredientesListIngredientes : receita.getIngredientesList()) {
-                ingredientesListIngredientes.getReceitaList().add(receita);
-                ingredientesListIngredientes = em.merge(ingredientesListIngredientes);
-            }
-            for (OrdemProcucao ordemProcucaoListOrdemProcucao : receita.getOrdemProcucaoList()) {
-                Receita oldRctCodigoOfOrdemProcucaoListOrdemProcucao = ordemProcucaoListOrdemProcucao.getRctCodigo();
-                ordemProcucaoListOrdemProcucao.setRctCodigo(receita);
-                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
-                if (oldRctCodigoOfOrdemProcucaoListOrdemProcucao != null) {
-                    oldRctCodigoOfOrdemProcucaoListOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListOrdemProcucao);
-                    oldRctCodigoOfOrdemProcucaoListOrdemProcucao = em.merge(oldRctCodigoOfOrdemProcucaoListOrdemProcucao);
-                }
-            }
-            for (Trato tratoListTrato : receita.getTratoList()) {
-                Receita oldReceitaOfTratoListTrato = tratoListTrato.getReceita();
-                tratoListTrato.setReceita(receita);
-                tratoListTrato = em.merge(tratoListTrato);
-                if (oldReceitaOfTratoListTrato != null) {
-                    oldReceitaOfTratoListTrato.getTratoList().remove(tratoListTrato);
-                    oldReceitaOfTratoListTrato = em.merge(oldReceitaOfTratoListTrato);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -99,92 +45,12 @@ public class ReceitaJpaController implements Serializable {
         }
     }
 
-    public void edit(Receita receita) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Receita receita) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Receita persistentReceita = em.find(Receita.class, receita.getRctCodigo());
-            List<Ingredientes> ingredientesListOld = persistentReceita.getIngredientesList();
-            List<Ingredientes> ingredientesListNew = receita.getIngredientesList();
-            List<OrdemProcucao> ordemProcucaoListOld = persistentReceita.getOrdemProcucaoList();
-            List<OrdemProcucao> ordemProcucaoListNew = receita.getOrdemProcucaoList();
-            List<Trato> tratoListOld = persistentReceita.getTratoList();
-            List<Trato> tratoListNew = receita.getTratoList();
-            List<String> illegalOrphanMessages = null;
-            for (Trato tratoListOldTrato : tratoListOld) {
-                if (!tratoListNew.contains(tratoListOldTrato)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Trato " + tratoListOldTrato + " since its receita field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<Ingredientes> attachedIngredientesListNew = new ArrayList<Ingredientes>();
-            for (Ingredientes ingredientesListNewIngredientesToAttach : ingredientesListNew) {
-                ingredientesListNewIngredientesToAttach = em.getReference(ingredientesListNewIngredientesToAttach.getClass(), ingredientesListNewIngredientesToAttach.getIngCodigo());
-                attachedIngredientesListNew.add(ingredientesListNewIngredientesToAttach);
-            }
-            ingredientesListNew = attachedIngredientesListNew;
-            receita.setIngredientesList(ingredientesListNew);
-            List<OrdemProcucao> attachedOrdemProcucaoListNew = new ArrayList<OrdemProcucao>();
-            for (OrdemProcucao ordemProcucaoListNewOrdemProcucaoToAttach : ordemProcucaoListNew) {
-                ordemProcucaoListNewOrdemProcucaoToAttach = em.getReference(ordemProcucaoListNewOrdemProcucaoToAttach.getClass(), ordemProcucaoListNewOrdemProcucaoToAttach.getOrdCodigo());
-                attachedOrdemProcucaoListNew.add(ordemProcucaoListNewOrdemProcucaoToAttach);
-            }
-            ordemProcucaoListNew = attachedOrdemProcucaoListNew;
-            receita.setOrdemProcucaoList(ordemProcucaoListNew);
-            List<Trato> attachedTratoListNew = new ArrayList<Trato>();
-            for (Trato tratoListNewTratoToAttach : tratoListNew) {
-                tratoListNewTratoToAttach = em.getReference(tratoListNewTratoToAttach.getClass(), tratoListNewTratoToAttach.getTratoPK());
-                attachedTratoListNew.add(tratoListNewTratoToAttach);
-            }
-            tratoListNew = attachedTratoListNew;
-            receita.setTratoList(tratoListNew);
             receita = em.merge(receita);
-            for (Ingredientes ingredientesListOldIngredientes : ingredientesListOld) {
-                if (!ingredientesListNew.contains(ingredientesListOldIngredientes)) {
-                    ingredientesListOldIngredientes.getReceitaList().remove(receita);
-                    ingredientesListOldIngredientes = em.merge(ingredientesListOldIngredientes);
-                }
-            }
-            for (Ingredientes ingredientesListNewIngredientes : ingredientesListNew) {
-                if (!ingredientesListOld.contains(ingredientesListNewIngredientes)) {
-                    ingredientesListNewIngredientes.getReceitaList().add(receita);
-                    ingredientesListNewIngredientes = em.merge(ingredientesListNewIngredientes);
-                }
-            }
-            for (OrdemProcucao ordemProcucaoListOldOrdemProcucao : ordemProcucaoListOld) {
-                if (!ordemProcucaoListNew.contains(ordemProcucaoListOldOrdemProcucao)) {
-                    ordemProcucaoListOldOrdemProcucao.setRctCodigo(null);
-                    ordemProcucaoListOldOrdemProcucao = em.merge(ordemProcucaoListOldOrdemProcucao);
-                }
-            }
-            for (OrdemProcucao ordemProcucaoListNewOrdemProcucao : ordemProcucaoListNew) {
-                if (!ordemProcucaoListOld.contains(ordemProcucaoListNewOrdemProcucao)) {
-                    Receita oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao = ordemProcucaoListNewOrdemProcucao.getRctCodigo();
-                    ordemProcucaoListNewOrdemProcucao.setRctCodigo(receita);
-                    ordemProcucaoListNewOrdemProcucao = em.merge(ordemProcucaoListNewOrdemProcucao);
-                    if (oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao != null && !oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao.equals(receita)) {
-                        oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListNewOrdemProcucao);
-                        oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao = em.merge(oldRctCodigoOfOrdemProcucaoListNewOrdemProcucao);
-                    }
-                }
-            }
-            for (Trato tratoListNewTrato : tratoListNew) {
-                if (!tratoListOld.contains(tratoListNewTrato)) {
-                    Receita oldReceitaOfTratoListNewTrato = tratoListNewTrato.getReceita();
-                    tratoListNewTrato.setReceita(receita);
-                    tratoListNewTrato = em.merge(tratoListNewTrato);
-                    if (oldReceitaOfTratoListNewTrato != null && !oldReceitaOfTratoListNewTrato.equals(receita)) {
-                        oldReceitaOfTratoListNewTrato.getTratoList().remove(tratoListNewTrato);
-                        oldReceitaOfTratoListNewTrato = em.merge(oldReceitaOfTratoListNewTrato);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -202,7 +68,7 @@ public class ReceitaJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -213,27 +79,6 @@ public class ReceitaJpaController implements Serializable {
                 receita.getRctCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The receita with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            List<Trato> tratoListOrphanCheck = receita.getTratoList();
-            for (Trato tratoListOrphanCheckTrato : tratoListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Receita (" + receita + ") cannot be destroyed since the Trato " + tratoListOrphanCheckTrato + " in its tratoList field has a non-nullable receita field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<Ingredientes> ingredientesList = receita.getIngredientesList();
-            for (Ingredientes ingredientesListIngredientes : ingredientesList) {
-                ingredientesListIngredientes.getReceitaList().remove(receita);
-                ingredientesListIngredientes = em.merge(ingredientesListIngredientes);
-            }
-            List<OrdemProcucao> ordemProcucaoList = receita.getOrdemProcucaoList();
-            for (OrdemProcucao ordemProcucaoListOrdemProcucao : ordemProcucaoList) {
-                ordemProcucaoListOrdemProcucao.setRctCodigo(null);
-                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
             }
             em.remove(receita);
             em.getTransaction().commit();

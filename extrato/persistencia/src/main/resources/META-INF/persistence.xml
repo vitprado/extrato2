@@ -11,7 +11,6 @@
     <class>br.exacta.persistencia.Receita</class>
     <class>br.exacta.persistencia.Equipamento</class>
     <class>br.exacta.persistencia.NivelAcesso</class>
-    <class>br.exacta.persistencia.Trato</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:extrato;create=true"/>
       <property name="javax.persistence.jdbc.user" value="extrato"/>

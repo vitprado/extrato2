@@ -6,7 +6,6 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.ReceitaJpaController;
-import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Receita;
 import java.util.List;
@@ -64,7 +63,7 @@ public class ReceitaDAO {
      * @param receitaID
      * @throws NonexistentEntityException
      */
-    public void removerReceita(int receitaID) throws NonexistentEntityException, IllegalOrphanException{
+    public void removerReceita(int receitaID) throws NonexistentEntityException{
         receitaController.destroy(receitaID);
     }
     

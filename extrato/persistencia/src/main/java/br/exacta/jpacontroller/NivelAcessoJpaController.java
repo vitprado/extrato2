@@ -8,15 +8,13 @@ package br.exacta.jpacontroller;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.NivelAcesso;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import br.exacta.persistencia.Usuario;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -34,29 +32,11 @@ public class NivelAcessoJpaController implements Serializable {
     }
 
     public void create(NivelAcesso nivelAcesso) {
-        if (nivelAcesso.getUsuarioList() == null) {
-            nivelAcesso.setUsuarioList(new ArrayList<Usuario>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Usuario> attachedUsuarioList = new ArrayList<Usuario>();
-            for (Usuario usuarioListUsuarioToAttach : nivelAcesso.getUsuarioList()) {
-                usuarioListUsuarioToAttach = em.getReference(usuarioListUsuarioToAttach.getClass(), usuarioListUsuarioToAttach.getUsuCodigo());
-                attachedUsuarioList.add(usuarioListUsuarioToAttach);
-            }
-            nivelAcesso.setUsuarioList(attachedUsuarioList);
             em.persist(nivelAcesso);
-            for (Usuario usuarioListUsuario : nivelAcesso.getUsuarioList()) {
-                NivelAcesso oldNvaCodigoOfUsuarioListUsuario = usuarioListUsuario.getNvaCodigo();
-                usuarioListUsuario.setNvaCodigo(nivelAcesso);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
-                if (oldNvaCodigoOfUsuarioListUsuario != null) {
-                    oldNvaCodigoOfUsuarioListUsuario.getUsuarioList().remove(usuarioListUsuario);
-                    oldNvaCodigoOfUsuarioListUsuario = em.merge(oldNvaCodigoOfUsuarioListUsuario);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -70,34 +50,7 @@ public class NivelAcessoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            NivelAcesso persistentNivelAcesso = em.find(NivelAcesso.class, nivelAcesso.getNvaCodigo());
-            List<Usuario> usuarioListOld = persistentNivelAcesso.getUsuarioList();
-            List<Usuario> usuarioListNew = nivelAcesso.getUsuarioList();
-            List<Usuario> attachedUsuarioListNew = new ArrayList<Usuario>();
-            for (Usuario usuarioListNewUsuarioToAttach : usuarioListNew) {
-                usuarioListNewUsuarioToAttach = em.getReference(usuarioListNewUsuarioToAttach.getClass(), usuarioListNewUsuarioToAttach.getUsuCodigo());
-                attachedUsuarioListNew.add(usuarioListNewUsuarioToAttach);
-            }
-            usuarioListNew = attachedUsuarioListNew;
-            nivelAcesso.setUsuarioList(usuarioListNew);
             nivelAcesso = em.merge(nivelAcesso);
-            for (Usuario usuarioListOldUsuario : usuarioListOld) {
-                if (!usuarioListNew.contains(usuarioListOldUsuario)) {
-                    usuarioListOldUsuario.setNvaCodigo(null);
-                    usuarioListOldUsuario = em.merge(usuarioListOldUsuario);
-                }
-            }
-            for (Usuario usuarioListNewUsuario : usuarioListNew) {
-                if (!usuarioListOld.contains(usuarioListNewUsuario)) {
-                    NivelAcesso oldNvaCodigoOfUsuarioListNewUsuario = usuarioListNewUsuario.getNvaCodigo();
-                    usuarioListNewUsuario.setNvaCodigo(nivelAcesso);
-                    usuarioListNewUsuario = em.merge(usuarioListNewUsuario);
-                    if (oldNvaCodigoOfUsuarioListNewUsuario != null && !oldNvaCodigoOfUsuarioListNewUsuario.equals(nivelAcesso)) {
-                        oldNvaCodigoOfUsuarioListNewUsuario.getUsuarioList().remove(usuarioListNewUsuario);
-                        oldNvaCodigoOfUsuarioListNewUsuario = em.merge(oldNvaCodigoOfUsuarioListNewUsuario);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -126,11 +79,6 @@ public class NivelAcessoJpaController implements Serializable {
                 nivelAcesso.getNvaCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The nivelAcesso with id " + id + " no longer exists.", enfe);
-            }
-            List<Usuario> usuarioList = nivelAcesso.getUsuarioList();
-            for (Usuario usuarioListUsuario : usuarioList) {
-                usuarioListUsuario.setNvaCodigo(null);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
             }
             em.remove(nivelAcesso);
             em.getTransaction().commit();

@@ -5,20 +5,16 @@
  */
 package br.exacta.jpacontroller;
 
-import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Curral;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import br.exacta.persistencia.OrdemProcucao;
-import java.util.ArrayList;
-import java.util.List;
-import br.exacta.persistencia.Trato;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -36,47 +32,11 @@ public class CurralJpaController implements Serializable {
     }
 
     public void create(Curral curral) {
-        if (curral.getOrdemProcucaoList() == null) {
-            curral.setOrdemProcucaoList(new ArrayList<OrdemProcucao>());
-        }
-        if (curral.getTratoList() == null) {
-            curral.setTratoList(new ArrayList<Trato>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<OrdemProcucao> attachedOrdemProcucaoList = new ArrayList<OrdemProcucao>();
-            for (OrdemProcucao ordemProcucaoListOrdemProcucaoToAttach : curral.getOrdemProcucaoList()) {
-                ordemProcucaoListOrdemProcucaoToAttach = em.getReference(ordemProcucaoListOrdemProcucaoToAttach.getClass(), ordemProcucaoListOrdemProcucaoToAttach.getOrdCodigo());
-                attachedOrdemProcucaoList.add(ordemProcucaoListOrdemProcucaoToAttach);
-            }
-            curral.setOrdemProcucaoList(attachedOrdemProcucaoList);
-            List<Trato> attachedTratoList = new ArrayList<Trato>();
-            for (Trato tratoListTratoToAttach : curral.getTratoList()) {
-                tratoListTratoToAttach = em.getReference(tratoListTratoToAttach.getClass(), tratoListTratoToAttach.getTratoPK());
-                attachedTratoList.add(tratoListTratoToAttach);
-            }
-            curral.setTratoList(attachedTratoList);
             em.persist(curral);
-            for (OrdemProcucao ordemProcucaoListOrdemProcucao : curral.getOrdemProcucaoList()) {
-                Curral oldCurCodigoOfOrdemProcucaoListOrdemProcucao = ordemProcucaoListOrdemProcucao.getCurCodigo();
-                ordemProcucaoListOrdemProcucao.setCurCodigo(curral);
-                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
-                if (oldCurCodigoOfOrdemProcucaoListOrdemProcucao != null) {
-                    oldCurCodigoOfOrdemProcucaoListOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListOrdemProcucao);
-                    oldCurCodigoOfOrdemProcucaoListOrdemProcucao = em.merge(oldCurCodigoOfOrdemProcucaoListOrdemProcucao);
-                }
-            }
-            for (Trato tratoListTrato : curral.getTratoList()) {
-                Curral oldCurralOfTratoListTrato = tratoListTrato.getCurral();
-                tratoListTrato.setCurral(curral);
-                tratoListTrato = em.merge(tratoListTrato);
-                if (oldCurralOfTratoListTrato != null) {
-                    oldCurralOfTratoListTrato.getTratoList().remove(tratoListTrato);
-                    oldCurralOfTratoListTrato = em.merge(oldCurralOfTratoListTrato);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -85,71 +45,12 @@ public class CurralJpaController implements Serializable {
         }
     }
 
-    public void edit(Curral curral) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Curral curral) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Curral persistentCurral = em.find(Curral.class, curral.getCurCodigo());
-            List<OrdemProcucao> ordemProcucaoListOld = persistentCurral.getOrdemProcucaoList();
-            List<OrdemProcucao> ordemProcucaoListNew = curral.getOrdemProcucaoList();
-            List<Trato> tratoListOld = persistentCurral.getTratoList();
-            List<Trato> tratoListNew = curral.getTratoList();
-            List<String> illegalOrphanMessages = null;
-            for (Trato tratoListOldTrato : tratoListOld) {
-                if (!tratoListNew.contains(tratoListOldTrato)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Trato " + tratoListOldTrato + " since its curral field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<OrdemProcucao> attachedOrdemProcucaoListNew = new ArrayList<OrdemProcucao>();
-            for (OrdemProcucao ordemProcucaoListNewOrdemProcucaoToAttach : ordemProcucaoListNew) {
-                ordemProcucaoListNewOrdemProcucaoToAttach = em.getReference(ordemProcucaoListNewOrdemProcucaoToAttach.getClass(), ordemProcucaoListNewOrdemProcucaoToAttach.getOrdCodigo());
-                attachedOrdemProcucaoListNew.add(ordemProcucaoListNewOrdemProcucaoToAttach);
-            }
-            ordemProcucaoListNew = attachedOrdemProcucaoListNew;
-            curral.setOrdemProcucaoList(ordemProcucaoListNew);
-            List<Trato> attachedTratoListNew = new ArrayList<Trato>();
-            for (Trato tratoListNewTratoToAttach : tratoListNew) {
-                tratoListNewTratoToAttach = em.getReference(tratoListNewTratoToAttach.getClass(), tratoListNewTratoToAttach.getTratoPK());
-                attachedTratoListNew.add(tratoListNewTratoToAttach);
-            }
-            tratoListNew = attachedTratoListNew;
-            curral.setTratoList(tratoListNew);
             curral = em.merge(curral);
-            for (OrdemProcucao ordemProcucaoListOldOrdemProcucao : ordemProcucaoListOld) {
-                if (!ordemProcucaoListNew.contains(ordemProcucaoListOldOrdemProcucao)) {
-                    ordemProcucaoListOldOrdemProcucao.setCurCodigo(null);
-                    ordemProcucaoListOldOrdemProcucao = em.merge(ordemProcucaoListOldOrdemProcucao);
-                }
-            }
-            for (OrdemProcucao ordemProcucaoListNewOrdemProcucao : ordemProcucaoListNew) {
-                if (!ordemProcucaoListOld.contains(ordemProcucaoListNewOrdemProcucao)) {
-                    Curral oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao = ordemProcucaoListNewOrdemProcucao.getCurCodigo();
-                    ordemProcucaoListNewOrdemProcucao.setCurCodigo(curral);
-                    ordemProcucaoListNewOrdemProcucao = em.merge(ordemProcucaoListNewOrdemProcucao);
-                    if (oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao != null && !oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao.equals(curral)) {
-                        oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao.getOrdemProcucaoList().remove(ordemProcucaoListNewOrdemProcucao);
-                        oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao = em.merge(oldCurCodigoOfOrdemProcucaoListNewOrdemProcucao);
-                    }
-                }
-            }
-            for (Trato tratoListNewTrato : tratoListNew) {
-                if (!tratoListOld.contains(tratoListNewTrato)) {
-                    Curral oldCurralOfTratoListNewTrato = tratoListNewTrato.getCurral();
-                    tratoListNewTrato.setCurral(curral);
-                    tratoListNewTrato = em.merge(tratoListNewTrato);
-                    if (oldCurralOfTratoListNewTrato != null && !oldCurralOfTratoListNewTrato.equals(curral)) {
-                        oldCurralOfTratoListNewTrato.getTratoList().remove(tratoListNewTrato);
-                        oldCurralOfTratoListNewTrato = em.merge(oldCurralOfTratoListNewTrato);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -167,7 +68,7 @@ public class CurralJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -178,22 +79,6 @@ public class CurralJpaController implements Serializable {
                 curral.getCurCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The curral with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            List<Trato> tratoListOrphanCheck = curral.getTratoList();
-            for (Trato tratoListOrphanCheckTrato : tratoListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Curral (" + curral + ") cannot be destroyed since the Trato " + tratoListOrphanCheckTrato + " in its tratoList field has a non-nullable curral field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<OrdemProcucao> ordemProcucaoList = curral.getOrdemProcucaoList();
-            for (OrdemProcucao ordemProcucaoListOrdemProcucao : ordemProcucaoList) {
-                ordemProcucaoListOrdemProcucao.setCurCodigo(null);
-                ordemProcucaoListOrdemProcucao = em.merge(ordemProcucaoListOrdemProcucao);
             }
             em.remove(curral);
             em.getTransaction().commit();

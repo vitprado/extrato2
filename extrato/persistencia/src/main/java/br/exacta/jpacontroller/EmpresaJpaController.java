@@ -8,15 +8,13 @@ package br.exacta.jpacontroller;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Empresa;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import br.exacta.persistencia.Usuario;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -34,29 +32,11 @@ public class EmpresaJpaController implements Serializable {
     }
 
     public void create(Empresa empresa) {
-        if (empresa.getUsuarioList() == null) {
-            empresa.setUsuarioList(new ArrayList<Usuario>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Usuario> attachedUsuarioList = new ArrayList<Usuario>();
-            for (Usuario usuarioListUsuarioToAttach : empresa.getUsuarioList()) {
-                usuarioListUsuarioToAttach = em.getReference(usuarioListUsuarioToAttach.getClass(), usuarioListUsuarioToAttach.getUsuCodigo());
-                attachedUsuarioList.add(usuarioListUsuarioToAttach);
-            }
-            empresa.setUsuarioList(attachedUsuarioList);
             em.persist(empresa);
-            for (Usuario usuarioListUsuario : empresa.getUsuarioList()) {
-                Empresa oldEmpCodigoOfUsuarioListUsuario = usuarioListUsuario.getEmpCodigo();
-                usuarioListUsuario.setEmpCodigo(empresa);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
-                if (oldEmpCodigoOfUsuarioListUsuario != null) {
-                    oldEmpCodigoOfUsuarioListUsuario.getUsuarioList().remove(usuarioListUsuario);
-                    oldEmpCodigoOfUsuarioListUsuario = em.merge(oldEmpCodigoOfUsuarioListUsuario);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -70,34 +50,7 @@ public class EmpresaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empresa persistentEmpresa = em.find(Empresa.class, empresa.getEmpCodigo());
-            List<Usuario> usuarioListOld = persistentEmpresa.getUsuarioList();
-            List<Usuario> usuarioListNew = empresa.getUsuarioList();
-            List<Usuario> attachedUsuarioListNew = new ArrayList<Usuario>();
-            for (Usuario usuarioListNewUsuarioToAttach : usuarioListNew) {
-                usuarioListNewUsuarioToAttach = em.getReference(usuarioListNewUsuarioToAttach.getClass(), usuarioListNewUsuarioToAttach.getUsuCodigo());
-                attachedUsuarioListNew.add(usuarioListNewUsuarioToAttach);
-            }
-            usuarioListNew = attachedUsuarioListNew;
-            empresa.setUsuarioList(usuarioListNew);
             empresa = em.merge(empresa);
-            for (Usuario usuarioListOldUsuario : usuarioListOld) {
-                if (!usuarioListNew.contains(usuarioListOldUsuario)) {
-                    usuarioListOldUsuario.setEmpCodigo(null);
-                    usuarioListOldUsuario = em.merge(usuarioListOldUsuario);
-                }
-            }
-            for (Usuario usuarioListNewUsuario : usuarioListNew) {
-                if (!usuarioListOld.contains(usuarioListNewUsuario)) {
-                    Empresa oldEmpCodigoOfUsuarioListNewUsuario = usuarioListNewUsuario.getEmpCodigo();
-                    usuarioListNewUsuario.setEmpCodigo(empresa);
-                    usuarioListNewUsuario = em.merge(usuarioListNewUsuario);
-                    if (oldEmpCodigoOfUsuarioListNewUsuario != null && !oldEmpCodigoOfUsuarioListNewUsuario.equals(empresa)) {
-                        oldEmpCodigoOfUsuarioListNewUsuario.getUsuarioList().remove(usuarioListNewUsuario);
-                        oldEmpCodigoOfUsuarioListNewUsuario = em.merge(oldEmpCodigoOfUsuarioListNewUsuario);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -126,11 +79,6 @@ public class EmpresaJpaController implements Serializable {
                 empresa.getEmpCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.", enfe);
-            }
-            List<Usuario> usuarioList = empresa.getUsuarioList();
-            for (Usuario usuarioListUsuario : usuarioList) {
-                usuarioListUsuario.setEmpCodigo(null);
-                usuarioListUsuario = em.merge(usuarioListUsuario);
             }
             em.remove(empresa);
             em.getTransaction().commit();
