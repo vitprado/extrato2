@@ -28,15 +28,10 @@ import jdk.nashorn.internal.objects.Global;
 public class FXMLController implements Initializable {
     
     private Label label;
-    @FXML
     private TextField txtPlaca;
-    @FXML
     private TextField txtDesc;
-    @FXML
     private Button btnAdicionar;
-    @FXML
     private Button btnRemover;
-    @FXML
     private ListView<Equipamento> lstEquipamentos;
     private final ObservableList<Equipamento> listaEquipamentos = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
