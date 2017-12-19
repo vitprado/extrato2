@@ -11,6 +11,7 @@
   <modules>
     <module>extratoVisualFX</module>
     <module>persistencia</module>
+    <module>json</module>
   </modules>
     <name>Extrato</name>
 </project>
