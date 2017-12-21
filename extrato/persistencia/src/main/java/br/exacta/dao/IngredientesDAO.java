@@ -6,9 +6,12 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.IngredientesJpaController;
+import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Ingredientes;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -64,7 +67,11 @@ public class IngredientesDAO {
      * @throws NonexistentEntityException
      */
     public void removerIngredientes(int ingredientesID) throws NonexistentEntityException{
-        ingredienteController.destroy(ingredientesID);
+        try {
+            ingredienteController.destroy(ingredientesID);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(IngredientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     // LISTAR TODOS INGREDIENTES

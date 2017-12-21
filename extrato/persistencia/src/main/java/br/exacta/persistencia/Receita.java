@@ -7,7 +7,9 @@ package br.exacta.persistencia;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +37,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Receita.findByRctNome", query = "SELECT r FROM Receita r WHERE r.rctNome = :rctNome")
     , @NamedQuery(name = "Receita.findByRctDataCadastro", query = "SELECT r FROM Receita r WHERE r.rctDataCadastro = :rctDataCadastro")})
 public class Receita implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
+    private List<ReceitaTemIngredientes> receitaTemIngredientesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
+    private List<Trato> tratoList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -136,6 +145,24 @@ public class Receita implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.Receita[ rctCodigo=" + rctCodigo + " ]";
+    }
+
+    @XmlTransient
+    public List<ReceitaTemIngredientes> getReceitaTemIngredientesList() {
+        return receitaTemIngredientesList;
+    }
+
+    public void setReceitaTemIngredientesList(List<ReceitaTemIngredientes> receitaTemIngredientesList) {
+        this.receitaTemIngredientesList = receitaTemIngredientesList;
+    }
+
+    @XmlTransient
+    public List<Trato> getTratoList() {
+        return tratoList;
+    }
+
+    public void setTratoList(List<Trato> tratoList) {
+        this.tratoList = tratoList;
     }
     
 }
