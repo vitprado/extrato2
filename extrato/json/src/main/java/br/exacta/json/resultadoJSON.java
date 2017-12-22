@@ -11,6 +11,6 @@ package br.exacta.json;
  *
  * @author Thales
  */
-public class ResultadoJSON {
+public class resultadoJSON {
     
 }

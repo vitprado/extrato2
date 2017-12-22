@@ -12,8 +12,8 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper);
         //Le o json pro objeto
-        ProgramacaoJSON programacao = objectMapper.readValue(new File("src/main/resources/programacao1.json"), ProgramacaoJSON.class);
-        System.out.println(ProgramacaoJSON.class);
+        programacaoJSON programacao = objectMapper.readValue(new File("src/main/resources/programacao1.json"), programacaoJSON.class);
+        System.out.println(programacaoJSON.class);
         System.out.println(programacao);
         
         //Grava o arquivo a partir do objeto

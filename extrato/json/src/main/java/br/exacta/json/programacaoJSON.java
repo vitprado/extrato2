@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProgramacaoJSON {
+public class programacaoJSON {
 
     private String equipamento;
     private Integer nordens;
