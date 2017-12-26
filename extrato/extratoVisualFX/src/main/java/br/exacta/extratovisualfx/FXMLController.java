@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import jdk.nashorn.internal.objects.Global;
 
@@ -35,6 +36,26 @@ public class FXMLController implements Initializable {
     private ListView<Equipamento> lstEquipamentos;
     private final ObservableList<Equipamento> listaEquipamentos = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
+    @FXML
+    private ImageView imgLogo;
+    @FXML
+    private Button btnUsuarios;
+    @FXML
+    private Button btnEquipamentos;
+    @FXML
+    private Button btnCurrais;
+    @FXML
+    private Button btnIngredientes;
+    @FXML
+    private Button btnReceitas;
+    @FXML
+    private Button btnOrdemProducao;
+    @FXML
+    private Button btnProgramacao;
+    @FXML
+    private Button btnAmostraResultados;
+    @FXML
+    private Button btnSobre;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

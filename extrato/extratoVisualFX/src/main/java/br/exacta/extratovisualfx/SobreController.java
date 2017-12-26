@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 /**
@@ -17,28 +17,18 @@ import javafx.scene.image.ImageView;
  *
  * @author Thales
  */
-public class MenuController implements Initializable {
+public class SobreController implements Initializable {
 
     @FXML
-    private ImageView imgLogo;
+    private ImageView imgLogoExtrato;
     @FXML
-    private Button btnUsuarios;
+    private Label lblVersao;
     @FXML
-    private Button btnEquipamentos;
+    private ImageView imgLogoExacta;
     @FXML
-    private Button btnCurrais;
+    private Label lblEnderecoSite;
     @FXML
-    private Button btnIngredientes;
-    @FXML
-    private Button btnReceitas;
-    @FXML
-    private Button btnOrdemProducao;
-    @FXML
-    private Button btnProgramacao;
-    @FXML
-    private Button btnAmostraResultados;
-    @FXML
-    private Button btnSobre;
+    private Label lblFechar;
 
     /**
      * Initializes the controller class.

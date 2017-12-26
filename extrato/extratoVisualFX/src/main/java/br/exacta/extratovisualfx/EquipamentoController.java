@@ -7,7 +7,13 @@ package br.exacta.extratovisualfx;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -15,6 +21,31 @@ import javafx.fxml.Initializable;
  * @author Thales
  */
 public class EquipamentoController implements Initializable {
+
+    @FXML
+    private AnchorPane apAcoes;
+    @FXML
+    private Text lblDados;
+    @FXML
+    private Text lblLista;
+    @FXML
+    private Text lblPlaca;
+    @FXML
+    private TextField txtNome;
+    @FXML
+    private Text lblCodigo;
+    @FXML
+    private TextField txtCodigo;
+    @FXML
+    private TextField txtDescricao;
+    @FXML
+    private Text lblDescricao;
+    @FXML
+    private Text lblData;
+    @FXML
+    private DatePicker dtpData;
+    @FXML
+    private ListView<?> ltvDados;
 
     /**
      * Initializes the controller class.

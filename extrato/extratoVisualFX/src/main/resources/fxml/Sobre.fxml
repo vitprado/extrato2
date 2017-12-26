@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.exacta.extratovisualfx.SobreController">
+   <children>
+      <ImageView fx:id="imgLogoExtrato" fitHeight="227.0" fitWidth="238.0" layoutX="187.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblVersao" layoutX="245.0" layoutY="200.0" text="Versão 1.0.0">
+         <font>
+            <Font name="Segoe UI Bold" size="19.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgLogoExacta" fitHeight="53.0" fitWidth="170.0" layoutX="238.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/br/exacta/imagens/logo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblEnderecoSite" layoutX="199.0" layoutY="331.0" text="www.exactabalancas.com.br">
+         <font>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblFechar" layoutX="574.0" layoutY="1.0" text="x">
+         <font>
+            <Font name="Segoe UI Semibold" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
