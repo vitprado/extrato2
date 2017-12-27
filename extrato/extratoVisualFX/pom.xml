@@ -13,15 +13,13 @@
     <packaging>jar</packaging>
 
     <name>extratoVisualFX</name>
-    
     <dependencies>
         <dependency>
-            <groupId>br.exacta</groupId>    
-            <artifactId>persistencias</artifactId>
+            <groupId>br.exacta</groupId>
+            <artifactId>persistencia</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>br.exacta.extratovisualfx.MainApp</mainClass>

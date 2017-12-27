@@ -17,7 +17,7 @@ import javax.persistence.Persistence;
  * @author Thales
  */
 public class NivelAcessoDAO {
-    
+
     private final NivelAcessoJpaController nivelAcessoController;
     private final EntityManagerFactory emf;
 
@@ -28,63 +28,57 @@ public class NivelAcessoDAO {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         nivelAcessoController = new NivelAcessoJpaController(emf);
     }
-    
+
     // MÉTODOS DE ACESSO 
     /* CRUD - CREATE, READ, UPDATE e DELETE, respectivamente serão aqui tratados como:
             - ADICIONAR, LISTAR, EDITAR, E REMOVER
-    */
-    
-    // ADICIONAR NIVEL DE ACESSO
-
+     */
+    // ADICIONAR 
     /**
      *
-     * @param ingredientes
+     * @param nivel
      * @throws Exception
      */
-    public void adicionarNivelAcesso(NivelAcesso ingredientes) throws Exception{
-        nivelAcessoController.create(ingredientes);
+    public void adicionarNivelAcesso(NivelAcesso nivel) throws Exception {
+        nivelAcessoController.create(nivel);
     }
-    
-    // EDITAR NIVEL DE ACESSO
 
+    // EDITAR 
     /**
      *
-     * @param ingredientes
+     * @param nivel
      * @throws Exception
      */
-    public void editarNivelAcesso(NivelAcesso ingredientes) throws Exception{
-        nivelAcessoController.edit(ingredientes);
+    public void editarNivelAcesso(NivelAcesso nivel) throws Exception {
+        nivelAcessoController.edit(nivel);
     }
-    
-    // REMOVER NIVEL DE ACESSO
 
+    // REMOVER 
     /**
      *
-     * @param nivelAcessoID
+     * @param id
      * @throws NonexistentEntityException
      */
-    public void removerNivelAcesso(int nivelAcessoID) throws NonexistentEntityException{
-        nivelAcessoController.destroy(nivelAcessoID);
+    public void removerNivelAcesso(int id) throws NonexistentEntityException {
+        nivelAcessoController.destroy(id);
     }
-    
-    // LISTAR TODOS NIVEL DE ACESSO
 
+    // LISTAR TODOS
     /**
      *
      * @return
      */
-    public List<NivelAcesso> getTodosNivelAcesso(){
+    public List<NivelAcesso> getTodosNiveis() {
         return nivelAcessoController.findNivelAcessoEntities();
     }
-    
-    // LISTAR NIVEL DE ACESSO POR ID
 
+    // LISTAR POR ID
     /**
      *
-     * @param nivelAcessoID
+     * @param id
      * @return
      */
-        public NivelAcesso getNivelAcessoId(int nivelAcessoID){
-        return nivelAcessoController.findNivelAcesso(nivelAcessoID);
+    public NivelAcesso getNivelAcessoId(int id) {
+        return nivelAcessoController.findNivelAcesso(id);
     }
 }

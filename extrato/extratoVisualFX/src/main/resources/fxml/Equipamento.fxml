@@ -29,7 +29,7 @@
             </Text>
             <VBox alignment="CENTER" layoutX="14.0" layoutY="48.0" prefHeight="372.0" prefWidth="252.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="NOVO">
+                  <Button fx:id="btnNovo" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="NOVO">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -37,7 +37,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="ALTERAR">
+                  <Button fx:id="btnAlterar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="ALTERAR">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="REMOVER">
+                  <Button fx:id="btnRemover" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="REMOVER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="RELATÓRIO">
+                  <Button fx:id="btnSalvar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="SALVAR">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -61,7 +61,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="RELATÓRIO">
+                  <Button fx:id="btnRelatorio" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="RELATÓRIO">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -87,7 +87,7 @@
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="txtNome" layoutX="120.0" layoutY="44.0" prefHeight="31.0" prefWidth="152.0" />
+            <TextField fx:id="txtPlaca" layoutX="120.0" layoutY="44.0" prefHeight="31.0" prefWidth="152.0" />
             <Text fx:id="lblCodigo" fontSmoothingType="LCD" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />

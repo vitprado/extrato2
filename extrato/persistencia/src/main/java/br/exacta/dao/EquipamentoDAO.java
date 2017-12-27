@@ -6,6 +6,7 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.EquipamentoJpaController;
+import br.exacta.jpacontroller.NivelAcessoJpaController;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Equipamento;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.persistence.Persistence;
  * @author Thales
  */
 public class EquipamentoDAO {
-    
+
     private final EquipamentoJpaController equipamentoController;
     private final EntityManagerFactory emf;
 
@@ -28,63 +29,58 @@ public class EquipamentoDAO {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         equipamentoController = new EquipamentoJpaController(emf);
     }
-    
+
     // MÉTODOS DE ACESSO 
     /* CRUD - CREATE, READ, UPDATE e DELETE, respectivamente serão aqui tratados como:
             - ADICIONAR, LISTAR, EDITAR, E REMOVER
-    */
-    
-    // ADICIONAR EQUIPAMENTO
-
+     */
+    // ADICIONAR 
     /**
      *
-     * @param equipamento
+     * @param nivel
      * @throws Exception
      */
-    public void adicionarEquipamento(Equipamento equipamento) throws Exception{
+    public void adicionarEquipamento(Equipamento equipamento) throws Exception {
         equipamentoController.create(equipamento);
     }
-    
-    // EDITAR EQUIPAMENTO
 
+    // EDITAR 
     /**
      *
-     * @param equipamento
+     * @param nivel
      * @throws Exception
      */
-    public void editarEquipamento(Equipamento equipamento) throws Exception{
+    public void editarNivelAcesso(Equipamento equipamento) throws Exception {
         equipamentoController.edit(equipamento);
     }
-    
-    // REMOVER EQUIPAMENTO
 
+    // REMOVER 
     /**
      *
-     * @param equipamentoID
+     * @param id
      * @throws NonexistentEntityException
      */
-    public void removerEquipamento(int equipamentoID) throws NonexistentEntityException{
-        equipamentoController.destroy(equipamentoID);
+    public void removerEquipamento(int id) throws NonexistentEntityException {
+        equipamentoController.destroy(id);
     }
-    
-    // LISTAR TODOS EQUIPAMENTOS
 
+    // LISTAR TODOS
     /**
      *
      * @return
      */
-    public List<Equipamento> getTodosEquipamentos(){
+    public List<Equipamento> getTodosEquipamentos() {
         return equipamentoController.findEquipamentoEntities();
     }
-    
-    // LISTAR EQUIPAMENTO POR ID
 
+    // LISTAR POR ID
     /**
      *
-     * @param equipamentoID
+     * @param id
      * @return
      */
-    public Equipamento getEquipamentoId(int equipamentoID){
-        return equipamentoController.findEquipamento(equipamentoID);
+    public Equipamento getNivelAcessoId(int id) {
+        return equipamentoController.findEquipamento(id);
     }
+
 }
