@@ -8,6 +8,8 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -59,25 +61,69 @@ public class MenuController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {        
+        // BOTAO DE USUÁRIOS
+        btnUsuarios.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Usuario.fxml");
+            }
+        });        
+        // BOTAO DE CURRAIS
+        btnCurrais.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Curral.fxml");
+            }
+        });        
+        //BOTAO DE EQUIPAMENTOS
+        btnEquipamentos.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Equipamento.fxml");
+            }
+        });        
+        // BOTAO DE INGREDIENTES
+        btnIngredientes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Ingredientes.fxml");
+            }
+        });        
+        // BOTAO DE RECEITAS
+        btnReceitas.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Receita.fxml");
+            }
+        });        
+        // BOTAO DE ORDENS DE PRODUCAO 
+        btnOrdemProducao.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"OrdemProducao.fxml");
+            }
+        });        
+        // BOTAO DE PROGRAMACAO
+        btnProgramacao.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Programacao.fxml");
+            }
+        });        
+        // BOTAO DE RESULTADOS
+        btnAmostraResultados.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Resultado.fxml");
+            }
+        });        
+        // BOTAO DE SOBRE
+        btnSobre.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados,"Sobre.fxml");
+            }
+        });
     }    
-//    
-//    @FXML
-//    private void botoesMenu(MouseEvent event) {
-//        switch(listMenu.getSelectionModel().getSelectedIndex()){
-//            case 0:{
-//                con.loadAnchorPane(paneData, "customer.fxml");
-//            }break;
-//            case 1:{
-//                con.loadAnchorPane(paneData, "product.fxml");
-//            }break;
-//            case 2:{
-//                con.loadAnchorPane(paneData, "micro.fxml");
-//            }break;
-//        }
-//    }
-//    
-//    // BOTOES DO MENU 
-//    btnUsuarios.
 }
