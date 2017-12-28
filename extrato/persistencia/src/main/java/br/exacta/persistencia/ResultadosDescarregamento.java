@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ResultadosDescarregamento.findAll", query = "SELECT r FROM ResultadosDescarregamento r")
     , @NamedQuery(name = "ResultadosDescarregamento.findByRdgCodigoPai", query = "SELECT r FROM ResultadosDescarregamento r WHERE r.rdgCodigoPai = :rdgCodigoPai")
-    , @NamedQuery(name = "ResultadosDescarregamento.findByRdgCodigoFilho", query = "SELECT r FROM ResultadosDescarregamento r WHERE r.rdgCodigoFilho = :rdgCodigoFilho")
     , @NamedQuery(name = "ResultadosDescarregamento.findByRdgEquipamento", query = "SELECT r FROM ResultadosDescarregamento r WHERE r.rdgEquipamento = :rdgEquipamento")
     , @NamedQuery(name = "ResultadosDescarregamento.findByRdgOrdem", query = "SELECT r FROM ResultadosDescarregamento r WHERE r.rdgOrdem = :rdgOrdem")
     , @NamedQuery(name = "ResultadosDescarregamento.findByRdgNumtrato", query = "SELECT r FROM ResultadosDescarregamento r WHERE r.rdgNumtrato = :rdgNumtrato")
@@ -43,8 +42,6 @@ public class ResultadosDescarregamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "RDG_CODIGO_PAI")
     private Integer rdgCodigoPai;
-    @Column(name = "RDG_CODIGO_FILHO")
-    private Integer rdgCodigoFilho;
     @Column(name = "RDG_EQUIPAMENTO")
     private String rdgEquipamento;
     @Column(name = "RDG_ORDEM")
@@ -74,14 +71,6 @@ public class ResultadosDescarregamento implements Serializable {
 
     public void setRdgCodigoPai(Integer rdgCodigoPai) {
         this.rdgCodigoPai = rdgCodigoPai;
-    }
-
-    public Integer getRdgCodigoFilho() {
-        return rdgCodigoFilho;
-    }
-
-    public void setRdgCodigoFilho(Integer rdgCodigoFilho) {
-        this.rdgCodigoFilho = rdgCodigoFilho;
     }
 
     public String getRdgEquipamento() {

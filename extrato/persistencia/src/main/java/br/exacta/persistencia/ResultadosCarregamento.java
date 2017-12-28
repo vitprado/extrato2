@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ResultadosCarregamento.findAll", query = "SELECT r FROM ResultadosCarregamento r")
     , @NamedQuery(name = "ResultadosCarregamento.findByRcgCodigoPai", query = "SELECT r FROM ResultadosCarregamento r WHERE r.rcgCodigoPai = :rcgCodigoPai")
-    , @NamedQuery(name = "ResultadosCarregamento.findByRcgCodigoFilho", query = "SELECT r FROM ResultadosCarregamento r WHERE r.rcgCodigoFilho = :rcgCodigoFilho")
     , @NamedQuery(name = "ResultadosCarregamento.findByRcgEquipamento", query = "SELECT r FROM ResultadosCarregamento r WHERE r.rcgEquipamento = :rcgEquipamento")
     , @NamedQuery(name = "ResultadosCarregamento.findByRcgOrdem", query = "SELECT r FROM ResultadosCarregamento r WHERE r.rcgOrdem = :rcgOrdem")
     , @NamedQuery(name = "ResultadosCarregamento.findByRcgNumtrato", query = "SELECT r FROM ResultadosCarregamento r WHERE r.rcgNumtrato = :rcgNumtrato")
@@ -43,8 +42,6 @@ public class ResultadosCarregamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "RCG_CODIGO_PAI")
     private Integer rcgCodigoPai;
-    @Column(name = "RCG_CODIGO_FILHO")
-    private Integer rcgCodigoFilho;
     @Column(name = "RCG_EQUIPAMENTO")
     private String rcgEquipamento;
     @Column(name = "RCG_ORDEM")
@@ -74,14 +71,6 @@ public class ResultadosCarregamento implements Serializable {
 
     public void setRcgCodigoPai(Integer rcgCodigoPai) {
         this.rcgCodigoPai = rcgCodigoPai;
-    }
-
-    public Integer getRcgCodigoFilho() {
-        return rcgCodigoFilho;
-    }
-
-    public void setRcgCodigoFilho(Integer rcgCodigoFilho) {
-        this.rcgCodigoFilho = rcgCodigoFilho;
     }
 
     public String getRcgEquipamento() {
