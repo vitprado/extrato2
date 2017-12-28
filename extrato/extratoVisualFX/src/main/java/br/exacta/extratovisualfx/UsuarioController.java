@@ -77,6 +77,8 @@ public class UsuarioController implements Initializable {
     @FXML
     private Text lblDados;
 
+
+
     /**
      * Initializes the controller class.
      */

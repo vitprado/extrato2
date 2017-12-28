@@ -78,12 +78,14 @@ public class CurralController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ltvDados.setItems(listaCurral);
-        listaCurral.addAll(curralDAO.getTodosCurrais());
-
+        listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
+        
         ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
             @Override
             public ListCell<Curral> call(ListView<Curral> param) {
                 ListCell<Curral> listCell;
+                
+                
                 listCell = new ListCell() {
                     @Override
                     protected void updateItem(Object item, boolean empty) {

@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Thales
  */
-public class ResultadoController implements Initializable {
+public class ResultadosController implements Initializable {
 
     /**
      * Initializes the controller class.

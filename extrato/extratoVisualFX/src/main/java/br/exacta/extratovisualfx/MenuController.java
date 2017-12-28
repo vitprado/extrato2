@@ -115,7 +115,7 @@ public class MenuController implements Initializable {
         btnAmostraResultados.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Resultado.fxml");
+                config.carregarAnchorPane(apDados,"Resultados.fxml");
             }
         });        
         // BOTAO DE SOBRE
