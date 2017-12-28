@@ -50,7 +50,7 @@ public class EquipamentoDAO {
      * @param nivel
      * @throws Exception
      */
-    public void editarNivelAcesso(Equipamento equipamento) throws Exception {
+    public void editarEquipamento(Equipamento equipamento) throws Exception {
         equipamentoController.edit(equipamento);
     }
 
@@ -79,7 +79,7 @@ public class EquipamentoDAO {
      * @param id
      * @return
      */
-    public Equipamento getNivelAcessoId(int id) {
+    public Equipamento getEquipamentoId(int id) {
         return equipamentoController.findEquipamento(id);
     }
 

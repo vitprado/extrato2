@@ -33,6 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiData", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiData = :rtiData")})
 public class ReceitaTemIngredientes implements Serializable {
 
+    @Column(name = "RTI_PROPORCAO")
+    private Integer rtiProporcao;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ReceitaTemIngredientesPK receitaTemIngredientesPK;
@@ -112,6 +115,14 @@ public class ReceitaTemIngredientes implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.ReceitaTemIngredientes[ receitaTemIngredientesPK=" + receitaTemIngredientesPK + " ]";
+    }
+
+    public Integer getRtiProporcao() {
+        return rtiProporcao;
+    }
+
+    public void setRtiProporcao(Integer rtiProporcao) {
+        this.rtiProporcao = rtiProporcao;
     }
     
 }

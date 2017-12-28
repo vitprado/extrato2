@@ -8,9 +8,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="799.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
     <children>      
-        <HBox layoutX="7.0" layoutY="7.0" prefHeight="717.0" prefWidth="1021.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">         
+        <HBox fx:id="hbGeral" layoutX="7.0" layoutY="7.0" prefHeight="717.0" prefWidth="1021.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">         
             <children>            
-                <VBox alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;">               
+                <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;">               
                     <children>                  
                         <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">                     
                             <image>                        
@@ -63,7 +63,10 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
                     </padding>            
                 </VBox>
-                <ScrollPane prefHeight="768.0" prefWidth="802.0" />         
+                <ScrollPane fx:id="spConteudo" prefHeight="768.0" prefWidth="802.0">
+               <content>
+                  <AnchorPane fx:id="apDados" prefHeight="836.0" prefWidth="845.0" />
+               </content></ScrollPane>         
             </children>      
         </HBox>   
     </children>

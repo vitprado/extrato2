@@ -98,8 +98,8 @@ public class EquipamentoController implements Initializable {
                         if (item != null) {
                             Equipamento equipamento = (Equipamento) item;
                             setText(equipamento.getEqpCodigo().toString());
-                            setText(equipamento.getEpqPlaca().toString());
-                            setText(equipamento.getEqpDescricao().toString());
+                            setText(equipamento.getEpqPlaca());
+                            setText(equipamento.getEqpDescricao());
                             setText(equipamento.getEqpDataCadastro().toString());
                         } else {
                             setText("");
@@ -163,9 +163,9 @@ public class EquipamentoController implements Initializable {
                     novo.setEqpDataCadastro(d.getTime());
 
                     try {
-                        equipamentoDAO.editarNivelAcesso(novo);
+                        equipamentoDAO.editarEquipamento(novo);
                     } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(EquipamentoController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     listaEquipamento.add(novo);
                 }
