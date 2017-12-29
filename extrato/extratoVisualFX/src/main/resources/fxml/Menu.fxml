@@ -6,68 +6,61 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="799.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
-    <children>      
-        <HBox fx:id="hbGeral" layoutX="7.0" layoutY="7.0" prefHeight="717.0" prefWidth="1021.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">         
-            <children>            
-                <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;">               
-                    <children>                  
-                        <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">                     
-                            <image>                        
-                                <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />                     
-                            </image>                  
-                        </ImageView>                  
-                        <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Cadastro de Usuário">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnEquipamentos" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Cadastro de Equipamento">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnCurrais" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Cadastro de Curral">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnIngredientes" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Cadastro de Ingrediente">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnReceitas" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Cadastro de Receita">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordem de Produçao">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnProgramacao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>                  
-                        <Button fx:id="btnAmostraResultados" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Amostra de Resultados">                     
-                            <VBox.margin>                        
-                                <Insets bottom="10.0" />                     
-                            </VBox.margin>                  
-                        </Button>
-                        <Button fx:id="btnSobre" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sobre" />               
-                    </children>               
-                    <padding>                  
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
-                    </padding>            
-                </VBox>
-                <ScrollPane fx:id="spConteudo" prefHeight="768.0" prefWidth="802.0">
-               <content>
-                  <AnchorPane fx:id="apDados" prefHeight="836.0" prefWidth="845.0" />
-               </content></ScrollPane>         
-            </children>      
-        </HBox>   
+<AnchorPane id="AnchorPane" fx:id="apPrincipal" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
+    <children>            
+          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
+              <children>                  
+                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />
+               </image>                  
+                  </ImageView>                  
+                  <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnEquipamentos" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Equipamentos">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnCurrais" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Currais">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnIngredientes" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ingredientes">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnReceitas" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Receitas">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnProgramacao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>                  
+                  <Button fx:id="btnAmostraResultados" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Resultados">                     
+                      <VBox.margin>                        
+                          <Insets bottom="10.0" />                     
+                      </VBox.margin>                  
+                  </Button>
+                  <Button fx:id="btnSobre" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sobre" />               
+              </children>               
+              <padding>                  
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
+              </padding>            
+          </VBox>
+      <AnchorPane fx:id="apDados" minHeight="800.0" minWidth="800.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0" />   
     </children>
 </AnchorPane>

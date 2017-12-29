@@ -66,6 +66,10 @@ public class Config {
     public void carregarAnchorPane(AnchorPane ap, String str) {
         try {
             AnchorPane novaChamdada = FXMLLoader.load(getClass().getResource("/fxml/" + str));
+            AnchorPane.setBottomAnchor(novaChamdada, 0.0);
+            AnchorPane.setLeftAnchor(novaChamdada, 0.0);
+            AnchorPane.setRightAnchor(novaChamdada, 0.0);
+            AnchorPane.setTopAnchor(novaChamdada, 0.0);
             ap.getChildren().setAll(novaChamdada);
         } catch (IOException e) {
         }
