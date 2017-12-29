@@ -47,15 +47,13 @@ public class MenuController implements Initializable {
     @FXML
     private Button btnSobre;
     @FXML
-    private HBox hbGeral;
-    @FXML
     private VBox vbMenu;
-    @FXML
-    private ScrollPane spConteudo;
     @FXML
     private AnchorPane apDados;
     
     Config config = new Config();
+    @FXML
+    private AnchorPane apPrincipal;
 
     /**
      * Initializes the controller class.

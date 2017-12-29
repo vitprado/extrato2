@@ -9,8 +9,6 @@ package br.exacta.extratovisualfx;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,8 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -37,37 +33,15 @@ import javafx.util.Callback;
 public class CurralController implements Initializable {
 
     @FXML
-    private AnchorPane apAcoes;
-    @FXML
-    private Text lblAcoes;
-    @FXML
-    private VBox vbBotoes;
-    @FXML
-    private Button btnNovo;
-    @FXML
-    private Button btnAlterar;
-    @FXML
     private Button btnRemover;
     @FXML
     private Button btnSalvar;
     @FXML
-    private Button btnRelatorio;
-    @FXML
-    private Text lblDados;
-    @FXML
-    private Text lblLista;
-    @FXML
     private ListView<Curral> ltvDados;
-    @FXML
-    private AnchorPane apDados;
     @FXML
     private TextField txtNome;
     @FXML
     private Text lblNome;
-    @FXML
-    private TextField txtCodigo;
-    @FXML
-    private Text lblCodigo;
 
     private final ObservableList<Curral> listaCurral = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
@@ -92,9 +66,7 @@ public class CurralController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             Curral currais = (Curral) item;
-                            setText(currais.getCurCodigo().toString());
                             setText(currais.getCurDescricao());
-                            setText(currais.getCurDataCadastro().toString());
                         } else {
                             setText("");
                         }
@@ -109,12 +81,10 @@ public class CurralController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
 
-                Calendar d = Calendar.getInstance();
 
                 if (!txtNome.getText().trim().isEmpty()) {
-                    Curral novo = new Curral(getID());
+                    Curral novo = new Curral();
                     novo.setCurDescricao(txtNome.getText());
-                    novo.setCurDataCadastro(d.getTime());
 
                     try {
                         curralDAO.adicionarCurral(novo);
@@ -141,44 +111,5 @@ public class CurralController implements Initializable {
                 }
             }
         });
-
-        // ALTERAR 
-        btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                Calendar d = Calendar.getInstance();
-
-                if (!txtNome.getText().trim().isEmpty()) {
-                    Curral novo = new Curral(getID());
-                    novo.setCurDescricao(txtNome.getText());
-                    novo.setCurDataCadastro(d.getTime());
-
-                    try {
-                        curralDAO.editarCurral(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaCurral.add(novo);
-                }
-            }
-        });
     }
-
-    // RETORNO DO ID
-    public int getID() {
-        List<Curral> todosCurrais = curralDAO.getTodosCurrais();
-        int maxID = 0;
-
-        if (!todosCurrais.isEmpty()) {
-            for (Curral curral : todosCurrais) {
-                if (curral.getCurCodigo()> maxID) {
-                    maxID = curral.getCurCodigo();
-                }
-            }
-        }
-
-        return ++maxID;
-    }
-
 }
