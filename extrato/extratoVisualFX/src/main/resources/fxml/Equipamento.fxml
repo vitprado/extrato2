@@ -107,6 +107,13 @@
             </Text>
             <DatePicker fx:id="dtpData" editable="false" layoutX="14.0" layoutY="114.0" prefHeight="31.0" prefWidth="129.0" />
          </children></AnchorPane>
-      <ListView fx:id="ltvDados" layoutX="15.0" layoutY="354.0" prefHeight="402.0" prefWidth="493.0" />
+      <TableView fx:id="tbvDados" layoutX="14.0" layoutY="358.0" prefHeight="398.0" prefWidth="493.0">
+        <columns>
+          <TableColumn fx:id="tbcCodigo" prefWidth="43.0" text="#" />
+          <TableColumn fx:id="tbcPlaca" prefWidth="107.0" text="PLACA" />
+            <TableColumn fx:id="tbcDescricao" prefWidth="234.0" text="DESCRICAO" />
+            <TableColumn fx:id="tbcData" prefWidth="107.0" text="DATA" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

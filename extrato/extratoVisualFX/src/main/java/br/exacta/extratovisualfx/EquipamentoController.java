@@ -32,6 +32,8 @@ import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -72,12 +74,21 @@ public class EquipamentoController implements Initializable {
     private Text lblData;
     @FXML
     private DatePicker dtpData;
-    @FXML
     private ListView<Equipamento> ltvDados;
 
     private final ObservableList<Equipamento> listaEquipamento = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
-
+    @FXML
+    private TableView<?> tbvDados;
+    @FXML
+    private TableColumn<?, ?> tbcCodigo;
+    @FXML
+    private TableColumn<?, ?> tbcPlaca;
+    @FXML
+    private TableColumn<?, ?> tbcDescricao;
+    @FXML
+    private TableColumn<?, ?> tbcData;
+    
     /**
      * Initializes the controller class.
      */
