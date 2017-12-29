@@ -8,8 +8,6 @@ package br.exacta.extratovisualfx;
 import br.exacta.dao.IngredientesDAO;
 import br.exacta.persistencia.Ingredientes;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +18,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -37,37 +32,15 @@ import javafx.util.Callback;
 public class IngredientesController implements Initializable {
 
     @FXML
-    private AnchorPane apAcoes;
-    @FXML
-    private Text lblAcoes;
-    @FXML
-    private VBox vbBotoes;
-    @FXML
-    private Button btnNovo;
-    @FXML
-    private Button btnAlterar;
-    @FXML
     private Button btnRemover;
     @FXML
     private Button btnSalvar;
     @FXML
-    private Button btnRelatorio;
-    @FXML
-    private Text lblDados;
-    @FXML
-    private Text lblLista;
-    @FXML
     private ListView<Ingredientes> ltvDados;
-    @FXML
-    private AnchorPane apDados;
     @FXML
     private Text lblDescricao;
     @FXML
     private TextField txtDescricao;
-    @FXML
-    private Text lblCodigo;
-    @FXML
-    private TextField txtCodigo;
     @FXML
     private TextField txtAbreviacao;
     @FXML
@@ -76,10 +49,6 @@ public class IngredientesController implements Initializable {
     private Text lblTolerancia;
     @FXML
     private TextField txtTolerancia;
-    @FXML
-    private DatePicker dtpData;
-    @FXML
-    private Text lblData;
 
     private final ObservableList<Ingredientes> listaIngrediente = FXCollections.observableArrayList();
     private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
@@ -103,11 +72,7 @@ public class IngredientesController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             Ingredientes ingredientes = (Ingredientes) item;
-                            setText(ingredientes.getIngCodigo().toString());
-                            setText(ingredientes.getIngNome());
-                            setText(ingredientes.getIngAbreviacao());
-                            setText(ingredientes.getIngTolerancia().toString());
-                            setText(ingredientes.getIngDataCadastro().toString());
+                            setText(ingredientes.getIngNome() + "\t" + ingredientes.getIngAbreviacao() + "\t" + ingredientes.getIngTolerancia().toString());
                         } else {
                             setText("");
                         }
@@ -122,7 +87,6 @@ public class IngredientesController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 
-                Calendar d = Calendar.getInstance();
                 Integer tolerancia = Integer.parseInt(txtTolerancia.getText());
                 
                 if (!txtDescricao.getText().trim().isEmpty() &&
@@ -132,7 +96,6 @@ public class IngredientesController implements Initializable {
                     novo.setIngNome(txtDescricao.getText());
                     novo.setIngAbreviacao(txtAbreviacao.getText());
                     novo.setIngTolerancia(tolerancia);
-                    novo.setIngDataCadastro(d.getTime());
 
                     try {
                         ingredientesDAO.adicionarIngrediente(novo);
