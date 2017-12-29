@@ -28,41 +28,6 @@ public class Config {
         alert.showAndWait();
     }
 
-    public void novoEstagio(Stage stage, Label lb, String load, String judul, boolean resize, StageStyle style, boolean maximized) {
-        try {
-            Stage st = new Stage();
-            stage = (Stage) lb.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource(load));
-            Scene scene = new Scene(root);
-            st.initStyle(style);
-            st.setResizable(resize);
-            st.setMaximized(maximized);
-            st.setTitle(judul);
-            st.setScene(scene);
-            st.show();
-            stage.close();
-        } catch (IOException e) {
-        }
-    }
-
-    
-    public void novaEstagio2(Stage stage, Button lb, String load, String judul, boolean resize, StageStyle style, boolean maximized) {
-        try {
-            Stage st = new Stage();
-            stage = (Stage) lb.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource(load));
-            Scene scene = new Scene(root);
-            st.initStyle(style);
-            st.setResizable(resize);
-            st.setMaximized(maximized);
-            st.setTitle(judul);
-            st.setScene(scene);
-            st.show();
-            stage.close();
-        } catch (IOException e) {
-        }
-    }
-
     public void carregarAnchorPane(AnchorPane ap, String str) {
         try {
             AnchorPane novaChamdada = FXMLLoader.load(getClass().getResource("/fxml/" + str));
