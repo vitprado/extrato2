@@ -111,7 +111,7 @@ public class NivelAcessoController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if (!txtDescricao.getText().trim().isEmpty()) {
-                    NivelAcesso novo = new NivelAcesso(getID());
+                    NivelAcesso novo = new NivelAcesso();
                     novo.setNvaDescricao(txtDescricao.getText());
 
                     try {
@@ -139,39 +139,5 @@ public class NivelAcessoController implements Initializable {
                 }
             }
         });
-
-        // ALTERAR 
-        btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (!txtDescricao.getText().trim().isEmpty()) {
-                    NivelAcesso novo = new NivelAcesso(getID());
-                    novo.setNvaDescricao(txtDescricao.getText());
-
-                    try {
-                        nivelAcessoDAO.editarNivelAcesso(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaNivelAcesso.add(novo);
-                }
-            }
-        });
-    }
-
-    // RETORNO DO ID
-    public int getID() {
-        List<NivelAcesso> todosNiveisAcesso = nivelAcessoDAO.getTodosNiveis();
-        int maxID = 0;
-
-        if (!todosNiveisAcesso.isEmpty()) {
-            for (NivelAcesso equipamento : todosNiveisAcesso) {
-                if (equipamento.getNvaCodigo() > maxID) {
-                    maxID = equipamento.getNvaCodigo();
-                }
-            }
-        }
-
-        return ++maxID;
     }
 }
