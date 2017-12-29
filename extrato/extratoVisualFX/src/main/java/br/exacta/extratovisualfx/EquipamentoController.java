@@ -129,7 +129,7 @@ public class EquipamentoController implements Initializable {
                 Calendar d = Calendar.getInstance();
 
                 if (!txtDescricao.getText().trim().isEmpty()) {
-                    Equipamento novo = new Equipamento(getID());
+                    Equipamento novo = new Equipamento();
                     novo.setEpqPlaca(txtPlaca.getText());
                     novo.setEqpDescricao(txtDescricao.getText());
                     novo.setEqpDataCadastro(d.getTime());
@@ -159,43 +159,5 @@ public class EquipamentoController implements Initializable {
                 }
             }
         });
-
-        // ALTERAR 
-        btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                Calendar d = Calendar.getInstance();
-
-                if (!txtDescricao.getText().trim().isEmpty()) {
-                    Equipamento novo = new Equipamento(getID());
-                    novo.setEpqPlaca(txtPlaca.getText());//Placa
-                    novo.setEqpDescricao(txtDescricao.getText());
-                    novo.setEqpDataCadastro(d.getTime());
-
-                    try {
-                        equipamentoDAO.editarEquipamento(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(EquipamentoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaEquipamento.add(novo);
-                }
-            }
-        });
-    }
-
-    // RETORNO DO ID
-    public int getID() {
-        List<Equipamento> todosNiveisAcesso = equipamentoDAO.getTodosEquipamentos();
-        int maxID = 0;
-
-        if (!todosNiveisAcesso.isEmpty()) {
-            for (Equipamento equipamento : todosNiveisAcesso) {
-                if (equipamento.getEqpCodigo() > maxID) {
-                    maxID = equipamento.getEqpCodigo();
-                }
-            }
-        }
-        return ++maxID;
     }
 }

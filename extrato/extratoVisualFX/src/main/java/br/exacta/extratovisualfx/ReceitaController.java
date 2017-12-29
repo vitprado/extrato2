@@ -93,108 +93,69 @@ public class ReceitaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        ltvDados.setItems(listaReceita);
-//        listaReceita.addAll(receitaDAO.getTodoReceitas());
-//
-//        ltvDados.setCellFactory(new Callback<ListView<Receita>, ListCell<Receita>>() {
-//            @Override
-//            public ListCell<Receita> call(ListView<Receita> param) {
-//                ListCell<Receita> listCell;
-//                listCell = new ListCell() {
-//                    @Override
-//                    protected void updateItem(Object item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (item != null) {
-//                            Receita receitas = (Receita) item;
-//                            setText(receitas.getRctCodigo().toString());
-//                            setText(receitas.getRctNome());
-// //                           setText(receitas.get); // Proporcao
-//                            setText(receitas.getRctDataCadastro().toString());
-//                        } else {
-//                            setText("");
-//                        }
-//                    }
-//                };
-//                return listCell;
-//            }
-//        });
-//
-//        // ADICIONAR  
-//        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//
-//                Calendar d = Calendar.getInstance();
-//
-//                if (!txtNome.getText().trim().isEmpty()) {
-//                    Receita novo = new Receita(getID());
-//                    novo.setRctNome(txtNome.getText());
-//                    //novo.setReceitaTemIngredientesList(new List<ReceitaTemIngredientes>);
-//                    novo.setRctDataCadastro(d.getTime());
-//
-//                    try {
-//                        receitaDAO.adicionarReceita(novo);
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(ReceitaController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    listaReceita.add(novo);
-//                }
-//            }
-//        });
-//
-//        // REMOVER 
-//        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-//                if (itemSelecionado != null) {
-//                    try {
-//                        receitaDAO.removerReceita(itemSelecionado.getRctCodigo());
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    listaReceita.remove(itemSelecionado);
-//                }
-//            }
-//        });
-//        // ALTERAR 
-//        //        btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-//        //            @Override
-//        //            public void handle(ActionEvent event) {
-//        //
-//        //                Calendar d = Calendar.getInstance();
-//        //
-//        //                if (!txtNome.getText().trim().isEmpty()) {
-//        //                    Receita novo = new Receita(getID());
-//        //                    novo.setRctNome(txtNome.getText());
-//        //                    //novo.set
-//        //                    novo.setRctDataCadastro(d.getTime());
-//        //
-//        //                    try {
-//        //                        curralDAO.editarCurral(novo);
-//        //                    } catch (Exception ex) {
-//        //                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-//        //                    }
-//        //                    listaCurral.add(novo);
-//        //                }
-//        //            }
-//        //        });
-//        //    }
-//
-//        // RETORNO DO ID
-//    public int getID() {
-//        List<Receita> todasReceitas = receitaDAO.getTodoReceitas();
-//        int maxID = 0;
-//
-//        if (!todasReceitas.isEmpty()) {
-//            for (Receita receita : todasReceitas) {
-//                if (receita.getRctCodigo() > maxID) {
-//                    maxID = receita.getRctCodigo();
-//                }
-//            }
-//        }
-//
-//        return ++maxID;
-//    }
+        ltvDados.setItems(listaReceita);
+        listaReceita.addAll(receitaDAO.getTodoReceitas());
+
+        ltvDados.setCellFactory(new Callback<ListView<Receita>, ListCell<Receita>>() {
+            @Override
+            public ListCell<Receita> call(ListView<Receita> param) {
+                ListCell<Receita> listCell;
+                listCell = new ListCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            Receita receitas = (Receita) item;
+                            setText(receitas.getRctCodigo().toString());
+                            setText(receitas.getRctNome());
+                            //                           setText(receitas.get); // Proporcao
+                            setText(receitas.getRctDataCadastro().toString());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+                return listCell;
+            }
+        });
+
+        // ADICIONAR  
+        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                Calendar d = Calendar.getInstance();
+
+                if (!txtNome.getText().trim().isEmpty()) {
+                    Receita novo = new Receita();
+                    novo.setRctNome(txtNome.getText());
+                    //novo.setReceitaTemIngredientesList(new List<ReceitaTemIngredientes>);
+                    novo.setRctDataCadastro(d.getTime());
+
+                    try {
+                        receitaDAO.adicionarReceita(novo);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ReceitaController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listaReceita.add(novo);
+                }
+            }
+        });
+
+        // REMOVER 
+        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+                if (itemSelecionado != null) {
+                    try {
+                        receitaDAO.removerReceita(itemSelecionado.getRctCodigo());
+                    } catch (Exception ex) {
+                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listaReceita.remove(itemSelecionado);
+                }
+            }
+        });
     }
 }

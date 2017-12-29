@@ -128,7 +128,7 @@ public class IngredientesController implements Initializable {
                 if (!txtDescricao.getText().trim().isEmpty() &&
                     !txtAbreviacao.getText().trim().isEmpty() &&
                     !txtTolerancia.getText().trim().isEmpty()) {
-                    Ingredientes novo = new Ingredientes(getID());
+                    Ingredientes novo = new Ingredientes();
                     novo.setIngNome(txtDescricao.getText());
                     novo.setIngAbreviacao(txtAbreviacao.getText());
                     novo.setIngTolerancia(tolerancia);
@@ -159,48 +159,5 @@ public class IngredientesController implements Initializable {
                 }
             }
         });
-
-        // ALTERAR 
-        btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                
-                Calendar d = Calendar.getInstance();
-                Integer tolerancia = Integer.parseInt(txtTolerancia.getText());
-                
-                if (!txtDescricao.getText().trim().isEmpty() &&
-                    !txtAbreviacao.getText().trim().isEmpty() &&
-                    !txtTolerancia.getText().trim().isEmpty()) {
-                    Ingredientes novo = new Ingredientes(getID());
-                    novo.setIngNome(txtDescricao.getText());
-                    novo.setIngAbreviacao(txtAbreviacao.getText());
-                    novo.setIngTolerancia(tolerancia);
-                    novo.setIngDataCadastro(d.getTime());
-
-                    try {
-                        ingredientesDAO.editarIngrediente(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(IngredientesController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaIngrediente.add(novo);
-                }
-            }
-        });
-    }
-
-    // RETORNO DO ID
-    public int getID() {
-        List<Ingredientes> todosIngredientes = ingredientesDAO.getTodosIngredientes();
-        int maxID = 0;
-
-        if (!todosIngredientes.isEmpty()) {
-            for (Ingredientes equipamento : todosIngredientes) {
-                if (equipamento.getIngCodigo()> maxID) {
-                    maxID = equipamento.getIngCodigo();
-                }
-            }
-        }
-
-        return ++maxID;
     }
 }
