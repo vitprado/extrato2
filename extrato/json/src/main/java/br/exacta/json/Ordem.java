@@ -1,77 +1,99 @@
 package br.exacta.json;
 
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Ordem {
 
-    private String ordemproducao;
-    private Integer ntratos;
-    private List<String> receitas = null;
-    private List<List<String>> ingredientes = null;
-    private List<List<String>> pesosrequisitados = null;
-    private List<List<String>> tolerancias = null;
-    private Integer ncurrais;
+    private Integer ajuste;
     private List<String> currais = null;
+    private Integer currenttrato;
+    private String data;
+    private List<List<String>> diferencacarregamento = null;
+    private List<List<String>> diferencadescarregamento = null;
+    private List<List<String>> ingredientes = null;
+    private Integer ncurrais;
+    private Integer ntratos;
+    private String ordemproducao;
+    private Integer ordstatus;
+    private List<List<String>> pesosrealizados = null;
+    private List<List<String>> pesosrequisitados = null;
+    private List<String> receitas = null;
+    private List<List<String>> tolerancias = null;
     private List<List<String>> tratos = null;
-    //private final Map<String, Object> additionalProperties = new HashMap<>();
+    private List<List<String>> tratosrealizados = null;
+    private List<String> starttimeload = null;
+    private List<String> finishtimeload = null;
+    private List<String> starttimedisc = null;
+    private List<String> finishtimedisc = null;
+    private List<String> operatorload = null;
+    private List<String> operatordisc = null;
 
-    public String getOrdemproducao() {
-        return ordemproducao;
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Ordem() {
     }
 
-    public void setOrdemproducao(String ordemproducao) {
-        this.ordemproducao = ordemproducao;
-    }
-
-    public Integer getNtratos() {
-        return ntratos;
-    }
-
-    public void setNtratos(Integer ntratos) {
-        this.ntratos = ntratos;
-    }
-
-    public List<String> getReceitas() {
-        return receitas;
-    }
-
-    public void setReceitas(List<String> receitas) {
-        this.receitas = receitas;
-    }
-
-    public List<List<String>> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(List<List<String>> ingredientes) {
+    /**
+     *
+     * @param finishtimedisc
+     * @param ncurrais
+     * @param ordemproducao
+     * @param finishtimeload
+     * @param receitas
+     * @param data
+     * @param operatorload
+     * @param diferencadescarregamento
+     * @param currais
+     * @param starttimedisc
+     * @param ingredientes
+     * @param tratos
+     * @param pesosrequisitados
+     * @param ntratos
+     * @param ordstatus
+     * @param tratosrealizados
+     * @param diferencacarregamento
+     * @param tolerancias
+     * @param starttimeload
+     * @param ajuste
+     * @param operatordisc
+     * @param pesosrealizados
+     * @param currenttrato
+     */
+    public Ordem(Integer ajuste, List<String> currais, Integer currenttrato, String data, List<List<String>> diferencacarregamento, List<List<String>> diferencadescarregamento, List<List<String>> ingredientes, Integer ncurrais, Integer ntratos, String ordemproducao, Integer ordstatus, List<List<String>> pesosrealizados, List<List<String>> pesosrequisitados, List<String> receitas, List<List<String>> tolerancias, List<List<String>> tratos, List<List<String>> tratosrealizados, List<String> starttimeload, List<String> finishtimeload, List<String> starttimedisc, List<String> finishtimedisc, List<String> operatorload, List<String> operatordisc) {
+        super();
+        this.ajuste = ajuste;
+        this.currais = currais;
+        this.currenttrato = currenttrato;
+        this.data = data;
+        this.diferencacarregamento = diferencacarregamento;
+        this.diferencadescarregamento = diferencadescarregamento;
         this.ingredientes = ingredientes;
-    }
-
-    public List<List<String>> getPesosrequisitados() {
-        return pesosrequisitados;
-    }
-
-    public void setPesosrequisitados(List<List<String>> pesosrequisitados) {
-        this.pesosrequisitados = pesosrequisitados;
-    }
-
-    public List<List<String>> getTolerancias() {
-        return tolerancias;
-    }
-
-    public void setTolerancias(List<List<String>> tolerancias) {
-        this.tolerancias = tolerancias;
-    }
-
-    public Integer getNcurrais() {
-        return ncurrais;
-    }
-
-    public void setNcurrais(Integer ncurrais) {
         this.ncurrais = ncurrais;
+        this.ntratos = ntratos;
+        this.ordemproducao = ordemproducao;
+        this.ordstatus = ordstatus;
+        this.pesosrealizados = pesosrealizados;
+        this.pesosrequisitados = pesosrequisitados;
+        this.receitas = receitas;
+        this.tolerancias = tolerancias;
+        this.tratos = tratos;
+        this.tratosrealizados = tratosrealizados;
+        this.starttimeload = starttimeload;
+        this.finishtimeload = finishtimeload;
+        this.starttimedisc = starttimedisc;
+        this.finishtimedisc = finishtimedisc;
+        this.operatorload = operatorload;
+        this.operatordisc = operatordisc;
+    }
+
+    public Integer getAjuste() {
+        return ajuste;
+    }
+
+    public void setAjuste(Integer ajuste) {
+        this.ajuste = ajuste;
     }
 
     public List<String> getCurrais() {
@@ -82,6 +104,110 @@ public class Ordem {
         this.currais = currais;
     }
 
+    public Integer getCurrenttrato() {
+        return currenttrato;
+    }
+
+    public void setCurrenttrato(Integer currenttrato) {
+        this.currenttrato = currenttrato;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public List<List<String>> getDiferencacarregamento() {
+        return diferencacarregamento;
+    }
+
+    public void setDiferencacarregamento(List<List<String>> diferencacarregamento) {
+        this.diferencacarregamento = diferencacarregamento;
+    }
+
+    public List<List<String>> getDiferencadescarregamento() {
+        return diferencadescarregamento;
+    }
+
+    public void setDiferencadescarregamento(List<List<String>> diferencadescarregamento) {
+        this.diferencadescarregamento = diferencadescarregamento;
+    }
+
+    public List<List<String>> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<List<String>> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public Integer getNcurrais() {
+        return ncurrais;
+    }
+
+    public void setNcurrais(Integer ncurrais) {
+        this.ncurrais = ncurrais;
+    }
+
+    public Integer getNtratos() {
+        return ntratos;
+    }
+
+    public void setNtratos(Integer ntratos) {
+        this.ntratos = ntratos;
+    }
+
+    public String getOrdemproducao() {
+        return ordemproducao;
+    }
+
+    public void setOrdemproducao(String ordemproducao) {
+        this.ordemproducao = ordemproducao;
+    }
+
+    public Integer getOrdstatus() {
+        return ordstatus;
+    }
+
+    public void setOrdstatus(Integer ordstatus) {
+        this.ordstatus = ordstatus;
+    }
+
+    public List<List<String>> getPesosrealizados() {
+        return pesosrealizados;
+    }
+
+    public void setPesosrealizados(List<List<String>> pesosrealizados) {
+        this.pesosrealizados = pesosrealizados;
+    }
+
+    public List<List<String>> getPesosrequisitados() {
+        return pesosrequisitados;
+    }
+
+    public void setPesosrequisitados(List<List<String>> pesosrequisitados) {
+        this.pesosrequisitados = pesosrequisitados;
+    }
+
+    public List<String> getReceitas() {
+        return receitas;
+    }
+
+    public void setReceitas(List<String> receitas) {
+        this.receitas = receitas;
+    }
+
+    public List<List<String>> getTolerancias() {
+        return tolerancias;
+    }
+
+    public void setTolerancias(List<List<String>> tolerancias) {
+        this.tolerancias = tolerancias;
+    }
+
     public List<List<String>> getTratos() {
         return tratos;
     }
@@ -90,11 +216,59 @@ public class Ordem {
         this.tratos = tratos;
     }
 
-    /*public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    public List<List<String>> getTratosrealizados() {
+        return tratosrealizados;
     }
 
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }*/
+    public void setTratosrealizados(List<List<String>> tratosrealizados) {
+        this.tratosrealizados = tratosrealizados;
+    }
+
+    public List<String> getStarttimeload() {
+        return starttimeload;
+    }
+
+    public void setStarttimeload(List<String> starttimeload) {
+        this.starttimeload = starttimeload;
+    }
+
+    public List<String> getFinishtimeload() {
+        return finishtimeload;
+    }
+
+    public void setFinishtimeload(List<String> finishtimeload) {
+        this.finishtimeload = finishtimeload;
+    }
+
+    public List<String> getStarttimedisc() {
+        return starttimedisc;
+    }
+
+    public void setStarttimedisc(List<String> starttimedisc) {
+        this.starttimedisc = starttimedisc;
+    }
+
+    public List<String> getFinishtimedisc() {
+        return finishtimedisc;
+    }
+
+    public void setFinishtimedisc(List<String> finishtimedisc) {
+        this.finishtimedisc = finishtimedisc;
+    }
+
+    public List<String> getOperatorload() {
+        return operatorload;
+    }
+
+    public void setOperatorload(List<String> operatorload) {
+        this.operatorload = operatorload;
+    }
+
+    public List<String> getOperatordisc() {
+        return operatordisc;
+    }
+
+    public void setOperatordisc(List<String> operatordisc) {
+        this.operatordisc = operatordisc;
+    }
 }

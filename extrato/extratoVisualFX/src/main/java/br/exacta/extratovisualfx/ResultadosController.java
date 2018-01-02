@@ -5,9 +5,14 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.json.resultadoJSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,7 +44,9 @@ public class ResultadosController implements Initializable {
     @FXML
     private Button btnImportar;
     @FXML
-    private Button btnExportar;
+    private Button btnExportarCarregamento;
+    @FXML
+    private Button btnExportarDescarregamento;
     @FXML
     private Text lblLista;
     @FXML
@@ -62,11 +69,22 @@ public class ResultadosController implements Initializable {
                 File arquivo = escolherArquivo.showOpenDialog(null);
                 
                 // MANIPULACAO DO ARQUIVO JSON ESCOLHIDO
-                //ObjectMapper objectMapper = new ObjectMapper();
+                ObjectMapper objectMapper = new ObjectMapper();
+                
+                try { 
+                    resultadoJSON resultado = objectMapper.readValue(arquivo, resultadoJSON.class);
+                    
+                    
+                
+                
+                } catch (IOException ex) {
+                    Logger.getLogger(ResultadosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
-        // PARA EXPORTAR PARA CSV        
+        // PARA EXPORTAR PARA CSV   
+        
     }
 
 }

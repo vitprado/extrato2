@@ -1,16 +1,44 @@
 package br.exacta.json;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.util.List;
 
-
-/**
- *
- * @author Thales
- */
 public class resultadoJSON {
-    
+
+    private List<Equip> equips = null;
+    private Integer nequipamentos;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public resultadoJSON() {
+    }
+
+    /**
+     *
+     * @param nequipamentos
+     * @param equips
+     */
+    public resultadoJSON(List<Equip> equips, Integer nequipamentos) {
+        super();
+        this.equips = equips;
+        this.nequipamentos = nequipamentos;
+    }
+
+    public List<Equip> getEquips() {
+        return equips;
+    }
+
+    public void setEquips(List<Equip> equips) {
+        this.equips = equips;
+    }
+
+    public Integer getNequipamentos() {
+        return nequipamentos;
+    }
+
+    public void setNequipamentos(Integer nequipamentos) {
+        this.nequipamentos = nequipamentos;
+    }
+
 }
