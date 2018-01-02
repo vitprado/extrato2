@@ -9,9 +9,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
   <modules>
-    <module>extratoVisualFX</module>
     <module>persistencia</module>
     <module>json</module>
+    <module>extratoVisualFX</module>
   </modules>
     <name>Extrato</name>
 </project>
