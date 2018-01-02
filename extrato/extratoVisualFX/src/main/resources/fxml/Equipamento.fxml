@@ -8,112 +8,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentoController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentoController">
    <children>
-      <Text layoutX="24.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos">
-         <font>
-            <Font name="Segoe UI Semilight" size="48.0" />
-         </font>
-      </Text>
-      <Text fill="#a5aab2" layoutX="328.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abaixo todos os equipamentos cadastrados">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Text>
-      <AnchorPane fx:id="apAcoes" layoutX="514.0" layoutY="94.0" prefHeight="662.0" prefWidth="277.0" style="-fx-border-color: white white white #cccccc;">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ações do Sistema">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos">
                <font>
-                  <Font name="Segoe UI Semilight" size="24.0" />
+                  <Font name="Segoe UI Semilight" size="48.0" />
                </font>
             </Text>
-            <VBox alignment="CENTER" layoutX="14.0" layoutY="48.0" prefHeight="372.0" prefWidth="252.0">
+            <GridPane>
+              <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Button fx:id="btnNovo" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="NOVO">
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2" />
+                  <Text fx:id="lblPlaca" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Placa">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnAlterar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="ALTERAR">
+                  </Text>
+                  <TextField fx:id="txtPlaca" prefHeight="31.0" prefWidth="152.0" GridPane.columnIndex="1" />
+                  <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" GridPane.rowIndex="1">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnRemover" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="REMOVER">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnSalvar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="SALVAR">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnRelatorio" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="RELATÓRIO">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
+                  </Text>
+                  <TextField fx:id="txtDescricao" prefHeight="31.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
-            </VBox>
+            </GridPane>
+            <TableView fx:id="tbvDados">
+              <columns>
+                <TableColumn fx:id="tbcCodigo" prefWidth="43.0" text="#" />
+                <TableColumn fx:id="tbcPlaca" prefWidth="107.0" text="PLACA" />
+                  <TableColumn fx:id="tbcDescricao" prefWidth="234.0" text="DESCRICAO" />
+                  <TableColumn fx:id="tbcData" prefWidth="107.0" text="DATA" />
+              </columns>
+            </TableView>
          </children>
-      </AnchorPane>
-      <Text fx:id="lblDados" fill="#a5aab2" fontSmoothingType="LCD" layoutX="14.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informe os dados">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="lblLista" fill="#a5aab2" fontSmoothingType="LCD" layoutX="14.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de dados inseridos">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Text>
-      <AnchorPane layoutX="14.0" layoutY="133.0" prefHeight="189.0" prefWidth="493.0" style="-fx-border-color: #a5aab2;">
-         <children>
-            <Text fx:id="lblPlaca" fontSmoothingType="LCD" layoutX="120.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Placa">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-            </Text>
-            <TextField fx:id="txtPlaca" layoutX="120.0" layoutY="44.0" prefHeight="31.0" prefWidth="152.0" />
-            <Text fx:id="lblCodigo" fontSmoothingType="LCD" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-            </Text>
-            <TextField fx:id="txtCodigo" editable="false" layoutX="14.0" layoutY="44.0" prefHeight="31.0" prefWidth="92.0" />
-            <TextField fx:id="txtDescricao" layoutX="285.0" layoutY="44.0" prefHeight="31.0" prefWidth="185.0" />
-            <Text fx:id="lblDescricao" fontSmoothingType="LCD" layoutX="285.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-            </Text>
-            <Text fx:id="lblData" fontSmoothingType="LCD" layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data de Cadastro">
-               <font>
-                  <Font name="Segoe UI Semilight" size="16.0" />
-               </font>
-            </Text>
-            <DatePicker fx:id="dtpData" editable="false" layoutX="14.0" layoutY="114.0" prefHeight="31.0" prefWidth="129.0" />
-         </children></AnchorPane>
-      <TableView fx:id="tbvDados" layoutX="14.0" layoutY="358.0" prefHeight="398.0" prefWidth="493.0">
-        <columns>
-          <TableColumn fx:id="tbcCodigo" prefWidth="43.0" text="#" />
-          <TableColumn fx:id="tbcPlaca" prefWidth="107.0" text="PLACA" />
-            <TableColumn fx:id="tbcDescricao" prefWidth="234.0" text="DESCRICAO" />
-            <TableColumn fx:id="tbcData" prefWidth="107.0" text="DATA" />
-        </columns>
-      </TableView>
+      </VBox>
    </children>
 </AnchorPane>

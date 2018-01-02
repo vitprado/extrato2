@@ -8,70 +8,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
     <children>
-        <Text fill="#a5aab2" fontSmoothingType="LCD" layoutX="253.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abaixo temos os resultados do arquivo JSON">
-            <font>
-                <Font name="Segoe UI Semilight" size="18.0" />
-            </font>
-        </Text>
-        <Text layoutX="24.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados">
-            <font>
-                <Font name="Segoe UI Semilight" size="48.0" />
-            </font>
-        </Text>
-        <AnchorPane layoutX="14.0" layoutY="133.0" prefHeight="108.0" prefWidth="493.0" style="-fx-border-color: #a5aab2;">
-            <children>
-                <Text fx:id="lblNome" fontSmoothingType="LCD" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caminho do Arquivo JSON">
-                    <font>
-                        <Font name="Segoe UI Semilight" size="16.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="txtNome" disable="true" editable="false" layoutX="14.0" layoutY="44.0" prefHeight="31.0" prefWidth="465.0">
-               <font>
-                  <Font name="System Bold Italic" size="15.0" />
-               </font></TextField>
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="apAcoes" layoutX="514.0" layoutY="94.0" prefHeight="662.0" prefWidth="277.0" style="-fx-border-color: white white white #cccccc;">
-            <children>
-                <Text fx:id="lblAcoes" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ações do Sistema">
-                    <font>
-                        <Font name="Segoe UI Semilight" size="24.0" />
-                    </font>
-                </Text>
-                <VBox fx:id="vbBotoes" alignment="TOP_CENTER" layoutX="14.0" layoutY="48.0" prefHeight="372.0" prefWidth="252.0">
-                    <children>
-                        <Button fx:id="btnImportar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="IMPORTAR ARQUIVO JSON">
-                            <font>
-                                <Font name="System Bold" size="15.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnExportar" alignment="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="252.0" text="EXPORTAR ARQUIVO CSV">
-                            <font>
-                                <Font name="System Bold" size="15.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Button>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
-        <Text fx:id="lblLista" fill="#a5aab2" fontSmoothingType="LCD" layoutX="14.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dados do arquivo JSON">
-            <font>
-                <Font name="Segoe UI Semilight" size="18.0" />
-            </font>
-        </Text>
-        <Text fx:id="lblDados" fill="#a5aab2" fontSmoothingType="LCD" layoutX="14.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dados">
-            <font>
-                <Font name="Segoe UI Semilight" size="18.0" />
-            </font>
-        </Text>
-        <AnchorPane layoutX="14.0" layoutY="277.0" prefHeight="481.0" prefWidth="493.0" style="-fx-border-color: #a5aab2;" />
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados">
+                  <font>
+                      <Font name="Segoe UI Semilight" size="48.0" />
+                  </font>
+              </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Selecione o arquivo programacao.json: " />
+                        <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR" />
+               </children>
+            </HBox>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
