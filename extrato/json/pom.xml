@@ -35,5 +35,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish/jsonp-jaxrs -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jsonp-jaxrs</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 </project>

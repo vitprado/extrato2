@@ -1,7 +1,5 @@
 package br.exacta.json;
 
-
-import br.exacta.json.Ordem;
 import java.util.List;
 
 public class Equip {
@@ -16,6 +14,7 @@ public class Equip {
      */
     public Equip() {
     }
+
     /**
      *
      * @param nordens
@@ -29,7 +28,7 @@ public class Equip {
         this.ordens = ordens;
     }
 
-    public String getEquipamento() {
+    public String z() {
         return equipamento;
     }
 

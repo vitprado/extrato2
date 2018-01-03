@@ -61,7 +61,7 @@ public class Ordem {
      * @param pesosrealizados
      * @param currenttrato
      */
-    public Ordem(Integer ajuste, List<String> currais, Integer currenttrato, String data, List<List<String>> diferencacarregamento, List<List<String>> diferencadescarregamento, List<List<String>> ingredientes, Integer ncurrais, Integer ntratos, String ordemproducao, Integer ordstatus, List<List<String>> pesosrealizados, List<List<String>> pesosrequisitados, List<String> receitas, List<List<String>> tolerancias, List<List<String>> tratos, List<List<String>> tratosrealizados, List<String> starttimeload, List<String> finishtimeload, List<String> starttimedisc, List<String> finishtimedisc, List<String> operatorload, List<String> operatordisc) {
+public Ordem(Integer ajuste, List<String> currais, Integer currenttrato, String data, List<List<String>> diferencacarregamento, List<List<String>> diferencadescarregamento, List<List<String>> ingredientes, Integer ncurrais, Integer ntratos, String ordemproducao, Integer ordstatus, List<List<String>> pesosrealizados, List<List<String>> pesosrequisitados, List<String> receitas, List<List<String>> tolerancias, List<List<String>> tratos, List<List<String>> tratosrealizados, List<String> starttimeload, List<String> finishtimeload, List<String> starttimedisc, List<String> finishtimedisc, List<String> operatorload, List<String> operatordisc) {
         super();
         this.ajuste = ajuste;
         this.currais = currais;
@@ -271,4 +271,5 @@ public class Ordem {
     public void setOperatordisc(List<String> operatordisc) {
         this.operatordisc = operatordisc;
     }
+
 }
