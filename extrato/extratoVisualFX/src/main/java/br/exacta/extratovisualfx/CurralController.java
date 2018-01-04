@@ -59,7 +59,6 @@ public class CurralController implements Initializable {
             public ListCell<Curral> call(ListView<Curral> param) {
                 ListCell<Curral> listCell;
                 
-                
                 listCell = new ListCell() {
                     @Override
                     protected void updateItem(Object item, boolean empty) {
@@ -80,7 +79,6 @@ public class CurralController implements Initializable {
         btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
 
                 if (!txtNome.getText().trim().isEmpty()) {
                     Curral novo = new Curral();

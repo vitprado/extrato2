@@ -38,11 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Receita.findByRctDataCadastro", query = "SELECT r FROM Receita r WHERE r.rctDataCadastro = :rctDataCadastro")})
 public class Receita implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
-    private List<ReceitaTemIngredientes> receitaTemIngredientesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
-    private List<Trato> tratoList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,96 +50,45 @@ public class Receita implements Serializable {
     @Column(name = "RCT_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date rctDataCadastro;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
+    private List<ReceitaTemIngredientes> receitaTemIngredientesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
+    private List<Trato> tratoList;
 
     public Receita() {
     }
 
-    /**
-     *
-     * @param rctCodigo
-     */
     public Receita(Integer rctCodigo) {
         this.rctCodigo = rctCodigo;
     }
 
-    /**
-     *
-     * @param rctCodigo
-     * @param rctDataCadastro
-     */
     public Receita(Integer rctCodigo, Date rctDataCadastro) {
         this.rctCodigo = rctCodigo;
         this.rctDataCadastro = rctDataCadastro;
     }
 
-    /**
-     *
-     * @return
-     */
     public Integer getRctCodigo() {
         return rctCodigo;
     }
 
-    /**
-     *
-     * @param rctCodigo
-     */
     public void setRctCodigo(Integer rctCodigo) {
         this.rctCodigo = rctCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getRctNome() {
         return rctNome;
     }
 
-    /**
-     *
-     * @param rctNome
-     */
     public void setRctNome(String rctNome) {
         this.rctNome = rctNome;
     }
 
-    /**
-     *
-     * @return
-     */
     public Date getRctDataCadastro() {
         return rctDataCadastro;
     }
 
-    /**
-     *
-     * @param rctDataCadastro
-     */
     public void setRctDataCadastro(Date rctDataCadastro) {
         this.rctDataCadastro = rctDataCadastro;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (rctCodigo != null ? rctCodigo.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Receita)) {
-            return false;
-        }
-        Receita other = (Receita) object;
-        return !((this.rctCodigo == null && other.rctCodigo != null) || (this.rctCodigo != null && !this.rctCodigo.equals(other.rctCodigo)));
-    }
-
-    @Override
-    public String toString() {
-        return "br.exacta.persistencia.Receita[ rctCodigo=" + rctCodigo + " ]";
     }
 
     @XmlTransient
@@ -163,6 +107,31 @@ public class Receita implements Serializable {
 
     public void setTratoList(List<Trato> tratoList) {
         this.tratoList = tratoList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (rctCodigo != null ? rctCodigo.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Receita)) {
+            return false;
+        }
+        Receita other = (Receita) object;
+        if ((this.rctCodigo == null && other.rctCodigo != null) || (this.rctCodigo != null && !this.rctCodigo.equals(other.rctCodigo))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.exacta.persistencia.Receita[ rctCodigo=" + rctCodigo + " ]";
     }
     
 }

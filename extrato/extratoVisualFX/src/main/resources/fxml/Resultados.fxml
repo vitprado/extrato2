@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
-    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados">
-                  <font>
-                      <Font name="Segoe UI Semilight" size="48.0" />
-                  </font>
-              </Text>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Selecione o arquivo programacao.json: " />
-                        <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR" />
-               </children>
-            </HBox>
-            <TableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
-    </children>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+  <children>
+    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados">
+          <font>
+            <Font name="Segoe UI Semilight" size="48.0" />
+          </font>
+        </Text>
+        <HBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label prefWidth="318.0" text="Selecione o arquivo programacao.json: " />
+            <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR" />
+            <Button fx:id="btnSalvar" mnemonicParsing="false" text="SALVAR">
+              <HBox.margin>
+                <Insets left="10.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
+        <Label text="RESULTADO DO CARREGAMENTO" />
+        <TableView fx:id="tbvCarregamento" prefHeight="417.0" prefWidth="800.0">
+          <columns>
+            <TableColumn prefWidth="75.0" text="#" fx:id="idSequencial" />
+            <TableColumn prefWidth="75.0" text="EQUIPAMENTO" fx:id="tbcEquipamento" />
+            <TableColumn prefWidth="75.0" text="ORDEM" fx:id="tbcOrdem" />
+            <TableColumn prefWidth="75.0" text="TRATO" fx:id="tbcTrato" />
+            <TableColumn prefWidth="75.0" text="INGREDIENTE" fx:id="tbcIngrediente" />
+            <TableColumn prefWidth="75.0" text="PESO REQUISITADO" fx:id="tbcPesoRequisitado" />
+            <TableColumn prefWidth="75.0" text="PESO REALIZADO" fx:id="tbcPesoRealizado" />
+          </columns>
+        </TableView>
+        <Label text="RESULTADO DO DESCARREGAMENTO" />
+        <TableView fx:id="tbvDescarregamento" prefHeight="417.0" prefWidth="800.0">
+          <columns>
+            <TableColumn prefWidth="75.0" text="#" fx:id="idSequencial" />
+            <TableColumn prefWidth="75.0" text="EQUIPAMENTO" fx:id="tbdEquipamento" />
+            <TableColumn prefWidth="75.0" text="ORDEM" fx:id="tbdOrdem" />
+            <TableColumn prefWidth="75.0" text="TRATO" fx:id="tbdTrato" />
+            <TableColumn prefWidth="75.0" text="CURRAL" fx:id="tbdCurral" />
+            <TableColumn prefWidth="75.0" text="TRATO REQUISITADO" fx:id="tbdTratoRequisitado" />
+            <TableColumn prefWidth="75.0" text="TRATO REALIZADO" fx:id="tbdRealizado" />
+          </columns>
+        </TableView>
+      </children>
+    </VBox>
+  </children>
 </AnchorPane>

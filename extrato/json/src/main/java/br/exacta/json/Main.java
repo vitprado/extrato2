@@ -1,8 +1,5 @@
 package br.exacta.json;
 
-import java.io.File;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

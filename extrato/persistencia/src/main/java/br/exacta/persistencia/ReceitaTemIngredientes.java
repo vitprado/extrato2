@@ -30,11 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReceitaTemIngredientes.findAll", query = "SELECT r FROM ReceitaTemIngredientes r")
     , @NamedQuery(name = "ReceitaTemIngredientes.findByRctCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.receitaTemIngredientesPK.rctCodigo = :rctCodigo")
     , @NamedQuery(name = "ReceitaTemIngredientes.findByIngCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.receitaTemIngredientesPK.ingCodigo = :ingCodigo")
-    , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiData", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiData = :rtiData")})
+    , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiData", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiData = :rtiData")
+    , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiProporcao", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiProporcao = :rtiProporcao")})
 public class ReceitaTemIngredientes implements Serializable {
-
-    @Column(name = "RTI_PROPORCAO")
-    private Integer rtiProporcao;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -42,6 +40,8 @@ public class ReceitaTemIngredientes implements Serializable {
     @Column(name = "RTI_DATA")
     @Temporal(TemporalType.DATE)
     private Date rtiData;
+    @Column(name = "RTI_PROPORCAO")
+    private Integer rtiProporcao;
     @JoinColumn(name = "ING_CODIGO", referencedColumnName = "ING_CODIGO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ingredientes ingredientes;
@@ -74,6 +74,14 @@ public class ReceitaTemIngredientes implements Serializable {
 
     public void setRtiData(Date rtiData) {
         this.rtiData = rtiData;
+    }
+
+    public Integer getRtiProporcao() {
+        return rtiProporcao;
+    }
+
+    public void setRtiProporcao(Integer rtiProporcao) {
+        this.rtiProporcao = rtiProporcao;
     }
 
     public Ingredientes getIngredientes() {
@@ -115,14 +123,6 @@ public class ReceitaTemIngredientes implements Serializable {
     @Override
     public String toString() {
         return "br.exacta.persistencia.ReceitaTemIngredientes[ receitaTemIngredientesPK=" + receitaTemIngredientesPK + " ]";
-    }
-
-    public Integer getRtiProporcao() {
-        return rtiProporcao;
-    }
-
-    public void setRtiProporcao(Integer rtiProporcao) {
-        this.rtiProporcao = rtiProporcao;
     }
     
 }

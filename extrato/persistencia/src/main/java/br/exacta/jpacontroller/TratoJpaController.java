@@ -39,8 +39,8 @@ public class TratoJpaController implements Serializable {
         if (trato.getTratoPK() == null) {
             trato.setTratoPK(new TratoPK());
         }
-        trato.getTratoPK().setRctCodigo(trato.getReceita().getRctCodigo());
         trato.getTratoPK().setCurCodigo(trato.getCurral().getCurCodigo());
+        trato.getTratoPK().setRctCodigo(trato.getReceita().getRctCodigo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -78,8 +78,8 @@ public class TratoJpaController implements Serializable {
     }
 
     public void edit(Trato trato) throws NonexistentEntityException, Exception {
-        trato.getTratoPK().setRctCodigo(trato.getReceita().getRctCodigo());
         trato.getTratoPK().setCurCodigo(trato.getCurral().getCurCodigo());
+        trato.getTratoPK().setRctCodigo(trato.getReceita().getRctCodigo());
         EntityManager em = null;
         try {
             em = getEntityManager();

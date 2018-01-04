@@ -6,8 +6,7 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.jpacontroller.exceptions.PreexistingEntityException;
-import br.exacta.persistencia.ResultadosDescarregamento;
+import br.exacta.persistencia.Descarregamento;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author Thales
  */
-public class ResultadosDescarregamentoJpaController implements Serializable {
+public class DescarregamentoJpaController implements Serializable {
 
-    public ResultadosDescarregamentoJpaController(EntityManagerFactory emf) {
+    public DescarregamentoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -32,18 +31,13 @@ public class ResultadosDescarregamentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(ResultadosDescarregamento resultadosDescarregamento) throws PreexistingEntityException, Exception {
+    public void create(Descarregamento descarregamento) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(resultadosDescarregamento);
+            em.persist(descarregamento);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findResultadosDescarregamento(resultadosDescarregamento.getRdgCodigoPai()) != null) {
-                throw new PreexistingEntityException("ResultadosDescarregamento " + resultadosDescarregamento + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -51,19 +45,19 @@ public class ResultadosDescarregamentoJpaController implements Serializable {
         }
     }
 
-    public void edit(ResultadosDescarregamento resultadosDescarregamento) throws NonexistentEntityException, Exception {
+    public void edit(Descarregamento descarregamento) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            resultadosDescarregamento = em.merge(resultadosDescarregamento);
+            descarregamento = em.merge(descarregamento);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = resultadosDescarregamento.getRdgCodigoPai();
-                if (findResultadosDescarregamento(id) == null) {
-                    throw new NonexistentEntityException("The resultadosDescarregamento with id " + id + " no longer exists.");
+                Integer id = descarregamento.getRdgCodigo();
+                if (findDescarregamento(id) == null) {
+                    throw new NonexistentEntityException("The descarregamento with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -79,14 +73,14 @@ public class ResultadosDescarregamentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ResultadosDescarregamento resultadosDescarregamento;
+            Descarregamento descarregamento;
             try {
-                resultadosDescarregamento = em.getReference(ResultadosDescarregamento.class, id);
-                resultadosDescarregamento.getRdgCodigoPai();
+                descarregamento = em.getReference(Descarregamento.class, id);
+                descarregamento.getRdgCodigo();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The resultadosDescarregamento with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The descarregamento with id " + id + " no longer exists.", enfe);
             }
-            em.remove(resultadosDescarregamento);
+            em.remove(descarregamento);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -95,19 +89,19 @@ public class ResultadosDescarregamentoJpaController implements Serializable {
         }
     }
 
-    public List<ResultadosDescarregamento> findResultadosDescarregamentoEntities() {
-        return findResultadosDescarregamentoEntities(true, -1, -1);
+    public List<Descarregamento> findDescarregamentoEntities() {
+        return findDescarregamentoEntities(true, -1, -1);
     }
 
-    public List<ResultadosDescarregamento> findResultadosDescarregamentoEntities(int maxResults, int firstResult) {
-        return findResultadosDescarregamentoEntities(false, maxResults, firstResult);
+    public List<Descarregamento> findDescarregamentoEntities(int maxResults, int firstResult) {
+        return findDescarregamentoEntities(false, maxResults, firstResult);
     }
 
-    private List<ResultadosDescarregamento> findResultadosDescarregamentoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Descarregamento> findDescarregamentoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(ResultadosDescarregamento.class));
+            cq.select(cq.from(Descarregamento.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -119,20 +113,20 @@ public class ResultadosDescarregamentoJpaController implements Serializable {
         }
     }
 
-    public ResultadosDescarregamento findResultadosDescarregamento(Integer id) {
+    public Descarregamento findDescarregamento(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(ResultadosDescarregamento.class, id);
+            return em.find(Descarregamento.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getResultadosDescarregamentoCount() {
+    public int getDescarregamentoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<ResultadosDescarregamento> rt = cq.from(ResultadosDescarregamento.class);
+            Root<Descarregamento> rt = cq.from(Descarregamento.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

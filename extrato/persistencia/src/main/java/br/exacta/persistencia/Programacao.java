@@ -39,63 +39,29 @@ public class Programacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRG_CODIGO")
     private Integer prgCodigo;
-    @Basic(optional = false)
     @Column(name = "PRG_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date prgDataCadastro;
 
-    /**
-     *
-     */
     public Programacao() {
     }
 
-    /**
-     *
-     * @param prgCodigo
-     */
     public Programacao(Integer prgCodigo) {
         this.prgCodigo = prgCodigo;
     }
 
-    /**
-     *
-     * @param prgCodigo
-     * @param prgDataCadastro
-     */
-    public Programacao(Integer prgCodigo, Date prgDataCadastro) {
-        this.prgCodigo = prgCodigo;
-        this.prgDataCadastro = prgDataCadastro;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Integer getPrgCodigo() {
         return prgCodigo;
     }
 
-    /**
-     *
-     * @param prgCodigo
-     */
     public void setPrgCodigo(Integer prgCodigo) {
         this.prgCodigo = prgCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public Date getPrgDataCadastro() {
         return prgDataCadastro;
     }
 
-    /**
-     *
-     * @param prgDataCadastro
-     */
     public void setPrgDataCadastro(Date prgDataCadastro) {
         this.prgDataCadastro = prgDataCadastro;
     }
@@ -114,7 +80,10 @@ public class Programacao implements Serializable {
             return false;
         }
         Programacao other = (Programacao) object;
-        return !((this.prgCodigo == null && other.prgCodigo != null) || (this.prgCodigo != null && !this.prgCodigo.equals(other.prgCodigo)));
+        if ((this.prgCodigo == null && other.prgCodigo != null) || (this.prgCodigo != null && !this.prgCodigo.equals(other.prgCodigo))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

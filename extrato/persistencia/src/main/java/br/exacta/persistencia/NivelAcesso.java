@@ -33,9 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "NivelAcesso.findByNvaDescricao", query = "SELECT n FROM NivelAcesso n WHERE n.nvaDescricao = :nvaDescricao")})
 public class NivelAcesso implements Serializable {
 
-    @OneToMany(mappedBy = "nvaCodigo")
-    private List<Usuario> usuarioList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,51 +41,39 @@ public class NivelAcesso implements Serializable {
     private Integer nvaCodigo;
     @Column(name = "NVA_DESCRICAO")
     private String nvaDescricao;
+    @OneToMany(mappedBy = "nvaCodigo")
+    private List<Usuario> usuarioList;
 
-    /**
-     *
-     */
     public NivelAcesso() {
     }
 
-    /**
-     *
-     * @param nvaCodigo
-     */
     public NivelAcesso(Integer nvaCodigo) {
         this.nvaCodigo = nvaCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public Integer getNvaCodigo() {
         return nvaCodigo;
     }
 
-    /**
-     *
-     * @param nvaCodigo
-     */
     public void setNvaCodigo(Integer nvaCodigo) {
         this.nvaCodigo = nvaCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getNvaDescricao() {
         return nvaDescricao;
     }
 
-    /**
-     *
-     * @param nvaDescricao
-     */
     public void setNvaDescricao(String nvaDescricao) {
         this.nvaDescricao = nvaDescricao;
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override
@@ -105,21 +90,15 @@ public class NivelAcesso implements Serializable {
             return false;
         }
         NivelAcesso other = (NivelAcesso) object;
-        return !((this.nvaCodigo == null && other.nvaCodigo != null) || (this.nvaCodigo != null && !this.nvaCodigo.equals(other.nvaCodigo)));
+        if ((this.nvaCodigo == null && other.nvaCodigo != null) || (this.nvaCodigo != null && !this.nvaCodigo.equals(other.nvaCodigo))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
         return "br.exacta.persistencia.NivelAcesso[ nvaCodigo=" + nvaCodigo + " ]";
-    }
-
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
-    }
-
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
     }
     
 }

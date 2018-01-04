@@ -39,63 +39,29 @@ public class OrdemProcucao implements Serializable {
     @Basic(optional = false)
     @Column(name = "ORD_CODIGO")
     private Integer ordCodigo;
-    @Basic(optional = false)
     @Column(name = "ORD_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date ordDataCadastro;
 
-    /**
-     *
-     */
     public OrdemProcucao() {
     }
 
-    /**
-     *
-     * @param ordCodigo
-     */
     public OrdemProcucao(Integer ordCodigo) {
         this.ordCodigo = ordCodigo;
     }
 
-    /**
-     *
-     * @param ordCodigo
-     * @param ordDataCadastro
-     */
-    public OrdemProcucao(Integer ordCodigo, Date ordDataCadastro) {
-        this.ordCodigo = ordCodigo;
-        this.ordDataCadastro = ordDataCadastro;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Integer getOrdCodigo() {
         return ordCodigo;
     }
 
-    /**
-     *
-     * @param ordCodigo
-     */
     public void setOrdCodigo(Integer ordCodigo) {
         this.ordCodigo = ordCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public Date getOrdDataCadastro() {
         return ordDataCadastro;
     }
 
-    /**
-     *
-     * @param ordDataCadastro
-     */
     public void setOrdDataCadastro(Date ordDataCadastro) {
         this.ordDataCadastro = ordDataCadastro;
     }
@@ -114,7 +80,10 @@ public class OrdemProcucao implements Serializable {
             return false;
         }
         OrdemProcucao other = (OrdemProcucao) object;
-        return !((this.ordCodigo == null && other.ordCodigo != null) || (this.ordCodigo != null && !this.ordCodigo.equals(other.ordCodigo)));
+        if ((this.ordCodigo == null && other.ordCodigo != null) || (this.ordCodigo != null && !this.ordCodigo.equals(other.ordCodigo))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

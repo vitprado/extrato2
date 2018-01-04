@@ -6,8 +6,7 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.jpacontroller.exceptions.PreexistingEntityException;
-import br.exacta.persistencia.ResultadosCarregamento;
+import br.exacta.persistencia.Carregamento;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author Thales
  */
-public class ResultadosCarregamentoJpaController implements Serializable {
+public class CarregamentoJpaController implements Serializable {
 
-    public ResultadosCarregamentoJpaController(EntityManagerFactory emf) {
+    public CarregamentoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -32,18 +31,13 @@ public class ResultadosCarregamentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(ResultadosCarregamento resultadosCarregamento) throws PreexistingEntityException, Exception {
+    public void create(Carregamento carregamento) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(resultadosCarregamento);
+            em.persist(carregamento);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findResultadosCarregamento(resultadosCarregamento.getRcgCodigoPai()) != null) {
-                throw new PreexistingEntityException("ResultadosCarregamento " + resultadosCarregamento + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -51,19 +45,19 @@ public class ResultadosCarregamentoJpaController implements Serializable {
         }
     }
 
-    public void edit(ResultadosCarregamento resultadosCarregamento) throws NonexistentEntityException, Exception {
+    public void edit(Carregamento carregamento) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            resultadosCarregamento = em.merge(resultadosCarregamento);
+            carregamento = em.merge(carregamento);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = resultadosCarregamento.getRcgCodigoPai();
-                if (findResultadosCarregamento(id) == null) {
-                    throw new NonexistentEntityException("The resultadosCarregamento with id " + id + " no longer exists.");
+                Integer id = carregamento.getRdcCodigo();
+                if (findCarregamento(id) == null) {
+                    throw new NonexistentEntityException("The carregamento with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -79,14 +73,14 @@ public class ResultadosCarregamentoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ResultadosCarregamento resultadosCarregamento;
+            Carregamento carregamento;
             try {
-                resultadosCarregamento = em.getReference(ResultadosCarregamento.class, id);
-                resultadosCarregamento.getRcgCodigoPai();
+                carregamento = em.getReference(Carregamento.class, id);
+                carregamento.getRdcCodigo();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The resultadosCarregamento with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The carregamento with id " + id + " no longer exists.", enfe);
             }
-            em.remove(resultadosCarregamento);
+            em.remove(carregamento);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -95,19 +89,19 @@ public class ResultadosCarregamentoJpaController implements Serializable {
         }
     }
 
-    public List<ResultadosCarregamento> findResultadosCarregamentoEntities() {
-        return findResultadosCarregamentoEntities(true, -1, -1);
+    public List<Carregamento> findCarregamentoEntities() {
+        return findCarregamentoEntities(true, -1, -1);
     }
 
-    public List<ResultadosCarregamento> findResultadosCarregamentoEntities(int maxResults, int firstResult) {
-        return findResultadosCarregamentoEntities(false, maxResults, firstResult);
+    public List<Carregamento> findCarregamentoEntities(int maxResults, int firstResult) {
+        return findCarregamentoEntities(false, maxResults, firstResult);
     }
 
-    private List<ResultadosCarregamento> findResultadosCarregamentoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Carregamento> findCarregamentoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(ResultadosCarregamento.class));
+            cq.select(cq.from(Carregamento.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -119,20 +113,20 @@ public class ResultadosCarregamentoJpaController implements Serializable {
         }
     }
 
-    public ResultadosCarregamento findResultadosCarregamento(Integer id) {
+    public Carregamento findCarregamento(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(ResultadosCarregamento.class, id);
+            return em.find(Carregamento.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getResultadosCarregamentoCount() {
+    public int getCarregamentoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<ResultadosCarregamento> rt = cq.from(ResultadosCarregamento.class);
+            Root<Carregamento> rt = cq.from(Carregamento.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Equipamento.findAll", query = "SELECT e FROM Equipamento e")
     , @NamedQuery(name = "Equipamento.findByEqpCodigo", query = "SELECT e FROM Equipamento e WHERE e.eqpCodigo = :eqpCodigo")
     , @NamedQuery(name = "Equipamento.findByEpqPlaca", query = "SELECT e FROM Equipamento e WHERE e.epqPlaca = :epqPlaca")
-    , @NamedQuery(name = "Equipamento.findByEqpDescricao", query = "SELECT e FROM Equipamento e WHERE e.eqpDescricao = :eqpDescricao")
-    , @NamedQuery(name = "Equipamento.findByEqpDataCadastro", query = "SELECT e FROM Equipamento e WHERE e.eqpDataCadastro = :eqpDataCadastro")})
+    , @NamedQuery(name = "Equipamento.findByEqpDataCadastro", query = "SELECT e FROM Equipamento e WHERE e.eqpDataCadastro = :eqpDataCadastro")
+    , @NamedQuery(name = "Equipamento.findByEqpDescricao", query = "SELECT e FROM Equipamento e WHERE e.eqpDescricao = :eqpDescricao")})
 public class Equipamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,104 +41,51 @@ public class Equipamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "EQP_CODIGO")
     private Integer eqpCodigo;
-    @Basic(optional = false)
     @Column(name = "EPQ_PLACA")
     private String epqPlaca;
-    @Column(name = "EQP_DESCRICAO")
-    private String eqpDescricao;
-    @Basic(optional = false)
     @Column(name = "EQP_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date eqpDataCadastro;
+    @Column(name = "EQP_DESCRICAO")
+    private String eqpDescricao;
 
-    /**
-     *
-     */
     public Equipamento() {
     }
 
-    /**
-     *
-     * @param eqpCodigo
-     */
     public Equipamento(Integer eqpCodigo) {
         this.eqpCodigo = eqpCodigo;
     }
 
-    /**
-     *
-     * @param eqpCodigo
-     * @param epqPlaca
-     * @param eqpDataCadastro
-     */
-    public Equipamento(Integer eqpCodigo, String epqPlaca, Date eqpDataCadastro) {
-        this.eqpCodigo = eqpCodigo;
-        this.epqPlaca = epqPlaca;
-        this.eqpDataCadastro = eqpDataCadastro;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Integer getEqpCodigo() {
         return eqpCodigo;
     }
 
-    /**
-     *
-     * @param eqpCodigo
-     */
     public void setEqpCodigo(Integer eqpCodigo) {
         this.eqpCodigo = eqpCodigo;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getEpqPlaca() {
         return epqPlaca;
     }
 
-    /**
-     *
-     * @param epqPlaca
-     */
     public void setEpqPlaca(String epqPlaca) {
         this.epqPlaca = epqPlaca;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getEqpDescricao() {
-        return eqpDescricao;
-    }
-
-    /**
-     *
-     * @param eqpDescricao
-     */
-    public void setEqpDescricao(String eqpDescricao) {
-        this.eqpDescricao = eqpDescricao;
-    }
-
-    /**
-     *
-     * @return
-     */
     public Date getEqpDataCadastro() {
         return eqpDataCadastro;
     }
 
-    /**
-     *
-     * @param eqpDataCadastro
-     */
     public void setEqpDataCadastro(Date eqpDataCadastro) {
         this.eqpDataCadastro = eqpDataCadastro;
+    }
+
+    public String getEqpDescricao() {
+        return eqpDescricao;
+    }
+
+    public void setEqpDescricao(String eqpDescricao) {
+        this.eqpDescricao = eqpDescricao;
     }
 
     @Override
@@ -155,7 +102,10 @@ public class Equipamento implements Serializable {
             return false;
         }
         Equipamento other = (Equipamento) object;
-        return !((this.eqpCodigo == null && other.eqpCodigo != null) || (this.eqpCodigo != null && !this.eqpCodigo.equals(other.eqpCodigo)));
+        if ((this.eqpCodigo == null && other.eqpCodigo != null) || (this.eqpCodigo != null && !this.eqpCodigo.equals(other.eqpCodigo))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

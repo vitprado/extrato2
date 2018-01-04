@@ -5,10 +5,10 @@
  */
 package br.exacta.extratovisualfx;
 
-import br.exacta.json.Equip;
-import br.exacta.json.Ordem;
-import br.exacta.json.resultadoJSON;
-import com.google.gson.stream.JsonReader;
+import br.exacta.dao.CarregamentoDAO;
+import br.exacta.dao.DescarregamentoDAO;
+import br.exacta.persistencia.Carregamento;
+import br.exacta.persistencia.Descarregamento;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -24,12 +24,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonValue;
 
 /**
  * FXML Controller class
@@ -40,6 +40,54 @@ public class ResultadosController implements Initializable {
 
     @FXML
     private Button btnImportar;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private TableView<?> tbvCarregamento;
+    @FXML
+    private TableColumn<?, ?> idSequencial;
+    @FXML
+    private TableColumn<?, ?> tbcEquipamento;
+    @FXML
+    private TableColumn<?, ?> tbcOrdem;
+    @FXML
+    private TableColumn<?, ?> tbcTrato;
+    @FXML
+    private TableColumn<?, ?> tbcIngrediente;
+    @FXML
+    private TableColumn<?, ?> tbcPesoRequisitado;
+    @FXML
+    private TableColumn<?, ?> tbcPesoRealizado;
+    @FXML
+    private TableView<?> tbvDescarregamento;
+    @FXML
+    private TableColumn<?, ?> tbdEquipamento;
+    @FXML
+    private TableColumn<?, ?> tbdOrdem;
+    @FXML
+    private TableColumn<?, ?> tbdTrato;
+    @FXML
+    private TableColumn<?, ?> tbdCurral;
+    @FXML
+    private TableColumn<?, ?> tbdTratoRequisitado;
+    @FXML
+    private TableColumn<?, ?> tbcRealizado;
+
+    // VARIÁVEIS 
+    String equipamento;
+    int nordens = 0;
+    int ntratos = 0;
+    String currais;
+    String ordemproducao = "";
+    String pesosrequisitados;
+    String pesosrealizados;
+    String tratosrequisitados;
+    String tratosrealizados;
+    String ingredientes;
+    int contTrato = 0;
+
+    private final CarregamentoDAO carregamentoDAO = new CarregamentoDAO();
+    private final DescarregamentoDAO descarregamentoDAO = new DescarregamentoDAO();
 
     /**
      * Initializes the controller class.
@@ -63,15 +111,6 @@ public class ResultadosController implements Initializable {
                 // MANIPULACAO DO ARQUIVO JSON ESCOLHIDO
                 InputStream fis;
                 try {
-                    String equipamento;
-                    int nordens = 0;
-                    String currais;
-                    String ordemproducao = "";
-                    String pesosrequisitados;
-                    String pesosrealizados;
-                    String ingredientes;
-                    int contTrato = 0;
-
                     fis = new FileInputStream(arquivo);
                     javax.json.JsonReader reader = Json.createReader(fis);
                     JsonObject jsonObject = reader.readObject();
@@ -80,44 +119,53 @@ public class ResultadosController implements Initializable {
                     for (int i = 0; i < jsonObject.size(); i++) {
 
                         // PEGO OS EQUIPAMENTOS
-                        System.out.println("==================================================================================");
+                        //System.out.println("==================================================================================");
                         equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
-                        System.out.println("Equipamento: " + equipamento);
-                        System.out.println("\n");
+                        //System.out.println("Equipamento: " + equipamento);
                         // PEGO O NÚMERO DE ORDENS
                         nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
-                        System.out.println("Num. Ordens: " + nordens);
-
-                        System.out.println("Tratos: " + (contTrato = i + 1));
+                        //System.out.println("Num. Ordens: " + nordens);
 
                         for (int j = 0; j < nordens; j++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
 
                             ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonString("ordemproducao").toString();
-                            System.out.println("Ordem de Produção: " + ordemproducao);
+                            //System.out.println("Ordem de Produção: " + ordemproducao);
 
-                            // PEGO INGREDIENTES
-                            ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
-                            System.out.println("Ingredientes: " + ingredientes);
+                            ntratos = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonNumber("ntratos").intValue();
+                            //System.out.println("Qtde de Tatros: " + ntratos + "\n");
 
-                            // PEGO OS CURRAIS
-                            currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
-                            System.out.println("Currais: " + currais);
+                            for (int k = 0; k < ntratos; k++) {
+                                contTrato = k + 1;
+                                //System.out.println("Tatro: " + (contTrato));
 
-                            // PESOS REQUISITADOS
-                            pesosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados").toString();
-                            System.out.println("Pesos requisitados: " + pesosrequisitados);
+                                // PEGO INGREDIENTES
+                                ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
+                                //System.out.println("Ingredientes: " + ingredientes);
 
-                            // PESOS REALIZADOS
-                            pesosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").
-                                    getJsonObject(j).getJsonArray("pesosrealizados").toString();
-                            System.out.println("Pesos realizados: " + pesosrealizados);
-                            System.out.println("\n");
+                                // PESOS REQUISITADOS
+                                pesosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados").toString();
+                                //System.out.println("Pesos requisitados: " + pesosrequisitados);
 
+                                // PESOS REALIZADOS
+                                pesosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrealizados").toString();
+                                //System.out.println("Pesos realizados: " + pesosrealizados + "\n");
+
+                                // PEGO OS CURRAIS
+                                currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
+                                //System.out.println("Currais: " + currais);
+
+                                // PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
+                                tratosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratos").toString();
+                                //System.out.println("Tratos Requisitados: " + tratosrequisitados);
+
+                                // PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
+                                tratosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratosrealizados").toString();
+                                //System.out.println("Tratos Realizados: " + tratosrealizados);
+
+                                //System.out.println("------------------------------------------------------------------------------------");
+                            }
                         }
                     }
-
-                    //nordens = jsonObject.getJsonArray("equips").getJsonObject(0).getJsonNumber("nordens").intValue();                    
-                    //ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(1).toString();
                     reader.close();
                     fis.close();
 
@@ -126,13 +174,47 @@ public class ResultadosController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(ResultadosController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+        });
 
+        // GRAVAÇÃO NO BANCO DOS DADOS
+        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // ACOES DE BANCO
+                // TESTE AO GRAVAR
+                Carregamento novoCarregamento = new Carregamento();
+                Descarregamento novoDescarregamento = new Descarregamento();
+
+                // PARA O CARREGAMENTO
+                novoCarregamento.setRdcCodigo(2);
+                novoCarregamento.setRdcEquipamento("ABC1234");
+                novoCarregamento.setRdcOrdem("2017-0001");
+                novoCarregamento.setRdcNumtrato(1);
+                novoCarregamento.setRdcIngrediente("MIL");
+                novoCarregamento.setRdcPesorequisitado("200");
+                novoCarregamento.setRdcPesorealizado("200");
+                //novoCarregamento.setRdcDatacriacao(new Timestamp(System.currentTimeMillis()));
+
+                // PARA O DESCARREGAMENTO
+                novoDescarregamento.setRdgCodigo(2);
+                novoDescarregamento.setRdgEquipamento("ABC1234");
+                novoDescarregamento.setRdgOrdem("2017-0001");
+                novoDescarregamento.setRdgNumtrato(1);
+                novoDescarregamento.setRdgCurral("MIL");
+                novoDescarregamento.setRdgTratorequisitado("200");
+                novoDescarregamento.setRdgTratorealizado("200");
+                //novoDescarregamento.setRdgDatacriacao(new Timestamp(System.currentTimeMillis()));
+                try {
+                    carregamentoDAO.adicionarCarregamento(novoCarregamento);
+                    descarregamentoDAO.adicionarDescarregamento(novoDescarregamento);
+                    System.out.println("GRAVOU NO BANCO!");
+                } catch (Exception ex) {
+                    Logger.getLogger(ResultadosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         // PARA EXPORTAR PARA CSV 
-        // SELECIONA O TIPO DE TABELA, RETORNANDO SE É VALOR 1 OU 2 (CARREGAMENTO OU DESCARREGAMENTO)
-        
-        
         // CONTINUA, VOU ADICIONANDO MAIS COISAS AINDA
     }
 }
