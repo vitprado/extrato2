@@ -5,14 +5,10 @@
  */
 package br.exacta.extratovisualfx;
 
-//import br.exacta.dao.ReceitaDAO;
 import br.exacta.dao.ReceitaDAO;
-import br.exacta.persistencia.Ingredientes;
 import br.exacta.persistencia.Receita;
-import br.exacta.persistencia.ReceitaTemIngredientes;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,13 +19,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -40,53 +34,24 @@ import javafx.util.Callback;
  */
 public class ReceitaController implements Initializable {
 
-    @FXML
-    private AnchorPane apAcoes;
-    @FXML
-    private Text lblAcoes;
-    @FXML
-    private VBox vbBotoes;
-    @FXML
-    private Button btnNovo;
-    @FXML
-    private Button btnAlterar;
-    @FXML
     private Button btnRemover;
-    @FXML
     private Button btnSalvar;
-    @FXML
-    private Button btnRelatorio;
     @FXML
     private Text lblDados;
     @FXML
     private Text lblLista;
     @FXML
     private ListView<Receita> ltvDados;
-    @FXML
-    private AnchorPane apDados;
-    @FXML
-    private TextField txtCodigo;
-    @FXML
-    private Text lblCodigo;
-    @FXML
     private TextField txtNome;
-    @FXML
-    private Text lblNome;
-    @FXML
-    private Text lblProporcao;
-    @FXML
-    private TextField txtProporcao;
-    @FXML
-    private Text lblIngrediente;
-    @FXML
-    private ComboBox<Ingredientes> cbIngredientes;
-    @FXML
-    private Text lblData;
-    @FXML
-    private DatePicker dtpData;
 
     private final ObservableList<Receita> listaReceita = FXCollections.observableArrayList();
     private final ReceitaDAO receitaDAO = new ReceitaDAO();
+    @FXML
+    private Color x1;
+    @FXML
+    private Font x2;
+    @FXML
+    private Font x3;
 
     /**
      * Initializes the controller class.
@@ -106,10 +71,10 @@ public class ReceitaController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             Receita receitas = (Receita) item;
-                            setText(receitas.getRctCodigo().toString());
+                            //setText(receitas.getRctCodigo().toString());
                             setText(receitas.getRctNome());
                             //                           setText(receitas.get); // Proporcao
-                            setText(receitas.getRctDataCadastro().toString());
+                            //setText(receitas.getRctDataCadastro().toString());
                         } else {
                             setText("");
                         }
