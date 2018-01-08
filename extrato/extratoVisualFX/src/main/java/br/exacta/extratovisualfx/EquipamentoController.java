@@ -91,6 +91,8 @@ public class EquipamentoController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,10 +110,8 @@ public class EquipamentoController implements Initializable {
                         super.updateItem(item, empty);
                         if (item != null) {
                             Equipamento equipamento = (Equipamento) item;
-                            setText(equipamento.getEqpCodigo().toString());
-                            setText(equipamento.getEpqPlaca());
+                            //setText(equipamento.getEpqPlaca());
                             setText(equipamento.getEqpDescricao());
-                            setText(equipamento.getEqpDataCadastro().toString());
                         } else {
                             setText("");
                         }

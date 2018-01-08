@@ -13,10 +13,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -27,7 +25,7 @@ import javafx.scene.layout.VBox;
 public class MenuController implements Initializable {
 
     @FXML
-    private ImageView imgLogo;
+    private final ImageView imgLogo = new ImageView();
     @FXML
     private Button btnUsuarios;
     @FXML
@@ -92,7 +90,7 @@ public class MenuController implements Initializable {
         btnReceitas.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Receita.fxml");
+                config.carregarAnchorPane(apDados,"ReceitaLista.fxml");
             }
         });        
         // BOTAO DE ORDENS DE PRODUCAO 

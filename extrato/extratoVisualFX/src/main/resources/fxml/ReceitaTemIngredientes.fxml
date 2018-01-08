@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ReceitaTemIngredientesController">
+  <children>
+    <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredientes">
+      <font>
+        <Font name="Segoe UI Semilight" size="48.0" />
+      </font>
+    </Text>
+    <Text fill="#a5aab2" layoutX="279.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adiçao de Ingredientes na Receita">
+      <font>
+        <Font name="Segoe UI Semilight" size="18.0" />
+      </font>
+    </Text>
+    <GridPane layoutX="14.0" layoutY="93.0" prefWidth="572.0">
+      <children>
+        <Label prefHeight="23.941314697265625" text="Receita selecionada" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+          <GridPane.margin>
+            <Insets right="10.0" fx:id="x1" />
+          </GridPane.margin>
+        </TextField>
+        <Label prefHeight="23.941314697265625" text="Ingrediente a selecionar" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label prefHeight="23.941314697265625" text="Proporção do Ingrediente" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ComboBox prefWidth="397.0" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="1">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="2" />
+        <Button mnemonicParsing="false" prefWidth="118.0" text="VOLTAR" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <Button mnemonicParsing="false" prefWidth="118.0" text="ADICIONAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Button mnemonicParsing="false" prefWidth="118.0" text="REMOVER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="176.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="278.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="118.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <ListView layoutX="14.0" layoutY="193.0" prefHeight="200.0" prefWidth="572.0" />
+    <Button fx:id="btnFechar" layoutX="551.0" layoutY="14.0" mnemonicParsing="false" text="X" />
+  </children>
+</AnchorPane>
