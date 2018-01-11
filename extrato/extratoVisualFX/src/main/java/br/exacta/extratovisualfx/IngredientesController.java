@@ -87,15 +87,13 @@ public class IngredientesController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 
-                Integer tolerancia = Integer.parseInt(txtTolerancia.getText());
-                
                 if (!txtDescricao.getText().trim().isEmpty() &&
                     !txtAbreviacao.getText().trim().isEmpty() &&
                     !txtTolerancia.getText().trim().isEmpty()) {
                     Ingredientes novo = new Ingredientes();
                     novo.setIngNome(txtDescricao.getText());
                     novo.setIngAbreviacao(txtAbreviacao.getText());
-                    novo.setIngTolerancia(tolerancia);
+                    novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
 
                     try {
                         ingredientesDAO.adicionarIngrediente(novo);

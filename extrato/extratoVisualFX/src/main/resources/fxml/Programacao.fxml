@@ -5,7 +5,19 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ProgramacaoController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="872.8623046875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ProgramacaoController">
+  <children>
+    <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programação">
+      <font>
+        <Font name="Segoe UI Semilight" size="48.0" />
+      </font>
+    </Text>
+    <Text fill="#a5aab2" layoutX="303.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tela responsável por listar e gerar programação para a balança EX3001L">
+      <font>
+        <Font name="Segoe UI Semilight" size="18.0" />
+      </font>
+    </Text>
+  </children>
 </AnchorPane>

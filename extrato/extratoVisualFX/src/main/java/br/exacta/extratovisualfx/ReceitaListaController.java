@@ -5,6 +5,7 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.ReceitaDAO;
 import br.exacta.persistencia.Receita;
 import java.awt.event.MouseEvent;
@@ -118,16 +119,9 @@ public class ReceitaListaController implements Initializable {
                     Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
                     if (itemSelecionado != null) {
                         // QUERO ABRIR OUTRA TELA QUANDO CLICAR DUAS VEZES NO ITEM SELECIONADO
-                        Stage stage = new Stage();
-                        try {
-                            AnchorPane tela;
-                            tela = FXMLLoader.load(getClass().getResource("/fxml/ReceitaTemIngredientes.fxml"));
-                            Scene caixaDialogo = new Scene(tela);
-                            stage.setScene(caixaDialogo);
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(ReceitaListaController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        String strTela = "ReceitaTemIngredientes";
+                        Config config = new Config();
+                        config.carregarAnchorPaneDialog(strTela);
                     }
                 }
             }
