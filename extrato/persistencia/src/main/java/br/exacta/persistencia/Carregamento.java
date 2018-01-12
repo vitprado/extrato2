@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Carregamento.findByRdcNumtrato", query = "SELECT c FROM Carregamento c WHERE c.rdcNumtrato = :rdcNumtrato")
     , @NamedQuery(name = "Carregamento.findByRdcIngrediente", query = "SELECT c FROM Carregamento c WHERE c.rdcIngrediente = :rdcIngrediente")
     , @NamedQuery(name = "Carregamento.findByRdcPesorequisitado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorequisitado = :rdcPesorequisitado")
-    , @NamedQuery(name = "Carregamento.findByRdcPesorealizado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorealizado = :rdcPesorealizado")})
+    , @NamedQuery(name = "Carregamento.findByRdcPesorealizado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorealizado = :rdcPesorealizado")
+    , @NamedQuery(name = "Carregamento.findByRdcDataJson", query = "SELECT c FROM Carregamento c WHERE c.rdcDataJson = :rdcDataJson")
+    , @NamedQuery(name = "Carregamento.findByRdcReceita", query = "SELECT c FROM Carregamento c WHERE c.rdcReceita = :rdcReceita")})
 public class Carregamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +55,10 @@ public class Carregamento implements Serializable {
     private String rdcPesorequisitado;
     @Column(name = "RDC_PESOREALIZADO")
     private String rdcPesorealizado;
+    @Column(name = "RDC_DATA_JSON")
+    private String rdcDataJson;
+    @Column(name = "RDC_RECEITA")
+    private String rdcReceita;
 
     public Carregamento() {
     }
@@ -115,6 +121,22 @@ public class Carregamento implements Serializable {
 
     public void setRdcPesorealizado(String rdcPesorealizado) {
         this.rdcPesorealizado = rdcPesorealizado;
+    }
+
+    public String getRdcDataJson() {
+        return rdcDataJson;
+    }
+
+    public void setRdcDataJson(String rdcDataJson) {
+        this.rdcDataJson = rdcDataJson;
+    }
+
+    public String getRdcReceita() {
+        return rdcReceita;
+    }
+
+    public void setRdcReceita(String rdcReceita) {
+        this.rdcReceita = rdcReceita;
     }
 
     @Override

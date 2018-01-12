@@ -16,6 +16,7 @@ public class Main {
             String equipamento;
             int nordens = 0;
             int ntratos = 0;
+            String receita;
             String currais;
             String ordemproducao = "";
             String pesosrequisitados;
@@ -51,9 +52,14 @@ public class Main {
                     for (int k = 0; k < ntratos; k++) {
                         contTrato = k;
                         System.out.println("Tatro: " + (contTrato + 1));
-
+                        
+                        // PEGO RECEITA
+                        receita = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas").toString();
+                        System.out.println("Receita: " + receita);
+                        
                         // PEGO INGREDIENTES
                         ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
+                        System.out.println("CARREGAMENTO");
                         System.out.println("Ingredientes: " + ingredientes);
 
                         // PESOS REQUISITADOS
@@ -65,6 +71,7 @@ public class Main {
                         System.out.println("Pesos realizados: " + pesosrealizados + "\n");
 
                         // PEGO OS CURRAIS
+                        System.out.println("DESCARREGAMENTO");
                         currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
                         System.out.println("Currais: " + currais);
 

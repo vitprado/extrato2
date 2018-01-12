@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Descarregamento.findByRdgNumtrato", query = "SELECT d FROM Descarregamento d WHERE d.rdgNumtrato = :rdgNumtrato")
     , @NamedQuery(name = "Descarregamento.findByRdgCurral", query = "SELECT d FROM Descarregamento d WHERE d.rdgCurral = :rdgCurral")
     , @NamedQuery(name = "Descarregamento.findByRdgTratorequisitado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorequisitado = :rdgTratorequisitado")
-    , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")})
+    , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")
+    , @NamedQuery(name = "Descarregamento.findByRdgDataJson", query = "SELECT d FROM Descarregamento d WHERE d.rdgDataJson = :rdgDataJson")})
 public class Descarregamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +54,8 @@ public class Descarregamento implements Serializable {
     private String rdgTratorequisitado;
     @Column(name = "RDG_TRATOREALIZADO")
     private String rdgTratorealizado;
+    @Column(name = "RDG_DATA_JSON")
+    private String rdgDataJson;
 
     public Descarregamento() {
     }
@@ -115,6 +118,14 @@ public class Descarregamento implements Serializable {
 
     public void setRdgTratorealizado(String rdgTratorealizado) {
         this.rdgTratorealizado = rdgTratorealizado;
+    }
+
+    public String getRdgDataJson() {
+        return rdgDataJson;
+    }
+
+    public void setRdgDataJson(String rdgDataJson) {
+        this.rdgDataJson = rdgDataJson;
     }
 
     @Override
