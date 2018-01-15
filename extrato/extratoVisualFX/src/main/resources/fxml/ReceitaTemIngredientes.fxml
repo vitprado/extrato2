@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ReceitaTemIngredientesController">
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ReceitaTemIngredientesController">
   <children>
     <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredientes">
       <font>
@@ -26,7 +26,7 @@
         <Label prefHeight="23.941314697265625" text="Receita selecionada" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Label prefHeight="23.941314697265625" text="Ingrediente a selecionar" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <Label prefHeight="23.941314697265625" text="Proporção do Ingrediente" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField fx:id="txtReceitaNome" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <TextField fx:id="txtReceitaNome" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <GridPane.margin>
             <Insets right="10.0" fx:id="x1" />
           </GridPane.margin>
@@ -41,7 +41,6 @@
           </items>
         </ComboBox>
         <TextField fx:id="txtProporcao" prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="2" />
-        <Button fx:id="btnVoltar" mnemonicParsing="false" prefWidth="118.0" text="VOLTAR" GridPane.columnIndex="2" GridPane.rowIndex="0" />
         <Button id="btnAdicionarLIsta" fx:id="btnAdicionarLista" mnemonicParsing="false" prefWidth="118.0" text="ADICIONAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <Button fx:id="btnRemoverLista" mnemonicParsing="false" prefWidth="118.0" text="REMOVER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       </children>
