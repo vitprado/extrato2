@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentoController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentosController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,17 +34,23 @@
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtPlaca" prefHeight="31.0" prefWidth="152.0" GridPane.columnIndex="1" />
                   <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtDescricao" prefHeight="31.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <TableView fx:id="tbvDados">
+            <TableView fx:id="tbvDados" prefHeight="488.0" prefWidth="800.0">
               <columns>
                 <TableColumn fx:id="tbcCodigo" prefWidth="43.0" text="#" />
                 <TableColumn fx:id="tbcPlaca" prefWidth="107.0" text="PLACA" />

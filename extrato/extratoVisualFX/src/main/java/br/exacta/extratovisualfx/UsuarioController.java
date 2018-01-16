@@ -31,51 +31,13 @@ public class UsuarioController implements Initializable {
     @FXML
     private TextField txtNome;
     @FXML
-    private Text lblCodigo;
-    @FXML
-    private TextField txtCodigo;
-    @FXML
-    private Text lblLogin;
-    @FXML
-    private TextField txtLogin;
-    @FXML
-    private Text lblSenha;
-    @FXML
-    private PasswordField tpwSenha;
-    @FXML
-    private Text lblData;
-    @FXML
-    private DatePicker dtpData;
-    @FXML
-    private Text lblNivelAcesso;
-    @FXML
-    private ComboBox<?> cbbNivelAcesso;
-    @FXML
-    private Text lblEmpresa;
-    @FXML
-    private ComboBox<?> cbbEmpresa;
-    @FXML
-    private AnchorPane apAcoes;
-    @FXML
-    private Text lblAcoes;
-    @FXML
-    private VBox vbBotoes;
-    @FXML
-    private Button btnNovo;
-    @FXML
-    private Button btnAlterar;
-    @FXML
     private Button btnRemover;
     @FXML
     private Button btnSalvar;
     @FXML
-    private Button btnRelatorio;
-    @FXML
     private ListView<?> ltvDados;
     @FXML
-    private Text lblLista;
-    @FXML
-    private Text lblDados;
+    private AnchorPane apUsuariosPrincipal;
 
 
 

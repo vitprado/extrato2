@@ -40,7 +40,7 @@ import javafx.scene.control.TableView;
  *
  * @author Thales
  */
-public class EquipamentoController implements Initializable {
+public class EquipamentosController implements Initializable {
 
     @FXML
     private TextField txtPlaca;
@@ -79,7 +79,7 @@ public class EquipamentoController implements Initializable {
     private final ObservableList<Equipamento> listaEquipamento = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
     @FXML
-    private TableView<?> tbvDados;
+    private TableView<Equipamento> tbvDados;
     @FXML
     private TableColumn<?, ?> tbcCodigo;
     @FXML

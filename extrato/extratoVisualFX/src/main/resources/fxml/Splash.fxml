@@ -8,13 +8,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apSplash" prefHeight="327.0" prefWidth="493.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SplashController">
+<fx:root id="AnchorPane" fx:id="apSplash" prefHeight="327.0" prefWidth="493.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SplashController">
    <children>
-      <AnchorPane fx:id="apBackground" layoutX="74.0" layoutY="14.0" prefHeight="327.0" prefWidth="518.0" style="-fx-background-color: #2b579a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="apBackground" layoutX="74.0" layoutY="14.0" prefHeight="327.0" prefWidth="518.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox fx:id="vbInfo" layoutX="14.0" layoutY="278.0" spacing="3.0">
                <children>
-                  <Text fx:id="txtDireitos" fill="WHITE" layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Todos os direitos reservados © 2017 - Exacta Balanças">
+                  <Text fx:id="txtDireitos" fill="WHITE" layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Todos os direitos reservados © 2018 - Exacta Balanças">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
                      </font>
@@ -31,23 +31,8 @@
                   <Image url="@../../java/br/exacta/imagens/icone-270x270.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgLoading" fitHeight="16.0" fitWidth="179.0" layoutX="159.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/294.GIF" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="imgExactaLogo" fitHeight="35.0" fitWidth="158.0" layoutX="397.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/logo.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fx:id="imgBackground" opacity="0.26" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/br/exacta/imagens/bg-back-splash.jpg" />
-         </image>
-      </ImageView>
       <Text fx:id="lblNomeLogo" fill="WHITE" fontSmoothingType="LCD" layoutX="254.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="e   Trato">
          <font>
             <Font name="Aquawax Medium" size="60.0" />
@@ -63,5 +48,15 @@
             <Image url="@../../java/br/exacta/imagens/icone-192x192.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="imgExactaLogo" fitHeight="35.0" fitWidth="158.0" layoutX="412.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/br/exacta/imagens/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgBackground" opacity="0.26" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../java/br/exacta/imagens/bg-back-splash.jpg" />
+         </image>
+      </ImageView>
    </children>
-</AnchorPane>
+</fx:root>

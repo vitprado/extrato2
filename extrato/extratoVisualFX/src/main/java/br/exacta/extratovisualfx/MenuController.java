@@ -76,7 +76,7 @@ public class MenuController implements Initializable {
         btnEquipamentos.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Equipamento.fxml");
+                config.carregarAnchorPane(apDados,"Equipamentos.fxml");
             }
         });        
         // BOTAO DE INGREDIENTES
