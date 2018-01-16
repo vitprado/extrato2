@@ -104,7 +104,7 @@ public class MenuController implements Initializable {
         btnProgramacao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Programacao.fxml");
+                config.carregarAnchorPane(apDados,"ProgramarLista.fxml");
             }
         });        
         // BOTAO DE RESULTADOS
