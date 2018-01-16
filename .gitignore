@@ -22,5 +22,9 @@
 log/
 target/
 
+# IntelliJ Files
+.idea
+*.iml
+
 # Derby Database
 extrato/extratoVisualFX/extrato/
