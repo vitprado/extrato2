@@ -21,7 +21,7 @@ public class Config {
     public static void caixaDialogo(Alert.AlertType alertType, String s) {
         Alert alert = new Alert(alertType, s);
         alert.initStyle(StageStyle.UTILITY);
-        alert.setTitle("Informação");
+        alert.setTitle("MENSAGEM DO SISTEMA");
         alert.showAndWait();
     }
 
