@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text fx:id="lblNome" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+                  <Text fx:id="lblNome" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" textAlignment="CENTER">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -38,7 +38,7 @@
                   <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <ListView fx:id="ltvDados" />
+            <ListView fx:id="ltvDados" prefHeight="489.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
    </children>

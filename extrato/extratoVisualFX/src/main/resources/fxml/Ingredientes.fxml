@@ -19,9 +19,9 @@
             </Text>
             <GridPane>
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="92.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="339.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="369.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -29,29 +29,44 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2" />
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Button>
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Button>
                   <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtDescricao" prefHeight="31.0" prefWidth="351.0" GridPane.columnIndex="1" />
                   <Text fx:id="lblAbreviacao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Abreviação" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtAbreviacao" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text fx:id="lblTolerancia" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Tolerância" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtTolerancia" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <ListView fx:id="ltvDados" />
+            <ListView fx:id="ltvDados" prefHeight="445.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
    </children>

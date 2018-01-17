@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,40 +8,50 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
    <children>
-      <Text fill="#a5aab2" layoutX="314.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tela responsável em listar todas as ordens do equipamento">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Text>
-      <Text layoutX="24.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programação">
-         <font>
-            <Font name="Segoe UI Semilight" size="48.0" />
-         </font>
-      </Text>
-      <GridPane layoutX="31.0" layoutY="114.0" prefHeight="54.0" prefWidth="435.0">
-        <columnConstraints>
-          <ColumnConstraints maxWidth="293.0" minWidth="10.0" prefWidth="96.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="339.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <VBox prefHeight="630.0" prefWidth="964.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField prefHeight="31.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label contentDisplay="CENTER" text="Equipamento" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Programação">
+               <font>
+                  <Font name="Segoe UI Semilight" size="48.0" />
+               </font>
+            </Text>
+            <GridPane prefWidth="948.0">
+               <children>
+                  <Button id="btnSalvar" fx:id="btnProgramar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="PROGRAMAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Segoe UI Semilight" size="16.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Text>
+                  <ComboBox fx:id="cbbEquipamento" prefHeight="31.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="113.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="571.0" minWidth="10.0" prefWidth="313.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="162.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="375.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <TableView prefHeight="512.0" prefWidth="964.0" VBox.vgrow="SOMETIMES">
+              <columns>
+                <TableColumn prefWidth="162.0" text="Ordem de Produção" />
+                <TableColumn minWidth="0.0" prefWidth="412.0" text="Receitas" />
+                  <TableColumn minWidth="0.0" prefWidth="62.0" text="Tratos" />
+                  <TableColumn minWidth="0.0" prefWidth="193.0" text="Currais" />
+                  <TableColumn prefWidth="98.0" text="Ação" />
+              </columns>
+            </TableView>
          </children>
-      </GridPane>
-      <TableView layoutX="12.0" layoutY="184.0" prefHeight="434.0" prefWidth="940.0">
-        <columns>
-          <TableColumn prefWidth="162.0" text="Ordem de Produção" />
-          <TableColumn minWidth="0.0" prefWidth="412.0" text="Receitas" />
-            <TableColumn minWidth="0.0" prefWidth="62.0" text="Tratos" />
-            <TableColumn minWidth="0.0" prefWidth="193.0" text="Currais" />
-            <TableColumn prefWidth="98.0" text="Ação" />
-        </columns>
-      </TableView>
+      </VBox>
    </children>
 </AnchorPane>
