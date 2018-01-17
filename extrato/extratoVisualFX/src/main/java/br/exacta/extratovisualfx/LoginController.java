@@ -23,6 +23,10 @@ import javafx.scene.text.Text;
 public class LoginController implements Initializable {
 
     @FXML
+    private ImageView imgSenha;
+    @FXML
+    private ImageView imgUser;
+    @FXML
     private ImageView imgExtratoLogo2;
     @FXML
     private Text lblNomeLogo;
@@ -33,13 +37,14 @@ public class LoginController implements Initializable {
     @FXML
     private Button btnEntrar;
 
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
     }    
     
 }

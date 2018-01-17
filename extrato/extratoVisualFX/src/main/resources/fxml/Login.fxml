@@ -16,12 +16,12 @@
             <Font name="Segoe UI Semibold" size="30.0" />
          </font>
       </Label>
-      <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgSenha" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/br/exacta/imagens/icon_senha.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgUser" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../java/br/exacta/imagens/icon_user.png" />
          </image>

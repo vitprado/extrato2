@@ -97,7 +97,7 @@ public class MenuController implements Initializable {
         btnOrdemProducao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"OrdemProducao.fxml");
+                config.carregarAnchorPane(apDados,"Ordem.fxml");
             }
         });        
         // BOTAO DE PROGRAMACAO
