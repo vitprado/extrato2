@@ -8,9 +8,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="apPrincipal" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
     <children>            
-          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
+          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
               <children>                  
-                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logotipo-menu">
                <image>
                   <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />
                </image>                  

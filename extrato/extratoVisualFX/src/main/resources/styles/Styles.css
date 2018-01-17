@@ -1,3 +1,11 @@
 .button {
     -fx-font-weight: bold;
 }
+
+.logotipo-menu{
+    -fx-background-radius: 0;
+    -fx-border-style: null;
+    -fx-background-color: null;
+    -fx-background-image:url("/br/exacta/imagens/logo-extrato-sem-fundo.png");
+    -fx-background-repeat:no-repeat;
+}
