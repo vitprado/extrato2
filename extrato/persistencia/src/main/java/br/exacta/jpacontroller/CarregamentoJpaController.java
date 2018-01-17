@@ -150,7 +150,7 @@ public class CarregamentoJpaController implements Serializable {
     }
 
     public List<Carregamento> findDescarregamentos(CarregamentoJpaFilter filter) {
-        EntityManager em = getEntityManager();n
+        EntityManager em = getEntityManager();
         try {
             StringBuilder stringBuilder = new StringBuilder("select * from CARREGAMENTO where 1 = 1");
 
