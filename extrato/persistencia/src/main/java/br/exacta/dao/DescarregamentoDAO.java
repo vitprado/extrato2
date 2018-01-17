@@ -6,6 +6,7 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.DescarregamentoJpaController;
+import br.exacta.jpacontroller.DescarregamentoJpaFilter;
 import br.exacta.persistencia.Descarregamento;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -79,6 +80,14 @@ public class DescarregamentoDAO {
      */
     public Descarregamento getDescarregamentolId(int id) {
         return descarregamentoController.findDescarregamento(id);
+    }
+
+    public List<String> getEquipamentosDistinct() {
+        return descarregamentoController.findEquipamentoDistinct();
+    }
+
+    public List<Descarregamento> getDescarregamentos(DescarregamentoJpaFilter filter) {
+        return descarregamentoController.findDescarregamentos(filter);
     }
 
 }

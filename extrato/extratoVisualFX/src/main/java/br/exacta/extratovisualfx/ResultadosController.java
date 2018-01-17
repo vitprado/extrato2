@@ -5,31 +5,38 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.exacta.relatorio.xls.RelatorioCarregamentoXLS;
+import br.exacta.relatorio.xls.RelatorioDescarregamentoXLS;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javax.json.Json;
-import javax.json.JsonObject;
+import java.net.URL;
+import java.util.List;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -42,6 +49,10 @@ public class ResultadosController implements Initializable {
     private Button btnImportar;
     @FXML
     private Button btnSalvar;
+    @FXML
+    private MenuItem btnRelatorioCarregamentoXLS;
+    @FXML
+    private MenuItem btnRelatorioDescarregamentoXLS;
     @FXML
     private TableView<?> tbvCarregamento;
     @FXML
@@ -96,7 +107,7 @@ public class ResultadosController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(final URL url, final ResourceBundle rb) {
         // PARA IMPORTAR ARQUIVO JSON
         btnImportar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -216,5 +227,25 @@ public class ResultadosController implements Initializable {
         });
         // PARA EXPORTAR PARA CSV 
         // CONTINUA, VOU ADICIONANDO MAIS COISAS AINDA
+
+        btnRelatorioCarregamentoXLS.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DataEquipamentoEscolhaModalController controller =
+                        new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM);
+                Config config = new Config();
+                config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
+            }
+        });
+
+        btnRelatorioDescarregamentoXLS.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DataEquipamentoEscolhaModalController controller =
+                        new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.DESCARREGAMENTO_ORIGEM);
+                Config config = new Config();
+                config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
+            }
+        });
     }
 }

@@ -6,10 +6,12 @@
 package br.exacta.dao;
 
 import br.exacta.jpacontroller.CarregamentoJpaController;
+import br.exacta.jpacontroller.CarregamentoJpaFilter;
 import br.exacta.persistencia.Carregamento;
-import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 /**
  *
@@ -79,5 +81,13 @@ public class CarregamentoDAO {
      */
     public Carregamento getCarregamentoId(int id) {
         return carregamentoController.findCarregamento(id);
+    }
+
+    public List<String> getEquipamentosDistinct() {
+        return carregamentoController.findEquipamentoDistinct();
+    }
+
+    public List<Carregamento> getCarregamentos(CarregamentoJpaFilter filter) {
+        return carregamentoController.findDescarregamentos(filter);
     }
 }

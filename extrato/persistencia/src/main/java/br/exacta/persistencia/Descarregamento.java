@@ -18,22 +18,21 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author Thales
  */
 @Entity
 @Table(name = "DESCARREGAMENTO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Descarregamento.findAll", query = "SELECT d FROM Descarregamento d")
-    , @NamedQuery(name = "Descarregamento.findByRdgCodigo", query = "SELECT d FROM Descarregamento d WHERE d.rdgCodigo = :rdgCodigo")
-    , @NamedQuery(name = "Descarregamento.findByRdgEquipamento", query = "SELECT d FROM Descarregamento d WHERE d.rdgEquipamento = :rdgEquipamento")
-    , @NamedQuery(name = "Descarregamento.findByRdgOrdem", query = "SELECT d FROM Descarregamento d WHERE d.rdgOrdem = :rdgOrdem")
-    , @NamedQuery(name = "Descarregamento.findByRdgNumtrato", query = "SELECT d FROM Descarregamento d WHERE d.rdgNumtrato = :rdgNumtrato")
-    , @NamedQuery(name = "Descarregamento.findByRdgCurral", query = "SELECT d FROM Descarregamento d WHERE d.rdgCurral = :rdgCurral")
-    , @NamedQuery(name = "Descarregamento.findByRdgTratorequisitado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorequisitado = :rdgTratorequisitado")
-    , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")
-    , @NamedQuery(name = "Descarregamento.findByRdgDataJson", query = "SELECT d FROM Descarregamento d WHERE d.rdgDataJson = :rdgDataJson")})
+        @NamedQuery(name = "Descarregamento.findAll", query = "SELECT d FROM Descarregamento d")
+        , @NamedQuery(name = "Descarregamento.findByRdgCodigo", query = "SELECT d FROM Descarregamento d WHERE d.rdgCodigo = :rdgCodigo")
+        , @NamedQuery(name = "Descarregamento.findByRdgEquipamento", query = "SELECT d FROM Descarregamento d WHERE d.rdgEquipamento = :rdgEquipamento")
+        , @NamedQuery(name = "Descarregamento.findByRdgOrdem", query = "SELECT d FROM Descarregamento d WHERE d.rdgOrdem = :rdgOrdem")
+        , @NamedQuery(name = "Descarregamento.findByRdgNumtrato", query = "SELECT d FROM Descarregamento d WHERE d.rdgNumtrato = :rdgNumtrato")
+        , @NamedQuery(name = "Descarregamento.findByRdgCurral", query = "SELECT d FROM Descarregamento d WHERE d.rdgCurral = :rdgCurral")
+        , @NamedQuery(name = "Descarregamento.findByRdgTratorequisitado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorequisitado = :rdgTratorequisitado")
+        , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")
+        , @NamedQuery(name = "Descarregamento.findByRdgDataJson", query = "SELECT d FROM Descarregamento d WHERE d.rdgDataJson = :rdgDataJson")})
 public class Descarregamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -152,5 +151,5 @@ public class Descarregamento implements Serializable {
     public String toString() {
         return "br.exacta.persistencia.Descarregamento[ rdgCodigo=" + rdgCodigo + " ]";
     }
-    
+
 }

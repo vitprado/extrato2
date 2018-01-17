@@ -7,14 +7,18 @@ package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Carregamento;
-import java.io.Serializable;
-import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import static java.lang.String.format;
 
 /**
  *
@@ -130,6 +134,43 @@ public class CarregamentoJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<String> findEquipamentoDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT RDC_EQUIPAMENTO from CARREGAMENTO");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Carregamento> findDescarregamentos(CarregamentoJpaFilter filter) {
+        EntityManager em = getEntityManager();n
+        try {
+            StringBuilder stringBuilder = new StringBuilder("select * from CARREGAMENTO where 1 = 1");
+
+            if (filter.getEquipamento() != null) {
+                stringBuilder.append(format(" and RDC_EQUIPAMENTO = '%s' ", filter.getEquipamento()));
+            }
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            if (filter.getDataInicio() != null) {
+                String dataInicio = dateTimeFormatter.format(filter.getDataInicio());
+                stringBuilder.append(format(" and RDC_DATA_JSON >= '%s' ", dataInicio));
+            }
+
+            if (filter.getDatafim() != null) {
+                String dataFim = dateTimeFormatter.format(filter.getDatafim());
+                stringBuilder.append(format(" and RDC_DATA_JSON <= '%s' ", dataFim));
+            }
+
+            Query query = em.createNativeQuery(stringBuilder.toString(), Carregamento.class);
+            return query.getResultList();
         } finally {
             em.close();
         }

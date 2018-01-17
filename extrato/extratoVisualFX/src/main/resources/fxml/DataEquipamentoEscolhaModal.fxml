@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="100.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <DatePicker fx:id="dpDataInicial" layoutX="92.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
+      <DatePicker fx:id="dpDataFinal" layoutX="254.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
+      <ChoiceBox fx:id="cbEquipamento" layoutX="92.0" layoutY="50.0" prefHeight="25.0" prefWidth="286.0" />
+      <Label layoutX="14.0" layoutY="18.0" text="De" />
+      <Label layoutX="227.0" layoutY="18.0" text="até" />
+      <Label layoutX="15.0" layoutY="54.0" text="Equipamento" />
+      <Button fx:id="btnGeraRelatorio" layoutX="394.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Gerar" />
+      <Button fx:id="btnLimpaFiltro" layoutX="394.0" layoutY="14.0" mnemonicParsing="false" text="Limpa" />
+   </children>
+</AnchorPane>
