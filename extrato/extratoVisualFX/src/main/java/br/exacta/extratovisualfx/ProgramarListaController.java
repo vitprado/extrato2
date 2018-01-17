@@ -5,9 +5,13 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.persistencia.Equipamento;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 /**
  * FXML Controller class
@@ -15,6 +19,11 @@ import javafx.fxml.Initializable;
  * @author Thales
  */
 public class ProgramarListaController implements Initializable {
+
+    @FXML
+    private Button btnProgramar;
+    @FXML
+    private ComboBox<Equipamento> cbbEquipamento;
 
     /**
      * Initializes the controller class.

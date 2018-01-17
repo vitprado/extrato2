@@ -22,8 +22,8 @@
             <GridPane alignment="CENTER_RIGHT">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="164.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="231.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="537.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="279.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="617.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -41,7 +41,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField prefHeight="31.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField prefHeight="31.0" prefWidth="298.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Receita" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
@@ -67,7 +67,7 @@
                   </Button>
                </children>
             </GridPane>
-            <TableView prefHeight="552.0" prefWidth="1065.0">
+            <TableView prefHeight="552.0" prefWidth="1065.0" VBox.vgrow="SOMETIMES">
               <columns>
                 <TableColumn prefWidth="75.0" text="CURRAL" />
                 <TableColumn prefWidth="261.0" text="RECEITA" />
