@@ -54,6 +54,15 @@ public class DataEquipamentoEscolhaModalController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loadComponents();
 
+        btnLimpaFiltro.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dpDataInicial.setValue(null);
+                dpDataFinal.setValue(null);
+                cbEquipamento.setValue(null);
+            }
+        });
+
         btnGeraRelatorio.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
