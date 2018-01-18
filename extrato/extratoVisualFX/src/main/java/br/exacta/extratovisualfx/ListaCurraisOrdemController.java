@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Thales
  */
-public class AdicionaTratosOrdemController implements Initializable {
+public class ListaCurraisOrdemController implements Initializable {
 
     /**
      * Initializes the controller class.
