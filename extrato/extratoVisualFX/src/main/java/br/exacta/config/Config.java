@@ -41,19 +41,35 @@ public class Config {
     public void carregarAnchorPaneDialog(String strTela) {
         try {
             AnchorPane ap;
-            Stage stage = new Stage();
             ap = FXMLLoader.load(getClass().getResource("/fxml/" + strTela + ".fxml"));
             AnchorPane.setBottomAnchor(ap, 0.0);
             AnchorPane.setLeftAnchor(ap, 0.0);
             AnchorPane.setRightAnchor(ap, 0.0);
             AnchorPane.setTopAnchor(ap, 0.0);
-            Scene caixaDialogo = new Scene(ap);
-            stage.setScene(caixaDialogo);
-            stage.setResizable(false);
-            stage.show();
+            showDialog(ap);
 
         } catch (IOException e) {
             System.out.println("PROBLEMAS AO ABRIR TELA DE DIALOG!");
+            e.printStackTrace();
         }
+    }
+
+    public void carregarAnchorPaneDialog(String strTela, Object controller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + strTela + ".fxml"));
+        loader.setController(controller);
+        try {
+            AnchorPane anchorPane = loader.load();
+            showDialog(anchorPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDialog(AnchorPane anchorPane) {
+        Stage stage = new Stage();
+        Scene caixaDialogo = new Scene(anchorPane);
+        stage.setScene(caixaDialogo);
+        stage.setResizable(false);
+        stage.show();
     }
 }

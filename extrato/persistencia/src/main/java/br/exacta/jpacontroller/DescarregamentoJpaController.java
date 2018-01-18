@@ -7,17 +7,25 @@ package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Descarregamento;
+import org.eclipse.persistence.jpa.jpql.parser.TrimExpression;
+
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+
+import static java.lang.String.format;
 
 /**
- *
  * @author Thales
  */
 public class DescarregamentoJpaController implements Serializable {
@@ -25,6 +33,7 @@ public class DescarregamentoJpaController implements Serializable {
     public DescarregamentoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -134,5 +143,41 @@ public class DescarregamentoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<String> findEquipamentoDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT RDG_EQUIPAMENTO from DESCARREGAMENTO");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Descarregamento> findDescarregamentos(DescarregamentoJpaFilter filter) {
+        EntityManager em = getEntityManager();
+        try {
+            StringBuilder stringBuilder = new StringBuilder("select * from DESCARREGAMENTO where 1 = 1");
+
+            if (filter.getEquipamento() != null) {
+                stringBuilder.append(format(" and RDG_EQUIPAMENTO = '%s' ", filter.getEquipamento()));
+            }
+
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            if (filter.getDataInicio() != null) {
+                String dataInicio = dateTimeFormatter.format(filter.getDataInicio());
+                stringBuilder.append(format(" and RDG_DATA_JSON >= '%s' ", dataInicio));
+            }
+
+            if (filter.getDatafim() != null) {
+                String dataFim = dateTimeFormatter.format(filter.getDatafim());
+                stringBuilder.append(format(" and RDG_DATA_JSON <= '%s' ", dataFim));
+            }
+
+            Query query = em.createNativeQuery(stringBuilder.toString(), Descarregamento.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

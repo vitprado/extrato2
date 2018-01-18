@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
   <children>
     <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -26,30 +31,39 @@
                 <Insets left="10.0" />
               </HBox.margin>
             </Button>
+                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" text="RELATÓRIOS">
+                    <items>
+                      <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
+                      <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
+                    </items>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MenuButton>
           </children>
         </HBox>
         <Label text="RESULTADO DO CARREGAMENTO" />
         <TableView fx:id="tbvCarregamento" prefHeight="417.0" prefWidth="800.0">
           <columns>
-            <TableColumn prefWidth="75.0" text="#" fx:id="idSequencial" />
-            <TableColumn prefWidth="75.0" text="EQUIPAMENTO" fx:id="tbcEquipamento" />
-            <TableColumn prefWidth="75.0" text="ORDEM" fx:id="tbcOrdem" />
-            <TableColumn prefWidth="75.0" text="TRATO" fx:id="tbcTrato" />
-            <TableColumn prefWidth="75.0" text="INGREDIENTE" fx:id="tbcIngrediente" />
-            <TableColumn prefWidth="75.0" text="PESO REQUISITADO" fx:id="tbcPesoRequisitado" />
-            <TableColumn prefWidth="75.0" text="PESO REALIZADO" fx:id="tbcPesoRealizado" />
+            <TableColumn fx:id="idSequencial" prefWidth="75.0" text="#" />
+            <TableColumn fx:id="tbcEquipamento" prefWidth="75.0" text="EQUIPAMENTO" />
+            <TableColumn fx:id="tbcOrdem" prefWidth="75.0" text="ORDEM" />
+            <TableColumn fx:id="tbcTrato" prefWidth="75.0" text="TRATO" />
+            <TableColumn fx:id="tbcIngrediente" prefWidth="75.0" text="INGREDIENTE" />
+            <TableColumn fx:id="tbcPesoRequisitado" prefWidth="75.0" text="PESO REQUISITADO" />
+            <TableColumn fx:id="tbcPesoRealizado" prefWidth="75.0" text="PESO REALIZADO" />
           </columns>
         </TableView>
         <Label text="RESULTADO DO DESCARREGAMENTO" />
         <TableView fx:id="tbvDescarregamento" prefHeight="417.0" prefWidth="800.0">
           <columns>
-            <TableColumn prefWidth="75.0" text="#" fx:id="idSequencial" />
-            <TableColumn prefWidth="75.0" text="EQUIPAMENTO" fx:id="tbdEquipamento" />
-            <TableColumn prefWidth="75.0" text="ORDEM" fx:id="tbdOrdem" />
-            <TableColumn prefWidth="75.0" text="TRATO" fx:id="tbdTrato" />
-            <TableColumn prefWidth="75.0" text="CURRAL" fx:id="tbdCurral" />
-            <TableColumn prefWidth="75.0" text="TRATO REQUISITADO" fx:id="tbdTratoRequisitado" />
-            <TableColumn prefWidth="75.0" text="TRATO REALIZADO" fx:id="tbdRealizado" />
+            <TableColumn fx:id="idSequencial" prefWidth="75.0" text="#" />
+            <TableColumn fx:id="tbdEquipamento" prefWidth="75.0" text="EQUIPAMENTO" />
+            <TableColumn fx:id="tbdOrdem" prefWidth="75.0" text="ORDEM" />
+            <TableColumn fx:id="tbdTrato" prefWidth="75.0" text="TRATO" />
+            <TableColumn fx:id="tbdCurral" prefWidth="75.0" text="CURRAL" />
+            <TableColumn fx:id="tbdTratoRequisitado" prefWidth="75.0" text="TRATO REQUISITADO" />
+            <TableColumn fx:id="tbdRealizado" prefWidth="75.0" text="TRATO REALIZADO" />
           </columns>
         </TableView>
       </children>
