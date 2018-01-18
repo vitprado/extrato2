@@ -9,9 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 /**
@@ -19,25 +16,19 @@ import javafx.scene.control.TextField;
  *
  * @author Thales
  */
-public class OrdemController implements Initializable {
+public class InserirItensTratosController implements Initializable {
 
     @FXML
     private TextField txtOrdem;
     @FXML
-    private Button btnInserirLista;
-    @FXML
-    private ComboBox<?> cbbEquipamento;
-    @FXML
-    private ListView<?> ltvDados;
+    private TextField txtNroTrato;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
-        
+        // TODO
     }    
     
 }
