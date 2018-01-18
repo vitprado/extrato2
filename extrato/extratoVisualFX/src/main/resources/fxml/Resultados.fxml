@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
   <children>
     <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -21,11 +26,17 @@
           <font>
             <Font name="Segoe UI Semilight" size="48.0" />
           </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
         </Text>
         <HBox prefHeight="100.0" prefWidth="200.0">
           <children>
-            <Label prefWidth="318.0" text="Selecione o arquivo programacao.json: " />
-            <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR" />
+                  <TextField prefHeight="31.0" prefWidth="465.0" promptText="Procure, e selecione o arquivo programacao.json" />
+            <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Button>
             <Button fx:id="btnSalvar" mnemonicParsing="false" text="SALVAR">
               <HBox.margin>
                 <Insets left="10.0" />
@@ -41,31 +52,19 @@
                      </HBox.margin>
                   </MenuButton>
           </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
         </HBox>
-        <Label text="RESULTADO DO CARREGAMENTO" />
-        <TableView fx:id="tbvCarregamento" prefHeight="417.0" prefWidth="800.0">
-          <columns>
-            <TableColumn fx:id="idSequencial" prefWidth="75.0" text="#" />
-            <TableColumn fx:id="tbcEquipamento" prefWidth="75.0" text="EQUIPAMENTO" />
-            <TableColumn fx:id="tbcOrdem" prefWidth="75.0" text="ORDEM" />
-            <TableColumn fx:id="tbcTrato" prefWidth="75.0" text="TRATO" />
-            <TableColumn fx:id="tbcIngrediente" prefWidth="75.0" text="INGREDIENTE" />
-            <TableColumn fx:id="tbcPesoRequisitado" prefWidth="75.0" text="PESO REQUISITADO" />
-            <TableColumn fx:id="tbcPesoRealizado" prefWidth="75.0" text="PESO REALIZADO" />
-          </columns>
-        </TableView>
-        <Label text="RESULTADO DO DESCARREGAMENTO" />
-        <TableView fx:id="tbvDescarregamento" prefHeight="417.0" prefWidth="800.0">
-          <columns>
-            <TableColumn fx:id="idSequencial" prefWidth="75.0" text="#" />
-            <TableColumn fx:id="tbdEquipamento" prefWidth="75.0" text="EQUIPAMENTO" />
-            <TableColumn fx:id="tbdOrdem" prefWidth="75.0" text="ORDEM" />
-            <TableColumn fx:id="tbdTrato" prefWidth="75.0" text="TRATO" />
-            <TableColumn fx:id="tbdCurral" prefWidth="75.0" text="CURRAL" />
-            <TableColumn fx:id="tbdTratoRequisitado" prefWidth="75.0" text="TRATO REQUISITADO" />
-            <TableColumn fx:id="tbdRealizado" prefWidth="75.0" text="TRATO REALIZADO" />
-          </columns>
-        </TableView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo:">
+               <font>
+                  <Font name="Segoe UI Semilight" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Text>
+            <ListView prefHeight="515.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
       </children>
     </VBox>
   </children>
