@@ -1,34 +1,51 @@
-package br.exacta.json;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.exacta.json.util;
 
+import br.exacta.json.resultado.Equip;
+import br.exacta.json.resultado.ResultadoJson;
+import br.exacta.persistencia.Carregamento;
+import br.exacta.persistencia.Descarregamento;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 
-public class Main {
+/**
+ *
+ * @author Thales
+ */
+public class UtilManipulacao {
 
-    public static void main(String[] args) throws Exception {
+    public void CarregaResultadoJson(File arquivo) {
+
+        // VARIÁVEIS 
+        String equipamento;
+        int nordens = 0;
+        int ntratos = 0;
+        String currais;
+        String ordemproducao = "";
+        String pesosrequisitados;
+        String pesosrealizados;
+        String tratosrequisitados;
+        String tratosrealizados;
+        String ingredientes;
+        String data = "";
+        int contTrato = 0;
+        
+        // SUBSTITUIR POR UMA CLASSE DE RESULTADOS DO JSON
+        ResultadoJson resultJson = new ResultadoJson();
+
         InputStream fis;
         try {
-            String equipamento;
-            int nordens = 0;
-            int ntratos = 0;
-            String receita;
-            String currais;
-            String ordemproducao = "";
-            String pesosrequisitados;
-            String pesosrealizados;
-            String tratosrequisitados;
-            String tratosrealizados;
-            String ingredientes;
-            String data;
-            int contTrato = 0;
-
-            fis = new FileInputStream("../json/src/main/resources/resultados.json");
+            fis = new FileInputStream(arquivo); 
             javax.json.JsonReader reader = Json.createReader(fis);
             JsonObject jsonObject = reader.readObject();
             //System.out.println(jsonObject);
@@ -52,20 +69,15 @@ public class Main {
                     System.out.println("Qtde de Tatros: " + ntratos + "\n");
 
                     for (int k = 0; k < ntratos; k++) {
-                        contTrato = k;
-                        System.out.println("Tatro: " + (contTrato + 1));
-
+                        contTrato = k + 1;
+                        System.out.println("Tatro: " + (contTrato));
+                        
                         // PEGO A DATA
-                        data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getString("data");
+                        data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("data").toString();
                         System.out.println("Data de Realização: " + data);
-
-                        // PEGO RECEITA
-                        receita = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas").toString();
-                        System.out.println("Receita: " + receita);
 
                         // PEGO INGREDIENTES
                         ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
-                        System.out.println("CARREGAMENTO");
                         System.out.println("Ingredientes: " + ingredientes);
 
                         // PESOS REQUISITADOS
@@ -77,7 +89,6 @@ public class Main {
                         System.out.println("Pesos realizados: " + pesosrealizados + "\n");
 
                         // PEGO OS CURRAIS
-                        System.out.println("DESCARREGAMENTO");
                         currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
                         System.out.println("Currais: " + currais);
 
@@ -95,12 +106,27 @@ public class Main {
             }
             reader.close();
             fis.close();
+            
+            // Classe de Resultado
+            //resultJson.setEquips(new Equip(equipamento, nordens, ordens));
+            
+            GravaJsonResultado(resultJson);
 
             System.out.println("\nCerto até aqui!");
 
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilManipulacao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
+    public void GravaJsonResultado(ResultadoJson obj){
+        
+        // Classes de Carregamento e Descarregamento
+        Carregamento carr = new Carregamento();
+        Descarregamento desc = new Descarregamento();
+        
+        
+        
+    }
+
 }

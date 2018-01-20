@@ -88,6 +88,6 @@ public class CarregamentoDAO {
     }
 
     public List<Carregamento> getCarregamentos(CarregamentoJpaFilter filter) {
-        return carregamentoController.findDescarregamentos(filter);
+        return carregamentoController.findCarregamentos(filter);
     }
 }

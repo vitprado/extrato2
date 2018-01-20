@@ -1,17 +1,18 @@
-package br.exacta.json;
+package br.exacta.json.resultado;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class resultadoJSON {
+public class ResultadoJson {
 
-    private List<Equip> equips = null;
+    private List<Equip> equips = new ArrayList<Equip>();
     private Integer nequipamentos;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public resultadoJSON() {
+    public ResultadoJson() {
     }
 
     /**
@@ -19,7 +20,7 @@ public class resultadoJSON {
      * @param nequipamentos
      * @param equips
      */
-    public resultadoJSON(List<Equip> equips, Integer nequipamentos) {
+    public ResultadoJson(List<Equip> equips, Integer nequipamentos) {
         super();
         this.equips = equips;
         this.nequipamentos = nequipamentos;

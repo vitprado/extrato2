@@ -1,18 +1,19 @@
-package br.exacta.json;
+package br.exacta.json.programcao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Equip {
+public class programacaoJSON {
 
     private String equipamento;
     private Integer nordens;
-    private List<Ordem> ordens = null;
+    private List<Ordem> ordens = new ArrayList<Ordem>();
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public Equip() {
+    public programacaoJSON() {
     }
 
     /**
@@ -21,14 +22,14 @@ public class Equip {
      * @param equipamento
      * @param ordens
      */
-    public Equip(String equipamento, Integer nordens, List<Ordem> ordens) {
+    public programacaoJSON(String equipamento, Integer nordens, List<Ordem> ordens) {
         super();
         this.equipamento = equipamento;
         this.nordens = nordens;
         this.ordens = ordens;
     }
 
-    public String z() {
+    public String getEquipamento() {
         return equipamento;
     }
 

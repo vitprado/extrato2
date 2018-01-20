@@ -8,21 +8,17 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
+import br.exacta.json.util.UtilManipulacao;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
-import br.exacta.relatorio.xls.RelatorioCarregamentoXLS;
-import br.exacta.relatorio.xls.RelatorioDescarregamentoXLS;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import javax.json.Json;
@@ -32,11 +28,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -54,48 +51,11 @@ public class ResultadosController implements Initializable {
     @FXML
     private MenuItem btnRelatorioDescarregamentoXLS;
     @FXML
-    private TableView<?> tbvCarregamento;
+    private TextField txtCaminhoArquivo;
     @FXML
-    private TableColumn<?, ?> idSequencial;
+    private ListView<?> ltvDados;
     @FXML
-    private TableColumn<?, ?> tbcEquipamento;
-    @FXML
-    private TableColumn<?, ?> tbcOrdem;
-    @FXML
-    private TableColumn<?, ?> tbcTrato;
-    @FXML
-    private TableColumn<?, ?> tbcIngrediente;
-    @FXML
-    private TableColumn<?, ?> tbcPesoRequisitado;
-    @FXML
-    private TableColumn<?, ?> tbcPesoRealizado;
-    @FXML
-    private TableView<?> tbvDescarregamento;
-    @FXML
-    private TableColumn<?, ?> tbdEquipamento;
-    @FXML
-    private TableColumn<?, ?> tbdOrdem;
-    @FXML
-    private TableColumn<?, ?> tbdTrato;
-    @FXML
-    private TableColumn<?, ?> tbdCurral;
-    @FXML
-    private TableColumn<?, ?> tbdTratoRequisitado;
-    @FXML
-    private TableColumn<?, ?> tbcRealizado;
-
-    // VARIÁVEIS 
-    String equipamento;
-    int nordens = 0;
-    int ntratos = 0;
-    String currais;
-    String ordemproducao = "";
-    String pesosrequisitados;
-    String pesosrealizados;
-    String tratosrequisitados;
-    String tratosrealizados;
-    String ingredientes;
-    int contTrato = 0;
+    private MenuButton brnResultadosRelatorios;
 
     private final CarregamentoDAO carregamentoDAO = new CarregamentoDAO();
     private final DescarregamentoDAO descarregamentoDAO = new DescarregamentoDAO();
@@ -108,6 +68,7 @@ public class ResultadosController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
+        
         // PARA IMPORTAR ARQUIVO JSON
         btnImportar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -119,72 +80,13 @@ public class ResultadosController implements Initializable {
                 escolherArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
                 File arquivo = escolherArquivo.showOpenDialog(null);
 
-                // MANIPULACAO DO ARQUIVO JSON ESCOLHIDO
-                InputStream fis;
-                try {
-                    fis = new FileInputStream(arquivo);
-                    javax.json.JsonReader reader = Json.createReader(fis);
-                    JsonObject jsonObject = reader.readObject();
-                    //System.out.println(jsonObject);
+                // MOSTRO O CAMINHO QUE ARQUIVO ESTÁ NO TEXTFIELD
+                txtCaminhoArquivo.setText(arquivo.toString());
 
-                    for (int i = 0; i < jsonObject.size(); i++) {
-
-                        // PEGO OS EQUIPAMENTOS
-                        //System.out.println("==================================================================================");
-                        equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
-                        //System.out.println("Equipamento: " + equipamento);
-                        // PEGO O NÚMERO DE ORDENS
-                        nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
-                        //System.out.println("Num. Ordens: " + nordens);
-
-                        for (int j = 0; j < nordens; j++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
-
-                            ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonString("ordemproducao").toString();
-                            //System.out.println("Ordem de Produção: " + ordemproducao);
-
-                            ntratos = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonNumber("ntratos").intValue();
-                            //System.out.println("Qtde de Tatros: " + ntratos + "\n");
-
-                            for (int k = 0; k < ntratos; k++) {
-                                contTrato = k + 1;
-                                //System.out.println("Tatro: " + (contTrato));
-
-                                // PEGO INGREDIENTES
-                                ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
-                                //System.out.println("Ingredientes: " + ingredientes);
-
-                                // PESOS REQUISITADOS
-                                pesosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados").toString();
-                                //System.out.println("Pesos requisitados: " + pesosrequisitados);
-
-                                // PESOS REALIZADOS
-                                pesosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrealizados").toString();
-                                //System.out.println("Pesos realizados: " + pesosrealizados + "\n");
-
-                                // PEGO OS CURRAIS
-                                currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
-                                //System.out.println("Currais: " + currais);
-
-                                // PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
-                                tratosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratos").toString();
-                                //System.out.println("Tratos Requisitados: " + tratosrequisitados);
-
-                                // PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
-                                tratosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratosrealizados").toString();
-                                //System.out.println("Tratos Realizados: " + tratosrealizados);
-
-                                //System.out.println("------------------------------------------------------------------------------------");
-                            }
-                        }
-                    }
-                    reader.close();
-                    fis.close();
-
-                    System.out.println("\nCerto até aqui!");
-
-                } catch (IOException ex) {
-                    Logger.getLogger(ResultadosController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                // MANIPULACAO DO ARQUIVO JSON ESCOLHIDO;
+                UtilManipulacao manipula = new UtilManipulacao();
+                manipula.CarregaResultadoJson(arquivo);
+                
             }
         });
 
@@ -198,24 +100,24 @@ public class ResultadosController implements Initializable {
                 Descarregamento novoDescarregamento = new Descarregamento();
 
                 // PARA O CARREGAMENTO
-                novoCarregamento.setRdcCodigo(2);
+                novoCarregamento.setRdcCodigo(3);
                 novoCarregamento.setRdcEquipamento("ABC1234");
                 novoCarregamento.setRdcOrdem("2017-0001");
                 novoCarregamento.setRdcNumtrato(1);
                 novoCarregamento.setRdcIngrediente("MIL");
                 novoCarregamento.setRdcPesorequisitado("200");
                 novoCarregamento.setRdcPesorealizado("200");
-                //novoCarregamento.setRdcDatacriacao(new Timestamp(System.currentTimeMillis()));
+                novoCarregamento.setRdcDataJson("07/12/2017");
 
                 // PARA O DESCARREGAMENTO
-                novoDescarregamento.setRdgCodigo(2);
-                novoDescarregamento.setRdgEquipamento("ABC1234");
+                novoDescarregamento.setRdgCodigo(3);
+                novoDescarregamento.setRdgEquipamento("ZZZ1234");
                 novoDescarregamento.setRdgOrdem("2017-0001");
                 novoDescarregamento.setRdgNumtrato(1);
-                novoDescarregamento.setRdgCurral("MIL");
+                novoDescarregamento.setRdgCurral("C03");
                 novoDescarregamento.setRdgTratorequisitado("200");
                 novoDescarregamento.setRdgTratorealizado("200");
-                //novoDescarregamento.setRdgDatacriacao(new Timestamp(System.currentTimeMillis()));
+                novoDescarregamento.setRdgDataJson("07/12/2017");
                 try {
                     carregamentoDAO.adicionarCarregamento(novoCarregamento);
                     descarregamentoDAO.adicionarDescarregamento(novoDescarregamento);
@@ -225,14 +127,12 @@ public class ResultadosController implements Initializable {
                 }
             }
         });
-        // PARA EXPORTAR PARA CSV 
-        // CONTINUA, VOU ADICIONANDO MAIS COISAS AINDA
-
+        // PARA EXPORTAR PARA CSV
         btnRelatorioCarregamentoXLS.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DataEquipamentoEscolhaModalController controller =
-                        new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM);
+                DataEquipamentoEscolhaModalController controller
+                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM);
                 Config config = new Config();
                 config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
             }
@@ -241,8 +141,8 @@ public class ResultadosController implements Initializable {
         btnRelatorioDescarregamentoXLS.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DataEquipamentoEscolhaModalController controller =
-                        new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.DESCARREGAMENTO_ORIGEM);
+                DataEquipamentoEscolhaModalController controller
+                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.DESCARREGAMENTO_ORIGEM);
                 Config config = new Config();
                 config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
             }
