@@ -100,24 +100,11 @@ public class ResultadosController implements Initializable {
                 Descarregamento novoDescarregamento = new Descarregamento();
 
                 // PARA O CARREGAMENTO
-                novoCarregamento.setRdcCodigo(3);
-                novoCarregamento.setRdcEquipamento("ADS1234");
-                novoCarregamento.setRdcOrdem("2017-0001");
-                novoCarregamento.setRdcNumtrato(1);
-                novoCarregamento.setRdcIngrediente("MIL");
-                novoCarregamento.setRdcPesorequisitado("200");
-                novoCarregamento.setRdcPesorealizado("200");
-                novoCarregamento.setRdcDataJson("07/12/2017");
 
+                
                 // PARA O DESCARREGAMENTO
-                novoDescarregamento.setRdgCodigo(3);
-                novoDescarregamento.setRdgEquipamento("ZZZ1234");
-                novoDescarregamento.setRdgOrdem("2017-0001");
-                novoDescarregamento.setRdgNumtrato(1);
-                novoDescarregamento.setRdgCurral("C03");
-                novoDescarregamento.setRdgTratorequisitado("200");
-                novoDescarregamento.setRdgTratorealizado("200");
-                novoDescarregamento.setRdgDataJson("07/12/2017");
+                
+
                 try {
                     carregamentoDAO.adicionarCarregamento(novoCarregamento);
                     descarregamentoDAO.adicionarDescarregamento(novoDescarregamento);

@@ -16,7 +16,7 @@
             <Font name="Segoe UI Semilight" size="48.0" />
          </font>
       </Text>
-      <GridPane alignment="CENTER_RIGHT" layoutX="2.0" layoutY="88.0">
+      <GridPane alignment="CENTER_RIGHT" layoutX="2.0" layoutY="88.0" prefHeight="93.0" prefWidth="1048.0">
          <children>
             <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Curral" GridPane.columnIndex="0" GridPane.rowIndex="1">
                <font>
@@ -32,11 +32,17 @@
                </GridPane.margin>
             </Button>
             <ChoiceBox fx:id="cbbCurrais" maxWidth="286.0" prefWidth="286.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="btnRemoverLista" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="REMOVER CURRAL" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
          </children>
          <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="106.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="286.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="673.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="459.0" minWidth="0.0" prefWidth="98.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="651.0" minWidth="10.0" prefWidth="181.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="209.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="558.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

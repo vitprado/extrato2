@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
 /**
@@ -23,7 +24,7 @@ public class ProgramarListaController implements Initializable {
     @FXML
     private Button btnProgramar;
     @FXML
-    private ComboBox<Equipamento> cbbEquipamento;
+    private ChoiceBox<String> cbbEquipamento;
 
     /**
      * Initializes the controller class.

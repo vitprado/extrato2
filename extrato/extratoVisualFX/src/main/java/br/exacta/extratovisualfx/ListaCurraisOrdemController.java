@@ -10,13 +10,19 @@ import br.exacta.persistencia.Curral;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -27,6 +33,8 @@ public class ListaCurraisOrdemController implements Initializable {
 
     @FXML
     private Button btnInserirCurral;
+    @FXML
+    private Button btnRemoverLista;
     @FXML
     private ChoiceBox<String> cbbCurrais;
     @FXML
@@ -41,6 +49,38 @@ public class ListaCurraisOrdemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
+        atualizaListaItensCadastrados();
+
+        // ADICIONAR  
+        btnInserirCurral.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                if (!txtNome.getText().trim().isEmpty()) {
+                    Curral novo = new Curral();
+                    novo.setCurDescricao(txtNome.getText());
+
+                    listaCurral.add(novo);
+                    
+                }
+            }
+        });
+
+        // REMOVER 
+        btnRemoverLista.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+                if (itemSelecionado != null) {
+                    try {
+                        curralDAO.removerCurral(itemSelecionado.getCurCodigo());
+                    } catch (Exception ex) {
+                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    listaCurral.remove(itemSelecionado);
+                }
+            }
+        });
     }
 
     private void carregaComponentes() {
@@ -50,4 +90,30 @@ public class ListaCurraisOrdemController implements Initializable {
         cbbCurrais.setItems(comboCurrais);
     }
 
+    private void atualizaListaItensCadastrados() {
+
+        ltvDados.setItems(listaCurral);
+        listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
+
+        ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
+            @Override
+            public ListCell<Curral> call(ListView<Curral> param) {
+                ListCell<Curral> listCell;
+
+                listCell = new ListCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            Curral currais = (Curral) item;
+                            setText(currais.getCurDescricao());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+                return listCell;
+            }
+        });
+    }
 }

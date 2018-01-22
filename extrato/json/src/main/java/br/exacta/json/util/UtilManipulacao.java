@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 /**
  *
@@ -31,6 +32,7 @@ public class UtilManipulacao {
         String equipamento;
         int nordens = 0;
         int ntratos = 0;
+        String receita;
         String currais;
         String ordemproducao = "";
         String pesosrequisitados;
@@ -38,7 +40,7 @@ public class UtilManipulacao {
         String tratosrequisitados;
         String tratosrealizados;
         String ingredientes;
-        String data = "";
+        String data;
         int contTrato = 0;
 
         // SUBSTITUIR POR UMA CLASSE DE RESULTADOS DO JSON
@@ -47,7 +49,7 @@ public class UtilManipulacao {
         InputStream fis;
         try {
             fis = new FileInputStream(arquivo);
-            javax.json.JsonReader reader = Json.createReader(fis);
+            JsonReader reader = Json.createReader(fis);
             JsonObject jsonObject = reader.readObject();
             //System.out.println(jsonObject);
 
@@ -70,15 +72,20 @@ public class UtilManipulacao {
                     System.out.println("Qtde de Tatros: " + ntratos + "\n");
 
                     for (int k = 0; k < ntratos; k++) {
-                        contTrato = k + 1;
-                        System.out.println("Tatro: " + (contTrato));
+                        contTrato = k;
+                        System.out.println("Tatro: " + (contTrato + 1));
 
                         // PEGO A DATA
-                        data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("data").toString();
+                        data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getString("data");
                         System.out.println("Data de Realização: " + data);
+
+                        // PEGO RECEITA
+                        receita = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas").toString();
+                        System.out.println("Receita: " + receita);
 
                         // PEGO INGREDIENTES
                         ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
+                        System.out.println("CARREGAMENTO");
                         System.out.println("Ingredientes: " + ingredientes);
 
                         // PESOS REQUISITADOS
@@ -90,6 +97,7 @@ public class UtilManipulacao {
                         System.out.println("Pesos realizados: " + pesosrealizados + "\n");
 
                         // PEGO OS CURRAIS
+                        System.out.println("DESCARREGAMENTO");
                         currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
                         System.out.println("Currais: " + currais);
 
@@ -108,9 +116,6 @@ public class UtilManipulacao {
             reader.close();
             fis.close();
 
-            // Classe de Resultado
-            //resultJson.setEquips(new Equip(equipamento, nordens, ordens));
-            //GravaJsonResultado(resultJson);
             System.out.println("\nCerto até aqui!");
 
         } catch (IOException ex) {
@@ -128,18 +133,17 @@ public class UtilManipulacao {
         File diretorio;
         diretorio = new File(caminho + "\\" + equipamento);
         diretorio.mkdir();
-        
+
         return diretorio;
     }
 
     // MÉTODO QUE GRAVA NO BANCO A PROGRAMAÇÃO
     public void GravaProgramacao(ProgramacaoJson obj) {
-        
+
         CriaDiretorioDoEquipamento("caminho", "equipamento");
         CriaProgramacaoJson();
-        
+
         // Grava Tudo no Banco
-        
     }
 
     // MÉTODO QUE GRAVA OS RESULTADOS DO JSON NO BANCO
