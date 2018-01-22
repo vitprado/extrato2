@@ -28,7 +28,7 @@
                      </GridPane.margin>
                   </Text>
                   <TextField fx:id="txtOrdem" editable="false" prefHeight="30.0" prefWidth="383.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button id="btnSalvar" fx:id="btnInserirLista" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="315.0" text="CRIAR LISTA DE CURRAIS" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button id="btnSalvar" fx:id="btnCriarListaCurrais" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="315.0" text="CRIAR LISTA DE CURRAIS" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
@@ -45,7 +45,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <Button id="btnSalvar" fx:id="btnInserirLista1" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="INSERIR TRATO" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Button id="btnSalvar" fx:id="btnInserirLista" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="INSERIR TRATO" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="cbbReceitas" prefHeight="31.0" prefWidth="447.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="cbbEquipamento" prefHeight="31.0" prefWidth="379.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais" GridPane.rowIndex="3">

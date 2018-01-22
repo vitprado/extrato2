@@ -199,5 +199,15 @@ public class CurralJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<String> findNameCurralDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT CUR_DESCRICAO from CURRAL");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

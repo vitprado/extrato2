@@ -5,16 +5,20 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.EquipamentoDAO;
 import br.exacta.dao.ReceitaDAO;
 import br.exacta.persistencia.Equipamento;
 import br.exacta.persistencia.Receita;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -35,9 +39,9 @@ public class OrdemController implements Initializable {
     @FXML
     private Button btnInserirLista;
     @FXML
-    private ChoiceBox<String> cbbEquipamento;
+    private Button btnCriarListaCurrais;
     @FXML
-    private Button btnInserirLista1;
+    private ChoiceBox<String> cbbEquipamento;
     @FXML
     private ChoiceBox<String> cbbReceitas;
 
@@ -53,6 +57,15 @@ public class OrdemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
         atualizaListaItensCadastrados();
+
+        btnCriarListaCurrais.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String strTela = "ListaCurraisOrdem";
+                Config config = new Config();
+                config.carregarAnchorPaneDialog(strTela);
+            }
+        });
     }
 
     private void carregaComponentes() {
@@ -76,11 +89,17 @@ public class OrdemController implements Initializable {
     }
 
     private String criaNroOrdem() {
-        Calendar ANO = Calendar.getInstance();
-        int PREFIXO = ANO.YEAR;
+        Calendar c = Calendar.getInstance();
+        int ANO = c.get(Calendar.YEAR);;
+        String NUMERO_ORDEM;
         int i = 0;
-        String NUMERO_ORDEM = PREFIXO + "-" + (++i);
 
+        NUMERO_ORDEM = ANO + "-" + (++i);
+
+        // COMPARA O NÚMERO DA ORDEM ATUAL COM O QUE TEM NO ÚLTIMO INSERT DA TABELA
+//        if(NUMERO_ORDEM){
+//            
+//        }
         return NUMERO_ORDEM;
     }
 

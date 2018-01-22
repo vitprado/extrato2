@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
  * @author Thales
  */
 public class CurralDAO {
-    
+
     private final CurralJpaController curralController;
     private final EntityManagerFactory emf;
 
@@ -79,5 +79,9 @@ public class CurralDAO {
      */
     public Curral getCurralId(int id) {
         return curralController.findCurral(id);
-    }    
+    }
+
+    public List<String> getNomesCurraisDistinct() {
+        return curralController.findNameCurralDistinct();
+    }
 }
