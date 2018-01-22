@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="95.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="95.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.DataEquipamentoEscolhaModalController">
    <children>
       <DatePicker fx:id="dpDataInicial" layoutX="113.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
       <DatePicker fx:id="dpDataFinal" layoutX="275.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
