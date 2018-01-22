@@ -124,7 +124,7 @@ public class UtilManipulacao {
     }
 
     // MÉTODO QUE CRIA DIRETÓRIO DO EQUIPAMENTO NO CAMINHO SOLICITADO
-    public File CriaDiretorioDoEquipamento(File caminho, String equipamento) {
+    public File CriaDiretorioDoEquipamento(String caminho, String equipamento) {
         File diretorio;
         diretorio = new File(caminho + "\\" + equipamento);
         diretorio.mkdir();
@@ -134,6 +134,11 @@ public class UtilManipulacao {
 
     // MÉTODO QUE GRAVA NO BANCO A PROGRAMAÇÃO
     public void GravaProgramacao(ProgramacaoJson obj) {
+        
+        CriaDiretorioDoEquipamento("caminho", "equipamento");
+        CriaProgramacaoJson();
+        
+        // Grava Tudo no Banco
         
     }
 
