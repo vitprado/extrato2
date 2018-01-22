@@ -59,7 +59,6 @@ Library > Import JAR/FXML File...
 * **[Apache Derby](https://db.apache.org/derby/)** - é um sistema de gerenciamento de banco de dados relacional Java que pode ser embutido em programas Java e usado para processamento de transações online.
 * **[Maven](https://maven.apache.org/)** - Gerenciador de Dependências
 * **[JPA](https://pt.wikipedia.org/wiki/Java_Persistence_API)** - Java Persistence API (ou simplesmente JPA) é uma API padrão da linguagem Java que descreve uma interface comum para frameworks de persistência de dados.
-* **[Hibernate](http://hibernate.org/)** -  é uma ferramenta de consulta e persistência objeto/relacional de alta performance. Uma das soluções ORM mais flexíveis e poderosas no mercado, ele faz o mapeamento de classes Java para tabelas de banco de dados e de tipos de dados Java para tipos de dados SQL.
 * **[JavaFX Scene Builder](http://hibernate.org/)** -  Ambiente de desenvolvimento de interface do sistema.
 
 ## Versão
