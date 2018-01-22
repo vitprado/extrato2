@@ -8,18 +8,15 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import br.exacta.dao.IngredientesDAO;
 import br.exacta.dao.ReceitaTemIngredientesDAO;
-import br.exacta.persistencia.Curral;
-import br.exacta.persistencia.Ingredientes;
 import br.exacta.persistencia.Receita;
 import br.exacta.persistencia.ReceitaTemIngredientes;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,7 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -46,7 +43,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     @FXML
     private TextField txtReceitaNome;
     @FXML
-    private ComboBox<Ingredientes> cbbIngredientes;
+    private ChoiceBox<String> cbbIngredientes;
     @FXML
     private TextField txtProporcao;
     @FXML
@@ -58,7 +55,7 @@ public class ReceitaTemIngredientesController implements Initializable {
 
     Config msgSistema = new Config();
 
-    private final ObservableList<Ingredientes> comboIngredientes = FXCollections.observableArrayList();
+    private final ObservableList<String> comboIngredientes = FXCollections.observableArrayList();
     private final IngredientesDAO IngredientesDAO = new IngredientesDAO();
     private final ObservableList<ReceitaTemIngredientes> listaReceitaTemIngredientes = FXCollections.observableArrayList();
     private final ReceitaTemIngredientesDAO ReceitaTemIngredientesDAO = new ReceitaTemIngredientesDAO();
@@ -70,9 +67,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         // PARA O COMBOX
-        //cbbIngredientes = new ComboBox<Ingredientes>(comboIngredientes);
-        comboIngredientes.addAll(IngredientesDAO.getTodosIngredientes());
-        cbbIngredientes.setItems(comboIngredientes);
+        carregaComponentes();
 
         // PARA O LISTVIEW
         ltvDados.setItems(listaReceitaTemIngredientes);
@@ -108,12 +103,12 @@ public class ReceitaTemIngredientesController implements Initializable {
                         && !txtProporcao.getText().trim().isEmpty()
                         && cbbIngredientes.getSelectionModel().getSelectedIndex() > -1) {
 
-                    Ingredientes cbbItemSelecionado = cbbIngredientes.getSelectionModel().getSelectedItem();
+                    String ItemSelecionado = cbbIngredientes.getSelectionModel().getSelectedItem();
                     Receita receitaTxt = new Receita();
 
                     ReceitaTemIngredientes novo = new ReceitaTemIngredientes();
                     //novo.setReceita(Receita.class(txtReceitaNome.getText()));
-                    novo.setIngredientes(cbbItemSelecionado);
+                    //novo.setIngredientes();
                     novo.setRtiProporcao(Integer.parseInt(txtProporcao.getText()));
                     novo.setRtiData(d.getTime());
 
@@ -150,6 +145,13 @@ public class ReceitaTemIngredientesController implements Initializable {
             }
         });
 
+    }
+
+    private void carregaComponentes() {
+        List<String> ingredientes;
+        ingredientes = IngredientesDAO.getNomesCurraisDistinct();
+        comboIngredientes.addAll(ingredientes);
+        cbbIngredientes.setItems(comboIngredientes);
     }
 
 }

@@ -81,4 +81,8 @@ public class IngredientesDAO {
     public Ingredientes getIngredienteId(int id) {
         return ingredientesController.findIngredientes(id);
     }
+
+    public List<String> getNomesCurraisDistinct() {
+        return ingredientesController.findNameIngredientesDistinct();
+    }
 }

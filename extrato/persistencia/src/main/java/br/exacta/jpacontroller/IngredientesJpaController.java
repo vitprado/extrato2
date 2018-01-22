@@ -199,5 +199,15 @@ public class IngredientesJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<String> findNameIngredientesDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT ING_NOME from INGREDIENTES");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
