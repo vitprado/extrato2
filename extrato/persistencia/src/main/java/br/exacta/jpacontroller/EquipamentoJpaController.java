@@ -123,7 +123,7 @@ public class EquipamentoJpaController implements Serializable {
         }
     }
 
-    public List<String> findEquipamentoDistinct() {
+    public List<String> findNameEquipamentoDistinct() {
         EntityManager em = getEntityManager();
         try {
             Query query = em.createNativeQuery("select DISTINCT EPQ_PLACA from EQUIPAMENTO");

@@ -37,7 +37,6 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <ComboBox fx:id="cbbEquipamento" prefHeight="31.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Receita" GridPane.rowIndex="5">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
@@ -46,8 +45,17 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <ComboBox fx:id="cbbEquipamento1" prefHeight="31.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Button id="btnSalvar" fx:id="btnInserirLista1" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="INSERIR TRATO" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="cbbReceitas" prefHeight="31.0" prefWidth="447.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="cbbEquipamento" prefHeight="31.0" prefWidth="379.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Segoe UI Semilight" size="16.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets right="10.0" />
+                     </GridPane.margin>
+                  </Text>
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="150.0" />
@@ -64,7 +72,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <TableView prefHeight="478.0" prefWidth="962.0">
+            <TableView prefHeight="389.0" prefWidth="962.0" VBox.vgrow="SOMETIMES">
               <columns>
                 <TableColumn prefWidth="112.0" text="NRO TRATO" />
                 <TableColumn prefWidth="264.0" text="RECEITA" />

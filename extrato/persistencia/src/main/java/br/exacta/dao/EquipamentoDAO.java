@@ -87,8 +87,8 @@ public class EquipamentoDAO {
         return equipamentoController.findNameEquipamentos();
     }
     
-    public List<String> getNomesEquipamentosdIS(){
-        return equipamentoController.findNameEquipamentos();
+    public List<String> getNomesEquipamentosDistinct(){
+        return equipamentoController.findNameEquipamentoDistinct();
     }
 
 }

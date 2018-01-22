@@ -81,4 +81,8 @@ public class ReceitaDAO {
         return receitaController.findReceita(id);
     }
 
+    public List<String> getNomesEquipamentosDistinct() {
+        return receitaController.findNameReceitasDistinct();
+    }
+
 }

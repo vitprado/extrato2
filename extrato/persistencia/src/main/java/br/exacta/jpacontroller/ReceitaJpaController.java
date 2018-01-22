@@ -253,5 +253,16 @@ public class ReceitaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<String> findNameReceitasDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query;
+            query = em.createNativeQuery("select DISTINCT RCT_NOME from RECEITA");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
