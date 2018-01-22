@@ -8,9 +8,6 @@ package br.exacta.extratovisualfx;
 import br.exacta.dao.EquipamentoDAO;
 import br.exacta.persistencia.Equipamento;
 import java.net.URL;
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,19 +18,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import java.util.Calendar;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -45,49 +35,20 @@ public class EquipamentosController implements Initializable {
     @FXML
     private TextField txtPlaca;
     @FXML
-    private AnchorPane apAcoes;
-    @FXML
-    private Button btnNovo;
-    @FXML
-    private Button btnAlterar;
-    @FXML
     private Button btnRemover;
     @FXML
     private Button btnSalvar;
     @FXML
-    private Button btnRelatorio;
-    @FXML
-    private Text lblDados;
-    @FXML
-    private Text lblLista;
-    @FXML
     private Text lblPlaca;
-    @FXML
-    private Text lblCodigo;
-    @FXML
-    private TextField txtCodigo;
     @FXML
     private TextField txtDescricao;
     @FXML
     private Text lblDescricao;
     @FXML
-    private Text lblData;
-    @FXML
-    private DatePicker dtpData;
     private ListView<Equipamento> ltvDados;
 
     private final ObservableList<Equipamento> listaEquipamento = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
-    @FXML
-    private TableView<Equipamento> tbvDados;
-    @FXML
-    private TableColumn<?, ?> tbcCodigo;
-    @FXML
-    private TableColumn<?, ?> tbcPlaca;
-    @FXML
-    private TableColumn<?, ?> tbcDescricao;
-    @FXML
-    private TableColumn<?, ?> tbcData;
     
     /**
      * Initializes the controller class.

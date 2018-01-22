@@ -82,5 +82,13 @@ public class EquipamentoDAO {
     public Equipamento getEquipamentoId(int id) {
         return equipamentoController.findEquipamento(id);
     }
+    
+    public List<String> getNomesEquipamentos(){
+        return equipamentoController.findNameEquipamentos();
+    }
+    
+    public List<String> getNomesEquipamentosdIS(){
+        return equipamentoController.findNameEquipamentos();
+    }
 
 }

@@ -6,6 +6,7 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
+import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Equipamento;
 import java.io.Serializable;
 import java.util.List;
@@ -122,6 +123,16 @@ public class EquipamentoJpaController implements Serializable {
         }
     }
 
+    public List<String> findEquipamentoDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT EPQ_PLACA from EQUIPAMENTO");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getEquipamentoCount() {
         EntityManager em = getEntityManager();
         try {
@@ -134,5 +145,19 @@ public class EquipamentoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<String> findNameEquipamentos() {
+        EntityManager em = getEntityManager();
+        try {
+            StringBuilder stringBuilder;
+            stringBuilder = new StringBuilder("select EPQ_PLACA from EQUIPAMENTO");
+
+            Query query = em.createNativeQuery(stringBuilder.toString(), Equipamento.class);
+
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
