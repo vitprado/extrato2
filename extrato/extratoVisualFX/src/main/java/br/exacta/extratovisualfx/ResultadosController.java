@@ -101,7 +101,7 @@ public class ResultadosController implements Initializable {
 
                 // PARA O CARREGAMENTO
                 novoCarregamento.setRdcCodigo(3);
-                novoCarregamento.setRdcEquipamento("ABC1234");
+                novoCarregamento.setRdcEquipamento("ADS1234");
                 novoCarregamento.setRdcOrdem("2017-0001");
                 novoCarregamento.setRdcNumtrato(1);
                 novoCarregamento.setRdcIngrediente("MIL");

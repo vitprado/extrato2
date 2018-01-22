@@ -3,7 +3,7 @@ package br.exacta.json.programcao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class programacaoJSON {
+public class ProgramacaoJson {
 
     private String equipamento;
     private Integer nordens;
@@ -13,7 +13,7 @@ public class programacaoJSON {
      * No args constructor for use in serialization
      *
      */
-    public programacaoJSON() {
+    public ProgramacaoJson() {
     }
 
     /**
@@ -22,7 +22,7 @@ public class programacaoJSON {
      * @param equipamento
      * @param ordens
      */
-    public programacaoJSON(String equipamento, Integer nordens, List<Ordem> ordens) {
+    public ProgramacaoJson(String equipamento, Integer nordens, List<Ordem> ordens) {
         super();
         this.equipamento = equipamento;
         this.nordens = nordens;

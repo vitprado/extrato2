@@ -5,6 +5,7 @@
  */
 package br.exacta.json.util;
 
+import br.exacta.json.programcao.ProgramacaoJson;
 import br.exacta.json.resultado.Equip;
 import br.exacta.json.resultado.ResultadoJson;
 import br.exacta.persistencia.Carregamento;
@@ -39,13 +40,13 @@ public class UtilManipulacao {
         String ingredientes;
         String data = "";
         int contTrato = 0;
-        
+
         // SUBSTITUIR POR UMA CLASSE DE RESULTADOS DO JSON
         ResultadoJson resultJson = new ResultadoJson();
 
         InputStream fis;
         try {
-            fis = new FileInputStream(arquivo); 
+            fis = new FileInputStream(arquivo);
             javax.json.JsonReader reader = Json.createReader(fis);
             JsonObject jsonObject = reader.readObject();
             //System.out.println(jsonObject);
@@ -71,7 +72,7 @@ public class UtilManipulacao {
                     for (int k = 0; k < ntratos; k++) {
                         contTrato = k + 1;
                         System.out.println("Tatro: " + (contTrato));
-                        
+
                         // PEGO A DATA
                         data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("data").toString();
                         System.out.println("Data de Realização: " + data);
@@ -106,27 +107,43 @@ public class UtilManipulacao {
             }
             reader.close();
             fis.close();
-            
+
             // Classe de Resultado
             //resultJson.setEquips(new Equip(equipamento, nordens, ordens));
-            
-            GravaJsonResultado(resultJson);
-
+            //GravaJsonResultado(resultJson);
             System.out.println("\nCerto até aqui!");
 
         } catch (IOException ex) {
             Logger.getLogger(UtilManipulacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void GravaJsonResultado(ResultadoJson obj){
+
+    // MÉTODO PARA CRIAR O ARQUIVO JSON
+    public void CriaProgramacaoJson() {
+
+    }
+
+    // MÉTODO QUE CRIA DIRETÓRIO DO EQUIPAMENTO NO CAMINHO SOLICITADO
+    public File CriaDiretorioDoEquipamento(File caminho, String equipamento) {
+        File diretorio;
+        diretorio = new File(caminho + "\\" + equipamento);
+        diretorio.mkdir();
         
+        return diretorio;
+    }
+
+    // MÉTODO QUE GRAVA NO BANCO A PROGRAMAÇÃO
+    public void GravaProgramacao(ProgramacaoJson obj) {
+        
+    }
+
+    // MÉTODO QUE GRAVA OS RESULTADOS DO JSON NO BANCO
+    public void GravaJsonResultado(ResultadoJson obj) {
+
         // Classes de Carregamento e Descarregamento
         Carregamento carr = new Carregamento();
         Descarregamento desc = new Descarregamento();
-        
-        
-        
+
     }
 
 }
