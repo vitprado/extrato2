@@ -14,11 +14,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonWriter;
 
 /**
  *
@@ -126,6 +128,48 @@ public class UtilManipulacao {
     // MÉTODO PARA CRIAR O ARQUIVO JSON
     public void CriaProgramacaoJson() {
 
+        JsonObject programacaoObjJson;
+        programacaoObjJson = Json.createObjectBuilder()
+                .add("equipamento", "")
+                .add("nordens", "")
+                .add("ordens",
+                        Json.createArrayBuilder()
+                                .add(Json.createObjectBuilder()
+                                        .add("ordemproducao", "")
+                                        .add("ntratos", "")
+                                        .add("receitas",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                        .add("ingredientes",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                        .add("pesosrequisitados",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                        .add("tolerancias",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                        .add("ncurrais", "")
+                                        .add("currais",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                        .add("tratos",
+                                                Json.createArrayBuilder()
+                                                        .add("")
+                                        .build())
+                                ))
+                .build();
+
+        StringWriter stringGravar = new StringWriter();
+        JsonWriter objGravar = Json.createWriter(stringGravar);
+        objGravar.writeObject(programacaoObjJson);
+        objGravar.close();
+        System.out.println(stringGravar.getBuffer().toString());
     }
 
     // MÉTODO QUE CRIA DIRETÓRIO DO EQUIPAMENTO NO CAMINHO SOLICITADO
