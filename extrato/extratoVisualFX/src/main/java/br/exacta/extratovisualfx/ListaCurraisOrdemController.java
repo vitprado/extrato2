@@ -23,6 +23,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import javafx.scene.control.cell.ChoiceBoxListCell;
 
 /**
  * FXML Controller class
@@ -38,7 +39,7 @@ public class ListaCurraisOrdemController implements Initializable {
     @FXML
     private ChoiceBox<String> cbbCurrais;
     @FXML
-    private ListView<Curral> ltvDados;
+    private ListView<String> ltvDados;
 
     private final ObservableList<String> comboCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
@@ -49,38 +50,35 @@ public class ListaCurraisOrdemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
-        atualizaListaItensCadastrados();
+        //atualizaListaItensCadastrados();
 
         // ADICIONAR  
         btnInserirCurral.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
-                if (!txtNome.getText().trim().isEmpty()) {
-                    Curral novo = new Curral();
-                    novo.setCurDescricao(txtNome.getText());
-
-                    listaCurral.add(novo);
-                    
+                if (cbbCurrais.getSelectionModel().getSelectedIndex() > -1) {
+                    ltvDados.setItems(comboCurrais);
+                    ltvDados.setCellFactory(ChoiceBoxListCell.forListView(comboCurrais));
                 }
             }
         });
 
         // REMOVER 
-        btnRemoverLista.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        curralDAO.removerCurral(itemSelecionado.getCurCodigo());
-                    } catch (Exception ex) {
-                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaCurral.remove(itemSelecionado);
-                }
-            }
-        });
+//        btnRemoverLista.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+//                if (itemSelecionado != null) {
+//                    try {
+//                        curralDAO.removerCurral(itemSelecionado.getCurCodigo());
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    listaCurral.remove(itemSelecionado);
+//                }
+//            }
+//        });
     }
 
     private void carregaComponentes() {
@@ -90,30 +88,29 @@ public class ListaCurraisOrdemController implements Initializable {
         cbbCurrais.setItems(comboCurrais);
     }
 
-    private void atualizaListaItensCadastrados() {
-
-        ltvDados.setItems(listaCurral);
-        listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
-
-        ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
-            @Override
-            public ListCell<Curral> call(ListView<Curral> param) {
-                ListCell<Curral> listCell;
-
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            Curral currais = (Curral) item;
-                            setText(currais.getCurDescricao());
-                        } else {
-                            setText("");
-                        }
-                    }
-                };
-                return listCell;
-            }
-        });
-    }
+//    private void atualizaListaItensCadastrados() {
+//
+//        ltvDados.setItems(listaCurral);
+//        listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
+//
+//        ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
+//            @Override
+//            public ListCell<Curral> call(ListView<Curral> param) {
+//                ListCell<Curral> listCell;
+//
+//                listCell = new ListCell() {
+//                    @Override
+//                    protected void updateItem(Object item, boolean empty) {
+//                        super.updateItem(item, empty);
+//                        if (item != null) {
+//                            Curral currais = (Curral) item;
+//                            setText(currais.getCurDescricao());
+//                        } else {
+//                            setText("");
+//                        }
+//                    }
+//                };
+//                return listCell;
+//            }
+//        });
 }
