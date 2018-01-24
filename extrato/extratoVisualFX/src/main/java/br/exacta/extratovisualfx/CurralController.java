@@ -15,15 +15,12 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -40,73 +37,63 @@ public class CurralController implements Initializable {
     private ListView<Curral> ltvDados;
     @FXML
     private TextField txtNome;
-    @FXML
-    private Text lblNome;
 
     private final ObservableList<Curral> listaCurral = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ltvDados.setItems(listaCurral);
         listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
         
-        ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
-            @Override
-            public ListCell<Curral> call(ListView<Curral> param) {
-                ListCell<Curral> listCell;
-                
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            Curral currais = (Curral) item;
-                            setText(currais.getCurDescricao());
-                        } else {
-                            setText("");
-                        }
+        ltvDados.setCellFactory((ListView<Curral> param) -> {
+            ListCell<Curral> listCell;
+            
+            listCell = new ListCell() {
+                @Override
+                protected void updateItem(Object item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item != null) {
+                        Curral currais = (Curral) item;
+                        setText(currais.getCurDescricao());
+                    } else {
+                        setText("");
                     }
-                };
-                return listCell;
-            }
+                }
+            };
+            return listCell;
         });
 
         // ADICIONAR  
-        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                if (!txtNome.getText().trim().isEmpty()) {
-                    Curral novo = new Curral();
-                    novo.setCurDescricao(txtNome.getText());
-
-                    try {
-                        curralDAO.adicionarCurral(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaCurral.add(novo);
+        btnSalvar.setOnAction((ActionEvent event) -> {
+            if (!txtNome.getText().trim().isEmpty()) {
+                Curral novo = new Curral();
+                novo.setCurDescricao(txtNome.getText());
+                
+                try {
+                    curralDAO.adicionarCurral(novo);
+                } catch (Exception ex) {
+                    Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                listaCurral.add(novo);
             }
         });
 
         // REMOVER 
-        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        curralDAO.removerCurral(itemSelecionado.getCurCodigo());
-                    } catch (Exception ex) {
-                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaCurral.remove(itemSelecionado);
+        btnRemover.setOnAction((ActionEvent event) -> {
+            Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            if (itemSelecionado != null) {
+                try {
+                    curralDAO.removerCurral(itemSelecionado.getCurCodigo());
+                } catch (Exception ex) {
+                    Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                listaCurral.remove(itemSelecionado);
             }
         });
     }

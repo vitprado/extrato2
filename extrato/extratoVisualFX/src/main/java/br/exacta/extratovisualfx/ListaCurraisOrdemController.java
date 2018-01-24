@@ -5,6 +5,7 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
@@ -18,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
@@ -41,76 +43,45 @@ public class ListaCurraisOrdemController implements Initializable {
     @FXML
     private ListView<String> ltvDados;
 
-    private final ObservableList<String> comboCurrais = FXCollections.observableArrayList();
+    private final ObservableList<String> listaCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
+    
+    Config msg = new Config();
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
-        //atualizaListaItensCadastrados();
+        //comboCurrais.addAll(cbbCurrais.getItems()); // tenho o resultado de todos os currais
 
         // ADICIONAR  
-        btnInserirCurral.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                if (cbbCurrais.getSelectionModel().getSelectedIndex() > -1) {
-                    ltvDados.setItems(comboCurrais);
-                    ltvDados.setCellFactory(ChoiceBoxListCell.forListView(comboCurrais));
-                }
+        btnInserirCurral.setOnAction((ActionEvent event) -> {
+            if (cbbCurrais.getValue() != null) {
+                ltvDados.getItems().add(cbbCurrais.getValue());
             }
+            else
+                Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao inserir curral na lista!");
         });
 
         // REMOVER 
-//        btnRemoverLista.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-//                if (itemSelecionado != null) {
-//                    try {
-//                        curralDAO.removerCurral(itemSelecionado.getCurCodigo());
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    listaCurral.remove(itemSelecionado);
-//                }
-//            }
-//        });
+        btnRemoverLista.setOnAction((ActionEvent event) -> {
+            String itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            if (itemSelecionado != null) {
+                ltvDados.getItems().remove(itemSelecionado);
+            }
+            else
+                Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao remover curral da lista!");
+        });
     }
 
     private void carregaComponentes() {
         List<String> currais;
         currais = curralDAO.getNomesCurraisDistinct();
-        comboCurrais.addAll(currais);
-        cbbCurrais.setItems(comboCurrais);
+        listaCurrais.addAll(currais);
+        cbbCurrais.setItems(listaCurrais);
     }
-
-//    private void atualizaListaItensCadastrados() {
-//
-//        ltvDados.setItems(listaCurral);
-//        listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
-//
-//        ltvDados.setCellFactory(new Callback<ListView<Curral>, ListCell<Curral>>() {
-//            @Override
-//            public ListCell<Curral> call(ListView<Curral> param) {
-//                ListCell<Curral> listCell;
-//
-//                listCell = new ListCell() {
-//                    @Override
-//                    protected void updateItem(Object item, boolean empty) {
-//                        super.updateItem(item, empty);
-//                        if (item != null) {
-//                            Curral currais = (Curral) item;
-//                            setText(currais.getCurDescricao());
-//                        } else {
-//                            setText("");
-//                        }
-//                    }
-//                };
-//                return listCell;
-//            }
-//        });
 }

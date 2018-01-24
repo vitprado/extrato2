@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -92,7 +93,7 @@ public class ReceitaListaController implements Initializable {
                     try {
                         receitaDAO.adicionarReceita(novo);
                     } catch (Exception ex) {
-                        Logger.getLogger(ReceitaController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ReceitaListaController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     listaReceita.add(novo);
                 }
@@ -100,9 +101,9 @@ public class ReceitaListaController implements Initializable {
         });
 
         // CLIQUE DE UM ELEMENTO DA LISTA
-        ltvDados.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+        ltvDados.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
+            public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2) {
                     System.out.println("Clicou duas vezes!");
                     Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
