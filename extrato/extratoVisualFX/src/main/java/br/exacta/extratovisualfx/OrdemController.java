@@ -37,9 +37,9 @@ public class OrdemController implements Initializable {
     @FXML
     private TextField txtOrdem;
     @FXML
-    private Button btnInserirLista;
-    @FXML
     private Button btnCriarListaCurrais;
+    @FXML
+    private Button btnFinalizarOrdem;
     @FXML
     private ChoiceBox<String> cbbEquipamento;
     @FXML
@@ -90,16 +90,12 @@ public class OrdemController implements Initializable {
 
     private String criaNroOrdem() {
         Calendar c = Calendar.getInstance();
-        int ANO = c.get(Calendar.YEAR);;
+        int ANO = c.get(Calendar.YEAR);
         String NUMERO_ORDEM;
         int i = 0;
 
         NUMERO_ORDEM = ANO + "-" + (++i);
-
-        // COMPARA O NÚMERO DA ORDEM ATUAL COM O QUE TEM NO ÚLTIMO INSERT DA TABELA
-//        if(NUMERO_ORDEM){
-//            
-//        }
+        // TRATAMENTO PARA INCREMENTAR NO BANCO UMA NOVA ORDEM (UTILZANDO A ANTERIOR)
         return NUMERO_ORDEM;
     }
 

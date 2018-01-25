@@ -39,17 +39,20 @@ public class ListaCurraisOrdemController implements Initializable {
     @FXML
     private Button btnRemoverLista;
     @FXML
+    private Button btnSalvar;
+    @FXML
     private ChoiceBox<String> cbbCurrais;
     @FXML
     private ListView<String> ltvDados;
 
     private final ObservableList<String> listaCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
-    
+
     Config msg = new Config();
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -62,9 +65,9 @@ public class ListaCurraisOrdemController implements Initializable {
         btnInserirCurral.setOnAction((ActionEvent event) -> {
             if (cbbCurrais.getValue() != null) {
                 ltvDados.getItems().add(cbbCurrais.getValue());
-            }
-            else
+            } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao inserir curral na lista!");
+            }
         });
 
         // REMOVER 
@@ -72,9 +75,9 @@ public class ListaCurraisOrdemController implements Initializable {
             String itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
                 ltvDados.getItems().remove(itemSelecionado);
-            }
-            else
+            } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao remover curral da lista!");
+            }
         });
     }
 

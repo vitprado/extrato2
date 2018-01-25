@@ -12,7 +12,7 @@
    <children>
       <VBox prefHeight="664.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Ordem de Produção">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem de Produção">
                <font>
                   <Font name="Segoe UI Semilight" size="48.0" />
                </font>
@@ -45,7 +45,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <Button id="btnSalvar" fx:id="btnInserirLista" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="INSERIR TRATO" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Button id="btnSalvar" fx:id="btnFinalizarOrdem" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="FINALIZAR ORDEM" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="cbbReceitas" prefHeight="31.0" prefWidth="447.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="cbbEquipamento" prefHeight="31.0" prefWidth="379.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais" GridPane.rowIndex="3">
@@ -56,6 +56,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
+                  <Button id="btnSalvar" fx:id="btnInserirLista" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="INSERIR TRATO" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="150.0" />

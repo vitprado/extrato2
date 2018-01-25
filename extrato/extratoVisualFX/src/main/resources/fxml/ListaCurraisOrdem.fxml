@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="733.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ListaCurraisOrdemController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ListaCurraisOrdemController">
    <children>
       <Text layoutX="20.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lista de Currais da Ordem">
          <font>
@@ -36,12 +36,18 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Button>
+            <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="SALVAR" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="459.0" minWidth="0.0" prefWidth="98.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="651.0" minWidth="10.0" prefWidth="181.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="209.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="558.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="222.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="0.0" prefWidth="217.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="761.0" minWidth="10.0" prefWidth="374.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -49,6 +55,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <ListView fx:id="ltvDados" layoutX="10.0" layoutY="189.0" prefHeight="531.0" prefWidth="1048.0" />
+      <ListView fx:id="ltvDados" layoutX="10.0" layoutY="194.0" prefHeight="360.0" prefWidth="933.0" />
    </children>
 </AnchorPane>
