@@ -10,13 +10,13 @@ public class Ordem {
 
     private String ordemproducao;
     private Integer ntratos;
-    private List<Receita> receitas = new ArrayList<Receita>();
-    private List<List<Ingredientes>> ingredientes = new ArrayList<List<Ingredientes>>();
-    private List<List<String>> pesosrequisitados = new ArrayList<List<String>>();
-    private List<List<String>> tolerancias = new ArrayList<List<String>>();
+    private List<Receita> receitas = new ArrayList<>();
+    private List<List<Ingredientes>> ingredientes = new ArrayList<>();
+    private List<List<String>> pesosrequisitados = new ArrayList<>();
+    private List<List<String>> tolerancias = new ArrayList<>();
     private Integer ncurrais;
-    private List<Curral> currais = new ArrayList<Curral>();
-    private List<List<String>> tratos = new ArrayList<List<String>>();
+    private List<Curral> currais = new ArrayList<>();
+    private List<List<String>> tratos = new ArrayList<>();
 
     /**
      * No args constructor for use in serialization

@@ -5,16 +5,19 @@
  */
 package br.exacta.json.util;
 
+import br.exacta.json.programcao.Ordem;
 import br.exacta.json.programcao.ProgramacaoJson;
 import br.exacta.json.resultado.Equip;
 import br.exacta.json.resultado.ResultadoJson;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
+import br.exacta.persistencia.Receita;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
@@ -127,56 +130,58 @@ public class UtilManipulacao {
     }
 
     // MÉTODO PARA CRIAR O ARQUIVO JSON
-    public void CriaProgramacaoJson() {
+    public void CriaProgramacaoJson(ProgramacaoJson ObjProg, Ordem ObjOrdem) {
 
-        JsonObject programacaoObjJson;
-        programacaoObjJson = Json.createObjectBuilder()
-                .add("equipamento", "") // Variável/Objeto correspondente ao equipamento
-                .add("nordens", "") // Variável/Objeto correspondente ao contador da quantidade de ordens
+        String NOME_ARQ = "programacao.json";
+        JsonObject ObjJson;
+        ObjJson = Json.createObjectBuilder()
+                .add("equipamento", ObjProg.getEquipamento()) // Variável/Objeto correspondente ao equipamento
+                .add("nordens", ObjProg.getNordens()) // Variável/Objeto correspondente ao contador da quantidade de ordens
                 .add("ordens", // Variável/Objeto correspondente ao array de ordens
                         Json.createArrayBuilder()
                                 .add(Json.createObjectBuilder()
-                                        .add("ordemproducao", "") // Variável/Objeto correspondente a string da ordem de produção
-                                        .add("ntratos", "") // Variável/Objeto correspondente ao contador da quantidade de tratos
+                                        .add("ordemproducao", ObjOrdem.getOrdemproducao()) // Variável/Objeto correspondente a string da ordem de produção
+                                        .add("ntratos", ObjOrdem.getNtratos()) // Variável/Objeto correspondente ao contador da quantidade de tratos
                                         .add("receitas", // Variável/Objeto correspondente ao array de receitas
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getReceitas().toArray().toString())
                                                         .build())
                                         .add("ingredientes", // Variável/Objeto correspondente ao array de ingredientes
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getIngredientes().toArray().toString())
                                                         .build())
                                         .add("pesosrequisitados", // Variável/Objeto correspondente ao array de pesos requisitados
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getPesosrequisitados().toArray().toString())
                                                         .build())
                                         .add("tolerancias", // Variável/Objeto correspondente ao array de tolerâncias
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getTolerancias().toArray().toString())
                                                         .build())
-                                        .add("ncurrais", "") // Variável/Objeto correspondente ao contador de quantidade de currais
+                                        .add("ncurrais", ObjOrdem.getNcurrais()) // Variável/Objeto correspondente ao contador de quantidade de currais
                                         .add("currais", // Variável/Objeto correspondente ao array de currais
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getCurrais().toArray().toString())
                                                         .build())
                                         .add("tratos", // Variável/Objeto correspondente ao array de tratos
                                                 Json.createArrayBuilder()
-                                                        .add("")
+                                                        .add(ObjOrdem.getTratos().toArray().toString())
                                                         .build())
                                 ))
                 .build();
 
         StringWriter stringGravar = new StringWriter();
         try (JsonWriter objGravar = Json.createWriter(stringGravar)) {
-            objGravar.writeObject(programacaoObjJson);
+            objGravar.writeObject(ObjJson);
         }
+        CriaDiretorioDoEquipamento("C:\\Documents\"", ObjProg.getEquipamento(), NOME_ARQ);
         System.out.println(stringGravar.getBuffer().toString());
     }
 
     // MÉTODO QUE CRIA DIRETÓRIO DO EQUIPAMENTO NO CAMINHO SOLICITADO
-    public File CriaDiretorioDoEquipamento(String caminho, String equipamento) {
+    public File CriaDiretorioDoEquipamento(String CAMINHO, String EQUIPAMENTO, String NOME_ARQ) {
         File diretorio;
-        diretorio = new File(caminho + "\\" + equipamento);
+        diretorio = new File(CAMINHO + "\\" + EQUIPAMENTO + "\\" + NOME_ARQ);
         diretorio.mkdir();
 
         return diretorio;
@@ -184,9 +189,20 @@ public class UtilManipulacao {
 
     // MÉTODO QUE GRAVA NO BANCO A PROGRAMAÇÃO
     public void GravaProgramacao(ProgramacaoJson obj) {
+        
+        Ordem objOrdem = new Ordem();
+        ProgramacaoJson objProg = new ProgramacaoJson();
+        Receita objReceita = new Receita();
 
-        CriaDiretorioDoEquipamento("caminho", "equipamento");
-        CriaProgramacaoJson();
+        objProg.setEquipamento("XYZ1234");
+        objProg.setNordens(2);
+        objOrdem.setOrdemproducao("2018-0001");
+        objOrdem.setNtratos(2);
+        objReceita.setRctNome(objReceita.getRctNome());
+        objOrdem.setReceitas((List<Receita>) objReceita);
+        objProg.setOrdens((List<Ordem>) objOrdem);
+        
+        CriaProgramacaoJson(objProg, objOrdem);
 
         // Grava Tudo no Banco
     }
