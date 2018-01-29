@@ -48,8 +48,6 @@ public class ListaCurraisOrdemController implements Initializable {
     private final ObservableList<String> listaCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
 
-    Config msg = new Config();
-
     /**
      * Initializes the controller class.
      *
@@ -59,7 +57,6 @@ public class ListaCurraisOrdemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
-        //comboCurrais.addAll(cbbCurrais.getItems()); // tenho o resultado de todos os currais
 
         // ADICIONAR  
         btnInserirCurral.setOnAction((ActionEvent event) -> {

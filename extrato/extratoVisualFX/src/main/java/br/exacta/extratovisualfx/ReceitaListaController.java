@@ -52,85 +52,73 @@ public class ReceitaListaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ltvDados.setItems(listaReceita);
         listaReceita.addAll(receitaDAO.getTodoReceitas());
 
-        ltvDados.setCellFactory(new Callback<ListView<Receita>, ListCell<Receita>>() {
-            @Override
-            public ListCell<Receita> call(ListView<Receita> param) {
-                ListCell<Receita> listCell;
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            Receita receitas = (Receita) item;
-                            setText(receitas.getRctNome());
-                        } else {
-                            setText("");
-                        }
+        ltvDados.setCellFactory((ListView<Receita> param) -> {
+            ListCell<Receita> listCell;
+            listCell = new ListCell() {
+                @Override
+                protected void updateItem(Object item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item != null) {
+                        Receita receitas = (Receita) item;
+                        setText(receitas.getRctNome());
+                    } else {
+                        setText("");
                     }
-                };
-                return listCell;
-            }
+                }
+            };
+            return listCell;
         });
 
         // ADICIONAR  
-        btnSalvarListar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                Calendar d = Calendar.getInstance();
-
-                if (!txtNome.getText().trim().isEmpty()) {
-                    Receita novo = new Receita();
-                    novo.setRctNome(txtNome.getText());
-                    novo.setRctDataCadastro(d.getTime());
-
-                    try {
-                        receitaDAO.adicionarReceita(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(ReceitaListaController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaReceita.add(novo);
+        btnSalvarListar.setOnAction((ActionEvent event) -> {
+            Calendar d = Calendar.getInstance();
+            
+            if (!txtNome.getText().trim().isEmpty()) {
+                Receita novo = new Receita();
+                novo.setRctNome(txtNome.getText());
+                novo.setRctDataCadastro(d.getTime());
+                
+                try {
+                    receitaDAO.adicionarReceita(novo);
+                } catch (Exception ex) {
+                    Logger.getLogger(ReceitaListaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                listaReceita.add(novo);
             }
         });
 
         // CLIQUE DE UM ELEMENTO DA LISTA
-        ltvDados.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.getClickCount() == 2) {
-                    System.out.println("Clicou duas vezes!");
-                    Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                    if (itemSelecionado != null) {
-                        // QUERO ABRIR OUTRA TELA QUANDO CLICAR DUAS VEZES NO ITEM SELECIONADO
-                        String strTela = "ReceitaTemIngredientes";
-                        Config config = new Config();
-                        config.carregarAnchorPaneDialog(strTela);
-                    }
+        ltvDados.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() == 2) {
+                System.out.println("Clicou duas vezes!");
+                Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+                if (itemSelecionado != null) {
+                    // QUERO ABRIR OUTRA TELA QUANDO CLICAR DUAS VEZES NO ITEM SELECIONADO
+                    String strTela = "ReceitaTemIngredientes";
+                    Config config = new Config();
+                    config.carregarAnchorPaneDialog(strTela);
                 }
             }
-
         });
 
         // REMOVER 
-        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        receitaDAO.removerReceita(itemSelecionado.getRctCodigo());
-                    } catch (Exception ex) {
-                        Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaReceita.remove(itemSelecionado);
+        btnRemover.setOnAction((ActionEvent event) -> {
+            Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            if (itemSelecionado != null) {
+                try {
+                    receitaDAO.removerReceita(itemSelecionado.getRctCodigo());
+                } catch (Exception ex) {
+                    Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                listaReceita.remove(itemSelecionado);
             }
         });
     }

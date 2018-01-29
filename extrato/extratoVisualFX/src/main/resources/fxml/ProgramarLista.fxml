@@ -13,7 +13,7 @@
   <children>
     <VBox prefHeight="630.0" prefWidth="964.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Programação">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Programação de Ordens de Produção">
           <font>
             <Font name="Segoe UI Semilight" size="48.0" />
           </font>
@@ -56,11 +56,11 @@
         </GridPane>
         <TableView prefHeight="512.0" prefWidth="964.0" VBox.vgrow="SOMETIMES">
           <columns>
-            <TableColumn prefWidth="162.0" text="Ordem de Produção" />
-            <TableColumn minWidth="0.0" prefWidth="412.0" text="Receitas" />
-            <TableColumn minWidth="0.0" prefWidth="62.0" text="Tratos" />
-            <TableColumn minWidth="0.0" prefWidth="193.0" text="Currais" />
-            <TableColumn prefWidth="98.0" text="Ação" />
+            <TableColumn prefWidth="162.0" text="Ordem de Produção" fx:id="colOrdens" />
+            <TableColumn minWidth="0.0" prefWidth="412.0" text="Receitas" fx:id="colReceitas" />
+            <TableColumn minWidth="0.0" prefWidth="62.0" text="Tratos" fx:id="colTratos" />
+            <TableColumn minWidth="0.0" prefWidth="193.0" text="Currais" fx:id="colCurrais" />
+            <TableColumn prefWidth="98.0" text="Ação" fx:id="colAcao" />
           </columns>
         </TableView>
       </children>

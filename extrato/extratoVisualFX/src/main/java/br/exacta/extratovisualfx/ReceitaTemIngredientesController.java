@@ -114,16 +114,13 @@ public class ReceitaTemIngredientesController implements Initializable {
 
                     try {
                         ReceitaTemIngredientesDAO.adicionarIngredienteReceita(novo);
-                        System.out.println("DEU CERTO!");
                         msgSistema.caixaDialogo(Alert.AlertType.INFORMATION, "DADOS GRAVADOS COM SUCESSO!");
                     } catch (Exception ex) {
                         Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, ex);
-                        System.out.println("NÃO DEU CERTO!");
                         msgSistema.caixaDialogo(Alert.AlertType.WARNING, "OPSS, PROBLEMAS RELACIONADOS AO BANCO DE DADOS!");
                     }
                     listaReceitaTemIngredientes.add(novo);
                 } else {
-                    System.out.println("PREENCHA TODOS OS CAMPOS");
                     msgSistema.caixaDialogo(Alert.AlertType.ERROR, "PREENCHA TODOS OS CAMPOS!");
                 }
             }

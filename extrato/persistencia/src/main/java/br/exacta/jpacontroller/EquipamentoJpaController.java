@@ -6,7 +6,6 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Equipamento;
 import java.io.Serializable;
 import java.util.List;

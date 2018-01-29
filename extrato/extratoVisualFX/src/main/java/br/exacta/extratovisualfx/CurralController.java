@@ -6,6 +6,7 @@
 package br.exacta.extratovisualfx;
 
 //import br.exacta.persistencia.Curral;
+import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -81,7 +83,10 @@ public class CurralController implements Initializable {
                     Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 listaCurral.add(novo);
+                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
             }
+            else
+                Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser salvo o novo curral!");
         });
 
         // REMOVER 
@@ -94,7 +99,10 @@ public class CurralController implements Initializable {
                     Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 listaCurral.remove(itemSelecionado);
+                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral removido com sucesso!");
             }
+            else
+                Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser remover o curral selecionado!");
         });
     }
 }
