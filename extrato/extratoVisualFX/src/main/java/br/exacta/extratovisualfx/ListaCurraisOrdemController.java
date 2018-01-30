@@ -76,6 +76,13 @@ public class ListaCurraisOrdemController implements Initializable {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao remover curral da lista!");
             }
         });
+
+        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                enviaDadosGUI();
+            }
+        });
     }
 
     private void carregaComponentes() {
@@ -83,5 +90,15 @@ public class ListaCurraisOrdemController implements Initializable {
         currais = curralDAO.getNomesCurraisDistinct();
         listaCurrais.addAll(currais);
         cbbCurrais.setItems(listaCurrais);
+    }
+
+    private void enviaDadosGUI() {
+        ObservableList<String> ol = ltvDados.getSelectionModel().getSelectedItems();
+
+        while (!ol.isEmpty()) {
+            String C = ol.get(0);
+
+            Config.changeScreen("Curral", C);
+        }
     }
 }

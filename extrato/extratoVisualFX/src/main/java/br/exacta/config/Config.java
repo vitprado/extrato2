@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 public class Config {
 
     private static Stage stage;
-    
+
     private static Scene mainScene;
     private static Scene usuarioScene;
     private static Scene nivelAcessoScene;
@@ -51,22 +51,25 @@ public class Config {
             ap.getChildren().setAll(novaChamdada);
 
             Config.changeScreen(str, ap);
-            System.out.println("Tela: " + str + ", Dados da tela: " + ap);
-            
+            System.out.println("GUI: " + str + ", Dados da GUI: " + ap);
+
         } catch (IOException e) {
             System.out.println("PROBLEMAS AO ABRIR TELA INTERNA!");
         }
     }
 
-    public void carregarAnchorPaneDialog(String strTela) {
+    public void carregarAnchorPaneDialog(String str) {
         try {
             AnchorPane ap;
-            ap = FXMLLoader.load(getClass().getResource("/fxml/" + strTela + ".fxml"));
+            ap = FXMLLoader.load(getClass().getResource("/fxml/" + str + ".fxml"));
             AnchorPane.setBottomAnchor(ap, 0.0);
             AnchorPane.setLeftAnchor(ap, 0.0);
             AnchorPane.setRightAnchor(ap, 0.0);
             AnchorPane.setTopAnchor(ap, 0.0);
             showDialog(ap);
+
+            Config.changeScreen(str, ap);
+            System.out.println("GUI: " + str + ", Dados da GUI: " + ap);
 
         } catch (IOException e) {
             System.out.println("PROBLEMAS AO ABRIR TELA DE DIALOG!");
@@ -74,12 +77,15 @@ public class Config {
         }
     }
 
-    public void carregarAnchorPaneDialog(String strTela, Object controller) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + strTela + ".fxml"));
+    public void carregarAnchorPaneDialog(String str, Object controller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + str + ".fxml"));
         loader.setController(controller);
         try {
             AnchorPane anchorPane = loader.load();
             showDialog(anchorPane);
+
+            Config.changeScreen(str, controller);
+            System.out.println("GUI: " + str + ", Dados da GUI: " + controller);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -147,7 +153,6 @@ public class Config {
     }
 
     // PADRÃO OBSERVER PARA TROCA DE TELAS E PASSAGEM POR PARAMETRO DE DADOS VARIADO
-
     private static final ArrayList<OnChangeScreen> listeners = new ArrayList<>();
 
     public static interface OnChangeScreen {

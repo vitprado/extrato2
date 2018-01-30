@@ -10,6 +10,7 @@ import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,9 +51,9 @@ public class CurralController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ltvDados.setItems(listaCurral);
         listaCurral.addAll(curralDAO.getTodosCurrais()); // tenho o resultado de todos os currais
-        
+        ltvDados.setItems(listaCurral);
+         
         ltvDados.setCellFactory((ListView<Curral> param) -> {
             ListCell<Curral> listCell;
             
@@ -104,5 +105,12 @@ public class CurralController implements Initializable {
             else
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser remover o curral selecionado!");
         });
-    }
+    }// Fim initialize
+    
+    // TESTANDO 
+//    private void atualizaLista(){
+//        ltvDados.getItems().clear(); // Limpa a lista
+//        listaCurral.forEach(ltvDados.getItems()::add);
+//        
+//    }
 }
