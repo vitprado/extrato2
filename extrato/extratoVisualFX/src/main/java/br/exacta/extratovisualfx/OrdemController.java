@@ -71,8 +71,7 @@ public class OrdemController implements Initializable {
     private void carregaComponentes() {
 
         // CRIA NUMERAÇÃO PARA ORDE
-        String ORDEM;
-        ORDEM = criaNroOrdem();
+        String ORDEM = criaNroOrdem();
         txtOrdem.setText(ORDEM);
 
         // CARREGA TODOS OS EQUIPAMENTOS CADASTRADOS

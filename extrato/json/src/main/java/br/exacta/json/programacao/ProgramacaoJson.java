@@ -1,4 +1,4 @@
-package br.exacta.json.programcao;
+package br.exacta.json.programacao;
 
 import java.util.ArrayList;
 import java.util.List;

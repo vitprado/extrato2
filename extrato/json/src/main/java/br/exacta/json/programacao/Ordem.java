@@ -1,4 +1,4 @@
-package br.exacta.json.programcao;
+package br.exacta.json.programacao;
 
 import br.exacta.persistencia.Curral;
 import br.exacta.persistencia.Ingredientes;

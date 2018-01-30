@@ -9,14 +9,17 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    private static Stage stage;
+
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        stage.setTitle("exTrato - Sistema de Trato Bovino");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
+        Parent fxmlMain = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+        Scene mainScene = new Scene(fxmlMain);
+
+        primaryStage.setTitle("exTrato - Sistema de Trato Bovino");
+        primaryStage.setScene(mainScene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

@@ -5,8 +5,8 @@
  */
 package br.exacta.json.util;
 
-import br.exacta.json.programcao.Ordem;
-import br.exacta.json.programcao.ProgramacaoJson;
+import br.exacta.json.programacao.Ordem;
+import br.exacta.json.programacao.ProgramacaoJson;
 import br.exacta.json.resultado.Equip;
 import br.exacta.json.resultado.ResultadoJson;
 import br.exacta.persistencia.Carregamento;
