@@ -8,31 +8,23 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
+import br.exacta.dto.ResumoCarregamentoDTO;
+import br.exacta.dto.ResumoCarregamentoDTODAO;
 import br.exacta.json.util.UtilManipulacao;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
+import br.exacta.relatorio.pdf.RelatorioResumoCarregamentoPDF;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
-import br.exacta.relatorio.xls.RelatorioCarregamentoXLS;
-import br.exacta.relatorio.xls.RelatorioDescarregamentoXLS;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
-import java.util.PropertyResourceBundle;
+
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonObject;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -57,6 +49,8 @@ public class ResultadosController implements Initializable {
     private MenuItem btnRelatorioCarregamentoXLS;
     @FXML
     private MenuItem btnRelatorioDescarregamentoXLS;
+    @FXML
+    private MenuItem btnRelatorioResumoCarregamentoPDF;
     @FXML
     private TextField txtCaminhoArquivo;
     @FXML
@@ -136,11 +130,24 @@ public class ResultadosController implements Initializable {
 
         });
         // PARA EXPORTAR PARA CSV
+        // PARA EXPORTAR PARA CSV
+        // CONTINUA, VOU ADICIONANDO MAIS COISAS AINDA
+
+        btnRelatorioResumoCarregamentoPDF.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DataEquipamentoEscolhaModalController controller
+                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM_PDF);
+                Config config = new Config();
+                config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
+            }
+        });
+
         btnRelatorioCarregamentoXLS.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 DataEquipamentoEscolhaModalController controller
-                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM);
+                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM_XLS);
                 Config config = new Config();
                 config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
             }
@@ -150,7 +157,7 @@ public class ResultadosController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 DataEquipamentoEscolhaModalController controller
-                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.DESCARREGAMENTO_ORIGEM);
+                        = new DataEquipamentoEscolhaModalController(DataEquipamentoEscolhaModalController.DESCARREGAMENTO_ORIGEM_XLS);
                 config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
             }
         });

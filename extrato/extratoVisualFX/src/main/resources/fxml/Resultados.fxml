@@ -50,6 +50,7 @@
                     <items>
                       <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
+                      <MenuItem fx:id="btnRelatorioResumoCarregamentoPDF" mnemonicParsing="false" text="RESUMO DE CARREGAMENTO (PDF)" />
                     </items>
                      <HBox.margin>
                         <Insets left="10.0" />
