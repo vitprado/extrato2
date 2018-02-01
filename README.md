@@ -55,7 +55,7 @@ Library > Import JAR/FXML File...
 
 ## Tecnologias utilizadas
 
-* **[Netbeans](https://netbeans.org) /[IntelliJ](https://www.jetbrains.com/idea/)** - Ambiente de desenvolvimento de software
+* **[Netbeans](https://netbeans.org) /[IntelliJ](https://www.jetbrains.com/idea/) /[Eclipse](http://www.eclipse.org/)**- Ambiente de desenvolvimento de software
 * **[Apache Derby](https://db.apache.org/derby/)** - é um sistema de gerenciamento de banco de dados relacional Java que pode ser embutido em programas Java e usado para processamento de transações online.
 * **[Maven](https://maven.apache.org/)** - Gerenciador de Dependências
 * **[JPA](https://pt.wikipedia.org/wiki/Java_Persistence_API)** - Java Persistence API (ou simplesmente JPA) é uma API padrão da linguagem Java que descreve uma interface comum para frameworks de persistência de dados.
