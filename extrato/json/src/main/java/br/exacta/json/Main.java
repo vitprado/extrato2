@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 
 public class Main {
@@ -59,8 +60,11 @@ public class Main {
                         System.out.println("Data de Realização: " + data);
 
                         // PEGO RECEITA
-                        receita = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas").toString();
-                        System.out.println("Receita: " + receita);
+                        JsonArray receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas");
+                        //System.out.println("Receita: " + receita);
+                        for(int l=0;l<receitaJ.size();l++) {
+                        	System.out.println("Receita: " + receitaJ.get(i).toString());
+                        }
 
                         // PEGO INGREDIENTES
                         ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
