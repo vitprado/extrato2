@@ -61,14 +61,14 @@ public class Main {
 
                         // PEGO RECEITA
                         JsonArray receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas");
-                        //System.out.println("Receita: " + receita);
+
                         for(int l=0;l<receitaJ.size();l++) {
-                        	System.out.println("Receita: " + receitaJ.get(i).toString());
+                        	System.out.println("\nReceita: " + receitaJ.get(i).toString());
                         
 
 	                        // PEGO INGREDIENTES
                         	JsonArray ingredientesJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes");
-	                        System.out.println("CARREGAMENTO");
+	                        System.out.println("\nCARREGAMENTO");
 	                        System.out.println("Ingredientes: " + ingredientesJ.get(i).toString());
 	
 	                        // PESOS REQUISITADOS
