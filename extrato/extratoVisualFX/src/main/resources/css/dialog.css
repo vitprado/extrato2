@@ -1,4 +1,4 @@
-/*..... Estilos das classes de dialogs e notificações .....*/
+/*..... Estilos das classes de dialogs e notificaÃ§Ãµes .....*/
 
 .mensagem-dialogs {
     -fx-text-fill: #7e7e7e;
@@ -110,7 +110,7 @@
     -fx-spacing: 10;
 }
 
-/*..... Notificações e notas .....*/
+/*..... NotificaÃ§Ãµes e notas .....*/
 
 .box-nota {
     -fx-background-color: #3a3a3a;

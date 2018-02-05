@@ -17,4 +17,13 @@
         <module>webserver</module>
     </modules>
     <name>Extrato</name>
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>org.apache.derby</groupId>
+    			<artifactId>derby</artifactId>
+    			<version>10.14.1.0</version>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
 </project>

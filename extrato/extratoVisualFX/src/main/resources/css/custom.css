@@ -18,7 +18,7 @@
     -fx-font-size: 13px;
 }
 
-/*........ Labels com informa��es sobre campos .....*/
+/*........ Labels com informações sobre campos .....*/
 
 .lb-info,
 .lb-info-requerido {
@@ -31,7 +31,7 @@
     -fx-graphic-text-gap: 4;
 }
 
-/*...... Label info conte�dos nulos ou va zios ......*/
+/*...... Label info conteúdos nulos ou va zios ......*/
 .conteudo-vazio {
     -fx-font-size: 12px;
     -fx-font-family: "Open Sans", sans-serif;
@@ -298,7 +298,7 @@
     -fx-graphic: url("../img/icon/estratigrafia-h.png");
 }
 
-/* ....... Menus a��es  .....*/
+/* ....... Menus ações  .....*/
 
 .menus-acoes {
     -fx-min-height: 35px;
@@ -425,7 +425,7 @@
     -fx-graphic: url("../img/icon/excluir.png");
 }
 
-/* ....... Campos Identifica��o .....*/
+/* ....... Campos Identificação .....*/
 
 .identificadores {
     -fx-background-color: rgba(247, 247, 247, 1);
@@ -447,7 +447,7 @@
     -fx-border-color: #63d4ff;
 }
 
-/* ....... Tela Identifica��o .....*/
+/* ....... Tela Identificação .....*/
 
 .box-titulo-identificacao {
     -fx-background-color: transparent;
@@ -503,7 +503,7 @@
     -fx-graphic: url("../img/icon/id-designacao.png");
 }
 
-/* .......  Tela Excurs�o .....*/
+/* .......  Tela Excursão .....*/
 
 .bt-agendar-inativo {
     -fx-background-color: #eaeaea;
@@ -539,7 +539,7 @@
     -fx-text-fill: #fff;
 }
 
-/* .......  Tela Localiza��o .....*/
+/* .......  Tela Localização .....*/
 
 .box-acervo {
     -fx-background-color: #2cce53;
@@ -578,7 +578,7 @@
     -fx-alignment: center-right;
 }
 
-/* .......  Tela Valida��o .....*/
+/* .......  Tela Validação .....*/
 .bt-status-validado, .bt-status-invalidado {
     -fx-background-color: #7cce88;
     -fx-border-color: #68b374;
@@ -829,7 +829,7 @@
     -fx-padding: 0 0 2 0;
 }
 
-/*..... Box Cataloga��o .....*/
+/*..... Box Catalogação .....*/
 .item-catalogacao {
     -fx-min-height: 25px;
     -fx-pref-height: 25px;
@@ -934,7 +934,7 @@
     -fx-text-fill: #eee;
 }
 
-/*.... Acompanhamento Excurs�o  .....*/
+/*.... Acompanhamento Excursão  .....*/
 
 .tipo-excursao {
     -fx-pref-width: 20px;
@@ -1005,7 +1005,7 @@
     -fx-alignment: center-right;
 }
 
-/*.... Box contagem designa��o, estratigrafia e cole��es....*/
+/*.... Box contagem designação, estratigrafia e coleções....*/
 
 .hbox-catalogacao {
     -fx-background-color: #fafafa;
@@ -1027,7 +1027,7 @@
     -fx-text-fill: #444;
 }
 
-/*.... Acompanhamento Empr�stimo  .....*/
+/*.... Acompanhamento Empréstimo  .....*/
 .tipo-emprestimo {
     -fx-pref-width: 20px;
     -fx-min-width: 20px;

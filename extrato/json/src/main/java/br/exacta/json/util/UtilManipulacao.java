@@ -5,13 +5,6 @@
  */
 package br.exacta.json.util;
 
-import br.exacta.json.programacao.Ordem;
-import br.exacta.json.programacao.ProgramacaoJson;
-import br.exacta.json.resultado.Equip;
-import br.exacta.json.resultado.ResultadoJson;
-import br.exacta.persistencia.Carregamento;
-import br.exacta.persistencia.Descarregamento;
-import br.exacta.persistencia.Receita;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,10 +13,19 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
+
+import br.exacta.json.programacao.Ordem;
+import br.exacta.json.programacao.ProgramacaoJson;
+import br.exacta.json.resultado.ResultadoJson;
+import br.exacta.persistencia.Carregamento;
+import br.exacta.persistencia.Descarregamento;
+import br.exacta.persistencia.Receita;
 
 /**
  *
@@ -34,7 +36,7 @@ public class UtilManipulacao {
     public void CarregaResultadoJson(File arquivo) {
 
         // VARIÁVEIS 
-        String equipamento;
+    	String equipamento;
         int nordens = 0;
         int ntratos = 0;
         String receita;
@@ -47,80 +49,83 @@ public class UtilManipulacao {
         String ingredientes;
         String data;
         int contTrato = 0;
+        
+        // PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON
+        JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ, tratosrealizadosJ;
 
         // SUBSTITUIR POR UMA CLASSE DE RESULTADOS DO JSON
         ResultadoJson resultJson = new ResultadoJson();
 
         InputStream fis;
         try {
-            fis = new FileInputStream(arquivo);
-            try (JsonReader reader = Json.createReader(fis)) {
-                JsonObject jsonObject = reader.readObject();
-                //System.out.println(jsonObject);
+        	fis = new FileInputStream(arquivo);
+            JsonReader reader = Json.createReader(fis);
+            JsonObject jsonObject = reader.readObject();
 
-                for (int i = 0; i < jsonObject.size(); i++) {
+            for (int i = 0; i < jsonObject.size(); i++) {
 
-                    // PEGO OS EQUIPAMENTOS
-                    System.out.println("==================================================================================");
-                    equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
-                    System.out.println("Equipamento: " + equipamento);
-                    // PEGO O NÚMERO DE ORDENS
-                    nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
-                    System.out.println("Num. Ordens: " + nordens);
+                // PEGO OS EQUIPAMENTOS
+                System.out.println("==================================================================================");
+                equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
+                System.out.println("Equipamento: " + equipamento);
+                // PEGO O NÚMERO DE ORDENS
+                nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
+                System.out.println("Num. Ordens: " + nordens);
 
-                    for (int j = 0; j < nordens; j++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
+                for (int j = 0; j < nordens; j++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
 
-                        ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonString("ordemproducao").toString();
-                        System.out.println("Ordem de Produção: " + ordemproducao);
+                    ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonString("ordemproducao").toString();
+                    System.out.println("Ordem de Produção: " + ordemproducao);
 
-                        ntratos = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonNumber("ntratos").intValue();
-                        System.out.println("Qtde de Tatros: " + ntratos + "\n");
+                    ntratos = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonNumber("ntratos").intValue();
+                    System.out.println("Qtde de Tatros: " + ntratos + "\n");
 
-                        for (int k = 0; k < ntratos; k++) {
-                            contTrato = k;
-                            System.out.println("Tatro: " + (contTrato + 1));
+                    for (int k = 0; k < ntratos; k++) {
+                        contTrato = k;
+                        System.out.println("Tatro: " + (contTrato + 1));
 
-                            // PEGO A DATA
-                            data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getString("data");
-                            System.out.println("Data de Realização: " + data);
+                        // PEGO A DATA
+                        data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getString("data");
+                        System.out.println("Data de Realização: " + data);
 
-                            // PEGO RECEITA
-                            receita = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas").toString();
-                            System.out.println("Receita: " + receita);
-                            	
-                            	// PEGO INGREDIENTES
-	                            ingredientes = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes").toString();
-	                            System.out.println("CARREGAMENTO");
-	                            System.out.println("Ingredientes: " + ingredientes);
+                        // PEGO RECEITA
+                        receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas");
+
+                        for(int l=0;l<receitaJ.size();l++) {
+                        	System.out.println("\nReceita: " + receitaJ.get(i).toString());
+                        
+	                        // PEGO INGREDIENTES
+                        	ingredientesJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes");
+	                        System.out.println("\nCARREGAMENTO");
+	                        System.out.println("Ingredientes: " + ingredientesJ.get(i).toString());
 	
-	                            // PESOS REQUISITADOS
-	                            pesosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados").toString();
-	                            System.out.println("Pesos requisitados: " + pesosrequisitados);
+	                        // PESOS REQUISITADOS
+	                        pesosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados");
+	                        System.out.println("Pesos requisitados: " + pesosrequisitadosJ.get(i).toString());
 	
-	                            // PESOS REALIZADOS
-	                            pesosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrealizados").toString();
-	                            System.out.println("Pesos realizados: " + pesosrealizados + "\n");
+	                        // PESOS REALIZADOS
+	                        pesosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrealizados");
+	                        System.out.println("Pesos realizados: " + pesosrealizadosJ.get(i).toString() + "\n");
 	
-	                            // PEGO OS CURRAIS
-	                            System.out.println("DESCARREGAMENTO");
-	                            currais = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais").toString();
-	                            System.out.println("Currais: " + currais);
+	                        // PEGO OS CURRAIS
+	                        System.out.println("DESCARREGAMENTO");
+	                        curraisJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais");
+	                        System.out.println("Currais: " + curraisJ.get(i).toString());
 	
-	                            // PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
-	                            tratosrequisitados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratos").toString();
-	                            System.out.println("Tratos Requisitados: " + tratosrequisitados);
+	                        // PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
+	                        tratosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratos");
+	                        System.out.println("Tratos Requisitados: " + tratosrequisitadosJ.get(i).toString());
 	
-	                            // PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
-	                            tratosrealizados = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratosrealizados").toString();
-	                            System.out.println("Tratos Realizados: " + tratosrealizados);
-                            
-
-                            System.out.println("------------------------------------------------------------------------------------");
+	                        // PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
+	                        tratosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratosrealizados");
+	                        System.out.println("Tratos Realizados: " + tratosrealizadosJ.get(i).toString());
                         }
+
+                        System.out.println("------------------------------------------------------------------------------------");
                     }
                 }
             }
-            //System.out.println(jsonObject);
+            reader.close();
             fis.close();
 
             System.out.println("\nCerto até aqui!");
@@ -219,6 +224,8 @@ public class UtilManipulacao {
         // Classes de Carregamento e Descarregamento
         Carregamento carr = new Carregamento();
         Descarregamento desc = new Descarregamento();
+        
+        
 
     }
 

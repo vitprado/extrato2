@@ -543,7 +543,7 @@
     -fx-padding: 1px;
 }
 
-/*............. Cabeçalho .............*/
+/*............. CabeÃ§alho .............*/
 
 .table-view *.column-header-background {
     -fx-background-color: #f4f4f4;
@@ -790,7 +790,7 @@
     -fx-fill: null;
 }
 
-/*..........Legenda Graáficos...........*/
+/*..........Legenda GraÃ¡ficos...........*/
 
 .chart-legend {
     -fx-background-color: transparent;
@@ -805,7 +805,7 @@
 }
 
 /*............. Graficos Pizza.............*/
-/*.......... Configurações ...........*/
+/*.......... ConfiguraÃ§Ãµes ...........*/
 
 .chart-pie-label {
     -fx-padding: 3px;

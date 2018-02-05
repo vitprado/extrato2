@@ -1,9 +1,10 @@
+
 .root {
     -fx-background-color: #fff;
 }
 
 .background {
-    -fx-background-image: url("../imagem/background.png");
+    -fx-background-image: url("../img/background.jpg");
     -fx-background-size: 100% 100%;
     -fx-background-color: transparent;
     -fx-background-position: top;
@@ -30,19 +31,19 @@
 }
 
 .close {
-    -fx-graphic: url("../imagem/icon/fechar.png");
+    -fx-graphic: url("../img/icon/fechar.png");
 }
 
 .minimizar {
-    -fx-graphic: url("../imagem/icon/minimizar.png");
+    -fx-graphic: url("../img/icon/minimizar.png");
 }
 
 .logo {
-    -fx-image: url("../imagem/logo.png");
+    -fx-image: url("../img/logo.png");
 }
 
-.login-imagem {
-    -fx-image: url("../imagem/login2.png");
+.login-img {
+    -fx-image: url("../img/login2.png");
 }
 
 .login-txt {
@@ -76,28 +77,28 @@
 }
 
 .nome {
-    -fx-background-image: url("../imagem/icon/user-b.png");
+    -fx-background-image: url("../img/icon/user-b.png");
 }
 
 .senha {
-    -fx-background-image: url("../imagem/icon/key.png");
+    -fx-background-image: url("../img/icon/key.png");
 }
 
 .bt-logar {
     -fx-text-fill: #fff;
-    -fx-background-color: #cbde70;
-    -fx-border-color: #bed452;
+    -fx-background-color: #520303;
+    -fx-border-color: #5D0707;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-radius: 0;
-    -fx-graphic: url("../imagem/icon/acessar.png");
+    -fx-graphic: url("../img/icon/acessar.png");
     -fx-content-display: right;
     -fx-cursor: hand;
 }
 
 .bt-logar:hover,
 .bt-logar:selected {
-    -fx-background-color: #d0e278;
+    -fx-background-color: #BB0E0E;
 }
 
 .error {
@@ -109,7 +110,7 @@
 .link:visited {
     -fx-padding: 0;
     -fx-content-display: left;
-    -fx-text-fill: #9b9b9b;
+    -fx-text-fill: #520303;
     -fx-border-width: 0px;
     -fx-cursor: hand;
     -fx-underline: false;
@@ -119,16 +120,16 @@
 .link:hover,
 .link:focused {
     -fx-padding: 0px;
-    -fx-text-fill: #c5db5a;
+    -fx-text-fill: #520303;
     -fx-border-width: 0px;
     -fx-underline: false;
     -fx-alignment: bottom-center;
 }
 
 .link-museuid {
-    -fx-graphic: url("../imagem/icon/logo-mini.png");
+    -fx-graphic: url("../img/logo-exacta.png");
 }
 
 .link-geopark {
-    -fx-graphic: url("../imagem/icon/geopark-mini.png");
+    -fx-graphic: url("../img/icon/geopark-mini.png");
 }
