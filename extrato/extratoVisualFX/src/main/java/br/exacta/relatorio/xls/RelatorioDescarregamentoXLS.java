@@ -22,7 +22,7 @@ public class RelatorioDescarregamentoXLS extends RelatorioXLS<Descarregamento> {
         for (Descarregamento descarregamento : descarregamentos) {
             Row row = sheet.createRow(rowCount++);
 
-            row.createCell(0).setCellValue(descarregamento.getRdgDataJson());
+            row.createCell(0).setCellValue(descarregamento.getRdgDatajson());
             row.createCell(1).setCellValue(descarregamento.getRdgOrdem());
             row.createCell(2).setCellValue(descarregamento.getRdgNumtrato());
             row.createCell(3).setCellValue(descarregamento.getRdgCurral());

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="674.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
   <children>
     <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -30,11 +30,11 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
         </Text>
-        <HBox prefHeight="100.0" prefWidth="200.0">
+        <HBox prefHeight="0.0" prefWidth="800.0">
           <children>
                   <TextField fx:id="txtCaminhoArquivo" editable="false" prefHeight="31.0" prefWidth="465.0" promptText="Procure, e selecione o arquivo programacao.json">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="Segoe UI Semilight" size="15.0" />
                      </font>
                   </TextField>
             <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR">
@@ -61,15 +61,88 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
         </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo:">
-               <font>
-                  <Font name="Segoe UI Semilight" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Text>
-            <ListView fx:id="ltvDados" prefHeight="515.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
+            <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
+              <tabs>
+                <Tab text="Carregamento">
+                     <content>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo (Carregamento):">
+                                 <font>
+                                    <Font name="Segoe UI Semilight" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TableView fx:id="tbvDadosCarregamento" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                                <columns>
+                                  <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
+                                  <TableColumn fx:id="colOrdem" prefWidth="75.0" text="Ordem" />
+                                    <TableColumn fx:id="colEquipamento" prefWidth="75.0" text="Equipamento" />
+                                    <TableColumn fx:id="colReceita" prefWidth="75.0" text="Receita" />
+                                    <TableColumn fx:id="colNumTrato" prefWidth="75.0" text="Número de Tratos" />
+                                    <TableColumn fx:id="colIngrediente" prefWidth="75.0" text="Ingredientes" />
+                                    <TableColumn fx:id="colPesosRequisitados" prefWidth="75.0" text="Pesos Requisitados" />
+                                    <TableColumn fx:id="colPesosRealizados" prefWidth="75.0" text="Pesos Realizados" />
+                                    <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
+                                </columns>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </content>
+                </Tab>
+                <Tab text="Descarregamento">
+                     <content>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo (Descarregamento):">
+                                 <font>
+                                    <Font name="Segoe UI Semilight" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TableView fx:id="tbvDadosDescarregamento" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </content>
+                </Tab>
+                  <Tab text="Visualização Simplificada (Arquivo atual)">
+                     <graphic>
+                        <VBox />
+                     </graphic>
+                     <content>
+                        <TextArea fx:id="txtAreaJsonSimples" editable="false" prefHeight="200.0" prefWidth="200.0">
+                           <font>
+                              <Font name="Segoe UI Semilight" size="18.0" />
+                           </font>
+                        </TextArea>
+                     </content>
+                  </Tab>
+                  <Tab text="Visualização Arquivo Json (Completa e atual)">
+                     <content>
+                        <TextArea fx:id="txtAreaJsonCompleta" editable="false" prefHeight="200.0" prefWidth="200.0">
+                           <font>
+                              <Font name="Segoe UI Semilight" size="18.0" />
+                           </font>
+                        </TextArea>
+                     </content>
+                     <graphic>
+                        <VBox />
+                     </graphic>
+                  </Tab>
+              </tabs>
+            </TabPane>
       </children>
     </VBox>
   </children>

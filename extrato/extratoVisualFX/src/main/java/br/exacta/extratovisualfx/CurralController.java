@@ -10,7 +10,6 @@ import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;

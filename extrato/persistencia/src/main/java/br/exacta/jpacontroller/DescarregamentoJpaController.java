@@ -24,7 +24,12 @@ import static java.lang.String.format;
  */
 public class DescarregamentoJpaController implements Serializable {
 
-    public DescarregamentoJpaController(EntityManagerFactory emf) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public DescarregamentoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -160,12 +165,12 @@ public class DescarregamentoJpaController implements Serializable {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             if (filter.getDataInicio() != null) {
                 String dataInicio = dateTimeFormatter.format(filter.getDataInicio());
-                stringBuilder.append(format(" and RDG_DATA_JSON >= '%s' ", dataInicio));
+                stringBuilder.append(format(" and RDG_DATAJSON >= '%s' ", dataInicio));
             }
 
             if (filter.getDatafim() != null) {
                 String dataFim = dateTimeFormatter.format(filter.getDatafim());
-                stringBuilder.append(format(" and RDG_DATA_JSON <= '%s' ", dataFim));
+                stringBuilder.append(format(" and RDG_DATAJSON <= '%s' ", dataFim));
             }
 
             Query query = em.createNativeQuery(stringBuilder.toString(), Descarregamento.class);
