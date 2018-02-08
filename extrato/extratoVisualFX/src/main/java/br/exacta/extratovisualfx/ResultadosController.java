@@ -7,12 +7,12 @@ package br.exacta.extratovisualfx;
 
 import br.exacta.config.Config;
 import br.exacta.dao.CarregamentoDAO;
-import br.exacta.dao.CurralDAO;
 import br.exacta.dao.DescarregamentoDAO;
 import br.exacta.dto.ResumoCarregamentoDTO;
 import br.exacta.dto.ResumoCarregamentoDTODAO;
 import br.exacta.json.util.UtilManipulacao;
 import br.exacta.persistencia.Carregamento;
+import br.exacta.persistencia.CarregamentoFX;
 import br.exacta.persistencia.Curral;
 import br.exacta.persistencia.Descarregamento;
 import br.exacta.relatorio.pdf.RelatorioResumoCarregamentoPDF;
@@ -44,6 +44,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -70,30 +71,53 @@ public class ResultadosController implements Initializable {
     private TextArea txtAreaJsonSimples;
     @FXML
     private TextArea txtAreaJsonCompleta;
-    @FXML
-    private TableView<Carregamento> tbvDadosCarregamento;
-    @FXML
-    private TableColumn<Carregamento, Integer> colCodigo;
-    @FXML
-    private TableColumn<Carregamento, String> colOrdem;
-    @FXML
-    private TableColumn<Carregamento, String> colEquipamento;
-    @FXML
-    private TableColumn<Carregamento, String> colReceita;
-    @FXML
-    private TableColumn<Carregamento, Integer> colNumTrato;
-    @FXML
-    private TableColumn<Carregamento, String> colIngrediente;
-    @FXML
-    private TableColumn<Carregamento, String> colPesosRequisitados;
-    @FXML
-    private TableColumn<Carregamento, String> colPesosRealizados;
-    @FXML
-    private TableColumn<Carregamento, String> colData;
     
+    // PARA O CARREGAMENTO
     @FXML
-    private TableView<Descarregamento> tbvDadosDescarregamento;
+    private TableView<CarregamentoFX> tbvDadosCarregamento = new TableView<CarregamentoFX>();
+    @FXML
+    private TableColumn<CarregamentoFX, Integer> colCodigo = new TableColumn<CarregamentoFX, Integer>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colOrdem = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colEquipamento = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colReceita = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, Integer> colNumTrato = new TableColumn<CarregamentoFX, Integer>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colIngrediente = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colPesosRequisitados = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colPesosRealizados = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colData = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn colAcao = new TableColumn();
 
+    // PARA O DESCARREGAMENTO
+    @FXML
+    private TableView<Descarregamento> tbvDadosDescarregamento = new TableView<Descarregamento>();
+    @FXML
+    private TableColumn<CarregamentoFX, Integer> colCodigoD = new TableColumn<CarregamentoFX, Integer>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colOrdemD = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colEquipamentoD = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, Integer> colNumTratoD = new TableColumn<CarregamentoFX, Integer>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colCurral = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colTratosRequisitados = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colTratosRealizados = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn<CarregamentoFX, String> colDataD = new TableColumn<CarregamentoFX, String>();
+    @FXML
+    private TableColumn colAcaoD = new TableColumn();
+    
     private final ObservableList<Carregamento> listaC = FXCollections.observableArrayList();
     private final CarregamentoDAO cDAO = new CarregamentoDAO();
     private final ObservableList<Descarregamento> listaD = FXCollections.observableArrayList();
@@ -109,10 +133,14 @@ public class ResultadosController implements Initializable {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
-        
-        Carregamento C = new Carregamento();
 
+        Carregamento C = new Carregamento();
+        Descarregamento D = new Descarregamento();
+        
         carregaTabelaCarregamento(C);
+        carregaTabelaDescarregamento(D);
+        //tbvDadosCarregamento.setItems(listaCarregamentosManual());
+        
         //carregaCarregamento();
         //carregaDescarregamento();
         // PARA IMPORTAR ARQUIVO JSON
@@ -190,10 +218,49 @@ public class ResultadosController implements Initializable {
             }
         });
     }
+
+    private ObservableList<CarregamentoFX> listaCarregamentosManual() {
+        return FXCollections.observableArrayList(
+                new CarregamentoFX(1, "2018-0001", "ABC1234", 1, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
+                new CarregamentoFX(2, "2018-0002", "ABC1234", 2, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
+                new CarregamentoFX(3, "2018-0003", "ABC1234", 3, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
+                new CarregamentoFX(4, "2018-0004", "DKG3090", 4, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3"),
+                new CarregamentoFX(5, "2018-0005", "DKG3090", 5, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3"),
+                new CarregamentoFX(6, "2018-0006", "DKG3090", 6, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3")
+        );
+    }
     
-    private void carregaTabelaCarregamento(Carregamento objCarregamento){
-        
-        
+    private void carregaTabelaCarregamento(Carregamento objCarregamento) {
+        tbvDadosCarregamento.setItems(listaCarregamentosManual());
+        tbvDadosCarregamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tbvDadosCarregamento.setVisible(true);
+
+        // COLUNAS DA TABLEVIEW
+        colCodigo.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Código"));
+        colOrdem.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ordem"));
+        colEquipamento.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Equipamento"));
+        colReceita.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Receita"));
+        colNumTrato.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Número de Tratos"));
+        colIngrediente.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ingredientes"));
+        colPesosRequisitados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Requisitados"));
+        colPesosRealizados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Realizados"));
+        colData.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Data"));        
+    }
+    
+    private void carregaTabelaDescarregamento(Descarregamento objCarregamento) {
+        //tbvDadosDescarregamento.setItems(listaCarregamentosManual());
+        tbvDadosDescarregamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tbvDadosDescarregamento.setVisible(true);
+
+        // COLUNAS DA TABLEVIEW
+        colCodigoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Código"));
+        colOrdemD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ordem"));
+        colEquipamentoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Equipamento"));
+        colNumTratoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Número de Tratos"));
+        colCurral.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Currais"));
+        colTratosRequisitados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Requisitados"));
+        colTratosRealizados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Realizados"));
+        colDataD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Data"));        
     }
 
 //    private void carregaCarregamento() {
