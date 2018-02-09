@@ -19,7 +19,9 @@ public class MainApp extends Application {
         Scene mainScene = new Scene(fxmlMain);
         Image imgExtrato = new Image(getClass().getResourceAsStream("/img/icon/icone-mini.png"));
         
+        mainScene.getStylesheets().add("/css/app.css");
         primaryStage.getIcons().add(imgExtrato);
+        
 
         primaryStage.setTitle("exTrato - Sistema de Trato Bovino");
         primaryStage.setScene(mainScene);
