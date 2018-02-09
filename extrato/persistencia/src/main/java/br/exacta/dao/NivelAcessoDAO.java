@@ -21,9 +21,6 @@ public class NivelAcessoDAO {
     private final NivelAcessoJpaController nivelAcessoController;
     private final EntityManagerFactory emf;
 
-    /**
-     *
-     */
     public NivelAcessoDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         nivelAcessoController = new NivelAcessoJpaController(emf);
