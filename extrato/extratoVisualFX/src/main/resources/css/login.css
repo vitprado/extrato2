@@ -11,33 +11,6 @@
     -fx-background-repeat: no-repeat;
 }
 
-.box-janela {
-    -fx-padding: 5 5 0 0;
-    -fx-spacing: 5;
-}
-
-.minimizar,
-.close {
-    -fx-background-color: transparent;
-    -fx-content-display: graphic-only;
-    -fx-cursor: hand;
-}
-
-.minimizar:hover,
-.minimizar:selected,
-.close:hover,
-.close:selected {
-    -fx-opacity: 0.8;
-}
-
-.close {
-    -fx-graphic: url("../img/icon/fechar.png");
-}
-
-.minimizar {
-    -fx-graphic: url("../img/icon/minimizar.png");
-}
-
 .logo {
     -fx-image: url("../img/logo.png");
 }
@@ -77,27 +50,48 @@
 }
 
 .nome {
-    -fx-background-image: url("../img/icon/user-b.png");
+    -fx-image: url("../img/icon/user-b.png");
 }
 
 .senha {
-    -fx-background-image: url("../img/icon/key.png");
+    -fx-image: url("../img/icon/key.png");
+}
+
+.X-logo{
+	-fx-image: url("../img/icone-192x192.png");
 }
 
 .bt-logar {
     -fx-text-fill: #fff;
-    -fx-background-color: #520303;
-    -fx-border-color: #5D0707;
+    -fx-background-color: #0B6121;
+    -fx-border-color: #408080;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-radius: 0;
-    -fx-graphic: url("../img/icon/acessar.png");
+    /*-fx-graphic: url("../img/icon/acessar.png");*/
     -fx-content-display: right;
     -fx-cursor: hand;
 }
 
 .bt-logar:hover,
 .bt-logar:selected {
+    -fx-background-color: #008000;
+}
+
+.bt-sair {
+    -fx-text-fill: #fff;
+    -fx-background-color: #520303;
+    -fx-border-color: #5D0707;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    /*-fx-graphic: url("../img/icon/acessar.png");*/
+    -fx-content-display: right;
+    -fx-cursor: hand;
+}
+
+.bt-sair:hover,
+.bt-sair:selected {
     -fx-background-color: #BB0E0E;
 }
 
