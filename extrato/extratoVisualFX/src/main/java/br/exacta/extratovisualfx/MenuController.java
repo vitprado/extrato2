@@ -25,8 +25,6 @@ import javafx.scene.layout.VBox;
 public class MenuController implements Initializable {
 
     @FXML
-    private final ImageView imgLogo = new ImageView();
-    @FXML
     private Button btnUsuarios;
     @FXML
     private Button btnEquipamentos;
@@ -57,8 +55,8 @@ public class MenuController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) { 
-        
+    public void initialize(URL url, ResourceBundle rb) {
+    	
         // BOTAO DE USUÁRIOS
         btnUsuarios.setOnAction(new EventHandler<ActionEvent>() {
             @Override

@@ -191,7 +191,7 @@ public class UtilManipulacao {
         String ingrediente = null, curral = null, receita = null;
         
         String TextoSimplficado = "Resumo descritivo do arquivo de resultados importado:\n\n"
-        						+ "###################################################################################################################################################\n";
+        						+ "############################################################################################################################\n";
         StringBuilder Relatorio = new StringBuilder();
 
         // PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON

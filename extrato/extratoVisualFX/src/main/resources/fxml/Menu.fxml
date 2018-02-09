@@ -10,70 +10,70 @@
 
 <AnchorPane id="AnchorPane" fx:id="apPrincipal" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
     <children>            
-          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
-              <children>                  
-                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
-          <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CADASTROS" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
-            <content>
-                  <VBox>
-                     <children>
-                        <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnEquipamentos" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Equipamentos">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnIngredientes" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ingredientes">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnCurrais" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Currais">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="btnReceitas" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Receitas">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-            </content>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-          </TitledPane>
-            <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Button>                  
-                  <Button fx:id="btnProgramacao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">                     
-                      <VBox.margin>                        
-                          <Insets bottom="10.0" />                     
-                      </VBox.margin>                  
-                  </Button>                  
-                  <Button fx:id="btnAmostraResultados" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Resultados">                     
-                      <VBox.margin>                        
-                          <Insets bottom="10.0" />                     
-                      </VBox.margin>                  
-                  </Button>
-                  <Button fx:id="btnSobre" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sobre" />
-            <Accordion />               
-              </children>               
-              <padding>                  
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
-              </padding>            
-          </VBox>
-      <AnchorPane fx:id="apDados" layoutY="20.0" minHeight="800.0" minWidth="800.0" prefHeight="855.0" prefWidth="828.0" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="20.0" />   
+        <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
+            <children>                  
+                <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+                <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CADASTROS" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
+                    <content>
+                        <VBox>
+                            <children>
+                                <Button fx:id="btnUsuarios" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </Button>
+                                <Button fx:id="btnEquipamentos" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Equipamentos">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </Button>
+                                <Button fx:id="btnIngredientes" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ingredientes">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </Button>
+                                <Button fx:id="btnCurrais" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Currais">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </Button>
+                                <Button fx:id="btnReceitas" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Receitas">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </content>
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </TitledPane>
+                <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Button>                  
+                <Button fx:id="btnProgramacao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">                     
+                    <VBox.margin>                        
+                        <Insets bottom="10.0" />                     
+                    </VBox.margin>                  
+                </Button>                  
+                <Button fx:id="btnAmostraResultados" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Resultados">                     
+                    <VBox.margin>                        
+                        <Insets bottom="10.0" />                     
+                    </VBox.margin>                  
+                </Button>
+                <Button fx:id="btnSobre" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sobre" />
+                <Accordion />               
+            </children>               
+            <padding>                  
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
+            </padding>            
+        </VBox>
+        <AnchorPane fx:id="apDados" layoutY="23.0" minHeight="790.0" minWidth="800.0" prefHeight="852.0" prefWidth="828.0" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="23.0" />   
     </children>
 </AnchorPane>
