@@ -207,8 +207,8 @@ public class UtilManipulacao {
                 equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
                 nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
                 
-                Relatorio.append("\nEquipamento de placa: " + equipamento);
-                Relatorio.append("\nTotal de Ordens de Produção: " + nordens + "\n");
+                Relatorio.append("\n• Equipamento de placa: " + equipamento);
+                Relatorio.append("\n• Total de Ordens de Produção: " + nordens + "\n");
                                 
                 for (int j = 0; j < nordens; j++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
 
@@ -220,44 +220,44 @@ public class UtilManipulacao {
                         
                         data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getString("data");                        
                         receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("receitas");
-                        receita = receitaJ.get(i).toString();
+                        receita = receitaJ.get(k).toString();
                         
                         for (int l = 0; l < receitaJ.size(); l++) {
                         	// CARREGAMENTO
                             ingredientesJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("ingredientes");
-                            ingrediente = ingredientesJ.get(i).toString();
+                            ingrediente = ingredientesJ.get(j).toString();
 
                             pesosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrequisitados");
-                            requisitado = pesosrequisitadosJ.get(i).toString();
+                            requisitado = pesosrequisitadosJ.get(j).toString();
 
                             pesosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("pesosrealizados");
-                            realizado = pesosrealizadosJ.get(i).toString();                           
+                            realizado = pesosrealizadosJ.get(j).toString();                         
                             
 
                             // DESCARREGAMENTO
                             curraisJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("currais");
-                            curral = curraisJ.get(i).toString();
+                            curral = curraisJ.get(j).toString();
 
                             tratosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratos");
-                            tratorequisitado = tratosrequisitadosJ.get(i).toString();
+                            tratorequisitado = tratosrequisitadosJ.get(j).toString();
 
                             tratosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(j).getJsonArray("tratosrealizados");
-                            tratorealizado = tratosrealizadosJ.get(i).toString();
+                            tratorealizado = tratosrealizadosJ.get(j).toString();
                         }
                     }
                     Relatorio.append("\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-                    Relatorio.append("\nSequência de Ordem de Produção: " + ordemproducao);
-                    Relatorio.append("\nTratos efetuados: " + contTrato); 
-                    Relatorio.append("\nData de execução: " + data);
-                    Relatorio.append("\nReceita(s) da ordem: " + receita);
+                    Relatorio.append("\n• Sequência de Ordem de Produção: " + ordemproducao);
+                    Relatorio.append("\n• Tratos efetuados: " + contTrato); 
+                    Relatorio.append("\n• Data de execução: " + data);
+                    Relatorio.append("\n• Receita(s) da ordem: " + receita);
                     Relatorio.append("\n\n.:: MANEJO DE CARREGAMENTO ::.\n");
-                    Relatorio.append("\nIngrediente(s) da ordem: " + ingrediente);  
-                    Relatorio.append("\nPeso(s) Requisitado(s): " + requisitado);
-                    Relatorio.append("\nPeso(s) Realizado(s): " + realizado);
+                    Relatorio.append("\n• Ingrediente(s) da ordem: " + ingrediente);  
+                    Relatorio.append("\n• Peso(s) Requisitado(s): " + requisitado);
+                    Relatorio.append("\n• Peso(s) Realizado(s): " + realizado);
                     Relatorio.append("\n\n.:: MANEJO DE DESCARREGAMENTO ::.\n");
-                    Relatorio.append("\nCurral(ais) da ordem: " + curral);
-                    Relatorio.append("\nTrato(s) Requisitado(s): " + tratorequisitado);
-                    Relatorio.append("\nTrato(s) Realizado(s): " + tratorealizado);
+                    Relatorio.append("\n• Curral(ais) da ordem: " + curral);
+                    Relatorio.append("\n• Trato(s) Requisitado(s): " + tratorequisitado);
+                    Relatorio.append("\n• Trato(s) Realizado(s): " + tratorealizado);
                 }
                 Relatorio.append("\n\n###################################################################################################################################################");
             }
