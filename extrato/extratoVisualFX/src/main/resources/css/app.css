@@ -1,5 +1,9 @@
 .root {
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: #FAFAFA;
+}
+
+.inicial {
+	-fx-background-image: url("../img/background.png");
 }
 
 .logo {
@@ -8,6 +12,18 @@
 
 .logo-exacta {
 	-fx-image: url("../img/logo-exacta.png");
+}
+
+.bt-suporte {
+/*    -fx-text-fill: #fff;
+    -fx-background-color: #0B6121;
+    -fx-border-color: #408080;*/
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 0;
+    -fx-graphic: url("../img/icon/info-b.png");
+    -fx-content-display: left;
+    -fx-cursor: hand;
 }
 
 .box-logo {

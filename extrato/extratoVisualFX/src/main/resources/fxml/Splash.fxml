@@ -8,10 +8,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root id="AnchorPane" fx:id="apSplash" prefHeight="327.0" prefWidth="493.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SplashController">
+<fx:root id="AnchorPane" fx:id="apSplash" prefHeight="327.0" prefWidth="493.0" stylesheets="@../css/splashscreen.css" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SplashController">
    <children>
-      <AnchorPane fx:id="apBackground" layoutX="74.0" layoutY="14.0" prefHeight="327.0" prefWidth="518.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="apBackground" layoutX="74.0" layoutY="14.0" prefHeight="327.0" prefWidth="518.0" styleClass="background" stylesheets="@../css/splashscreen.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <ImageView fx:id="imgExactaLogo" fitHeight="35.0" fitWidth="158.0" layoutX="398.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-exacta">
+               <image>
+                  <Image url="@../../java/br/exacta/imagens/logo.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="lblNomeLogo" fill="WHITE" fontSmoothingType="LCD" layoutX="232.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="e   Trato">
+               <font>
+                  <Font name="Aquawax Medium" size="60.0" />
+               </font>
+            </Text>
+            <Text fx:id="lblVersao" fill="WHITE" layoutX="373.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versão 1.0.0">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="imgExtratoLogo2" fitHeight="82.0" fitWidth="113.0" layoutX="254.0" layoutY="16.0" opacity="0.68" pickOnBounds="true" preserveRatio="true" styleClass="X-logo">
+               <image>
+                  <Image url="@../../java/br/exacta/imagens/icone-192x192.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgExtratoLogo" fitHeight="393.0" fitWidth="306.0" layoutX="-52.0" layoutY="11.0" opacity="0.49" pickOnBounds="true" preserveRatio="true" styleClass="X-logo">
+               <image>
+                  <Image url="@../../java/br/exacta/imagens/icone-270x270.png" />
+               </image>
+            </ImageView>
             <VBox fx:id="vbInfo" layoutX="14.0" layoutY="278.0" spacing="3.0">
                <children>
                   <Text fx:id="txtDireitos" fill="WHITE" layoutX="14.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Todos os direitos reservados © 2018 - Exacta Balanças">
@@ -26,37 +51,7 @@
                   </Text>
                </children>
             </VBox>
-            <ImageView fx:id="imgExtratoLogo" layoutX="14.0" layoutY="14.0" opacity="0.49" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/icone-270x270.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
-      <Text fx:id="lblNomeLogo" fill="WHITE" fontSmoothingType="LCD" layoutX="254.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="e   Trato">
-         <font>
-            <Font name="Aquawax Medium" size="60.0" />
-         </font>
-      </Text>
-      <Text fx:id="lblVersao" fill="WHITE" layoutX="395.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versão 1.0.0">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </Text>
-      <ImageView fx:id="imgExtratoLogo2" fitHeight="82.0" fitWidth="113.0" layoutX="276.0" layoutY="49.0" opacity="0.68" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/br/exacta/imagens/icone-192x192.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgExactaLogo" fitHeight="35.0" fitWidth="158.0" layoutX="412.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/br/exacta/imagens/logo.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgBackground" opacity="0.26" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../java/br/exacta/imagens/bg-back-splash.jpg" />
-         </image>
-      </ImageView>
    </children>
 </fx:root>

@@ -25,6 +25,10 @@ import javafx.scene.layout.VBox;
 public class MenuController implements Initializable {
 
     @FXML
+    private AnchorPane apPrincipal;
+    @FXML
+    private ImageView imgLogo;
+    @FXML
     private Button btnUsuarios;
     @FXML
     private Button btnEquipamentos;
@@ -41,84 +45,84 @@ public class MenuController implements Initializable {
     @FXML
     private Button btnAmostraResultados;
     @FXML
+    private Button btnSuporte;
+    @FXML
     private Button btnSobre;
     @FXML
     private VBox vbMenu;
     @FXML
     private AnchorPane apDados;
-    
+
     Config config = new Config();
-    @FXML
-    private AnchorPane apPrincipal;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	
+
         // BOTAO DE USUÁRIOS
         btnUsuarios.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Usuario");
+                config.carregarAnchorPane(apDados, "Usuario");
             }
-        });        
+        });
         // BOTAO DE CURRAIS
         btnCurrais.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Curral");
+                config.carregarAnchorPane(apDados, "Curral");
             }
-        });        
+        });
         //BOTAO DE EQUIPAMENTOS
         btnEquipamentos.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Equipamentos");
+                config.carregarAnchorPane(apDados, "Equipamentos");
             }
-        });        
+        });
         // BOTAO DE INGREDIENTES
         btnIngredientes.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Ingredientes");
+                config.carregarAnchorPane(apDados, "Ingredientes");
             }
-        });        
+        });
         // BOTAO DE RECEITAS
         btnReceitas.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"ReceitaLista");
+                config.carregarAnchorPane(apDados, "ReceitaLista");
             }
-        });        
+        });
         // BOTAO DE ORDENS DE PRODUCAO 
         btnOrdemProducao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Ordem");
+                config.carregarAnchorPane(apDados, "Ordem");
             }
-        });        
+        });
         // BOTAO DE PROGRAMACAO
         btnProgramacao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"ProgramarLista");
+                config.carregarAnchorPane(apDados, "ProgramarLista");
             }
-        });        
+        });
         // BOTAO DE RESULTADOS
         btnAmostraResultados.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Resultados");
+                config.carregarAnchorPane(apDados, "Resultados");
             }
-        });        
+        });
         // BOTAO DE SOBRE
         btnSobre.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados,"Sobre");
+                config.carregarAnchorPane(apDados, "Sobre");
             }
         });
-    }    
+    }
 }

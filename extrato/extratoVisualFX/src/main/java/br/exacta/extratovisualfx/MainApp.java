@@ -19,7 +19,7 @@ public class MainApp extends Application {
         Scene mainScene = new Scene(fxmlMain);
         Image imgExtrato = new Image(getClass().getResourceAsStream("/img/icon/icone-mini.png"));
         
-        mainScene.getStylesheets().add("/css/app.css");
+        mainScene.getStylesheets().add("/css/login.css");
         primaryStage.getIcons().add(imgExtrato);
         
 

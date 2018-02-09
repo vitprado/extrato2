@@ -8,9 +8,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apPrincipal" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
+<AnchorPane id="AnchorPane" fx:id="apPrincipal" styleClass="background" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
     <children>            
-        <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
+        <VBox fx:id="vbMenu" alignment="TOP_CENTER" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
             <children>                  
                 <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
                 <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CADASTROS" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
@@ -52,7 +52,7 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </TitledPane>
-                <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao">
+                <Button fx:id="btnOrdemProducao" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao" VBox.vgrow="SOMETIMES">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
@@ -67,6 +67,11 @@
                         <Insets bottom="10.0" />                     
                     </VBox.margin>                  
                 </Button>
+                <Button fx:id="btnSuporte" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Suporte">                     
+                    <VBox.margin>                        
+                        <Insets bottom="10.0" />                     
+                    </VBox.margin>                  
+                </Button>                
                 <Button fx:id="btnSobre" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sobre" />
                 <Accordion />               
             </children>               
@@ -74,6 +79,6 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
             </padding>            
         </VBox>
-        <AnchorPane fx:id="apDados" layoutY="23.0" minHeight="790.0" minWidth="800.0" prefHeight="852.0" prefWidth="828.0" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="23.0" />   
+        <AnchorPane fx:id="apDados" layoutY="23.0" minHeight="790.0" minWidth="800.0" prefHeight="852.0" prefWidth="828.0" styleClass="background" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="23.0" />   
     </children>
 </AnchorPane>
