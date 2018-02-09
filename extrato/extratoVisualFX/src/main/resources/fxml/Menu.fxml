@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -7,15 +8,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apPrincipal" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
+<AnchorPane id="AnchorPane" fx:id="apPrincipal" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.MenuController">   
     <children>            
-          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
+          <VBox fx:id="vbMenu" alignment="TOP_CENTER" style="-fx-background-color: F5F5F5;" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">               
               <children>                  
-                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logotipo-menu">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />
-               </image>                  
-                  </ImageView>
+                  <ImageView fx:id="imgLogo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
           <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CADASTROS" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
             <content>
                   <VBox>
@@ -77,6 +74,6 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />               
               </padding>            
           </VBox>
-      <AnchorPane fx:id="apDados" layoutY="20.0" minHeight="800.0" minWidth="800.0" prefHeight="855.0" prefWidth="828.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="20.0" />   
+      <AnchorPane fx:id="apDados" layoutY="20.0" minHeight="800.0" minWidth="800.0" prefHeight="855.0" prefWidth="828.0" stylesheets="@../css/app.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="20.0" />   
     </children>
 </AnchorPane>

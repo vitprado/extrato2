@@ -1,9 +1,13 @@
 .root {
-    -fx-background-color: #fff;
+    -fx-background-color: #F5F5F5;
 }
 
 .logo {
-    -fx-image: url("../img/logo-app.png");
+    -fx-image: url("../img/logo.png");
+}
+
+.logo-exacta {
+	-fx-image: url("../img/logo-exacta.png");
 }
 
 .box-logo {
