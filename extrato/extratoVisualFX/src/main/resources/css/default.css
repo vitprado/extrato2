@@ -29,7 +29,7 @@
     -fx-padding: 0;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
-    -fx-font-size: 13px;
+    -fx-font-size: 18px;
     -fx-highlight-fill: #ebebcc;
     -fx-highlight-text-fill: #000000;
     -fx-background-radius: 4;
@@ -565,7 +565,7 @@
 
 .table-view *.column-header *.label {
     -fx-alignment: center-left;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-font-family: 'Open Sans', sans-serif;
     -fx-text-fill: #555;
     -fx-font-weight: 700;

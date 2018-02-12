@@ -145,6 +145,72 @@
     -fx-background-color: #f7ae0a;
 }
 
+.acao-info {
+    -fx-graphic: url("../img/icon/info.png");
+}
+
+.acao-salvar {
+    -fx-graphic: url("../img/icon/salvar.png");
+}
+
+.acao-editar {
+    -fx-graphic: url("../img/icon/atualizar.png");
+}
+
+.acao-excluir {
+    -fx-graphic: url("../img/icon/excluir.png");
+}
+
+.acao-relatorio {
+    -fx-graphic: url("../img/icon/relatorio-b.png");
+}
+
+.acao-adicionar {
+    -fx-graphic: url("../img/icon/add-item-b.png");
+}
+
+.acao-remover {
+    -fx-graphic: url("../img/icon/devolucao-b.png");
+}
+
+.acao-devolucao {
+    -fx-graphic: url("../img/icon/devolucao-b.png");
+}
+
+.acao-historico {
+    -fx-graphic: url("../img/icon/historico-b.png");
+}
+
+.acao-finalizar {
+    -fx-graphic: url("../img/icon/finalizar.png");
+}
+
+.acao-iniciar {
+    -fx-graphic: url("../img/icon/iniciar.png");
+}
+
+.acao-cancelar {
+    -fx-graphic: url("../img/icon/excluir.png");
+}
+
+.acao-ordem {
+    -fx-graphic: url("../img/icon/producao.png");
+}
+
+.acao-suporte {
+    -fx-graphic: url("../img/icon/call.png");
+}
+
+.acao-user {
+    -fx-graphic: url("../img/icon/user_b.png");
+}
+
+.acao-equipamento {
+    -fx-graphic: url("../img/icon/equipamento.png");
+}
+
+/* ----------------------------- */
+
 .menu-add {
     -fx-graphic: url("../img/icon/add.png");
 }
@@ -307,7 +373,23 @@
     -fx-min-width: 200px;
     -fx-pref-width: 200px;
     -fx-max-width: 200px;
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
+    -fx-font-family: "Open Sans";
+    -fx-content-display: left;
+    -fx-graphic-text-gap: 8;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: #fff;
+    -fx-cursor: hand;
+}
+
+.menus-app {
+    -fx-min-height: 35px;
+    -fx-pref-height: 35px;
+
+    -fx-font-size: 15px;
     -fx-font-family: "Open Sans";
     -fx-content-display: left;
     -fx-graphic-text-gap: 8;
@@ -330,6 +412,16 @@
 .menu-blue {
     -fx-background-color: linear-gradient(to top right, #55c8fe, #34bdfe);
     -fx-border-color: linear-gradient(to top right, #55c8fe, #34bdfe);
+}
+
+.menu-azul-escuro {
+    -fx-background-color: linear-gradient(to top right, #08298A, #3104B4);
+    -fx-border-color: linear-gradient(to top right, #08298A, #3104B4);
+}
+
+.menu-azul-escuro:pressed {
+    -fx-background-color: #08298A;
+    -fx-border-color: #3104B4;
 }
 
 .menu-blue:pressed {
@@ -375,54 +467,6 @@
 .menu-roxo:pressed {
     -fx-background-color: #79589F;
     -fx-border-color: #79589F;
-}
-
-.acao-info {
-    -fx-graphic: url("../img/icon/info.png");
-}
-
-.acao-salvar {
-    -fx-graphic: url("../img/icon/salvar.png");
-}
-
-.acao-editar {
-    -fx-graphic: url("../img/icon/atualizar.png");
-}
-
-.acao-excluir {
-    -fx-graphic: url("../img/icon/excluir.png");
-}
-
-.acao-relatorio {
-    -fx-graphic: url("../img/icon/relatorio-b.png");
-}
-
-.acao-adicionar {
-    -fx-graphic: url("../img/icon/add-item-b.png");
-}
-
-.acao-remover {
-    -fx-graphic: url("../img/icon/devolucao-b.png");
-}
-
-.acao-devolucao {
-    -fx-graphic: url("../img/icon/devolucao-b.png");
-}
-
-.acao-historico {
-    -fx-graphic: url("../img/icon/historico-b.png");
-}
-
-.acao-finalizar {
-    -fx-graphic: url("../img/icon/finalizar.png");
-}
-
-.acao-iniciar {
-    -fx-graphic: url("../img/icon/iniciar.png");
-}
-
-.acao-cancelar {
-    -fx-graphic: url("../img/icon/excluir.png");
 }
 
 /* ....... Campos Identificação .....*/
