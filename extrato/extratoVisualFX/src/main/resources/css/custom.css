@@ -209,6 +209,32 @@
     -fx-graphic: url("../img/icon/equipamento.png");
 }
 
+.acao-ingrediente {
+    -fx-graphic: url("../img/icon/ingredientes_b.png");
+}
+
+.acao-curral {
+    -fx-graphic: url("../img/icon/boi.png");
+}
+
+.acao-empresa {
+    -fx-graphic: url("../img/icon/empresa.png");
+}
+
+.acao-receita {
+    -fx-graphic: url("../img/icon/receita.png");
+}
+
+.acao-home {
+    -fx-graphic: url("../img/icon/dashboard.png");
+}
+
+.acao-config {
+    -fx-graphic: url("../img/icon/utilm_b.png");
+}
+
+/* ------ ICONES GERAIS -------- */
+
 /* ----------------------------- */
 
 .menu-add {

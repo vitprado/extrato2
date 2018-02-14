@@ -20,8 +20,7 @@ public class MainApp extends Application {
         Image imgExtrato = new Image(getClass().getResourceAsStream("/img/icon/icone-mini.png"));
         
         mainScene.getStylesheets().add("/css/login.css");
-        primaryStage.getIcons().add(imgExtrato);
-        
+        primaryStage.getIcons().add(imgExtrato);        
 
         primaryStage.setTitle("exTrato - Sistema de Trato Bovino");
         primaryStage.setScene(mainScene);
