@@ -6,15 +6,10 @@
 package br.exacta.persistencia;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,68 +21,59 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Trato.findAll", query = "SELECT t FROM Trato t")
-    , @NamedQuery(name = "Trato.findByRctCodigo", query = "SELECT t FROM Trato t WHERE t.tratoPK.rctCodigo = :rctCodigo")
-    , @NamedQuery(name = "Trato.findByCurCodigo", query = "SELECT t FROM Trato t WHERE t.tratoPK.curCodigo = :curCodigo")
-    , @NamedQuery(name = "Trato.findByTrtPeso", query = "SELECT t FROM Trato t WHERE t.trtPeso = :trtPeso")
-    , @NamedQuery(name = "Trato.findByTrtPesoTotal", query = "SELECT t FROM Trato t WHERE t.trtPesoTotal = :trtPesoTotal")})
+    , @NamedQuery(name = "Trato.findByTrtCodigo", query = "SELECT t FROM Trato t WHERE t.trtCodigo = :trtCodigo")
+    , @NamedQuery(name = "Trato.findByTrtNumero", query = "SELECT t FROM Trato t WHERE t.trtNumero = :trtNumero")
+    , @NamedQuery(name = "Trato.findByRctCodigo", query = "SELECT t FROM Trato t WHERE t.receita = :receita")
+})
 public class Trato implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TratoPK tratoPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "TRT_PESO")
-    private BigDecimal trtPeso;
-    @Column(name = "TRT_PESO_TOTAL")
-    private BigDecimal trtPesoTotal;
-    @JoinColumn(name = "CUR_CODIGO", referencedColumnName = "CUR_CODIGO", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "TRT_CODIGO")
+    private Integer trtCodigo;
+    @Column(name = "TRT_NUMERO")
+    private Integer trtNumero;
     @ManyToOne(optional = false)
-    private Curral curral;
-    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO")
     private Receita receita;
+
+    @ManyToOne
+    @JoinColumn(name = "ORD_CODIGO", referencedColumnName = "ORD_CODIGO")
+    private OrdemProducao ordemProducao;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "trato")
+    private List<ItemTrato> itemTratos;
+
 
     public Trato() {
     }
 
-    public Trato(TratoPK tratoPK) {
-        this.tratoPK = tratoPK;
+    public Trato(List<ItemTrato> itemTratos, Integer trtNumero, Integer trtCodigo, Receita receita, OrdemProducao ordemProducao) {
+        this();
+        this.itemTratos = itemTratos;
+        this.trtNumero = trtNumero;
+        this.trtCodigo = trtCodigo;
+        this.receita = receita;
+        this.ordemProducao = ordemProducao;
+        this.itemTratos = new ArrayList<>();
+        for(ItemTrato itemTrato: itemTratos){
+            ItemTrato novoItemTrato = new ItemTrato(
+                    itemTrato.getIttCodigo(),
+                    itemTrato.getIttPeso(),
+                    itemTrato.getCurralId(),
+                    this);
+            this.itemTratos.add(novoItemTrato);
+        }
     }
 
-    public Trato(int rctCodigo, int curCodigo) {
-        this.tratoPK = new TratoPK(rctCodigo, curCodigo);
+    public Integer getTrtCodigo() {
+        return trtCodigo;
     }
 
-    public TratoPK getTratoPK() {
-        return tratoPK;
-    }
-
-    public void setTratoPK(TratoPK tratoPK) {
-        this.tratoPK = tratoPK;
-    }
-
-    public BigDecimal getTrtPeso() {
-        return trtPeso;
-    }
-
-    public void setTrtPeso(BigDecimal trtPeso) {
-        this.trtPeso = trtPeso;
-    }
-
-    public BigDecimal getTrtPesoTotal() {
-        return trtPesoTotal;
-    }
-
-    public void setTrtPesoTotal(BigDecimal trtPesoTotal) {
-        this.trtPesoTotal = trtPesoTotal;
-    }
-
-    public Curral getCurral() {
-        return curral;
-    }
-
-    public void setCurral(Curral curral) {
-        this.curral = curral;
+    public void setTrtCodigo(Integer trtCodigo) {
+        this.trtCodigo = trtCodigo;
     }
 
     public Receita getReceita() {
@@ -98,29 +84,46 @@ public class Trato implements Serializable {
         this.receita = receita;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (tratoPK != null ? tratoPK.hashCode() : 0);
-        return hash;
+    public Integer getTrtNumero() {
+        return trtNumero;
+    }
+
+    public void setTrtNumero(Integer trtNumero) {
+        this.trtNumero = trtNumero;
+    }
+
+    public List<ItemTrato> getItemTratos() {
+        return itemTratos;
+    }
+
+    public void setItemTratos(List<ItemTrato> itemTratos) {
+        this.itemTratos = itemTratos;
+    }
+
+    public OrdemProducao getOrdemProducao() {
+        return ordemProducao;
+    }
+
+    public void setOrdemProducao(OrdemProducao ordemProducao) {
+        this.ordemProducao = ordemProducao;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Trato)) {
-            return false;
-        }
-        Trato other = (Trato) object;
-        if ((this.tratoPK == null && other.tratoPK != null) || (this.tratoPK != null && !this.tratoPK.equals(other.tratoPK))) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trato)) return false;
+        Trato trato = (Trato) o;
+        return Objects.equals(trtCodigo, trato.trtCodigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trtCodigo);
     }
 
     @Override
     public String toString() {
-        return "br.exacta.persistencia.Trato[ tratoPK=" + tratoPK + " ]";
+        return "br.exacta.persistencia.Trato[ trtCodigo=" + trtCodigo + " ]";
     }
     
 }

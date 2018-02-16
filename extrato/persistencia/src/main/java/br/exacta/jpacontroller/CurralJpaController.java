@@ -35,29 +35,11 @@ public class CurralJpaController implements Serializable {
     }
 
     public void create(Curral curral) {
-        if (curral.getTratoList() == null) {
-            curral.setTratoList(new ArrayList<Trato>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Trato> attachedTratoList = new ArrayList<Trato>();
-            for (Trato tratoListTratoToAttach : curral.getTratoList()) {
-                tratoListTratoToAttach = em.getReference(tratoListTratoToAttach.getClass(), tratoListTratoToAttach.getTratoPK());
-                attachedTratoList.add(tratoListTratoToAttach);
-            }
-            curral.setTratoList(attachedTratoList);
             em.persist(curral);
-            for (Trato tratoListTrato : curral.getTratoList()) {
-                Curral oldCurralOfTratoListTrato = tratoListTrato.getCurral();
-                tratoListTrato.setCurral(curral);
-                tratoListTrato = em.merge(tratoListTrato);
-                if (oldCurralOfTratoListTrato != null) {
-                    oldCurralOfTratoListTrato.getTratoList().remove(tratoListTrato);
-                    oldCurralOfTratoListTrato = em.merge(oldCurralOfTratoListTrato);
-                }
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -71,40 +53,7 @@ public class CurralJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Curral persistentCurral = em.find(Curral.class, curral.getCurCodigo());
-            List<Trato> tratoListOld = persistentCurral.getTratoList();
-            List<Trato> tratoListNew = curral.getTratoList();
-            List<String> illegalOrphanMessages = null;
-            for (Trato tratoListOldTrato : tratoListOld) {
-                if (!tratoListNew.contains(tratoListOldTrato)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Trato " + tratoListOldTrato + " since its curral field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            List<Trato> attachedTratoListNew = new ArrayList<Trato>();
-            for (Trato tratoListNewTratoToAttach : tratoListNew) {
-                tratoListNewTratoToAttach = em.getReference(tratoListNewTratoToAttach.getClass(), tratoListNewTratoToAttach.getTratoPK());
-                attachedTratoListNew.add(tratoListNewTratoToAttach);
-            }
-            tratoListNew = attachedTratoListNew;
-            curral.setTratoList(tratoListNew);
             curral = em.merge(curral);
-            for (Trato tratoListNewTrato : tratoListNew) {
-                if (!tratoListOld.contains(tratoListNewTrato)) {
-                    Curral oldCurralOfTratoListNewTrato = tratoListNewTrato.getCurral();
-                    tratoListNewTrato.setCurral(curral);
-                    tratoListNewTrato = em.merge(tratoListNewTrato);
-                    if (oldCurralOfTratoListNewTrato != null && !oldCurralOfTratoListNewTrato.equals(curral)) {
-                        oldCurralOfTratoListNewTrato.getTratoList().remove(tratoListNewTrato);
-                        oldCurralOfTratoListNewTrato = em.merge(oldCurralOfTratoListNewTrato);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -133,17 +82,6 @@ public class CurralJpaController implements Serializable {
                 curral.getCurCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The curral with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            List<Trato> tratoListOrphanCheck = curral.getTratoList();
-            for (Trato tratoListOrphanCheckTrato : tratoListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Curral (" + curral + ") cannot be destroyed since the Trato " + tratoListOrphanCheckTrato + " in its tratoList field has a non-nullable curral field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(curral);
             em.getTransaction().commit();

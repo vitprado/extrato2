@@ -25,6 +25,7 @@ public class Config {
     private static Scene equipamentoScene;
     private static Scene ingredienteScene;
     private static Scene curralScene;
+    private static Scene tratoScene;
     private static Scene receitaScene;
     private static Scene ordemScene;
     private static Scene programacaoScene;
@@ -55,6 +56,7 @@ public class Config {
 
         } catch (IOException e) {
             System.out.println("PROBLEMAS AO ABRIR TELA INTERNA!");
+            e.printStackTrace();
         }
     }
 
@@ -128,6 +130,10 @@ public class Config {
             case "curral":
                 stage.setScene(curralScene);
                 Config.notifyAllListeners("Curral", userData);
+                break;
+            case "trato":
+                stage.setScene(tratoScene);
+                Config.notifyAllListeners("Trato", userData);
                 break;
             case "receita":
                 stage.setScene(receitaScene);

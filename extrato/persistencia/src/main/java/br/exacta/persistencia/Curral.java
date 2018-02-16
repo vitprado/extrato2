@@ -53,8 +53,6 @@ public class Curral implements Serializable {
     @Column(name = "CUR_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date curDataCadastro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curral")
-    private List<Trato> tratoList;
 
     public Curral() {
     }
@@ -100,15 +98,6 @@ public class Curral implements Serializable {
         this.curDataCadastro = curDataCadastro;
     }
 
-    @XmlTransient
-    public List<Trato> getTratoList() {
-        return tratoList;
-    }
-
-    public void setTratoList(List<Trato> tratoList) {
-        this.tratoList = tratoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -131,7 +120,7 @@ public class Curral implements Serializable {
 
     @Override
     public String toString() {
-        return "br.exacta.persistencia.Curral[ curCodigo=" + curCodigo + " ]";
+        return curDescricao;
     }
     
 }

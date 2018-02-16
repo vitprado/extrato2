@@ -6,7 +6,8 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
-import br.exacta.persistencia.OrdemProcucao;
+import br.exacta.persistencia.OrdemProducao;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -31,13 +32,14 @@ public class OrdemProcucaoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrdemProcucao ordemProcucao) {
+    public OrdemProducao create(OrdemProducao ordemProducao) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(ordemProcucao);
+            em.persist(ordemProducao);
             em.getTransaction().commit();
+            return ordemProducao;
         } finally {
             if (em != null) {
                 em.close();
@@ -45,19 +47,19 @@ public class OrdemProcucaoJpaController implements Serializable {
         }
     }
 
-    public void edit(OrdemProcucao ordemProcucao) throws NonexistentEntityException, Exception {
+    public void edit(OrdemProducao ordemProducao) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ordemProcucao = em.merge(ordemProcucao);
+            ordemProducao = em.merge(ordemProducao);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Integer id = ordemProcucao.getOrdCodigo();
+                Integer id = ordemProducao.getOrdCodigo();
                 if (findOrdemProcucao(id) == null) {
-                    throw new NonexistentEntityException("The ordemProcucao with id " + id + " no longer exists.");
+                    throw new NonexistentEntityException("The ordemProducao with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,14 +75,14 @@ public class OrdemProcucaoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            OrdemProcucao ordemProcucao;
+            OrdemProducao ordemProducao;
             try {
-                ordemProcucao = em.getReference(OrdemProcucao.class, id);
-                ordemProcucao.getOrdCodigo();
+                ordemProducao = em.getReference(OrdemProducao.class, id);
+                ordemProducao.getOrdCodigo();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The ordemProcucao with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The ordemProducao with id " + id + " no longer exists.", enfe);
             }
-            em.remove(ordemProcucao);
+            em.remove(ordemProducao);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -89,19 +91,19 @@ public class OrdemProcucaoJpaController implements Serializable {
         }
     }
 
-    public List<OrdemProcucao> findOrdemProcucaoEntities() {
+    public List<OrdemProducao> findOrdemProcucaoEntities() {
         return findOrdemProcucaoEntities(true, -1, -1);
     }
 
-    public List<OrdemProcucao> findOrdemProcucaoEntities(int maxResults, int firstResult) {
+    public List<OrdemProducao> findOrdemProcucaoEntities(int maxResults, int firstResult) {
         return findOrdemProcucaoEntities(false, maxResults, firstResult);
     }
 
-    private List<OrdemProcucao> findOrdemProcucaoEntities(boolean all, int maxResults, int firstResult) {
+    private List<OrdemProducao> findOrdemProcucaoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(OrdemProcucao.class));
+            cq.select(cq.from(OrdemProducao.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -113,10 +115,19 @@ public class OrdemProcucaoJpaController implements Serializable {
         }
     }
 
-    public OrdemProcucao findOrdemProcucao(Integer id) {
+    public OrdemProducao findOrdemProcucao(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(OrdemProcucao.class, id);
+            return em.find(OrdemProducao.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public OrdemProducao findOrdemProcucao(String descricao) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(OrdemProducao.class, descricao);
         } finally {
             em.close();
         }
@@ -126,7 +137,7 @@ public class OrdemProcucaoJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<OrdemProcucao> rt = cq.from(OrdemProcucao.class);
+            Root<OrdemProducao> rt = cq.from(OrdemProducao.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -134,5 +145,7 @@ public class OrdemProcucaoJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<OrdemProducao> findOrdemProducaoEntities() { return findOrdemProcucaoEntities(true, -1, -1);}
     
 }
