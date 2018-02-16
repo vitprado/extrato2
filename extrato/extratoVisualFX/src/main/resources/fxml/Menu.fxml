@@ -40,24 +40,24 @@
                   <VBox>
                      <children>
                         <Button fx:id="btnPerfil" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Perfil do usuário" VBox.vgrow="SOMETIMES">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                            <styleClass>
                               <String fx:value="menus-acoes" />
                               <String fx:value="acao-user" />
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
                         </Button>
                         <Button fx:id="btnConfiguracoesGerais" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Configurações gerais">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                            <styleClass>
                               <String fx:value="menus-acoes" />
                               <String fx:value="acao-config" />
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                         </Button>
                      </children>
                   </VBox>
@@ -75,64 +75,64 @@
                         <VBox>
                             <children>
                         <Button fx:id="btnEmpresa" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                            <styleClass>
                               <String fx:value="menus-acoes" />
                               <String fx:value="acao-empresa" />
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
                         </Button>
                                 <Button fx:id="btnUsuarios" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
-                                	<styleClass>
-                                		<String fx:value="menus-acoes" />
-                                		<String fx:value="acao-user" />
-                        				<String fx:value="menu-azul-escuro" />
-                        			</styleClass>
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-user" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                                 </Button>
                                 <Button fx:id="btnEquipamentos" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Equipamentos">
-                                    <styleClass>
-                                		<String fx:value="menus-acoes" />
-                                		<String fx:value="acao-equipamento" />
-                        				<String fx:value="menu-azul-escuro" />
-                        			</styleClass>
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-equipamento" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                                 </Button>
                                 <Button fx:id="btnIngredientes" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ingredientes">
-                                	<styleClass>
-                                		<String fx:value="menus-acoes" />
-                                		<String fx:value="acao-ingrediente" />
-                        				<String fx:value="menu-azul-escuro" />
-                        			</styleClass>
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-ingrediente" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                                 </Button>
                                 <Button fx:id="btnCurrais" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Currais">
-                                    <styleClass>
-                                		<String fx:value="menus-acoes" />
-                                		<String fx:value="acao-curral" />
-                        				<String fx:value="menu-azul-escuro" />
-                        			</styleClass>
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-curral" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                                 </Button>
                                 <Button fx:id="btnReceitas" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Receitas">
-                                	<styleClass>
-                                		<String fx:value="menus-acoes" />
-                                		<String fx:value="acao-receita" />
-                        				<String fx:value="menu-azul-escuro" />
-                        			</styleClass>
                                     <VBox.margin>
                                         <Insets />
                                     </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-receita" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                                 </Button>
                             </children>
                         </VBox>
@@ -152,58 +152,58 @@
                   <VBox>
                      <children>
                             <Button fx:id="btnOrdemProducao" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Ordens de Produçao" VBox.vgrow="SOMETIMES">
-                            	<styleClass>
-                            		<String fx:value="menus-acoes" />
-                                    <String fx:value="acao-ordem" />
-                                    <String fx:value="menu-azul-escuro" />
-                                </styleClass>
                                 <VBox.margin>
                                     <Insets bottom="10.0" />
                                 </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-ordem" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
                             </Button>                  
-                            <Button fx:id="btnProgramacao" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">     
-                            	<styleClass>
-                            		<String fx:value="menus-acoes" />
-                                    <String fx:value="acao-historico" />
-                                    <String fx:value="menu-azul-escuro" />
-                                </styleClass>                
+                            <Button fx:id="btnProgramacao" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Programação">                
                                 <VBox.margin>                        
                                     <Insets bottom="10.0" />                     
-                                </VBox.margin>                  
+                                </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-historico" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>                  
                             </Button>                  
-                            <Button fx:id="btnAmostraResultados" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Resultados">    
-                            	<styleClass>
-                            		<String fx:value="menus-acoes" />
-                                    <String fx:value="acao-relatorio" />
-                                    <String fx:value="menu-azul-escuro" />
-                                </styleClass>                 
+                            <Button fx:id="btnAmostraResultados" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Resultados">                 
                                 <VBox.margin>                        
                                     <Insets />                     
-                                </VBox.margin>                  
+                                </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-relatorio" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>                  
                             </Button>
                      </children>
                   </VBox>
                </content>
             </TitledPane>
-                <Button fx:id="btnSuporte" alignment="TOP_LEFT" maxWidth="230.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" styleClass="bt-suporte" text="Suporte">
-                	<styleClass>
-                		<String fx:value="menus-app" />
-                        <String fx:value="acao-suporte" />
-                        <String fx:value="menu-azul-escuro" />
-                    </styleClass>                     
+                <Button fx:id="btnSuporte" alignment="TOP_LEFT" maxWidth="230.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" text="Suporte">                     
                     <VBox.margin>                        
                         <Insets top="10.0" />                     
-                    </VBox.margin>                  
+                    </VBox.margin>
+               <styleClass>
+                  <String fx:value="menus-app" />
+                  <String fx:value="acao-suporte" />
+                  <String fx:value="menu-azul-escuro" />
+               </styleClass>                  
                 </Button>                
                 <Button fx:id="btnSobre" alignment="TOP_LEFT" maxWidth="228.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="228.0" text="Sobre">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
                <styleClass>
                   <String fx:value="menus-app" />
                   <String fx:value="acao-info" />
                   <String fx:value="menu-azul-escuro" />
-               </styleClass>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin></Button>
+               </styleClass></Button>
                 <Accordion />               
             </children>               
             <padding>                  

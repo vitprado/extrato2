@@ -441,12 +441,12 @@
 }
 
 .menu-azul-escuro {
-    -fx-background-color: linear-gradient(to top right, #08298A, #3104B4);
-    -fx-border-color: linear-gradient(to top right, #08298A, #3104B4);
+    -fx-background-color: linear-gradient(to top right, #424242, #A4A4A4);
+    -fx-border-color: linear-gradient(to top right, #424242, #A4A4A4);
 }
 
 .menu-azul-escuro:pressed {
-    -fx-background-color: #08298A;
+    -fx-background-color: #424242;
     -fx-border-color: #3104B4;
 }
 
