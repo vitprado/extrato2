@@ -11,8 +11,7 @@ import br.exacta.persistencia.Curral;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,10 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
-import javafx.scene.control.cell.ChoiceBoxListCell;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -41,12 +39,18 @@ public class ListaCurraisOrdemController implements Initializable {
     @FXML
     private Button btnSalvar;
     @FXML
-    private ChoiceBox<String> cbbCurrais;
+    private ChoiceBox<Curral> cbbCurrais;
     @FXML
-    private ListView<String> ltvDados;
+    private ListView<Curral> ltvDados;
 
-    private final ObservableList<String> listaCurrais = FXCollections.observableArrayList();
+    private final ObservableList<Curral> observableCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
+
+    private List<Curral> currais;
+
+    public ListaCurraisOrdemController(List<Curral> currais) {
+        this.currais = currais;
+    }
 
     /**
      * Initializes the controller class.
@@ -69,7 +73,7 @@ public class ListaCurraisOrdemController implements Initializable {
 
         // REMOVER 
         btnRemoverLista.setOnAction((ActionEvent event) -> {
-            String itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
                 ltvDados.getItems().remove(itemSelecionado);
             } else {
@@ -81,24 +85,33 @@ public class ListaCurraisOrdemController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 enviaDadosGUI();
+                Stage stage = (Stage) btnSalvar.getScene().getWindow();
+                stage.close();
             }
         });
     }
 
     private void carregaComponentes() {
-        List<String> currais;
-        currais = curralDAO.getNomesCurraisDistinct();
-        listaCurrais.addAll(currais);
-        cbbCurrais.setItems(listaCurrais);
+        List<Curral> currais;
+        observableCurrais.addAll(curralDAO.getTodosCurrais());
+        cbbCurrais.setItems(observableCurrais);
+
+        cbbCurrais.setConverter(new StringConverter<Curral>() {
+            @Override
+            public String toString(Curral object) {
+                return object.getCurDescricao();
+            }
+
+            @Override
+            public Curral fromString(String string) {
+                return observableCurrais.stream()
+                        .filter(curral -> string.equals(curral.getCurDescricao()))
+                        .findFirst().get();
+            }
+        });
     }
 
     private void enviaDadosGUI() {
-        ObservableList<String> ol = ltvDados.getSelectionModel().getSelectedItems();
-
-        if (!ol.isEmpty()) {
-            String C = ol.get(0);
-
-            Config.changeScreen("Ordem", C);
-        }
+        currais.addAll(ltvDados.getItems());
     }
 }
