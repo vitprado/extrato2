@@ -31,3 +31,9 @@ extrato/extratoVisualFX/extrato/
 extrato/extrato/
 /.classpath
 /.project
+
+
+# Eclipse
+.classpath
+.project
+.settings

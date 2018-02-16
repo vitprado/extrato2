@@ -20,9 +20,6 @@ public class ProgramacaoDAO {
     private final ProgramacaoJpaController programacaoController;
     private final EntityManagerFactory emf;
 
-    /**
-     *
-     */
     public ProgramacaoDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         programacaoController = new ProgramacaoJpaController(emf);
@@ -83,6 +80,5 @@ public class ProgramacaoDAO {
 
 //    public List<String> getEquipamentosDistinct() {
 //        return programacaoController.findEquipamentoDistinct();
-//    }
-    
+//    }    
 }

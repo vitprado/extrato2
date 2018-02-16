@@ -39,6 +39,13 @@ Pronto, com estes passos temos instalado o sistema exTrato em nosso sistema oper
 
 Nesta seção contém algumas dicas sobre programas que foram instalados, formas de contornar possíveis problemas, e facilitadores de modo geral.
 
+### Alterações na base de dados
+
+- É sabido que neste projeto é usado como banco de dados o Derby (java DB), em sua versão embarcada. Para que haja maior compatibilidade entre computadores, e configurações.
+- No entanto foi identificado por mim (Thales), algumas limitações, tais estas, a forma de executar modificações na base de dados e replicar isso ao projeto com o uso de JPA.
+- A maneira encontrada por mim foi, utilizar um software de nome RazorSQL, que contempla Derby como um dos bancos suportados, com isto efetuo todas as alterações e com o suporte da IDE de desenvolvimento, faço junto ao JPA toda a atualização necessária em linhas de código necessárias.
+- Caso seja encontrado alguma outra forma pelos os envolvidos do projeto, favor documentar, afim de termos mais de uma forma de alterar, criar, e executar modificações/melhorias.
+
 ### Como abrir os arquivos FXML
 
 - Para que este procedimento seja executado com sucesso, primeiramente tenha instalado **JavaFX Scene Builder** em sua máquina. Com isto feito, se torna algo simples, apenas dê duplo click no documento que queira editar. De imediato será aberto o **JavaFX Scene Builder**, nele você poderá editar todo o conteúdo que julgar necessário.
@@ -55,7 +62,7 @@ Library > Import JAR/FXML File...
 
 ## Tecnologias utilizadas
 
-* **[Netbeans](https://maven.apache.org/)** - Ambiente de desenvolvimento de software
+* **[Netbeans](https://netbeans.org) /[IntelliJ](https://www.jetbrains.com/idea/)** - Ambiente de desenvolvimento de software
 * **[Apache Derby](https://db.apache.org/derby/)** - é um sistema de gerenciamento de banco de dados relacional Java que pode ser embutido em programas Java e usado para processamento de transações online.
 * **[Maven](https://maven.apache.org/)** - Gerenciador de Dependências
 * **[JPA](https://pt.wikipedia.org/wiki/Java_Persistence_API)** - Java Persistence API (ou simplesmente JPA) é uma API padrão da linguagem Java que descreve uma interface comum para frameworks de persistência de dados.
@@ -72,7 +79,7 @@ Library > Import JAR/FXML File...
 ## Autores
 
 * **Thales Tassi** - *Analista desenvolvedor responsável pelo sistema exTrato* - [Github](https://github.com/tassithales)
-* **Vitor Hugo Prado** - *Analista desenvolvedor de Produtos e supervisor do sistema exTrato* - [Github](https://github.com/vitprado)
+* **Vitor Hugo Prado** - *Analista desenvolvedor de Produtos e coordenador do sistema exTrato* - [Github](https://github.com/vitprado)
 * **Rodrigo Aznar** - *Gerente de desenvolvimento* - [Github](https://github.com/rodrigo-aznar)
 
 

@@ -95,10 +95,10 @@ public class ListaCurraisOrdemController implements Initializable {
     private void enviaDadosGUI() {
         ObservableList<String> ol = ltvDados.getSelectionModel().getSelectedItems();
 
-        while (!ol.isEmpty()) {
+        if (!ol.isEmpty()) {
             String C = ol.get(0);
 
-            Config.changeScreen("Curral", C);
+            Config.changeScreen("Ordem", C);
         }
     }
 }

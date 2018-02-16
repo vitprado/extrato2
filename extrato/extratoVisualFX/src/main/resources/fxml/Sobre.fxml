@@ -8,23 +8,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SobreController">
+<AnchorPane id="AnchorPane" prefHeight="611.0" prefWidth="600.0" stylesheets="@../css/app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.SobreController">
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imgLogoExtrato" fitHeight="515.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/logo-extrato-sem-fundo.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="imgLogoExacta" fitHeight="159.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../java/br/exacta/imagens/logo.png" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="imgLogoExtrato" fitHeight="515.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+            <ImageView fx:id="imgLogoExacta" fitHeight="76.0" fitWidth="207.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-exacta" />
             <Label fx:id="lblEnderecoSite" text="www.exactabalancas.com.br">
                <font>
-                  <Font name="Segoe UI Semibold" size="24.0" />
+                  <Font name="Segoe UI Semibold" size="20.0" />
                </font>
             </Label>
          </children>

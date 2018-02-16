@@ -20,9 +20,6 @@ public class ReceitaDAO {
     private final ReceitaJpaController receitaController;
     private final EntityManagerFactory emf;
 
-    /**
-     *
-     */
     public ReceitaDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         receitaController = new ReceitaJpaController(emf);
@@ -84,5 +81,4 @@ public class ReceitaDAO {
     public List<String> getNomesEquipamentosDistinct() {
         return receitaController.findNameReceitasDistinct();
     }
-
 }

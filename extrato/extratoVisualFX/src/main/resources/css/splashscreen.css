@@ -1,0 +1,41 @@
+
+.root {
+    -fx-background-color: #fff;
+}
+
+.background {
+    -fx-background-image: url("../img/bg-back-splash.jpg");
+    fx-background-color: gray;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-background-position: top;
+    -fx-background-repeat: no-repeat;
+}
+
+.logo-exacta {
+    -fx-image: url("../img/logo-exacta.png");
+}
+
+.login-img {
+    -fx-image: url("../img/login2.png");
+}
+
+.login {
+    -fx-image: url("../img/icon/icon_user.png");
+}
+
+.senha {
+    -fx-image: url("../img/icon/icon_senha.png");
+}
+
+.X-logo{
+	-fx-image: url("../img/icone-192x192.png");
+}
+
+.link-museuid {
+    -fx-graphic: url("../img/logo-exacta.png");
+}
+
+.link-geopark {
+    -fx-graphic: url("../img/icon/geopark-mini.png");
+}

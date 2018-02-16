@@ -87,6 +87,10 @@ public class CarregamentoDAO {
         return carregamentoController.findEquipamentoDistinct();
     }
 
+    public List<Carregamento> getOrdensDistinct(){
+    	return carregamentoController.findOrdemDistinct();
+    }
+    
     public List<Carregamento> getCarregamentos(CarregamentoJpaFilter filter) {
         return carregamentoController.findCarregamentos(filter);
     }

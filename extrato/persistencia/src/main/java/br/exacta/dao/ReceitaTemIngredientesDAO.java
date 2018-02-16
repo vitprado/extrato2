@@ -21,9 +21,6 @@ public class ReceitaTemIngredientesDAO {
     private final ReceitaTemIngredientesJpaController receitaTemIngController;
     private final EntityManagerFactory emf;
 
-    /**
-     *
-     */
     public ReceitaTemIngredientesDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         receitaTemIngController = new ReceitaTemIngredientesJpaController(emf);
@@ -81,5 +78,4 @@ public class ReceitaTemIngredientesDAO {
     public ReceitaTemIngredientes getIngredienteReceitaId(ReceitaTemIngredientesPK id) {
         return receitaTemIngController.findReceitaTemIngredientes(id);
     }
-
 }

@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,26 +25,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Carregamento.findAll", query = "SELECT c FROM Carregamento c")
     , @NamedQuery(name = "Carregamento.findByRdcCodigo", query = "SELECT c FROM Carregamento c WHERE c.rdcCodigo = :rdcCodigo")
-    , @NamedQuery(name = "Carregamento.findByRdcEquipamento", query = "SELECT c FROM Carregamento c WHERE c.rdcEquipamento = :rdcEquipamento")
     , @NamedQuery(name = "Carregamento.findByRdcOrdem", query = "SELECT c FROM Carregamento c WHERE c.rdcOrdem = :rdcOrdem")
+    , @NamedQuery(name = "Carregamento.findByRdcEquipamento", query = "SELECT c FROM Carregamento c WHERE c.rdcEquipamento = :rdcEquipamento")
     , @NamedQuery(name = "Carregamento.findByRdcNumtrato", query = "SELECT c FROM Carregamento c WHERE c.rdcNumtrato = :rdcNumtrato")
     , @NamedQuery(name = "Carregamento.findByRdcIngrediente", query = "SELECT c FROM Carregamento c WHERE c.rdcIngrediente = :rdcIngrediente")
     , @NamedQuery(name = "Carregamento.findByRdcPesorequisitado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorequisitado = :rdcPesorequisitado")
     , @NamedQuery(name = "Carregamento.findByRdcPesorealizado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorealizado = :rdcPesorealizado")
-    , @NamedQuery(name = "Carregamento.findByRdcDataJson", query = "SELECT c FROM Carregamento c WHERE c.rdcDataJson = :rdcDataJson")
+    , @NamedQuery(name = "Carregamento.findByRdcDatajson", query = "SELECT c FROM Carregamento c WHERE c.rdcDatajson = :rdcDatajson")
     , @NamedQuery(name = "Carregamento.findByRdcReceita", query = "SELECT c FROM Carregamento c WHERE c.rdcReceita = :rdcReceita")})
 public class Carregamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "RDC_CODIGO")
     private Integer rdcCodigo;
-    @Column(name = "RDC_EQUIPAMENTO")
-    private String rdcEquipamento;
     @Column(name = "RDC_ORDEM")
     private String rdcOrdem;
+    @Column(name = "RDC_EQUIPAMENTO")
+    private String rdcEquipamento;
     @Column(name = "RDC_NUMTRATO")
     private Integer rdcNumtrato;
     @Column(name = "RDC_INGREDIENTE")
@@ -55,8 +52,8 @@ public class Carregamento implements Serializable {
     private String rdcPesorequisitado;
     @Column(name = "RDC_PESOREALIZADO")
     private String rdcPesorealizado;
-    @Column(name = "RDC_DATA_JSON")
-    private String rdcDataJson;
+    @Column(name = "RDC_DATAJSON")
+    private String rdcDatajson;
     @Column(name = "RDC_RECEITA")
     private String rdcReceita;
 
@@ -75,20 +72,20 @@ public class Carregamento implements Serializable {
         this.rdcCodigo = rdcCodigo;
     }
 
-    public String getRdcEquipamento() {
-        return rdcEquipamento;
-    }
-
-    public void setRdcEquipamento(String rdcEquipamento) {
-        this.rdcEquipamento = rdcEquipamento;
-    }
-
     public String getRdcOrdem() {
         return rdcOrdem;
     }
 
     public void setRdcOrdem(String rdcOrdem) {
         this.rdcOrdem = rdcOrdem;
+    }
+
+    public String getRdcEquipamento() {
+        return rdcEquipamento;
+    }
+
+    public void setRdcEquipamento(String rdcEquipamento) {
+        this.rdcEquipamento = rdcEquipamento;
     }
 
     public Integer getRdcNumtrato() {
@@ -123,12 +120,12 @@ public class Carregamento implements Serializable {
         this.rdcPesorealizado = rdcPesorealizado;
     }
 
-    public String getRdcDataJson() {
-        return rdcDataJson;
+    public String getRdcDatajson() {
+        return rdcDatajson;
     }
 
-    public void setRdcDataJson(String rdcDataJson) {
-        this.rdcDataJson = rdcDataJson;
+    public void setRdcDatajson(String rdcDatajson) {
+        this.rdcDatajson = rdcDatajson;
     }
 
     public String getRdcReceita() {

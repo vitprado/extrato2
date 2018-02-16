@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,33 +16,33 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ *
  * @author Thales
  */
 @Entity
 @Table(name = "DESCARREGAMENTO")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Descarregamento.findAll", query = "SELECT d FROM Descarregamento d")
-        , @NamedQuery(name = "Descarregamento.findByRdgCodigo", query = "SELECT d FROM Descarregamento d WHERE d.rdgCodigo = :rdgCodigo")
-        , @NamedQuery(name = "Descarregamento.findByRdgEquipamento", query = "SELECT d FROM Descarregamento d WHERE d.rdgEquipamento = :rdgEquipamento")
-        , @NamedQuery(name = "Descarregamento.findByRdgOrdem", query = "SELECT d FROM Descarregamento d WHERE d.rdgOrdem = :rdgOrdem")
-        , @NamedQuery(name = "Descarregamento.findByRdgNumtrato", query = "SELECT d FROM Descarregamento d WHERE d.rdgNumtrato = :rdgNumtrato")
-        , @NamedQuery(name = "Descarregamento.findByRdgCurral", query = "SELECT d FROM Descarregamento d WHERE d.rdgCurral = :rdgCurral")
-        , @NamedQuery(name = "Descarregamento.findByRdgTratorequisitado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorequisitado = :rdgTratorequisitado")
-        , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")
-        , @NamedQuery(name = "Descarregamento.findByRdgDataJson", query = "SELECT d FROM Descarregamento d WHERE d.rdgDataJson = :rdgDataJson")})
+    @NamedQuery(name = "Descarregamento.findAll", query = "SELECT d FROM Descarregamento d")
+    , @NamedQuery(name = "Descarregamento.findByRdgCodigo", query = "SELECT d FROM Descarregamento d WHERE d.rdgCodigo = :rdgCodigo")
+    , @NamedQuery(name = "Descarregamento.findByRdgOrdem", query = "SELECT d FROM Descarregamento d WHERE d.rdgOrdem = :rdgOrdem")
+    , @NamedQuery(name = "Descarregamento.findByRdgEquipamento", query = "SELECT d FROM Descarregamento d WHERE d.rdgEquipamento = :rdgEquipamento")
+    , @NamedQuery(name = "Descarregamento.findByRdgNumtrato", query = "SELECT d FROM Descarregamento d WHERE d.rdgNumtrato = :rdgNumtrato")
+    , @NamedQuery(name = "Descarregamento.findByRdgCurral", query = "SELECT d FROM Descarregamento d WHERE d.rdgCurral = :rdgCurral")
+    , @NamedQuery(name = "Descarregamento.findByRdgTratorequisitado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorequisitado = :rdgTratorequisitado")
+    , @NamedQuery(name = "Descarregamento.findByRdgTratorealizado", query = "SELECT d FROM Descarregamento d WHERE d.rdgTratorealizado = :rdgTratorealizado")
+    , @NamedQuery(name = "Descarregamento.findByRdgDatajson", query = "SELECT d FROM Descarregamento d WHERE d.rdgDatajson = :rdgDatajson")})
 public class Descarregamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "RDG_CODIGO")
     private Integer rdgCodigo;
-    @Column(name = "RDG_EQUIPAMENTO")
-    private String rdgEquipamento;
     @Column(name = "RDG_ORDEM")
     private String rdgOrdem;
+    @Column(name = "RDG_EQUIPAMENTO")
+    private String rdgEquipamento;
     @Column(name = "RDG_NUMTRATO")
     private Integer rdgNumtrato;
     @Column(name = "RDG_CURRAL")
@@ -53,8 +51,8 @@ public class Descarregamento implements Serializable {
     private String rdgTratorequisitado;
     @Column(name = "RDG_TRATOREALIZADO")
     private String rdgTratorealizado;
-    @Column(name = "RDG_DATA_JSON")
-    private String rdgDataJson;
+    @Column(name = "RDG_DATAJSON")
+    private String rdgDatajson;
 
     public Descarregamento() {
     }
@@ -71,20 +69,20 @@ public class Descarregamento implements Serializable {
         this.rdgCodigo = rdgCodigo;
     }
 
-    public String getRdgEquipamento() {
-        return rdgEquipamento;
-    }
-
-    public void setRdgEquipamento(String rdgEquipamento) {
-        this.rdgEquipamento = rdgEquipamento;
-    }
-
     public String getRdgOrdem() {
         return rdgOrdem;
     }
 
     public void setRdgOrdem(String rdgOrdem) {
         this.rdgOrdem = rdgOrdem;
+    }
+
+    public String getRdgEquipamento() {
+        return rdgEquipamento;
+    }
+
+    public void setRdgEquipamento(String rdgEquipamento) {
+        this.rdgEquipamento = rdgEquipamento;
     }
 
     public Integer getRdgNumtrato() {
@@ -119,12 +117,12 @@ public class Descarregamento implements Serializable {
         this.rdgTratorealizado = rdgTratorealizado;
     }
 
-    public String getRdgDataJson() {
-        return rdgDataJson;
+    public String getRdgDatajson() {
+        return rdgDatajson;
     }
 
-    public void setRdgDataJson(String rdgDataJson) {
-        this.rdgDataJson = rdgDataJson;
+    public void setRdgDatajson(String rdgDatajson) {
+        this.rdgDatajson = rdgDatajson;
     }
 
     @Override
@@ -151,5 +149,5 @@ public class Descarregamento implements Serializable {
     public String toString() {
         return "br.exacta.persistencia.Descarregamento[ rdgCodigo=" + rdgCodigo + " ]";
     }
-
+    
 }
