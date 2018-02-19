@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CONFIGURAÇÕES" textAlignment="CENTER">
+            <TitledPane alignment="CENTER" contentDisplay="CENTER" disable="true" expanded="false" text="CONFIGURAÇÕES" textAlignment="CENTER" visible="false">
                <content>
                   <VBox>
                      <children>
@@ -74,7 +74,7 @@
                     <content>
                         <VBox>
                             <children>
-                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa">
+                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa" visible="false">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
@@ -84,7 +84,7 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                         </Button>
-                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
+                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários" visible="false">
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>
