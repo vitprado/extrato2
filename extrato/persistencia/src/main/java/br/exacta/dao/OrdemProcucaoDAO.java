@@ -17,17 +17,11 @@ public class OrdemProcucaoDAO {
         ordemProcucaoController = new OrdemProcucaoJpaController(emf);
     }
 
-    public OrdemProducao adicionarOrdemProcucao(OrdemProducao ordemProducao) throws Exception {
-        return ordemProcucaoController.create(ordemProducao);
-    }
+    public OrdemProducao adicionarOrdemProcucao(OrdemProducao ordemProducao) throws Exception { return ordemProcucaoController.create(ordemProducao);}
 
-    public void editarOrdemProcucao(OrdemProducao ordemProducao) throws Exception {
-        ordemProcucaoController.edit(ordemProducao);
-    }
+    public void editarOrdemProcucao(OrdemProducao ordemProducao) throws Exception { ordemProcucaoController.edit(ordemProducao);}
 
-    public void removerOrdemProcucao(Integer id) throws Exception {
-        ordemProcucaoController.destroy(id);
-    }
+    public void removerOrdemProcucao(Integer id) throws Exception { ordemProcucaoController.destroy(id);}
 
     public OrdemProducao getOrdemProcucao(Integer id) { return ordemProcucaoController.findOrdemProcucao(id);}
 

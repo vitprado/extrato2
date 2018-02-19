@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
@@ -16,7 +17,7 @@
         <Font name="Segoe UI Semilight" size="48.0" />
       </font>
     </Text>
-    <Text fill="#a5aab2" layoutX="279.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adiçao de Ingredientes na Receita">
+    <Text fill="#a5aab2" layoutX="279.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escolha os ingredientes da receita">
       <font>
         <Font name="Segoe UI Semilight" size="18.0" />
       </font>
@@ -32,7 +33,12 @@
           </GridPane.margin>
         </TextField>
         <TextField fx:id="txtProporcao" prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="2" />
-        <Button id="btnAdicionarLIsta" fx:id="btnAdicionarLista" mnemonicParsing="false" prefWidth="118.0" text="ADICIONAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Button id="btnAdicionarLIsta" fx:id="btnAdicionarLista" mnemonicParsing="false" prefWidth="118.0" text="ADICIONAR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <stylesheets>
+                  <URL value="@../css/custom.css" />
+                  <URL value="@../css/default.css" />
+                  <URL value="@../css/app.css" />
+               </stylesheets></Button>
         <Button fx:id="btnRemoverLista" mnemonicParsing="false" prefWidth="118.0" text="REMOVER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="cbbIngredientes" prefHeight="31.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
@@ -47,6 +53,10 @@
         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <ListView fx:id="ltvDados" layoutX="14.0" layoutY="193.0" prefHeight="200.0" prefWidth="572.0" />
+      <TableView layoutX="14.0" layoutY="193.0" prefHeight="200.0" prefWidth="572.0" />
   </children>
+   <stylesheets>
+      <URL value="@../css/default.css" />
+      <URL value="@../css/custom.css" />
+   </stylesheets>
 </AnchorPane>

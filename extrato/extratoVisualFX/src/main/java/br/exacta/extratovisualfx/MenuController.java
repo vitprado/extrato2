@@ -62,13 +62,7 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	
-    	btnDashboard.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados, "Dash");
-            }
-        });
+
         // BOTAO DE USUÁRIOS
         btnUsuarios.setOnAction(new EventHandler<ActionEvent>() {
             @Override
