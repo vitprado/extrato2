@@ -18,7 +18,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
                <children>
-                  <Text layoutX="27.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seja bem-vindo (a), Fulano">
+                  <Text layoutX="46.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seja bem-vindo(a)" textAlignment="CENTER">
                      <font>
                         <Font name="Segoe UI Semilight" size="15.0" />
                      </font>
@@ -69,31 +69,11 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TitledPane>
-                <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="CADASTROS" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
+                <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                 
                     <content>
                         <VBox>
                             <children>
-                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa" visible="false">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                           <styleClass>
-                              <String fx:value="menus-acoes" />
-                              <String fx:value="acao-empresa" />
-                              <String fx:value="menu-azul-escuro" />
-                           </styleClass>
-                        </Button>
-                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários" visible="false">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" />
-                                    </VBox.margin>
-                           <styleClass>
-                              <String fx:value="menus-acoes" />
-                              <String fx:value="acao-user" />
-                              <String fx:value="menu-azul-escuro" />
-                           </styleClass>
-                                </Button>
                                 <Button fx:id="btnEquipamentos" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Equipamentos">
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
@@ -134,6 +114,26 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                                 </Button>
+                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários" visible="false">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-user" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
+                                </Button>
+                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa" visible="false">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-empresa" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
+                        </Button>
                             </children>
                         </VBox>
                     </content>
@@ -144,7 +144,7 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </TitledPane>
-            <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="MOV. DE MANEJOS" textAlignment="CENTER">
+            <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Produção" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
