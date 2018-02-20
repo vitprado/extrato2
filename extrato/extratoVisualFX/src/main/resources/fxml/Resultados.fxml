@@ -82,7 +82,7 @@
                      <content>
                         <VBox>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo (Carregamento):">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Carregamento">
                                  <font>
                                     <Font name="Segoe UI Semilight" size="18.0" />
                                  </font>
@@ -115,7 +115,7 @@
                      <content>
                         <VBox>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arquivo de resultados listado abaixo (Descarregamento):">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Descarregamento">
                                  <font>
                                     <Font name="Segoe UI Semilight" size="18.0" />
                                  </font>
@@ -143,21 +143,21 @@
                         </VBox>
                      </content>
                 </Tab>
-                  <Tab text="Visualização Simplificada (Resumo do Arquivo atual)">
+                  <Tab text="Visualização Simplificada">
                      <graphic>
                         <VBox />
                      </graphic>
                      <content>
-                        <TextArea styleClass="text-area" fx:id="txtAreaJsonSimples" editable="false" prefHeight="200.0" prefWidth="200.0">
+                        <TextArea fx:id="txtAreaJsonSimples" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area">
                            <font>
                               <Font name="Segoe UI Semilight" size="18.0" />
                            </font>
                         </TextArea>
                      </content>
                   </Tab>
-                  <Tab text="Visualização Arquivo Json (Completa e atual)">
+                  <Tab text="Arquivo Original">
                      <content>
-                        <TextArea styleClass="text-area" fx:id="txtAreaJsonCompleta" editable="false" prefHeight="200.0" prefWidth="200.0">
+                        <TextArea fx:id="txtAreaJsonCompleta" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area">
                            <font>
                               <Font name="Segoe UI Semilight" size="18.0" />
                            </font>

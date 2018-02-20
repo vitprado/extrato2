@@ -15,11 +15,6 @@
             <Font name="Segoe UI Semilight" size="48.0" />
          </font>
       </Text>
-      <Text fill="#a5aab2" layoutX="208.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Abaixo todos as empresas cadastradas">
-         <font>
-            <Font name="Segoe UI Semilight" size="18.0" />
-         </font>
-      </Text>
       <AnchorPane fx:id="apAcoes" layoutX="514.0" layoutY="94.0" prefHeight="662.0" prefWidth="277.0" style="-fx-border-color: white white white #cccccc;">
          <children>
             <Text fx:id="lblAcoes" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ações do Sistema">

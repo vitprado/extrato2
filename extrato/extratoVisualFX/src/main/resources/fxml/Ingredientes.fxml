@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -19,8 +20,8 @@
             </Text>
             <GridPane>
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="92.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="339.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="141.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="290.0" />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="369.0" />
               </columnConstraints>
               <rowConstraints>
@@ -29,11 +30,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin></Button>
-                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2">
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin></Button>
@@ -70,4 +71,8 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../css/default.css" />
+      <URL value="@../css/custom.css" />
+   </stylesheets>
 </AnchorPane>

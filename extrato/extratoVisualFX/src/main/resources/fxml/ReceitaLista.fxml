@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
@@ -24,15 +25,14 @@
                 <Font name="Segoe UI Semilight" size="16.0" />
               </font>
             </Text>
-            <TextField fx:id="txtNome" prefHeight="30.0" prefWidth="383.0" GridPane.columnIndex="1" />
-            <Button id="btnSalvar" fx:id="btnSalvarListar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2" />
-            <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <TextField fx:id="txtNome" prefHeight="30.0" prefWidth="453.0" GridPane.columnIndex="1" />
+            <Button id="btnSalvar" fx:id="btnSalvarListar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" />
+            <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
           </children>
           <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="68.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="571.0" minWidth="10.0" prefWidth="571.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="161.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="164.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="571.0" minWidth="10.0" prefWidth="423.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="309.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -43,4 +43,8 @@
       </children>
     </VBox>
   </children>
+   <stylesheets>
+      <URL value="@../css/default.css" />
+      <URL value="@../css/custom.css" />
+   </stylesheets>
 </AnchorPane>

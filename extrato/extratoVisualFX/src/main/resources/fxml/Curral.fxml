@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -34,12 +35,16 @@
                      </font>
                   </Text>
                   <TextField fx:id="txtNome" prefHeight="30.0" prefWidth="383.0" GridPane.columnIndex="1" />
-                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2" />
-                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" />
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <ListView fx:id="ltvDados" prefHeight="489.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../css/custom.css" />
+      <URL value="@../css/default.css" />
+   </stylesheets>
 </AnchorPane>

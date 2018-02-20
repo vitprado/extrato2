@@ -28,8 +28,8 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="EXCLUIR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="SALVAR" GridPane.columnIndex="2" />
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="Adicionar" GridPane.columnIndex="2" />
                   <TextField fx:id="txtNome" prefHeight="25.0" prefWidth="499.0" GridPane.columnIndex="1" />
                   <Text fx:id="lblNome" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
                      <font>
