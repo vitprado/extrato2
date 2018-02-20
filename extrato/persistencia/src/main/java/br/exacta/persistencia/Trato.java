@@ -5,25 +5,24 @@
  */
 package br.exacta.persistencia;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author Thales
  */
 @Entity
 @Table(name = "TRATO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Trato.findAll", query = "SELECT t FROM Trato t")
-    , @NamedQuery(name = "Trato.findByTrtCodigo", query = "SELECT t FROM Trato t WHERE t.trtCodigo = :trtCodigo")
-    , @NamedQuery(name = "Trato.findByTrtNumero", query = "SELECT t FROM Trato t WHERE t.trtNumero = :trtNumero")
-    , @NamedQuery(name = "Trato.findByRctCodigo", query = "SELECT t FROM Trato t WHERE t.receita = :receita")
+        @NamedQuery(name = "Trato.findAll", query = "SELECT t FROM Trato t")
+        , @NamedQuery(name = "Trato.findByTrtCodigo", query = "SELECT t FROM Trato t WHERE t.trtCodigo = :trtCodigo")
+        , @NamedQuery(name = "Trato.findByTrtNumero", query = "SELECT t FROM Trato t WHERE t.trtNumero = :trtNumero")
+        , @NamedQuery(name = "Trato.findByRctCodigo", query = "SELECT t FROM Trato t WHERE t.receita = :receita")
 })
 public class Trato implements Serializable {
 
@@ -58,11 +57,11 @@ public class Trato implements Serializable {
         this.receita = receita;
         this.ordemProducao = ordemProducao;
         this.itemTratos = new ArrayList<>();
-        for(ItemTrato itemTrato: itemTratos){
+        for (ItemTrato itemTrato : itemTratos) {
             ItemTrato novoItemTrato = new ItemTrato(
                     itemTrato.getIttCodigo(),
                     itemTrato.getIttPeso(),
-                    itemTrato.getCurralId(),
+                    itemTrato.getCurral(),
                     this);
             this.itemTratos.add(novoItemTrato);
         }
@@ -125,5 +124,5 @@ public class Trato implements Serializable {
     public String toString() {
         return "br.exacta.persistencia.Trato[ trtCodigo=" + trtCodigo + " ]";
     }
-    
+
 }

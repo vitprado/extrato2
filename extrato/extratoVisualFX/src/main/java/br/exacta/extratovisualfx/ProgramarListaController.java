@@ -5,20 +5,23 @@
  */
 package br.exacta.extratovisualfx;
 
-import br.exacta.config.Config;
-import br.exacta.persistencia.Equipamento;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.exacta.dto.ConsultaOrdemDTODAO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.stage.DirectoryChooser;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -44,22 +47,35 @@ public class ProgramarListaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
 
         btnProgramar.setOnAction((ActionEvent event) -> {
-            if (cbbEquipamento.getValue() != null) {
-                
-                // VEJO SE NO BANCO EXISTE ESTE EQUIPAMENTO COM ALGUMA ORDEM RELACIONADA
-                // SE HOUVER PEGO E LISTO ESTA ORDEM, ONDE APENAS TEMOS AQUELE EQUIPAMENTO SELECIONADO
-
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File file = directoryChooser.showDialog(null);
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), new ConsultaOrdemDTODAO().findAll());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            else
-                Config.caixaDialogo(Alert.AlertType.WARNING, "Certifique-se que seu equipamento esteja selecionado!");
+//            if (cbbEquipamento.getValue() != null) {
+
+            // VEJO SE NO BANCO EXISTE ESTE EQUIPAMENTO COM ALGUMA ORDEM RELACIONADA
+            // SE HOUVER PEGO E LISTO ESTA ORDEM, ONDE APENAS TEMOS AQUELE EQUIPAMENTO SELECIONADO
+
+//            }
+//            else
+//                Config.caixaDialogo(Alert.AlertType.WARNING, "Certifique-se que seu equipamento esteja selecionado!");
         });
     }
 

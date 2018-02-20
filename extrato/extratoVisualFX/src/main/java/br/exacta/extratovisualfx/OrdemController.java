@@ -82,7 +82,7 @@ public class OrdemController implements Initializable {
                                 tratoLocal.getDados().forEach(tabela -> {
                                     ItemTrato itemTrato = new ItemTrato();
                                     itemTrato.setIttPeso(new BigDecimal(tabela.getPeso()));
-                                    itemTrato.setCurralId(tabela.getCurralEntity().getCurCodigo());
+                                    itemTrato.setCurral(tabela.getCurralEntity());
                                     items.add(itemTrato);
                                 });
 
@@ -95,7 +95,7 @@ public class OrdemController implements Initializable {
                     OrdemProducao ordemProducao = new OrdemProducao(txtOrdem.getText(), cbbEquipamento.getValue(), tratoList);
                     ordemProducao = ordemProcucaoDAO.adicionarOrdemProcucao(ordemProducao);
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     e.fillInStackTrace();
                 }
             }
@@ -118,7 +118,7 @@ public class OrdemController implements Initializable {
         });
     }
 
-    private void actionInserirLista(){
+    private void actionInserirLista() {
         InserirTratoController inserirTratoController = new InserirTratoController(this);
         Config config = new Config();
         config.carregarAnchorPaneDialog("InserirTrato", inserirTratoController);
@@ -127,12 +127,12 @@ public class OrdemController implements Initializable {
     public void carregarTabela() {
         tratoData.clear();
         tratoData.addAll(tratoLocalList.stream()
-                .map(trato -> new  TratoTabela(trato.getReceita().getRctNome(), trato.getNumero()))
+                .map(trato -> new TratoTabela(trato.getReceita().getRctNome(), trato.getNumero()))
                 .collect(Collectors.toList()));
         tvTratos.setItems(tratoData);
     }
 
-    private void configuracaoTabela(){
+    private void configuracaoTabela() {
         tvTratos.setEditable(true);
         TableColumn numeroCol = new TableColumn("NUMERO TRATO");
         numeroCol.setMinWidth(150);
@@ -213,7 +213,7 @@ public class OrdemController implements Initializable {
         this.numeroTrato = numeroTrato;
     }
 
-    public class TratoTabela{
+    public class TratoTabela {
         private String receita;
         private Integer numero;
 

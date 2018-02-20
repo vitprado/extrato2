@@ -25,8 +25,11 @@ public class ItemTrato implements Serializable {
     private Integer ittCodigo;
     @Column(name = "ITT_PESO")
     private BigDecimal ittPeso;
-    @Column(name = "CUR_CODIGO")
-    private Integer curralId;
+
+    @ManyToOne
+    @JoinColumn(name = "CUR_CODIGO", referencedColumnName = "CUR_CODIGO")
+    private Curral curral;
+
     @ManyToOne
     @JoinColumn(name = "TRT_CODIGO", referencedColumnName = "TRT_CODIGO")
     private Trato trato;
@@ -34,10 +37,11 @@ public class ItemTrato implements Serializable {
     public ItemTrato() {
     }
 
-    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Integer curralId ,Trato trato) {
+    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Curral curral, Trato trato) {
+        this();
         this.ittCodigo = ittCodigo;
         this.ittPeso = ittPeso;
-        this.curralId = curralId;
+        this.curral = curral;
         this.trato = trato;
     }
 
@@ -57,12 +61,12 @@ public class ItemTrato implements Serializable {
         this.ittPeso = ittPeso;
     }
 
-    public Integer getCurralId() {
-        return curralId;
+    public Curral getCurral() {
+        return curral;
     }
 
-    public void setCurralId(Integer curralId) {
-        this.curralId = curralId;
+    public void setCurral(Curral curral) {
+        this.curral = curral;
     }
 
     public Trato getTrato() {
@@ -89,7 +93,7 @@ public class ItemTrato implements Serializable {
 
     @Override
     public String toString() {
-        return "br.exacta.persistencia.ItemTrato[ ittCodigo=" + ittCodigo +" ]";
+        return "br.exacta.persistencia.ItemTrato[ ittCodigo=" + ittCodigo + " ]";
     }
 }
 

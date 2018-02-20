@@ -11,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -68,7 +71,7 @@ public class InserirTratoController implements Initializable {
         configuracaoTabela();
     }
 
-    private void configuracaoTabela(){
+    private void configuracaoTabela() {
         tvTabela.setEditable(true);
         TableColumn curralCol = new TableColumn("CURRAL");
         curralCol.setMinWidth(150);
@@ -152,7 +155,7 @@ public class InserirTratoController implements Initializable {
         tvTabela.getColumns().addAll(curralCol, pesoCol);
     }
 
-    private void componentes(){
+    private void componentes() {
         observableReceitas.addAll(receitaDAO.getTodoReceitas());
         cbbReceitas.setItems(observableReceitas);
 
@@ -188,9 +191,9 @@ public class InserirTratoController implements Initializable {
             trato.setReceita(receita);
             trato.setTrtNumero(numero);
             List<ItemTrato> tratos = new ArrayList<>();
-            for (int countCurral = 0; countCurral < ordem.getCurralList().size(); countCurral++){
+            for (int countCurral = 0; countCurral < ordem.getCurralList().size(); countCurral++) {
                 ItemTrato novoItemTrato = new ItemTrato();
-                novoItemTrato.setCurralId(ordem.getCurralList().get(countCurral).getCurCodigo());
+                novoItemTrato.setCurral(ordem.getCurralList().get(countCurral));
                 novoItemTrato.setIttPeso(new BigDecimal(dados.get(countCurral).getPeso()));
                 novoItemTrato.setTrato(this.getTrato());
                 tratos.add(novoItemTrato);
