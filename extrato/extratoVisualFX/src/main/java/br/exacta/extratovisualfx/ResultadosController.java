@@ -159,7 +159,7 @@ public class ResultadosController implements Initializable {
             UtilManipulacao manipula = new UtilManipulacao();
             try {
                 manipula.CarregaResultadoJson(arquivo);
-                txtAreaJsonSimples.setText(manipula.VisualizaJsonSimplificado(arquivo));
+                //txtAreaJsonSimples.setText(manipula.VisualizaJsonSimplificado(arquivo));
                 txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
             } catch (Exception e) {
                 // TODO Auto-generated catch block

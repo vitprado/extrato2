@@ -143,18 +143,7 @@
                         </VBox>
                      </content>
                 </Tab>
-                  <Tab text="Visualização Simplificada">
-                     <graphic>
-                        <VBox />
-                     </graphic>
-                     <content>
-                        <TextArea fx:id="txtAreaJsonSimples" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area">
-                           <font>
-                              <Font name="Segoe UI Semilight" size="18.0" />
-                           </font>
-                        </TextArea>
-                     </content>
-                  </Tab>
+                  
                   <Tab text="Arquivo Original">
                      <content>
                         <TextArea fx:id="txtAreaJsonCompleta" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area">
