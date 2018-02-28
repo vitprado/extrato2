@@ -1,13 +1,14 @@
 package br.exacta.config;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Config {
 
@@ -22,6 +23,7 @@ public class Config {
     private static Scene curralScene;
     private static Scene tratoScene;
     private static Scene receitaScene;
+    private static Scene listaOrdemScene;
     private static Scene ordemScene;
     private static Scene programacaoScene;
     private static Scene resultadoScene;
@@ -133,6 +135,10 @@ public class Config {
             case "receita":
                 stage.setScene(receitaScene);
                 Config.notifyAllListeners("ReceitaLista", userData);
+                break;
+            case "listaOrdem":
+                stage.setScene(listaOrdemScene);
+                Config.notifyAllListeners("ListaOrdem", userData);
                 break;
             case "ordem":
                 stage.setScene(ordemScene);

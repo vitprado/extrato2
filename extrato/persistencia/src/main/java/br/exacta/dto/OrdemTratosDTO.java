@@ -62,6 +62,12 @@ public class OrdemTratosDTO {
         this.tolerancias = new ArrayList<>(new ArrayList<>());
     }
 
+    public OrdemTratosDTO(String ordemproducao, int ntratos) {
+        this();
+        this.ordemproducao = ordemproducao;
+        this.ntratos = ntratos;
+    }
+
     public OrdemTratosDTO(String ordemproducao, int ntratos, int trtCodigo, int rctCodigo) {
         this();
         this.ordemproducao = ordemproducao;

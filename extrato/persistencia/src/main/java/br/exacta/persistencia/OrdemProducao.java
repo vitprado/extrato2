@@ -39,7 +39,7 @@ public class OrdemProducao implements Serializable {
     private Date ordDataCadastro;
     @Column(name = "ORD_DESCRICAO")
     private String ordDescricao;
-    @JoinColumn(name = "EQP_CODIGO", referencedColumnName = "EQP_CODIGO")
+    @JoinColumn(name = "EQP_CODIGO", referencedColumnName = "EQP_CODIGO", nullable = false)
     @ManyToOne(optional = false)
     private Equipamento equipamento;
 

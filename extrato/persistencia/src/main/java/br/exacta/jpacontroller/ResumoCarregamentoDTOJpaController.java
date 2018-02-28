@@ -35,7 +35,7 @@ public class ResumoCarregamentoDTOJpaController {
     private String getSql(CarregamentoJpaFilter filter) {
         StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.ResumoCarregamentoDTO( " +
                 "  c.rdcReceita          ," +
-                "  c.rdcDataJson        ," +
+                "  c.rdcDataJson         ," +
                 "  c.rdcNumtrato         ," +
                 "  c.rdcEquipamento      ," +
                 "  c.rdcCodigo           ," +

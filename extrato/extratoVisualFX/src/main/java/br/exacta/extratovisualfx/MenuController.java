@@ -98,11 +98,11 @@ public class MenuController implements Initializable {
                 config.carregarAnchorPane(apDados, "ReceitaLista");
             }
         });
-        // BOTAO DE ORDENS DE PRODUCAO 
+        // BOTAO DA LISTA DE ORDENS DE PRODUCAO
         btnOrdemProducao.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                config.carregarAnchorPane(apDados, "Ordem");
+                config.carregarAnchorPane(apDados, "ListaOrdem");
             }
         });
         // BOTAO DE PROGRAMACAO

@@ -34,8 +34,8 @@ public class Trato implements Serializable {
     private Integer trtCodigo;
     @Column(name = "TRT_NUMERO")
     private Integer trtNumero;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO")
+    @ManyToOne(optional = false, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO", nullable = false)
     private Receita receita;
 
     @ManyToOne

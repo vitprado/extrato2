@@ -52,7 +52,7 @@ public class Receita implements Serializable {
     private Date rctDataCadastro;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
     private List<ReceitaTemIngredientes> receitaTemIngredientesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "receita")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "receita")
     private List<Trato> tratoList;
 
     public Receita() {

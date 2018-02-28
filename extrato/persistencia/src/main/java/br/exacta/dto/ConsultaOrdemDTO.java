@@ -30,12 +30,17 @@ public class ConsultaOrdemDTO {
         this.listOrdCodigo = new ArrayList<>();
     }
 
+    public ConsultaOrdemDTO(String equipamento, Integer nordens) {
+        this();
+        this.equipamento = equipamento;
+        this.nordens = nordens;
+    }
+
     public ConsultaOrdemDTO(String equipamento, Integer nordens, Integer ordCodigo) {
         this();
         this.equipamento = equipamento;
         this.nordens = nordens;
         this.ordCodigo = ordCodigo;
-        this.listOrdCodigo.add(ordCodigo);
     }
 
     public void setEquipamento(String equipamento) {

@@ -20,7 +20,7 @@
          </font>
       </Text>
       <ChoiceBox fx:id="cbbReceitas" layoutX="80.0" layoutY="70.0" prefHeight="26.0" prefWidth="250.0" />
-      <Button fx:id="btnSalvar" layoutX="392.0" layoutY="70.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="INSERIR TRATO" />
+      <Button fx:id="btnSalvar" layoutX="392.0" layoutY="70.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="SALVAR TRATO" />
       <TableView fx:id="tvTabela" layoutX="14.0" layoutY="112.0" prefHeight="278.0" prefWidth="529.0" />
    </children>
 </AnchorPane>

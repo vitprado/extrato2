@@ -22,39 +22,71 @@ public class ConsultaOrdemDTODAO {
         String ultimoEquipamentoVerificado = " ";
         for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdem) {
             if (!ultimoEquipamentoVerificado.equals(consultaOrdemDTO.getEquipamento())) {
+                if (!novaListConsultaOrdem.isEmpty())
+                    preencherOrdemTrato(novaListConsultaOrdem.get(novaListConsultaOrdem.size() - 1));
                 ultimoEquipamentoVerificado = consultaOrdemDTO.getEquipamento();
-                novaListConsultaOrdem.add(new ConsultaOrdemDTO(consultaOrdemDTO.getEquipamento(), consultaOrdemDTO.getNordens(), consultaOrdemDTO.getOrdCodigo()));
+                novaListConsultaOrdem.add(new ConsultaOrdemDTO(consultaOrdemDTO.getEquipamento(), consultaOrdemDTO.getNordens()));
+                novaListConsultaOrdem.get(novaListConsultaOrdem.size() - 1).getListOrdCodigo().add(consultaOrdemDTO.getOrdCodigo());
             } else {
                 novaListConsultaOrdem.get(novaListConsultaOrdem.size() - 1).getListOrdCodigo().add(consultaOrdemDTO.getOrdCodigo());
             }
         }
-        preencherOrdemTrato(novaListConsultaOrdem);
+        if (!novaListConsultaOrdem.isEmpty())
+            preencherOrdemTrato(novaListConsultaOrdem.get(novaListConsultaOrdem.size() - 1));
 
         return novaListConsultaOrdem;
     }
 
-    private void preencherOrdemTrato(List<ConsultaOrdemDTO> novaListConsultaOrdem) {
-        for (ConsultaOrdemDTO consultaOrdemDTO : novaListConsultaOrdem) {
-            for (Integer ordem : consultaOrdemDTO.getListOrdCodigo()) {
-                List<OrdemTratosDTO> listOrdemTrato = jpaController.findOrdemTrato(ordem);
-                if (listOrdemTrato.isEmpty())
-                    break;
-                OrdemTratosDTO novaOrdemTrato = new OrdemTratosDTO(listOrdemTrato.get(0).getOrdemproducao(), listOrdemTrato.get(0).getNtratos(), listOrdemTrato.get(0).getTrtCodigo(), listOrdemTrato.get(0).getRctCodigo());
-                Boolean primeiraVez = true;
-                for (OrdemTratosDTO ordemTratosDTO : listOrdemTrato) {
-                    novaOrdemTrato.getListTrtCodigo().add(ordemTratosDTO.getTrtCodigo());
-                    preencherItemTratoCurral(novaOrdemTrato, primeiraVez);
-                    novaOrdemTrato.getListRctCodigo().add(ordemTratosDTO.getRctCodigo());
-                    preencherReceitaIngrediente(novaOrdemTrato);
-                    primeiraVez = false;
-                }
-                consultaOrdemDTO.getOrdens().add(novaOrdemTrato);
+    public ConsultaOrdemDTO findByFilter(ConsultaOrdemFilter consultaOrdemFilter) {
+        List<ConsultaOrdemDTO> listConsultaOrdem = jpaController.findByFilter(consultaOrdemFilter);
+        if (listConsultaOrdem.isEmpty())
+            return new ConsultaOrdemDTO();
+
+        ConsultaOrdemDTO novaConsultaOrdem = new ConsultaOrdemDTO(
+                listConsultaOrdem.get(0).getEquipamento(),
+                listConsultaOrdem.get(0).getNordens());
+        for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdem) {
+            novaConsultaOrdem.getListOrdCodigo().add(consultaOrdemDTO.getOrdCodigo());
+        }
+        preencherOrdemTrato(novaConsultaOrdem);
+
+        return novaConsultaOrdem;
+    }
+
+    public List<EquipamentoConsultaOrdemDTO> findByEquipamentoForListaOrdem(Integer eqpCodigo) {
+        List<ListaOrdemProducaoDTO> listaOrdemProducaoDTO = jpaController.findByEquipamentoForListaOrdens(eqpCodigo);
+        if (listaOrdemProducaoDTO.isEmpty())
+            return null;
+
+        List<EquipamentoConsultaOrdemDTO> listaEquipamentoConsultaOrdem = new ArrayList<>();
+        for (ListaOrdemProducaoDTO ordem : listaOrdemProducaoDTO) {
+            //TODO finalizar
+        }
+        return listaEquipamentoConsultaOrdem;
+    }
+
+    private void preencherOrdemTrato(ConsultaOrdemDTO novaConsultaOrdem) {
+        for (Integer ordem : novaConsultaOrdem.getListOrdCodigo()) {
+            List<OrdemTratosDTO> listOrdemTrato = jpaController.findOrdemTrato(ordem);
+            if (listOrdemTrato.isEmpty())
+                break;
+            OrdemTratosDTO novaOrdemTrato = new OrdemTratosDTO(
+                    listOrdemTrato.get(0).getOrdemproducao(),
+                    listOrdemTrato.get(0).getNtratos());
+            Boolean primeiraVez = true;
+            for (OrdemTratosDTO ordemTratosDTO : listOrdemTrato) {
+                novaOrdemTrato.getListTrtCodigo().add(ordemTratosDTO.getTrtCodigo());
+                preencherItemTratoCurral(novaOrdemTrato, primeiraVez);
+                novaOrdemTrato.getListRctCodigo().add(ordemTratosDTO.getRctCodigo());
+                preencherReceitaIngrediente(novaOrdemTrato);
+                primeiraVez = false;
             }
+            novaConsultaOrdem.getOrdens().add(novaOrdemTrato);
         }
     }
 
     private void preencherItemTratoCurral(OrdemTratosDTO novaOrdemTrato, Boolean primeiraVez) {
-        List<ItemTratoCurralDTO> listItemTratoCurral = jpaController.findItemTratoCurral(novaOrdemTrato.getTrtCodigo());
+        List<ItemTratoCurralDTO> listItemTratoCurral = jpaController.findItemTratoCurral(novaOrdemTrato.getListTrtCodigo().get(novaOrdemTrato.getListTrtCodigo().size() - 1));
 
         if (primeiraVez) {
             if (listItemTratoCurral.isEmpty()) {
@@ -80,7 +112,9 @@ public class ConsultaOrdemDTODAO {
     }
 
     private void preencherReceitaIngrediente(OrdemTratosDTO novaOrdemTrato) {
-        List<ReceitaIngredienteDTO> listReceitaIngrediente = jpaController.findReceitaIngrediente(novaOrdemTrato.getRctCodigo());
+        if (novaOrdemTrato.getListRctCodigo().size() == 0)
+            return;
+        List<ReceitaIngredienteDTO> listReceitaIngrediente = jpaController.findReceitaIngrediente(novaOrdemTrato.getListRctCodigo().get(novaOrdemTrato.getListRctCodigo().size() - 1));
 
         if (listReceitaIngrediente.isEmpty()) {
             return;
@@ -91,8 +125,10 @@ public class ConsultaOrdemDTODAO {
         novaOrdemTrato.getPesosrequisitados().add(new ArrayList<>());
         Integer pesoTotal = 0;
 
-        for (String s : novaOrdemTrato.getPesos().get(novaOrdemTrato.getPesos().size() - 1)) {
-            pesoTotal = pesoTotal + Integer.parseInt(s);
+        if (novaOrdemTrato.getPesos().size() != 0) {
+            for (String s : novaOrdemTrato.getPesos().get(novaOrdemTrato.getPesos().size() - 1)) {
+                pesoTotal = pesoTotal + Integer.parseInt(s);
+            }
         }
 
         for (ReceitaIngredienteDTO receitaIngrediente : listReceitaIngrediente) {

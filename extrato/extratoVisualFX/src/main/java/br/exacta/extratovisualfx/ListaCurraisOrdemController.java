@@ -7,8 +7,14 @@ package br.exacta.extratovisualfx;
 
 import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
+import br.exacta.dao.ItemTratoDAO;
+import br.exacta.dto.CurralPesoDTO;
+import br.exacta.dto.TratoDTO;
 import br.exacta.persistencia.Curral;
+
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -46,18 +52,14 @@ public class ListaCurraisOrdemController implements Initializable {
     private final ObservableList<Curral> observableCurrais = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
 
-    private List<Curral> currais;
+    private OrdemController ordem;
+    private List<Acao> listAcao;
 
-    public ListaCurraisOrdemController(List<Curral> currais) {
-        this.currais = currais;
+    public ListaCurraisOrdemController(OrdemController ordem) {
+        this.ordem = ordem;
+        listAcao = new ArrayList<>();
     }
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
@@ -65,7 +67,11 @@ public class ListaCurraisOrdemController implements Initializable {
         // ADICIONAR  
         btnInserirCurral.setOnAction((ActionEvent event) -> {
             if (cbbCurrais.getValue() != null) {
+                Acao novaAcao = new Acao();
+                novaAcao.adicionar(ltvDados.getItems().size(), cbbCurrais.getValue());
+                listAcao.add(novaAcao);
                 ltvDados.getItems().add(cbbCurrais.getValue());
+
             } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao inserir curral na lista!");
             }
@@ -75,6 +81,9 @@ public class ListaCurraisOrdemController implements Initializable {
         btnRemoverLista.setOnAction((ActionEvent event) -> {
             Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
+                Acao novaAcao = new Acao();
+                novaAcao.remover(ltvDados.getSelectionModel().getSelectedIndex(), itemSelecionado);
+                listAcao.add(novaAcao);
                 ltvDados.getItems().remove(itemSelecionado);
             } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao remover curral da lista!");
@@ -92,7 +101,7 @@ public class ListaCurraisOrdemController implements Initializable {
     }
 
     private void carregaComponentes() {
-        List<Curral> currais;
+        this.ltvDados.getItems().addAll(ordem.getCurralList());
         observableCurrais.addAll(curralDAO.getTodosCurrais());
         cbbCurrais.setItems(observableCurrais);
 
@@ -112,6 +121,78 @@ public class ListaCurraisOrdemController implements Initializable {
     }
 
     private void enviaDadosGUI() {
-        currais.addAll(ltvDados.getItems());
+        if (ordem.getCurralList().isEmpty()){
+            ordem.getCurralList().addAll(ltvDados.getItems());
+        } else {
+            if (!listAcao.isEmpty()){
+                for (Acao acao: listAcao){
+                    if (acao.getTipo().equals("adicionar")){
+                        ordem.getCurralList().add(acao.getCurral());
+                        for (TratoDTO trato: ordem.getListTratoDTO()){
+                            trato.getListCurralPeso().add(new CurralPesoDTO(acao.getCurral(), new BigDecimal("0")));
+                        }
+                    }
+                    if (acao.getTipo().equals("remover")){
+                        ordem.getCurralList().remove(acao.getCurral());
+                        for (TratoDTO tratoDTO: ordem.getListTratoDTO()){
+                            CurralPesoDTO curralPesoDTO = tratoDTO.getCurralPeso(acao.getCurral());
+                            if (curralPesoDTO != null && curralPesoDTO.getIttCodigo() != null){
+                                try {
+                                    new ItemTratoDAO().removerItemTrato(curralPesoDTO.getIttCodigo());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            tratoDTO.getListCurralPeso().remove(curralPesoDTO);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class Acao{
+        private Integer local;
+        private Curral curral;
+        private String tipo;
+
+        public Acao() {
+        }
+
+        public void adicionar(Integer local, Curral curral){
+            this.local = local;
+            this.curral = curral;
+            this.tipo = "adicionar";
+        }
+
+        public void remover(Integer local, Curral curral){
+            this.local = local;
+            this.curral = curral;
+            this.tipo = "remover";
+        }
+
+        public Integer getLocal() {
+            return local;
+        }
+
+        public void setLocal(Integer local) {
+            this.local = local;
+        }
+
+        public Curral getCurral() {
+            return curral;
+        }
+
+        public void setCurral(Curral curral) {
+            this.curral = curral;
+        }
+
+        public String getTipo() {
+            return tipo;
+        }
+
+        public void setTipo(String tipo) {
+            this.tipo = tipo;
+        }
     }
 }

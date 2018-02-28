@@ -1,9 +1,6 @@
 package br.exacta.jpacontroller;
 
-import br.exacta.dto.ConsultaOrdemDTO;
-import br.exacta.dto.ItemTratoCurralDTO;
-import br.exacta.dto.OrdemTratosDTO;
-import br.exacta.dto.ReceitaIngredienteDTO;
+import br.exacta.dto.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,19 +30,6 @@ public class ConsultaOrdemJpaController {
         }
     }
 
-    public List<ConsultaOrdemDTO> findByEquipamento(Integer ordCodigo) {
-        EntityManager entityManager = emf.createEntityManager();
-        try {
-            Query nativeQuery = entityManager.createQuery(getFindByEquipamento(ordCodigo), ConsultaOrdemDTO.class);
-
-            return nativeQuery.getResultList();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
-    }
-
     private String getFindAll() {
         StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.ConsultaOrdemDTO( e.eqpDescricao , " +
                 " (SELECT COUNT(ie.eqpCodigo) " +
@@ -58,14 +42,57 @@ public class ConsultaOrdemJpaController {
         return stringBuilder.toString();
     }
 
-    private String getFindByEquipamento(Integer eqpCodigo) {
-        StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ConsultaOrdemDTO(e.eqpDescricao, " +
+    public List<ConsultaOrdemDTO> findByFilter(ConsultaOrdemFilter filter) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            Query nativeQuery = entityManager.createQuery(getFindByFilter(filter), ConsultaOrdemDTO.class);
+
+            return nativeQuery.getResultList();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+    private String getFindByFilter(ConsultaOrdemFilter filter) {
+        StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.ConsultaOrdemDTO(e.eqpDescricao, " +
                 " (SELECT COUNT(ie.eqpCodigo) " +
-                " FROM Equipamento ie JOIN OrdemProducao iop " +
-                " WHERE ie.eqpCodigo = iop.eqpCodigo AND ie.eqpCodigo = e.eqpCodigo), " +
-                " op.ord_codigo)" +
-                " FROM Equipamento e JOIN OrdemProducao op " +
-                " WHERE e.eqpCodigo = op.eqpCodigo AND e.eqpCodigo = '%s' ORDER BY e.eqpDescricao", eqpCodigo.toString()));
+                " FROM Equipamento ie, OrdemProducao iop " +
+                " WHERE ie.eqpCodigo = iop.equipamento.eqpCodigo AND ie.eqpCodigo = e.eqpCodigo), " +
+                " op.ordCodigo)" +
+                " FROM Equipamento e, OrdemProducao op " +
+                " WHERE e.eqpCodigo = op.equipamento.eqpCodigo ");
+
+        if (filter.getEquipamento() != null) {
+            stringBuilder.append(format("AND e.eqpCodigo = '%s' ORDER BY e.eqpDescricao",
+                    filter.getEquipamento().getEqpCodigo()));
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public List<ListaOrdemProducaoDTO> findByEquipamentoForListaOrdens(Integer ordCodigo) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            Query nativeQuery = entityManager.createQuery(getFindByEquipamentoForListaOrdens(ordCodigo), ConsultaOrdemDTO.class);
+
+            return nativeQuery.getResultList();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+    private String getFindByEquipamentoForListaOrdens(Integer eqpCodigo) {
+        StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ListaOrdemProcucaoDTO(e.eqpDescricao, op.ordCodigo, op.ordDescricao, r.rct_nome) " +
+                " FROM equipamento e JOIN ordem_producao op JOIN trato t JOIN receita r " +
+                " WHERE e.eqp_codigo = op.eqp_codigo " +
+                " AND op.ord_codigo = t.ord_codigo " +
+                " AND t.rct_codigo = r.rct_codigo " +
+                " AND op.ord_codigo = '%s' " +
+                " ORDER BY op.ord_Codigo ", eqpCodigo.toString()));
 
         return stringBuilder.toString();
     }
@@ -109,7 +136,7 @@ public class ConsultaOrdemJpaController {
         }
     }
 
-    public String getFindItemTratoCurral(Integer trtCodigo) {
+    private String getFindItemTratoCurral(Integer trtCodigo) {
         StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ItemTratoCurralDTO( " +
                 " (SELECT COUNT(iit.trato.trtCodigo) " +
                 " FROM ItemTrato iit JOIN Curral ic " +
@@ -136,13 +163,14 @@ public class ConsultaOrdemJpaController {
         }
     }
 
-    public String getFindReceitaIngrediente(Integer rctCodigo) {
+    private String getFindReceitaIngrediente(Integer rctCodigo) {
         StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ReceitaIngredienteDTO(r.rctNome, i.ingNome, i.ingTolerancia, rti.rtiProporcao) " +
-                " FROM ReceitaTemIngredientes rti " +
-                " JOIN Receita r ON r.rctCodigo = rti.receita.rctCodigo " +
-                " JOIN Ingredientes i " +
-                " WHERE rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' ", rctCodigo.toString()));
+                " FROM ReceitaTemIngredientes rti, Receita r, Ingredientes i " +
+                " WHERE r.rctCodigo = rti.receita.rctCodigo and " +
+                " rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' ", rctCodigo.toString()));
 
         return stringBuilder.toString();
     }
+
+
 }

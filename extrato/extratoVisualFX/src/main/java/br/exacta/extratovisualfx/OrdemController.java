@@ -8,8 +8,12 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import br.exacta.dao.EquipamentoDAO;
 import br.exacta.dao.OrdemProcucaoDAO;
-import br.exacta.extratovisualfx.InserirTratoController.TratoLocal;
+import br.exacta.dao.TratoDAO;
+import br.exacta.dto.CurralPesoDTO;
+import br.exacta.dto.TratoDTO;
 import br.exacta.persistencia.*;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +21,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
@@ -28,6 +36,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
+import static javafx.collections.FXCollections.observableList;
 
 /**
  * FXML Controller class
@@ -43,44 +52,82 @@ public class OrdemController implements Initializable {
     @FXML
     private Button btnFinalizarOrdem;
     @FXML
-    private Button btnInserirLista;
+    private Button btnInserirTrato;
     @FXML
     private ChoiceBox<Equipamento> cbbEquipamento;
     @FXML
-    private TableView<TratoTabela> tvTratos;
+    private TableView<TratoDTO> tvTratos;
+    @FXML
+    private TableColumn<TratoDTO, String> colNumeroTrato;
+    @FXML
+    private TableColumn<TratoDTO,String> colReceita;
+    @FXML
+    private TableColumn<TratoDTO,TratoDTO> colAcao;
 
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
     private final ObservableList<Equipamento> observableEquipamentos = observableArrayList();
-    private final ObservableList<TratoTabela> tratoData = observableArrayList();
 
-    private List<Curral> curralList = new ArrayList<>();
-    private List<TratoLocal> tratoLocalList = new ArrayList<>();
+    private static List<Curral> curralList;
+    private List<TratoDTO> listTratoDTO;
+    private OrdemProducao ordemProducao;
     private Integer numeroTrato;
+    private ListaOrdemController listaOrdemController;
+    private Integer ordCodigo;
 
-    /**
-     * Initializes the controller class.
-     */
+    public OrdemController(){
+        this.listaOrdemController = null;
+        this.ordCodigo = -1;
+        curralList = new ArrayList<>();
+        listTratoDTO = new ArrayList<>();
+    }
+
+    public OrdemController(ListaOrdemController listaOrdemController, Integer ordCodigo){
+        this.listaOrdemController = listaOrdemController;
+        this.ordCodigo = ordCodigo;
+        curralList = new ArrayList<>();
+        listTratoDTO = new ArrayList<>();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        numeroTrato = 0;
         carregaComponentes();
         atualizaListaItensCadastrados();
         configuracaoTabela();
-        numeroTrato = 0;
+
+        btnCriarListaCurrais.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                btnCriarListaCurraisAction();
+            }
+        });
+
+        btnInserirTrato.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                btnInserirTratoAction();
+            }
+        });
 
         btnFinalizarOrdem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if (cbbEquipamento.getValue() == null) {
+                    return;
+                }
 
                 OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
-
                 try {
-                    List<Trato> tratoList = OrdemController.this.tratoLocalList.stream()
-                            .map(tratoLocal -> {
-                                Trato trato = tratoLocal.getTrato();
+                    List<Trato> tratoList = listTratoDTO.stream()
+                            .map(tratoDTO -> {
+                                Trato trato = tratoDTO.getTrato();
                                 List<ItemTrato> items = new ArrayList<>();
 
-                                tratoLocal.getDados().forEach(tabela -> {
+                                tratoDTO.getListCurralPeso().forEach(tabela -> {
                                     ItemTrato itemTrato = new ItemTrato();
+                                    if (tabela.getIttCodigo() != null){
+                                        itemTrato.setIttCodigo(tabela.getIttCodigo());
+                                    }
                                     itemTrato.setIttPeso(new BigDecimal(tabela.getPeso()));
                                     itemTrato.setCurral(tabela.getCurralEntity());
                                     items.add(itemTrato);
@@ -91,66 +138,54 @@ public class OrdemController implements Initializable {
                             })
                             .collect(Collectors.toList());
 
-
-                    OrdemProducao ordemProducao = new OrdemProducao(txtOrdem.getText(), cbbEquipamento.getValue(), tratoList);
-                    ordemProducao = ordemProcucaoDAO.adicionarOrdemProcucao(ordemProducao);
+                    ordemProducao = new OrdemProducao(txtOrdem.getText(), cbbEquipamento.getValue(), tratoList);
+                    if (ordCodigo != -1){
+                        ordemProducao.setOrdCodigo(ordCodigo);
+                        ordemProcucaoDAO.editarOrdemProcucao(ordemProducao);
+                        listaOrdemController.pesquisarAction();
+                    } else {
+                        ordemProducao = ordemProcucaoDAO.adicionarOrdemProcucao(ordemProducao);
+                    }
+                    Stage stage = (Stage) btnFinalizarOrdem.getScene().getWindow();
+                    stage.close();
 
                 } catch (Exception e) {
                     e.fillInStackTrace();
                 }
             }
         });
-
-        btnCriarListaCurrais.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ListaCurraisOrdemController inserirTrato = new ListaCurraisOrdemController(curralList);
-                Config config = new Config();
-                config.carregarAnchorPaneDialog("ListaCurraisOrdem", inserirTrato);
-            }
-        });
-
-        btnInserirLista.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                actionInserirLista();
-            }
-        });
     }
 
-    private void actionInserirLista() {
-        InserirTratoController inserirTratoController = new InserirTratoController(this);
+    private void btnCriarListaCurraisAction(){
+        ListaCurraisOrdemController curraisOrdemController = new ListaCurraisOrdemController(OrdemController.this);
+        Config config = new Config();
+        config.carregarAnchorPaneDialog("ListaCurraisOrdem", curraisOrdemController);
+    }
+
+    private void btnInserirTratoAction(){
+        InserirTratoController inserirTratoController = new InserirTratoController(OrdemController.this);
         Config config = new Config();
         config.carregarAnchorPaneDialog("InserirTrato", inserirTratoController);
     }
 
     public void carregarTabela() {
-        tratoData.clear();
-        tratoData.addAll(tratoLocalList.stream()
-                .map(trato -> new TratoTabela(trato.getReceita().getRctNome(), trato.getNumero()))
-                .collect(Collectors.toList()));
-        tvTratos.setItems(tratoData);
+        tvTratos.setItems(observableArrayList(listTratoDTO));
     }
 
     private void configuracaoTabela() {
-        tvTratos.setEditable(true);
-        TableColumn numeroCol = new TableColumn("NUMERO TRATO");
-        numeroCol.setMinWidth(150);
-        numeroCol.setCellValueFactory(
-                new PropertyValueFactory<TratoLocal, String>("numero"));
-
-        TableColumn receitaCol = new TableColumn("RECEITA");
-        receitaCol.setMinWidth(200);
-        receitaCol.setCellValueFactory(
-                new PropertyValueFactory<TratoLocal, String>("receita"));
-
-        tvTratos.setItems(tratoData);
-        tvTratos.getColumns().addAll(numeroCol, receitaCol);
+        colNumeroTrato.setCellValueFactory(new PropertyValueFactory<TratoDTO, String>("numero"));
+        colReceita.setCellValueFactory(new PropertyValueFactory<TratoDTO, String>("receita"));
+        colAcao.setCellFactory(new Callback<TableColumn<TratoDTO, TratoDTO>, TableCell<TratoDTO, TratoDTO>>() {
+            @Override
+            public TableCell<TratoDTO, TratoDTO> call(TableColumn<TratoDTO, TratoDTO> param) {
+                return new Botoes();
+            }
+        });
     }
 
     private void carregaComponentes() {
 
-        // CRIA NUMERAÇÃO PARA ORDE
+        // CRIA NUMERAÇÃO PARA ORDEM
         String ORDEM = criaNroOrdem();
         txtOrdem.setText(ORDEM);
 
@@ -181,12 +216,110 @@ public class OrdemController implements Initializable {
         OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
 
         NUMERO_ORDEM = ANO + "-" + String.valueOf(ordemProcucaoDAO.countOrdemProcucao() + 1);
-        // TRATAMENTO PARA INCREMENTAR NO BANCO UMA NOVA ORDEM (UTILZANDO A ANTERIOR)
         return NUMERO_ORDEM;
     }
 
     private void atualizaListaItensCadastrados() {
+        if (ordCodigo != -1){
+            curralList.clear();
+            ordemProducao =  new OrdemProcucaoDAO().getOrdemProcucao(ordCodigo);
+            txtOrdem.setText(ordemProducao.getOrdDescricao());
+            cbbEquipamento.setValue(ordemProducao.getEquipamento());
+            if (!ordemProducao.getTratos().isEmpty()){
+                if (!ordemProducao.getTratos().get(0).getItemTratos().isEmpty()){
+                    for (ItemTrato itemTrato: ordemProducao.getTratos().get(0).getItemTratos()){
+                        curralList.add(itemTrato.getCurral());
+                    }
+                    listTratoDTO = new ArrayList<>();
+                    for (Trato trato: ordemProducao.getTratos()){
+                        List<CurralPesoDTO> curralPesoList = new ArrayList<>();
+                        for (ItemTrato itemTrato: trato.getItemTratos()){
+                            CurralPesoDTO curralPesoDTO = new CurralPesoDTO(itemTrato.getCurral(), itemTrato.getIttPeso());
+                            curralPesoDTO.setIttCodigo(itemTrato.getIttCodigo());
+                            curralPesoList.add(curralPesoDTO);
+                        }
+                        if (trato.getTrtNumero() > numeroTrato){
+                            numeroTrato = trato.getTrtNumero();
+                        }
+                        TratoDTO tratoDTO = new TratoDTO(curralPesoList, trato.getReceita(), trato.getTrtNumero());
+                        tratoDTO.setTrato(trato);
+                        listTratoDTO.add(tratoDTO);
+                    }
+                }
+                carregarTabela();
+            }
+        }
+    }
 
+    private class Botoes extends TableCell<TratoDTO, TratoDTO>{
+        private Button btnEditar;
+        private Button btnExcluir;
+        InserirTratoController inserirTratoController;
+
+        public Botoes(){
+            btnEditar = new Button("Editar");
+            btnEditar.setOnAction((ActionEvent event) -> {
+                btnEditarAction();
+            });
+            btnExcluir = new Button("Excluir");
+            btnExcluir.setOnAction((ActionEvent event) -> {
+               btnExcluirAction();
+            });
+        }
+
+        private void btnEditarAction(){
+            inserirTratoController = new InserirTratoController(OrdemController.this, tvTratos.getItems().get(getTableRow().getIndex()));
+            Config config = new Config();
+            config.carregarAnchorPaneDialog("InserirTrato", inserirTratoController);
+        }
+
+        private void btnExcluirAction(){
+            TratoDTO tratoDTOExcluir = OrdemController.this.getListTratoDTO().get(getTableRow().getIndex());
+            if (ordCodigo != -1){
+                try {
+                    if (tratoDTOExcluir.getTrato().getTrtCodigo() != null)
+                        new TratoDAO().removerTrato(tratoDTOExcluir.getTrato().getTrtCodigo());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            OrdemController.this.getListTratoDTO().remove(tratoDTOExcluir);
+
+            Integer index = 0;
+            for (TratoDTO tratoDTO : OrdemController.this.getListTratoDTO()){
+                index++;
+                tratoDTO.setNumero(index);
+                tratoDTO.getTrato().setTrtNumero(index);
+            }
+            OrdemController.this.setNumeroTrato(index);
+            OrdemController.this.carregarTabela();
+        }
+
+        @Override
+        protected void updateItem(final TratoDTO record, boolean empty){
+            super.updateItem(record, empty);
+            if (!empty) {
+                btnEditar.setText("Editar");
+                btnExcluir.setText("Excluir");
+                Text espaco = new Text(" ");
+                HBox pane = new HBox(btnEditar, espaco, btnExcluir);
+                setGraphic(pane);
+            } else {
+                setGraphic(null);
+            }
+        }
+    }
+
+    public TableView<TratoDTO> getTvTratos() {
+        return tvTratos;
+    }
+
+    public void setTvTratos(TableView<TratoDTO> tvTratos) {
+        this.tvTratos = tvTratos;
+    }
+
+    public EquipamentoDAO getEquipamentoDAO() {
+        return equipamentoDAO;
     }
 
     public List<Curral> getCurralList() {
@@ -197,12 +330,12 @@ public class OrdemController implements Initializable {
         this.curralList = curralList;
     }
 
-    public List<TratoLocal> getTratoLocalList() {
-        return tratoLocalList;
+    public List<TratoDTO> getListTratoDTO() {
+        return listTratoDTO;
     }
 
-    public void setTratoLocalList(List<TratoLocal> tratoLocalList) {
-        this.tratoLocalList = tratoLocalList;
+    public void setListTratoDTO(List<TratoDTO> listTratoDTO) {
+        this.listTratoDTO = listTratoDTO;
     }
 
     public Integer getNumeroTrato() {
@@ -213,21 +346,5 @@ public class OrdemController implements Initializable {
         this.numeroTrato = numeroTrato;
     }
 
-    public class TratoTabela {
-        private String receita;
-        private Integer numero;
 
-        public TratoTabela(String receita, Integer numero) {
-            this.receita = receita;
-            this.numero = numero;
-        }
-
-        public String getReceita() {
-            return receita;
-        }
-
-        public Integer getNumero() {
-            return numero;
-        }
-    }
 }
