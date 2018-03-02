@@ -35,40 +35,6 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <TitledPane alignment="CENTER" contentDisplay="CENTER" disable="true" expanded="false" text="CONFIGURAÇÕES" textAlignment="CENTER" visible="false">
-               <content>
-                  <VBox>
-                     <children>
-                        <Button fx:id="btnPerfil" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Perfil do usuário" VBox.vgrow="SOMETIMES">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                           <styleClass>
-                              <String fx:value="menus-acoes" />
-                              <String fx:value="acao-user" />
-                              <String fx:value="menu-azul-escuro" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="btnConfiguracoesGerais" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Configurações gerais">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <styleClass>
-                              <String fx:value="menus-acoes" />
-                              <String fx:value="acao-config" />
-                              <String fx:value="menu-azul-escuro" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </VBox>
-               </content>
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TitledPane>
                 <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                 
                     <content>
@@ -184,6 +150,40 @@
                      </children>
                   </VBox>
                </content>
+            </TitledPane>
+                        <TitledPane alignment="CENTER" contentDisplay="CENTER" disable="true" expanded="false" text="CONFIGURAÇÕES" textAlignment="CENTER" visible="false">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button fx:id="btnPerfil" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Perfil do usuário" VBox.vgrow="SOMETIMES">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-user" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btnConfiguracoesGerais" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Configurações gerais">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-config" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </TitledPane>
                 <Button fx:id="btnSuporte" alignment="TOP_LEFT" maxWidth="230.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" text="Suporte">                     
                     <VBox.margin>                        

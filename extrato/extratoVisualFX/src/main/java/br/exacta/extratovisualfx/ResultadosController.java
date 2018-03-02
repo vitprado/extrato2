@@ -158,9 +158,11 @@ public class ResultadosController implements Initializable {
             // MANIPULACAO DO ARQUIVO JSON ESCOLHIDO;
             UtilManipulacao manipula = new UtilManipulacao();
             try {
-                manipula.CarregaResultadoJson(arquivo);
+            	txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
+            	//manipula.JsonResultado(arquivo);
+            	manipula.CarregaResultadoJson(arquivo);                
                 //txtAreaJsonSimples.setText(manipula.VisualizaJsonSimplificado(arquivo));
-                txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
+                
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -218,20 +220,8 @@ public class ResultadosController implements Initializable {
             }
         });
     }
-
-    private ObservableList<CarregamentoFX> listaCarregamentosManual() {
-        return FXCollections.observableArrayList(
-                new CarregamentoFX(1, "2018-0001", "ABC1234", 1, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
-                new CarregamentoFX(2, "2018-0002", "ABC1234", 2, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
-                new CarregamentoFX(3, "2018-0003", "ABC1234", 3, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z1"),
-                new CarregamentoFX(4, "2018-0004", "DKG3090", 4, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3"),
-                new CarregamentoFX(5, "2018-0005", "DKG3090", 5, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3"),
-                new CarregamentoFX(6, "2018-0006", "DKG3090", 6, "INGREDIENTE C1", "200", "230", "08/02/2018", "RECEITA Z3")
-        );
-    }
     
     private void carregaTabelaCarregamento(Carregamento objCarregamento) {
-        tbvDadosCarregamento.setItems(listaCarregamentosManual());
         tbvDadosCarregamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tbvDadosCarregamento.setVisible(true);
 
@@ -248,7 +238,6 @@ public class ResultadosController implements Initializable {
     }
     
     private void carregaTabelaDescarregamento(Descarregamento objCarregamento) {
-        //tbvDadosDescarregamento.setItems(listaCarregamentosManual());
         tbvDadosDescarregamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tbvDadosDescarregamento.setVisible(true);
 

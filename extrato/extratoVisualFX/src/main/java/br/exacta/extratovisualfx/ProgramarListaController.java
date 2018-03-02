@@ -61,8 +61,6 @@ public class ProgramarListaController implements Initializable {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), new ConsultaOrdemDTODAO().findAll());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
