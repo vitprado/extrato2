@@ -25,6 +25,7 @@ import br.exacta.persistencia.Descarregamento;
 public class UtilManipulacao {
 
 	public void JsonResultado(File arquivo) {
+		
 
 	}
 
@@ -36,6 +37,9 @@ public class UtilManipulacao {
 		String ordemproducao = "";
 		String data = null;
 
+		CarregamentoDAO carDAO = new CarregamentoDAO();
+		DescarregamentoDAO desDAO = new DescarregamentoDAO();
+		
 		// PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON
 		JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ,
 		tratosrealizadosJ, ingredientes_trato;
@@ -114,7 +118,18 @@ public class UtilManipulacao {
 
 							System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
 							
-							// Gravar no banco: "ordemproducao", "data", "ntrt" +1, "ingrediente", "car_requisitado", "car_realizado"
+							// Grava descarregamento no banco de dados
+							Carregamento car = new Carregamento();
+							car.setRdcOrdem(ordemproducao);
+							car.setRdcNumtrato(ntrt);
+							car.setRdcEquipamento(equipamento);
+							car.setRdcDatajson(data);
+							car.setRdcReceita(receita);
+							car.setRdcIngrediente(ingrediente);
+							car.setRdcPesorequisitado(car_requisitado);
+							car.setRdcPesorealizado(car_realizado);
+							car.setRdcCodigo(carDAO.getTodosCarregamentos().size());
+							carDAO.adicionarCarregamento(car);
 						}
 
 						System.out.println("\nDESCARREGAMENTO");
@@ -136,7 +151,18 @@ public class UtilManipulacao {
 
 							System.out.println("Curral: " + curral + " - Requisitado: " + des_requisitado + " - Realizado: " + des_realizado);
 							
-							// Gravar no banco: "ordemproducao", "data", "ntrt", "curral", "des_requisitado", "des_realizado"
+							// Grava descarregamento no banco de dados
+							Descarregamento des = new Descarregamento();
+							des.setRdgOrdem(ordemproducao);
+							des.setRdgNumtrato(ntrt);
+							des.setRdgEquipamento(equipamento);
+							des.setRdgDatajson(data);
+							des.setRdgCurral(curral);
+							des.setRdgTratorequisitado(des_requisitado);
+							des.setRdgTratorealizado(des_realizado);
+							des.setRdgCodigo(desDAO.getTodosDescarregamentos().size());
+							desDAO.adicionarDescarregamento(des);
+							
 						}
 
 						System.out.println("------------------------------------------------------------------------------------");
@@ -171,27 +197,5 @@ public class UtilManipulacao {
 			}
 		}
 		return texto;
-	}
-
-	// MÉTODO QUE GRAVA OS RESULTADOS DO JSON NO BANCO
-	private void GravaJsonResultado(Carregamento C, Descarregamento D) throws Exception {
-
-		// Classes de Carregamento e Descarregamento
-		CarregamentoDAO carDAO = new CarregamentoDAO();
-		DescarregamentoDAO desDAO = new DescarregamentoDAO();
-
-		carDAO.adicionarCarregamento(C);
-		desDAO.adicionarDescarregamento(D);
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// MÉTODO QUE CRIA DIRETÓRIO DO EQUIPAMENTO NO CAMINHO SOLICITADO
-	private File CriaDiretorioDoEquipamento(String CAMINHO, String EQUIPAMENTO, String NOME_ARQ) {
-		File diretorio;
-		diretorio = new File(CAMINHO + "\\" + EQUIPAMENTO + "\\" + NOME_ARQ);
-		diretorio.mkdir();
-
-		return diretorio;
 	}
 }
