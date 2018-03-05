@@ -51,7 +51,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     @FXML
     private Button btnRemoverLista;
     @FXML
-    private ListView<ReceitaTemIngredientes> ltvDados;
+    private ListView<ReceitaTemIngredientes> ltvDados = new ListView<ReceitaTemIngredientes>();
 
     Config msgSistema = new Config();
 
