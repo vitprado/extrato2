@@ -22,7 +22,7 @@ public class RelatorioCarregamentoXLS extends RelatorioXLS<Carregamento> {
         for (Carregamento carregamento : carregamentos) {
             Row row = sheet.createRow(rowCount++);
 
-            row.createCell(0).setCellValue(carregamento.getRdcDataJson());
+            row.createCell(0).setCellValue(carregamento.getRdcDatajson());
             row.createCell(1).setCellValue(carregamento.getRdcOrdem());
             row.createCell(2).setCellValue(carregamento.getRdcNumtrato());
             row.createCell(3).setCellValue(carregamento.getRdcIngrediente());
