@@ -52,7 +52,7 @@ public class Carregamento implements Serializable {
     private String rdcPesorequisitado;
     @Column(name = "RDC_PESOREALIZADO")
     private String rdcPesorealizado;
-    @Column(name = "RDC_DATA_JSON")
+    @Column(name = "RDC_DATAJSON")
     private String rdcDataJson;
     @Column(name = "RDC_RECEITA")
     private String rdcReceita;
