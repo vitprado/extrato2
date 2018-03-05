@@ -16,155 +16,129 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+
 import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
-import br.exacta.json.programacao.Ordem;
-import br.exacta.json.resultado.Equip;
-import br.exacta.json.resultado.ResultadoJson;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
 
-/**
- *
- * @author Thales
- */
 public class UtilManipulacao {
 
 	public void JsonResultado(File arquivo) {
-		// Objeto
-		ResultadoJson objResultado = new ResultadoJson();
-		Equip objEquip = new Equip();
-		Ordem objOrdem = new Ordem();
 
-		// VARIÁVEIS PARA O JSON
-		JsonArray receitasJ, ingredientesJ, curraisJ;
-		JsonArray pesosRequisitadosJ, pesosRealizadosJ, tratosRequisitadosJ, tratosRealizadosJ;
-
-		// ACESSO AO ARQUIVO SOLICITADO
-		InputStream fis;
-		JsonReader reader;
-		JsonObject jsonObj;
-
-		// VARIÁVEIS TESTE
-		String equipamento;
-		int nordens = 0;
-		int ntratos = 0;
-		String ordemproducao = "";
-		String data = null;
-		int contTrato = 0;
-		String requisitado = null, realizado = null;
-		String tratorequisitado = null, tratorealizado = null;
-		String ingrediente = null, curral = null, receita = null;
-
-		try {
-			fis = new FileInputStream(arquivo);
-			reader = Json.createReader(fis);
-			jsonObj = reader.readObject();
-
-			// MANIPULAÇÃO DOS ÍNDICES DO ARQUIVOS
-
-		} catch (Exception e) {
-			Logger.getLogger(UtilManipulacao.class.getName()).log(Level.SEVERE, null, e);
-		}
 	}
 
 	public void CarregaResultadoJson(File arquivo) throws Exception {
 
-		// VARIÁVEIS
 		String equipamento;
 		int nordens = 0;
 		int ntratos = 0;
 		String ordemproducao = "";
 		String data = null;
-		int contTrato = 0;
-		String requisitado = null, realizado = null;
-		String tratorequisitado = null, tratorealizado = null;
-		String ingrediente = null, curral = null, receita = null;
 
 		// PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON
 		JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ,
-				tratosrealizadosJ;
-
-		Carregamento carreg;
-		Descarregamento descarreg;
+		tratosrealizadosJ, ingredientes_trato;
 
 		InputStream fis;
 		try {
 			fis = new FileInputStream(arquivo);
 			JsonReader reader = Json.createReader(fis);
 			JsonObject jsonObject = reader.readObject();
-
-			for (int i = 0; i < jsonObject.size(); i++) {
-
-				// PEGO OS EQUIPAMENTOS
-				System.out.println("==================================================================================");
-				equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
+			
+			// Executa para cada equipamento
+			for (int i = 0; i < jsonObject.getInt("nequipamentos") ; i++) {
+				
+				JsonObject equipamentoObj = jsonObject.getJsonArray("equips").getJsonObject(i);
+				
+				// Nome do equipamento				
+				equipamento = equipamentoObj.getJsonString("equipamento").toString();
 				System.out.println("Equipamento: " + equipamento);
 
-				// PEGO O NÚMERO DE ORDENS
-				nordens = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonNumber("nordens").intValue();
-				System.out.println("Num. Ordens: " + nordens);
+				// Quantidade de ordens de producao
+				nordens = equipamentoObj.getJsonNumber("nordens").intValue();
+				System.out.println("Qtd. Ordens: " + nordens);
+				
+				/* 
+				 * TODO: Verificar consistencia do arquivo comparando a chave "nordens" com o tamanho dos objetos: 
+				 * receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, tratosrealizadosJ e tratos requisitadosJ
+				 * Todos os objetos devem ter o mesmo tamanho, que deve ser o valor da chave "nordens"
+				*/
 
-				for (int nord = 0; nord < nordens; nord++) { // UTILIZO PARA REPETIR PELA QUANTIDADE DE ORDENS
+				// Le cada ordem
+				for (int nord = 0; nord < nordens; nord++) {
+					
+					JsonObject ordemObj = equipamentoObj.getJsonArray("ordens").getJsonObject(nord);
 
-					ordemproducao = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonString("ordemproducao").toString();
+					ordemproducao = ordemObj.getJsonString("ordemproducao").toString();
 					System.out.println("Ordem de Produção: " + ordemproducao);
 
-					ntratos = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonNumber("ntratos").intValue();
-					System.out.println("Qtde de Tatros: " + ntratos + "\n");
+					// Pega a data
+					data = ordemObj.getString("data");
+					System.out.println("Data de Realização: " + data);
 
+					ntratos = ordemObj.getJsonNumber("ntratos").intValue();
+					System.out.println("Qtd. de Tratos: " + ntratos + "\n");
+
+					// Pega a lista de receitas da ordem
+					receitaJ = ordemObj.getJsonArray("receitas");
+
+					// Ingredientes dos carregamentos
+					ingredientesJ = ordemObj.getJsonArray("ingredientes");
+
+					// Peso requisitado
+					pesosrequisitadosJ = ordemObj.getJsonArray("pesosrequisitados");
+
+					// Peso carregado
+					pesosrealizadosJ = ordemObj.getJsonArray("pesosrealizados");
+
+					// Le cada trato
 					for (int ntrt = 0; ntrt < ntratos; ntrt++) {
-						contTrato = ntrt + 1;
-						System.out.println("Tatro: " + contTrato);
 
-						// PEGO A DATA
-						data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getString("data");
-						System.out.println("Data de Realização: " + data);
+						System.out.println("Trato: " + (ntrt + 1));
 
-						// PEGO RECEITA
-						receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("receitas");
-						receita = receitaJ.get(ntrt).toString();
-						System.out.println("\nReceita: " + receita);
+						// Receita do trato
+						String receita = receitaJ.getString(ntrt);
+						System.out.println("Receita: " + receita);
 
-						// PEGO INGREDIENTES
 						System.out.println("\nCARREGAMENTO");
-						ingredientesJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("ingredientes");
 
-						for (int ing = 0; ing < ingredientesJ.size(); ing++) {
-							ingrediente = ingredientesJ.get(ing).toString();
+						// Ingredientes do trato
+						ingredientes_trato = ingredientesJ.getJsonArray(ntrt);
 
-							// PESOS REQUISITADOS
-							pesosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("pesosrequisitados");
-							requisitado = pesosrequisitadosJ.get(ing).toString();
+						for (int ing = 0; ing < ingredientes_trato.size(); ing++) {
 
-							// PESOS REALIZADOS
-							pesosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("pesosrealizados");
-							realizado = pesosrealizadosJ.get(ing).toString();
-									
-							System.out.println("Ingrediente: " + ingrediente + " - Peso requisitado: " + requisitado + " - Peso realizados: " + realizado + "\n");
+							String ingrediente = ingredientes_trato.getString(ing);
+							String car_requisitado = pesosrequisitadosJ.getJsonArray(ntrt).getString(ing);
+							String car_realizado = pesosrealizadosJ.getJsonArray(ntrt).getString(ing);
+
+							System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
+							
+							// Gravar no banco: "ordemproducao", "data", "ntrt" +1, "ingrediente", "car_requisitado", "car_realizado"
 						}
 
-						// PEGO OS CURRAIS
-						System.out.println("DESCARREGAMENTO");
-						curraisJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("currais");
+						System.out.println("\nDESCARREGAMENTO");
+
+						// Lista de currais da ordem
+						curraisJ = ordemObj.getJsonArray("currais");
+
+						// Pesos requisitados para descarregamento
+						tratosrequisitadosJ = ordemObj.getJsonArray("tratos");
+
+						// Pesos realizados no descarregamento
+						tratosrealizadosJ = ordemObj.getJsonArray("tratosrealizados");
 
 						for (int curr = 0; curr < curraisJ.size(); curr++) {
-							curral = curraisJ.get(curr).toString();
+
+							String curral = curraisJ.getString(curr);
+							String des_requisitado = tratosrequisitadosJ.getJsonArray(ntrt).getString(curr);
+							String des_realizado = tratosrealizadosJ.getJsonArray(ntrt).getString(curr);
+
+							System.out.println("Curral: " + curral + " - Requisitado: " + des_requisitado + " - Realizado: " + des_realizado);
 							
-							// DESCARREGAMENTO PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
-							tratosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("tratos");
-
-							// PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
-							tratosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("tratosrealizados");
-
-							for (int pesos = 0; pesos < tratosrequisitadosJ.size() && pesos < tratosrealizadosJ.size(); pesos++) {
-								tratorequisitado = tratosrequisitadosJ.get(pesos).toString();
-																
-								tratorealizado = tratosrealizadosJ.get(pesos).toString();
-								
-								System.out.println("Curral: " + curral + " - " + "Trato Requisitado: " + tratorequisitado + " - Trato Realizado: " + tratorealizado);
-							}
+							// Gravar no banco: "ordemproducao", "data", "ntrt", "curral", "des_requisitado", "des_realizado"
 						}
+
 						System.out.println("------------------------------------------------------------------------------------");
 					}
 				}
