@@ -36,6 +36,13 @@ public class ConsultaOrdemDTO {
         this.nordens = nordens;
     }
 
+    public ConsultaOrdemDTO(String equipamento, Integer nordens, OrdemTratosDTO ordem) {
+        this();
+        this.equipamento = equipamento;
+        this.nordens = nordens;
+        this.ordens.add(ordem);
+    }
+
     public ConsultaOrdemDTO(String equipamento, Integer nordens, Integer ordCodigo) {
         this();
         this.equipamento = equipamento;
