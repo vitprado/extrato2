@@ -25,7 +25,7 @@ import br.exacta.persistencia.Descarregamento;
 public class UtilManipulacao {
 
 	public void JsonResultado(File arquivo) {
-		
+
 
 	}
 
@@ -39,7 +39,7 @@ public class UtilManipulacao {
 
 		CarregamentoDAO carDAO = new CarregamentoDAO();
 		DescarregamentoDAO desDAO = new DescarregamentoDAO();
-		
+
 		// PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON
 		JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ,
 		tratosrealizadosJ, ingredientes_trato;
@@ -49,29 +49,29 @@ public class UtilManipulacao {
 			fis = new FileInputStream(arquivo);
 			JsonReader reader = Json.createReader(fis);
 			JsonObject jsonObject = reader.readObject();
-			
+
 			// Executa para cada equipamento
 			for (int i = 0; i < jsonObject.getInt("nequipamentos") ; i++) {
-				
+
 				JsonObject equipamentoObj = jsonObject.getJsonArray("equips").getJsonObject(i);
-				
-				// Nome do equipamento				
+
+				// Nome do equipamento
 				equipamento = equipamentoObj.getJsonString("equipamento").toString();
 				System.out.println("Equipamento: " + equipamento);
 
 				// Quantidade de ordens de producao
 				nordens = equipamentoObj.getJsonNumber("nordens").intValue();
 				System.out.println("Qtd. Ordens: " + nordens);
-				
-				/* 
-				 * TODO: Verificar consistencia do arquivo comparando a chave "nordens" com o tamanho dos objetos: 
+
+				/*
+				 * TODO: Verificar consistencia do arquivo comparando a chave "nordens" com o tamanho dos objetos:
 				 * receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, tratosrealizadosJ e tratos requisitadosJ
 				 * Todos os objetos devem ter o mesmo tamanho, que deve ser o valor da chave "nordens"
 				*/
 
 				// Le cada ordem
 				for (int nord = 0; nord < nordens; nord++) {
-					
+
 					JsonObject ordemObj = equipamentoObj.getJsonArray("ordens").getJsonObject(nord);
 
 					ordemproducao = ordemObj.getJsonString("ordemproducao").toString();
@@ -117,17 +117,17 @@ public class UtilManipulacao {
 							String car_realizado = pesosrealizadosJ.getJsonArray(ntrt).getString(ing);
 
 							System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
-							
+
 							// Grava descarregamento no banco de dados
 							Carregamento car = new Carregamento();
 							car.setRdcOrdem(ordemproducao);
 							car.setRdcNumtrato(ntrt);
 							car.setRdcEquipamento(equipamento);
-							car.setRdcDatajson(data);
+							car.setRdcDataJson(data);
 							car.setRdcReceita(receita);
 							car.setRdcIngrediente(ingrediente);
-							car.setRdcPesorequisitado(car_requisitado);
-							car.setRdcPesorealizado(car_realizado);
+							car.setRdcPesorequisitado(car_requisitado == null || car_requisitado.isEmpty() ? "0" : car_requisitado);
+							car.setRdcPesorealizado(car_realizado == null || car_realizado.isEmpty() ? "0" : car_realizado);
 							car.setRdcCodigo(carDAO.getTodosCarregamentos().size());
 							carDAO.adicionarCarregamento(car);
 						}
@@ -150,7 +150,7 @@ public class UtilManipulacao {
 							String des_realizado = tratosrealizadosJ.getJsonArray(ntrt).getString(curr);
 
 							System.out.println("Curral: " + curral + " - Requisitado: " + des_requisitado + " - Realizado: " + des_realizado);
-							
+
 							// Grava descarregamento no banco de dados
 							Descarregamento des = new Descarregamento();
 							des.setRdgOrdem(ordemproducao);
@@ -158,11 +158,11 @@ public class UtilManipulacao {
 							des.setRdgEquipamento(equipamento);
 							des.setRdgDatajson(data);
 							des.setRdgCurral(curral);
-							des.setRdgTratorequisitado(des_requisitado);
-							des.setRdgTratorealizado(des_realizado);
+							des.setRdgTratorequisitado(des_requisitado == null || des_requisitado.isEmpty() ? "0" : des_requisitado);
+							des.setRdgTratorealizado(des_realizado == null || des_realizado.isEmpty() ? "0" : des_realizado);
 							des.setRdgCodigo(desDAO.getTodosDescarregamentos().size());
 							desDAO.adicionarDescarregamento(des);
-							
+
 						}
 
 						System.out.println("------------------------------------------------------------------------------------");

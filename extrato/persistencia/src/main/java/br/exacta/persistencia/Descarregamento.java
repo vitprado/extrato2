@@ -51,7 +51,7 @@ public class Descarregamento implements Serializable {
     private String rdgTratorequisitado;
     @Column(name = "RDG_TRATOREALIZADO")
     private String rdgTratorealizado;
-    @Column(name = "RDG_DATAJSON")
+    @Column(name = "RDG_DATA_JSON")
     private String rdgDatajson;
 
     public Descarregamento() {

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Carregamento.findByRdcIngrediente", query = "SELECT c FROM Carregamento c WHERE c.rdcIngrediente = :rdcIngrediente")
     , @NamedQuery(name = "Carregamento.findByRdcPesorequisitado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorequisitado = :rdcPesorequisitado")
     , @NamedQuery(name = "Carregamento.findByRdcPesorealizado", query = "SELECT c FROM Carregamento c WHERE c.rdcPesorealizado = :rdcPesorealizado")
-    , @NamedQuery(name = "Carregamento.findByRdcDatajson", query = "SELECT c FROM Carregamento c WHERE c.rdcDataJson = :rdcDataJson")
+    , @NamedQuery(name = "Carregamento.findByRdcDataJson", query = "SELECT c FROM Carregamento c WHERE c.rdcDataJson = :rdcDataJson")
     , @NamedQuery(name = "Carregamento.findByRdcReceita", query = "SELECT c FROM Carregamento c WHERE c.rdcReceita = :rdcReceita")})
 public class Carregamento implements Serializable {
 
@@ -124,7 +124,7 @@ public class Carregamento implements Serializable {
         return rdcDataJson;
     }
 
-    public void setRdcDatajson(String rdcDataJson) {
+    public void setRdcDataJson(String rdcDataJson) {
         this.rdcDataJson = rdcDataJson;
     }
 
