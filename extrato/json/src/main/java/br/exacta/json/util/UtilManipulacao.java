@@ -97,10 +97,8 @@ public class UtilManipulacao {
 			for (int i = 0; i < jsonObject.size(); i++) {
 
 				// PEGO OS EQUIPAMENTOS
-				System.out
-						.println("==================================================================================");
-				equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento")
-						.toString();
+				System.out.println("==================================================================================");
+				equipamento = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonString("equipamento").toString();
 				System.out.println("Equipamento: " + equipamento);
 
 				// PEGO O NÚMERO DE ORDENS
@@ -116,8 +114,8 @@ public class UtilManipulacao {
 					System.out.println("Qtde de Tatros: " + ntratos + "\n");
 
 					for (int ntrt = 0; ntrt < ntratos; ntrt++) {
-						contTrato = ntrt;
-						System.out.println("Tatro: " + (contTrato + 1));
+						contTrato = ntrt + 1;
+						System.out.println("Tatro: " + contTrato);
 
 						// PEGO A DATA
 						data = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getString("data");
@@ -125,7 +123,7 @@ public class UtilManipulacao {
 
 						// PEGO RECEITA
 						receitaJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("receitas");
-						receita = receitaJ.get(nord).toString();
+						receita = receitaJ.get(ntrt).toString();
 						System.out.println("\nReceita: " + receita);
 
 						// PEGO INGREDIENTES
@@ -142,7 +140,7 @@ public class UtilManipulacao {
 							// PESOS REALIZADOS
 							pesosrealizadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("pesosrealizados");
 							realizado = pesosrealizadosJ.get(ing).toString();
-
+									
 							System.out.println("Ingrediente: " + ingrediente + " - Peso requisitado: " + requisitado + " - Peso realizados: " + realizado + "\n");
 						}
 
@@ -152,11 +150,8 @@ public class UtilManipulacao {
 
 						for (int curr = 0; curr < curraisJ.size(); curr++) {
 							curral = curraisJ.get(curr).toString();
-							System.out.println("Curral: " + curral + " - ");
-
-							// DESCARREGAMENTO
-
-							// PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
+							
+							// DESCARREGAMENTO PESOS DOS TRATOS REQUISITADOS DO DESCARREGAMENTO
 							tratosrequisitadosJ = jsonObject.getJsonArray("equips").getJsonObject(i).getJsonArray("ordens").getJsonObject(nord).getJsonArray("tratos");
 
 							// PESOS DOS TRATOS REALIZADOS DO DESCARREGAMENTO
@@ -164,9 +159,10 @@ public class UtilManipulacao {
 
 							for (int pesos = 0; pesos < tratosrequisitadosJ.size() && pesos < tratosrealizadosJ.size(); pesos++) {
 								tratorequisitado = tratosrequisitadosJ.get(pesos).toString();
+																
 								tratorealizado = tratosrealizadosJ.get(pesos).toString();
-
-								System.out.println("Trato Requisitado: " + tratorequisitado + " - " + "Trato Realizado: " + tratorealizado);
+								
+								System.out.println("Curral: " + curral + " - " + "Trato Requisitado: " + tratorequisitado + " - Trato Realizado: " + tratorealizado);
 							}
 						}
 						System.out.println("------------------------------------------------------------------------------------");
