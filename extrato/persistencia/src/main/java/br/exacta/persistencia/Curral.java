@@ -39,9 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Curral.findByCurDataCadastro", query = "SELECT c FROM Curral c WHERE c.curDataCadastro = :curDataCadastro")})
 public class Curral implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curral")
-    private List<Trato> tratoList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,15 +121,6 @@ public class Curral implements Serializable {
     @Override
     public String toString() {
         return curDescricao;
-    }
-
-    @XmlTransient
-    public List<Trato> getTratoList() {
-        return tratoList;
-    }
-
-    public void setTratoList(List<Trato> tratoList) {
-        this.tratoList = tratoList;
     }
     
 }

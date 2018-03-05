@@ -124,4 +124,5 @@ public class Trato implements Serializable {
     public String toString() {
         return "br.exacta.persistencia.Trato[ trtCodigo=" + trtCodigo + " ]";
     }
+
 }

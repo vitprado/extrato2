@@ -13,9 +13,9 @@
     <class>br.exacta.persistencia.NivelAcesso</class>
     <class>br.exacta.persistencia.Trato</class>
     <class>br.exacta.persistencia.ReceitaTemIngredientes</class>
+    <class>br.exacta.persistencia.Carregamento</class>
     <class>br.exacta.persistencia.Descarregamento</class>
     <class>br.exacta.persistencia.ItemTrato</class>
-    <class>br.exacta.persistencia.Carregamento</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:extrato;create=true"/>
       <property name="javax.persistence.jdbc.user" value="extrato"/>
