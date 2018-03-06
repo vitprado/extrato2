@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
@@ -15,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
     <children>
         <VBox prefHeight="630.0" prefWidth="964.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -24,9 +31,9 @@
                         <Font size="40.0" />
                     </font>
                 </Text>
-                <GridPane prefHeight="76.0" prefWidth="834.0">
+                <GridPane>
                     <children>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento da Ordem" textAlignment="RIGHT" wrappingWidth="211.0" GridPane.rowIndex="1">
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento:" textAlignment="RIGHT" wrappingWidth="211.0">
                             <font>
                                 <Font name="Segoe UI Semilight" size="16.0" />
                             </font>
@@ -34,7 +41,7 @@
                                 <Insets right="10.0" />
                             </GridPane.margin>
                         </Text>
-                        <ChoiceBox fx:id="cbbEquipamento" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ChoiceBox fx:id="cbbEquipamento" prefWidth="319.0" GridPane.columnIndex="1">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Item 1" />
@@ -46,12 +53,12 @@
                                 <Insets right="10.0" />
                             </GridPane.margin>
                         </ChoiceBox>
-                        <Button id="btnPesquisar" fx:id="btnPesquisar" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="PESQUISAR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Button id="btnPesquisar" fx:id="btnPesquisar" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" styleClass="acao-equipamento" text="Pesquisar" GridPane.columnIndex="2">
                             <GridPane.margin>
                                 <Insets right="10.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button id="btnProgramar" fx:id="btnProgramar" alignment="CENTER" mnemonicParsing="false" prefWidth="319.0" text="PROGRAMAR" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Button id="btnProgramar" fx:id="btnProgramar" alignment="CENTER" mnemonicParsing="false" prefWidth="319.0" styleClass="acao-relatorio" text="Programar" GridPane.columnIndex="3">
                             <GridPane.margin>
                                 <Insets right="10.0" />
                             </GridPane.margin>
@@ -61,12 +68,14 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
                         <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="571.0" minWidth="10.0" prefWidth="199.0" />
                         <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="154.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="154.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
                 </GridPane>
                 <TableView fx:id="tvProgramarLista" prefHeight="512.0" prefWidth="964.0" VBox.vgrow="SOMETIMES">
                     <columns>
@@ -80,4 +89,8 @@
             </children>
         </VBox>
     </children>
+   <stylesheets>
+      <URL value="@../css/default.css" />
+      <URL value="@../css/custom.css" />
+   </stylesheets>
 </AnchorPane>

@@ -20,9 +20,9 @@
             </Text>
             <GridPane>
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="141.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="290.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="369.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="173.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="703.0" minWidth="349.0" prefWidth="621.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="216.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -38,7 +38,7 @@
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin></Button>
-                  <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição">
+                  <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -46,8 +46,8 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtDescricao" prefHeight="31.0" prefWidth="351.0" GridPane.columnIndex="1" />
-                  <Text fx:id="lblAbreviacao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Abreviação" GridPane.rowIndex="1">
+                  <TextField fx:id="txtDescricao" GridPane.columnIndex="1" />
+                  <Text fx:id="lblAbreviacao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Abreviação:" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -55,8 +55,8 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtAbreviacao" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Text fx:id="lblTolerancia" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Tolerância" GridPane.rowIndex="2">
+                  <TextField fx:id="txtAbreviacao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Text fx:id="lblTolerancia" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Tolerância:" GridPane.rowIndex="2">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -64,10 +64,10 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtTolerancia" prefHeight="31.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtTolerancia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <ListView fx:id="ltvDados" prefHeight="445.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
+            <ListView fx:id="ltvDados" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
    </children>
