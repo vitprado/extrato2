@@ -17,7 +17,7 @@
       </Text>
       <GridPane alignment="CENTER_RIGHT" layoutX="14.0" layoutY="78.0" prefHeight="120.0" prefWidth="684.0">
          <children>
-            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem" GridPane.rowIndex="1">
+            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem:" GridPane.rowIndex="1">
                <font>
                   <Font name="Segoe UI Semilight" size="16.0" />
                </font>
@@ -35,12 +35,12 @@
             </Text>
             <TextField fx:id="txtOrdem" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtNroTrato" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="SALVAR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="Salvar" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnSair" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="FECHAR" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button fx:id="btnSair" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="Fechar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

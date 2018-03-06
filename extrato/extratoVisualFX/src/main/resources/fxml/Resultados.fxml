@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -30,59 +31,39 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
         </Text>
-        <HBox prefHeight="0.0" prefWidth="800.0">
-          <children>
-                  <TextField fx:id="txtCaminhoArquivo" editable="false" prefHeight="31.0" prefWidth="465.0" promptText="Procure, e selecione o arquivo programacao.json">
-                     <font>
-                        <Font name="Segoe UI Semilight" size="15.0" />
-                     </font>
-                  </TextField>
-            <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR">
-                                        <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-historico" />
-                        <String fx:value="menu-roxo" />
-                            </styleClass>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin></Button>
-            <Button fx:id="btnSalvar" mnemonicParsing="false" text="SALVAR">
-                                        <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-salvar" />
-                        <String fx:value="menu-green" />
-                            </styleClass>
-              <HBox.margin>
-                <Insets left="10.0" />
-              </HBox.margin>
-            </Button>
-                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" text="RELATÓRIOS">
-                                              <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-relatorio" />
-                        <String fx:value="menu-roxo" />
-                            </styleClass>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="454.0" minWidth="10.0" prefWidth="269.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="txtCaminhoArquivo" editable="false" prefHeight="31.0" prefWidth="465.0" promptText="Procure, e selecione o arquivo programacao.json" />
+            <Button fx:id="btnImportar" mnemonicParsing="false" styleClass="acao-adicionar" text="Importar Arquivo de Resultados" GridPane.columnIndex="1" />
+                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" styleClass="acao-relatorio" text="Gerar Relatorio" GridPane.rowIndex="1">
                     <items>
                       <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioResumoCarregamentoPDF" mnemonicParsing="false" text="RESUMO DE CARREGAMENTO (PDF)" />
                     </items>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
                   </MenuButton>
-          </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-        </HBox>
+               </children>
+            </GridPane>
             <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
               <tabs>
-                <Tab text="Carregamento">
+                  <Tab text="Ordens Importadas">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                <Tab disable="true" text="Carregamentos">
                      <content>
                         <VBox>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Carregamento">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados dos carregamentos">
                                  <font>
                                     <Font name="Segoe UI Semilight" size="18.0" />
                                  </font>
@@ -94,10 +75,10 @@
                                 <columns>
                                   <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
                                   <TableColumn fx:id="colOrdem" prefWidth="75.0" text="Ordem" />
-                                    <TableColumn fx:id="colEquipamento" prefWidth="75.0" text="Equipamento" />
-                                    <TableColumn fx:id="colReceita" prefWidth="75.0" text="Receita" />
-                                    <TableColumn fx:id="colNumTrato" prefWidth="116.0" text="Número de Tratos" />
-                                    <TableColumn fx:id="colIngrediente" prefWidth="34.0" text="Ingredientes" />
+                                    <TableColumn fx:id="colEquipamento" prefWidth="107.0" text="Equipamento" />
+                                    <TableColumn fx:id="colReceita" prefWidth="97.0" text="Receita" />
+                                    <TableColumn fx:id="colNumTrato" prefWidth="96.0" text="Número de Tratos" />
+                                    <TableColumn fx:id="colIngrediente" minWidth="0.0" prefWidth="0.0" text="Ingredientes" />
                                     <TableColumn fx:id="colPesosRequisitados" prefWidth="75.0" text="Pesos Requisitados" />
                                     <TableColumn fx:id="colPesosRealizados" prefWidth="75.0" text="Pesos Realizados" />
                                     <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
@@ -111,11 +92,11 @@
                         </VBox>
                      </content>
                 </Tab>
-                <Tab text="Descarregamento">
+                <Tab disable="true" text="Descarregamentos">
                      <content>
                         <VBox>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Descarregamento">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados dos descarregamentos">
                                  <font>
                                     <Font name="Segoe UI Semilight" size="18.0" />
                                  </font>
@@ -144,7 +125,7 @@
                      </content>
                 </Tab>
                   
-                  <Tab text="Arquivo Original">
+                  <Tab disable="true" text="Arquivo Original">
                      <content>
                         <TextArea fx:id="txtAreaJsonCompleta" editable="false" prefHeight="200.0" prefWidth="200.0" styleClass="text-area">
                            <font>
@@ -161,4 +142,8 @@
       </children>
     </VBox>
   </children>
+   <stylesheets>
+      <URL value="@../css/default.css" />
+      <URL value="@../css/custom.css" />
+   </stylesheets>
 </AnchorPane>
