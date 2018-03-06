@@ -1,69 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
-  <children>
-    <VBox prefHeight="630.0" prefWidth="964.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Programação de Ordens de Produção">
-          <font>
-            <Font name="Segoe UI Semilight" size="48.0" />
-          </font>
-        </Text>
-        <GridPane prefWidth="948.0">
-          <children>
-            <Button id="btnSalvar" fx:id="btnProgramar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" text="PROGRAMAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento da Ordem" GridPane.rowIndex="1">
-              <font>
-                <Font name="Segoe UI Semilight" size="16.0" />
-              </font>
-              <GridPane.margin>
-                <Insets right="10.0" />
-              </GridPane.margin>
-            </Text>
-            <ChoiceBox fx:id="cbbEquipamento" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
-              </items>
-              <GridPane.margin>
-                <Insets right="10.0" />
-              </GridPane.margin>
-            </ChoiceBox>
-          </children>
-          <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="196.0" />
-            <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="571.0" minWidth="10.0" prefWidth="231.0" />
-            <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="147.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
-        <TableView prefHeight="512.0" prefWidth="964.0" VBox.vgrow="SOMETIMES">
-          <columns>
-            <TableColumn prefWidth="162.0" text="Ordem de Produção" fx:id="colOrdens" />
-            <TableColumn minWidth="0.0" prefWidth="412.0" text="Receitas" fx:id="colReceitas" />
-            <TableColumn minWidth="0.0" prefWidth="62.0" text="Tratos" fx:id="colTratos" />
-            <TableColumn minWidth="0.0" prefWidth="193.0" text="Currais" fx:id="colCurrais" />
-            <TableColumn prefWidth="98.0" text="Ação" fx:id="colAcao" />
-          </columns>
-        </TableView>
-      </children>
-    </VBox>
-  </children>
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ProgramarListaController">
+    <children>
+        <VBox prefHeight="630.0" prefWidth="964.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Programação das Ordens de Produção" wrappingWidth="829.09375">
+                    <font>
+                        <Font size="40.0" />
+                    </font>
+                </Text>
+                <GridPane prefHeight="76.0" prefWidth="834.0">
+                    <children>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento da Ordem" textAlignment="RIGHT" wrappingWidth="211.0" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="Segoe UI Semilight" size="16.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets right="10.0" />
+                            </GridPane.margin>
+                        </Text>
+                        <ChoiceBox fx:id="cbbEquipamento" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Item 1" />
+                                    <String fx:value="Item 2" />
+                                    <String fx:value="Item 3" />
+                                </FXCollections>
+                            </items>
+                            <GridPane.margin>
+                                <Insets right="10.0" />
+                            </GridPane.margin>
+                        </ChoiceBox>
+                        <Button id="btnPesquisar" fx:id="btnPesquisar" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="PESQUISAR" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets right="10.0" />
+                            </GridPane.margin>
+                        </Button>
+                        <Button id="btnProgramar" fx:id="btnProgramar" alignment="CENTER" mnemonicParsing="false" prefWidth="319.0" text="PROGRAMAR" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets right="10.0" />
+                            </GridPane.margin>
+                        </Button>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
+                        <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="571.0" minWidth="10.0" prefWidth="199.0" />
+                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="154.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="18.0" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+                <TableView fx:id="tvProgramarLista" prefHeight="512.0" prefWidth="964.0" VBox.vgrow="SOMETIMES">
+                    <columns>
+                        <TableColumn fx:id="colSelect" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" />
+                        <TableColumn fx:id="colOrdens" prefWidth="200.0" text="Ordem de Produção" />
+                        <TableColumn fx:id="colReceitas" prefWidth="145.0" text="Receitas" />
+                        <TableColumn fx:id="colCurrais" prefWidth="200.0" text="Currais" />
+                        <TableColumn fx:id="colTratos" prefWidth="260.0" text="Tratos" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

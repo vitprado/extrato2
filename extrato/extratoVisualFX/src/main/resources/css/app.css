@@ -333,3 +333,12 @@
 .scroll > *.scroll-bar > *.increment-button > *.increment-arrow {
     -fx-background-color: transparent;
 }
+
+.check-box .box {
+    -fx-background-color: #c3c3c3;
+    -fx-border-color: #c3c3c3;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}

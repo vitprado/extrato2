@@ -54,6 +54,7 @@ public class ListaOrdemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         componentes();
         configurarTabela();
+        pesquisarAction();
 
         btnNova.setOnAction((ActionEvent event) -> {
             OrdemController ordem = new OrdemController();
@@ -69,20 +70,27 @@ public class ListaOrdemController implements Initializable {
     public void pesquisarAction() {
         ConsultaOrdemFilter consultaOrdemFilter = new ConsultaOrdemFilter();
         consultaOrdemFilter.setEquipamento(cbbEquipamento.getValue());
-        ConsultaOrdemDTO consultaOrdemDTO = new ConsultaOrdemDTODAO().findByFilter(consultaOrdemFilter);
         List<EquipamentoConsultaOrdemDTO> listEquipamentoConsultaOrdem = new ArrayList<>();
+        List<ConsultaOrdemDTO> listConsultaOrdemDTO = new ArrayList<>();
 
-        Integer countOrdem = 0;
-        for (OrdemTratosDTO ordemTratosDTO : consultaOrdemDTO.getOrdens()) {
-            listEquipamentoConsultaOrdem.add(
-                    new EquipamentoConsultaOrdemDTO(
-                            consultaOrdemDTO.getEquipamento(),
-                            ordemTratosDTO.getOrdemproducao(),
-                            ordemTratosDTO.getReceitas(),
-                            consultaOrdemDTO.getListOrdCodigo().get(countOrdem)));
-            countOrdem++;
+        if (cbbEquipamento.getValue() == null) {
+            listConsultaOrdemDTO = new ConsultaOrdemDTODAO().findAll();
+        } else {
+            listConsultaOrdemDTO.add(new ConsultaOrdemDTODAO().findByFilter(consultaOrdemFilter));
         }
 
+        for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdemDTO) {
+            Integer countOrdem = 0;
+            for (OrdemTratosDTO ordemTratosDTO : consultaOrdemDTO.getOrdens()) {
+                listEquipamentoConsultaOrdem.add(
+                        new EquipamentoConsultaOrdemDTO(
+                                consultaOrdemDTO.getEquipamento(),
+                                ordemTratosDTO.getOrdemproducao(),
+                                ordemTratosDTO.getReceitas(),
+                                consultaOrdemDTO.getListOrdCodigo().get(countOrdem)));
+                countOrdem++;
+            }
+        }
         tvOrdens.setItems(observableArrayList(listEquipamentoConsultaOrdem));
     }
 
