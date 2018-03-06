@@ -78,7 +78,7 @@
         </HBox>
             <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
               <tabs>
-                <Tab text="Carregamento">
+                <Tab text="Lista de Resultados Importados">
                      <content>
                         <VBox>
                            <children>
@@ -92,49 +92,11 @@
                               </Text>
                               <TableView fx:id="tbvDadosCarregamento" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                                 <columns>
-                                  <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
                                   <TableColumn fx:id="colOrdem" prefWidth="75.0" text="Ordem" />
                                     <TableColumn fx:id="colEquipamento" prefWidth="75.0" text="Equipamento" />
-                                    <TableColumn fx:id="colReceita" prefWidth="75.0" text="Receita" />
-                                    <TableColumn fx:id="colNumTrato" prefWidth="116.0" text="Número de Tratos" />
-                                    <TableColumn fx:id="colIngrediente" prefWidth="34.0" text="Ingredientes" />
-                                    <TableColumn fx:id="colPesosRequisitados" prefWidth="75.0" text="Pesos Requisitados" />
-                                    <TableColumn fx:id="colPesosRealizados" prefWidth="75.0" text="Pesos Realizados" />
                                     <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
                                     <TableColumn fx:id="colAcao" prefWidth="75.0" text="Ação no Sistema" />
                                 </columns>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </TableView>
-                           </children>
-                        </VBox>
-                     </content>
-                </Tab>
-                <Tab text="Descarregamento">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Descarregamento">
-                                 <font>
-                                    <Font name="Segoe UI Semilight" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <TableView fx:id="tbvDadosDescarregamento" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
-                                 <columns>
-                                    <TableColumn fx:id="colCodigoD" prefWidth="75.0" text="Código" />
-                                    <TableColumn fx:id="colOrdemD" prefWidth="75.0" text="Ordem" />
-                                    <TableColumn fx:id="colEquipamentoD" prefWidth="75.0" text="Equipamento" />
-                                    <TableColumn fx:id="colNumTratoD" prefWidth="116.0" text="Número de Tratos" />
-                                    <TableColumn fx:id="colCurral" prefWidth="34.0" text="Currais" />
-                                    <TableColumn fx:id="colTratosRequisitados" prefWidth="75.0" text="Tratos Requisitados" />
-                                    <TableColumn fx:id="colTratosRealizados" prefWidth="75.0" text="Tratos Realizados" />
-                                    <TableColumn fx:id="colDataD" prefWidth="75.0" text="Data" />
-                                    <TableColumn fx:id="colAcaoD" prefWidth="75.0" text="Ação no Sistema" />
-                                 </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>

@@ -60,9 +60,9 @@ public class OrdemController implements Initializable {
     @FXML
     private TableColumn<TratoDTO, String> colNumeroTrato;
     @FXML
-    private TableColumn<TratoDTO,String> colReceita;
+    private TableColumn<TratoDTO, String> colReceita;
     @FXML
-    private TableColumn<TratoDTO,TratoDTO> colAcao;
+    private TableColumn<TratoDTO, TratoDTO> colAcao;
 
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
     private final ObservableList<Equipamento> observableEquipamentos = observableArrayList();
@@ -345,6 +345,4 @@ public class OrdemController implements Initializable {
     public void setNumeroTrato(Integer numeroTrato) {
         this.numeroTrato = numeroTrato;
     }
-
-
 }

@@ -105,11 +105,4 @@ public class CurralController implements Initializable {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser remover o curral selecionado!");
         });
     }// Fim initialize
-    
-    // TESTANDO 
-//    private void atualizaLista(){
-//        ltvDados.getItems().clear(); // Limpa a lista
-//        listaCurral.forEach(ltvDados.getItems()::add);
-//        
-//    }
 }

@@ -24,11 +24,6 @@ import br.exacta.persistencia.Descarregamento;
 
 public class UtilManipulacao {
 
-	public void JsonResultado(File arquivo) {
-
-
-	}
-
 	public void CarregaResultadoJson(File arquivo) throws Exception {
 
 		String equipamento;
@@ -41,8 +36,7 @@ public class UtilManipulacao {
 		DescarregamentoDAO desDAO = new DescarregamentoDAO();
 
 		// PARA CARREGAR TODOS OS ARRAYS QUE CONTÊM NO ARQUIVO DE JSON
-		JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ,
-		tratosrealizadosJ, ingredientes_trato;
+		JsonArray receitaJ, ingredientesJ, pesosrequisitadosJ, pesosrealizadosJ, curraisJ, tratosrequisitadosJ, tratosrealizadosJ, ingredientes_trato;
 
 		InputStream fis;
 		try {

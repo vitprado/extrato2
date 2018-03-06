@@ -68,8 +68,6 @@ public class ResultadosController implements Initializable {
     @FXML
     private MenuButton brnResultadosRelatorios;
     @FXML
-    private TextArea txtAreaJsonSimples;
-    @FXML
     private TextArea txtAreaJsonCompleta;
     
     // PARA O CARREGAMENTO
@@ -134,15 +132,6 @@ public class ResultadosController implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
 
-        Carregamento C = new Carregamento();
-        Descarregamento D = new Descarregamento();
-        
-        carregaTabelaCarregamento(C);
-        carregaTabelaDescarregamento(D);
-        //tbvDadosCarregamento.setItems(listaCarregamentosManual());
-        
-        //carregaCarregamento();
-        //carregaDescarregamento();
         // PARA IMPORTAR ARQUIVO JSON
         btnImportar.setOnAction((ActionEvent event) -> {
             // SEQUENCIA DE PASSOS PARA ABRIR UMA CAIXA DE DIALOGO ESCOLHENDO O ARQUIVO DE
@@ -159,9 +148,7 @@ public class ResultadosController implements Initializable {
             UtilManipulacao manipula = new UtilManipulacao();
             try {
             	txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
-            	//manipula.JsonResultado(arquivo);
             	manipula.CarregaResultadoJson(arquivo);                
-                //txtAreaJsonSimples.setText(manipula.VisualizaJsonSimplificado(arquivo));
                 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -169,27 +156,6 @@ public class ResultadosController implements Initializable {
             }
         });
 
-        // GRAVAÇÃO NO BANCO DOS DADOS
-//		btnSalvar.setOnAction((ActionEvent event) -> {
-//			// ACOES DE BANCO
-//			// TESTE AO GRAVAR
-//			if (!txtCaminhoArquivo.getText().trim().equals("")) {
-//
-//				try {
-//					// GRAVA CARREGAMENTO DE DESCARREGAMENTO
-//					Config.caixaDialogo(Alert.AlertType.CONFIRMATION, "O Resultado foi salvo com sucesso no banco!");
-//				} catch (Exception ex) {
-//					Config.caixaDialogo(Alert.AlertType.ERROR,
-//							"Lamentamos, houve problemas ao gravar em sua base de dados!"
-//									+ "Entre em contato com nosso suporte!");
-//					Logger.getLogger(ResultadosController.class.getName()).log(Level.SEVERE, null, ex);
-//				}
-//			} else {
-//				Config.caixaDialogo(Alert.AlertType.WARNING,
-//						"Por favor, importe primeiro um arquivo de extensão JSON para obter resultados e salvá-lo!");
-//			}
-//
-//		});
         // PARA EXPORTAR PARA XLS e PDF
         btnRelatorioResumoCarregamentoPDF.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -226,78 +192,8 @@ public class ResultadosController implements Initializable {
         tbvDadosCarregamento.setVisible(true);
 
         // COLUNAS DA TABLEVIEW
-        colCodigo.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Código"));
         colOrdem.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ordem"));
         colEquipamento.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Equipamento"));
-        colReceita.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Receita"));
-        colNumTrato.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Número de Tratos"));
-        colIngrediente.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ingredientes"));
-        colPesosRequisitados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Requisitados"));
-        colPesosRealizados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Realizados"));
         colData.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Data"));        
     }
-    
-    private void carregaTabelaDescarregamento(Descarregamento objCarregamento) {
-        tbvDadosDescarregamento.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tbvDadosDescarregamento.setVisible(true);
-
-        // COLUNAS DA TABLEVIEW
-        colCodigoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Código"));
-        colOrdemD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Ordem"));
-        colEquipamentoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Equipamento"));
-        colNumTratoD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, Integer>("Número de Tratos"));
-        colCurral.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Currais"));
-        colTratosRequisitados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Requisitados"));
-        colTratosRealizados.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Pesos Realizados"));
-        colDataD.setCellValueFactory(new PropertyValueFactory<CarregamentoFX, String>("Data"));        
-    }
-
-//    private void carregaCarregamento() {
-//
-//        // PARA O CRREGAMENTO
-//        listaC.addAll((Carregamento) cDAO.getEquipamentosDistinct()); 
-//        ltvDadosC.setItems(listaC);
-//
-//        ltvDadosC.setCellFactory((ListView<Carregamento> param) -> {
-//            ListCell<Carregamento> listCell;
-//
-//            listCell = new ListCell() {
-//                @Override
-//                protected void updateItem(Object item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if (item != null) {
-//                        Carregamento carr = (Carregamento) item;
-//                        setText(carr.getRdcOrdem());
-//                    } else {
-//                        setText("");
-//                    }
-//                }
-//            };
-//            return listCell;
-//        });
-//    }
-//
-//    private void carregaDescarregamento() {
-//        // PARA O DESCARRAGAMENTO
-//        listaD.addAll(dDAO.getTodosDescarregamentos());
-//        ltvDadosD.setItems(listaD);
-//
-//        ltvDadosD.setCellFactory((ListView<Descarregamento> param) -> {
-//            ListCell<Descarregamento> listCell;
-//
-//            listCell = new ListCell() {
-//                @Override
-//                protected void updateItem(Object item, boolean empty) {
-//                    super.updateItem(item, empty);
-//                    if (item != null) {
-//                        Descarregamento desc = (Descarregamento) item;
-//                        setText(desc.getRdgOrdem());
-//                    } else {
-//                        setText("");
-//                    }
-//                }
-//            };
-//            return listCell;
-//        });
-//    }
 }

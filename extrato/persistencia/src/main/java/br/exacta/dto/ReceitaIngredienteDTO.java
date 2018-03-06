@@ -3,11 +3,8 @@ package br.exacta.dto;
 public class ReceitaIngredienteDTO {
 
     private String receita;
-
     private String ingrediente;
-
     private Integer tolerancia;
-
     private Integer proporcao;
 
     public ReceitaIngredienteDTO() {
