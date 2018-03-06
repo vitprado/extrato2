@@ -5,9 +5,7 @@ import java.math.BigDecimal;
 public class ItemTratoCurralDTO {
 
     private Integer ncurrais;
-
     private String curral;
-
     private BigDecimal peso;
 
     public ItemTratoCurralDTO() {

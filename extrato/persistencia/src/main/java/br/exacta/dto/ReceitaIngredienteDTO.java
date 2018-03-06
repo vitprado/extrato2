@@ -10,6 +10,13 @@ public class ReceitaIngredienteDTO {
     public ReceitaIngredienteDTO() {
     }
 
+    public ReceitaIngredienteDTO(String receita, String ingrediente, Integer proporcao) {
+        this();
+        this.receita = receita;
+        this.ingrediente = ingrediente;
+        this.proporcao = proporcao;
+    }
+    
     public ReceitaIngredienteDTO(String receita, String ingrediente, Integer tolerancia, Integer proporcao) {
         this();
         this.receita = receita;

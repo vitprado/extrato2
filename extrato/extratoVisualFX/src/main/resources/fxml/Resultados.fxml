@@ -90,7 +90,7 @@
                                     <Insets left="10.0" top="10.0" />
                                  </VBox.margin>
                               </Text>
-                              <TableView fx:id="tbvDadosCarregamento" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                              <TableView fx:id="tbvDados" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                                 <columns>
                                   <TableColumn fx:id="colOrdem" prefWidth="75.0" text="Ordem" />
                                     <TableColumn fx:id="colEquipamento" prefWidth="75.0" text="Equipamento" />
