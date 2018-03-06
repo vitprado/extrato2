@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentosController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -20,9 +20,9 @@
             </Text>
             <GridPane>
               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="83.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="322.0" prefWidth="444.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="206.0" minWidth="153.0" prefWidth="206.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,7 +31,7 @@
                <children>
                   <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" />
-                  <Text fx:id="lblPlaca" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Placa:">
+                  <Text fx:id="lblPlaca" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Placa">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -39,8 +39,8 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtPlaca" GridPane.columnIndex="1" />
-                  <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição:" GridPane.rowIndex="1">
+                  <TextField fx:id="txtPlaca" prefHeight="31.0" prefWidth="152.0" GridPane.columnIndex="1" />
+                  <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
@@ -48,10 +48,10 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtDescricao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtDescricao" prefHeight="31.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <ListView fx:id="ltvDados" VBox.vgrow="SOMETIMES" />
+            <ListView fx:id="ltvDados" prefHeight="480.0" prefWidth="800.0" />
          </children>
       </VBox>
    </children>
