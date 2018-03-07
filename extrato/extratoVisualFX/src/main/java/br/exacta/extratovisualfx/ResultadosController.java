@@ -99,8 +99,6 @@ public class ResultadosController implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {
     	
-    	//carregaTabela(listaC, listaD);
-    	
         // PARA IMPORTAR ARQUIVO JSON
         btnImportar.setOnAction((ActionEvent event) -> {
             // SEQUENCIA DE PASSOS PARA ABRIR UMA CAIXA DE DIALOGO ESCOLHENDO O ARQUIVO DE

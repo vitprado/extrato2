@@ -20,26 +20,26 @@
             </Text>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="510.0" minWidth="10.0" prefWidth="427.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text fx:id="lblNome" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" textAlignment="CENTER">
+                  <Text fx:id="lblNome" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome: " textAlignment="CENTER">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="txtNome" prefHeight="30.0" prefWidth="383.0" GridPane.columnIndex="1" />
-                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" />
-                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="150.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtNome" minWidth="200.0" GridPane.columnIndex="1" />
+                  <Button fx:id="btnSalvar" alignment="CENTER" minWidth="200.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" />
+                  <Button fx:id="btnRemover" alignment="CENTER" minWidth="200.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <ListView fx:id="ltvDados" prefHeight="489.0" prefWidth="800.0" VBox.vgrow="SOMETIMES" />
+            <ListView fx:id="ltvDados" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
    </children>

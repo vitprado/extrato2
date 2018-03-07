@@ -147,32 +147,32 @@
     -fx-graphic: url("../img/icon/atualizar.png");
 }
 
-/* Vermelho */
 .acao-excluir {
     -fx-graphic: url("../img/icon/excluir.png");
-    -fx-background-color: linear-gradient(to top right, #ff5b5b, #ff5359);
-    -fx-border-color: linear-gradient(to top right, #ff5b5b, #ff5359);
 }
 
-/* Roxo */
 .acao-relatorio {
     -fx-graphic: url("../img/icon/relatorio-b.png");
-    -fx-background-color: linear-gradient(to top right, #79589F, #534A93);
-    -fx-border-color: linear-gradient(to top right, #79589F, #534A93);
 }
 
-/* Verde */
+.acao-filtrar {
+    -fx-graphic: url("../img/icon/relatorio-b.png");
+}
+
+.acao-programar {
+    -fx-graphic: url("../img/icon/add-item-b.png");
+}
+
 .acao-adicionar {
     -fx-graphic: url("../img/icon/add-item-b.png");
-    -fx-background-color: linear-gradient(to top right, #7ecb8a, #73cb80);
-    -fx-border-color: linear-gradient(to top right, #7ecb8a, #73cb80);
 }
 
-/* Amarelo */
+.acao-salvar {
+    -fx-graphic: url("../img/icon/add-item-b.png");
+}
+
 .acao-remover {
     -fx-graphic: url("../img/icon/devolucao-b.png");
-    -fx-background-color: linear-gradient(to top right, #ffc234, #fdb440);
-    -fx-border-color: linear-gradient(to top right, #ffc234, #fdb440);
 }
 
 .acao-devolucao {

@@ -32,21 +32,16 @@
         </Text>
         <HBox prefHeight="0.0" prefWidth="800.0">
           <children>
-                  <TextField fx:id="txtCaminhoArquivo" editable="false" prefHeight="31.0" prefWidth="465.0" promptText="Procure, e selecione o arquivo programacao.json">
+                  <TextField fx:id="txtCaminhoArquivo" editable="false" minWidth="400.0" promptText="Procure, e selecione o arquivo programacao.json">
                      <font>
                         <Font name="Segoe UI Semilight" size="15.0" />
                      </font>
                   </TextField>
-            <Button fx:id="btnImportar" mnemonicParsing="false" text="Importar">
+            <Button fx:id="btnImportar" minWidth="200.0" mnemonicParsing="false" styleClass="acao-importar" text="Importar">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin></Button>
-            <Button fx:id="btnSalvar" mnemonicParsing="false" text="Salvar">
-              <HBox.margin>
-                <Insets left="10.0" />
-              </HBox.margin>
-            </Button>
-                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" text="Relatorios">
+                  <MenuButton fx:id="brnResultadosRelatorios" minWidth="200.0" mnemonicParsing="false" styleClass="acao-relatorios" text="Relatorios">
                     <items>
                       <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />

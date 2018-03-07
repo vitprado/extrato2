@@ -83,6 +83,10 @@ public class Config {
         loader.setController(controller);
         try {
             AnchorPane anchorPane = loader.load();
+
+            anchorPane.getStylesheets().add("/css/default.css");
+            anchorPane.getStylesheets().add("/css/custom.css");
+            
             showDialog(anchorPane);
 
             Config.changeScreen(str, controller);
