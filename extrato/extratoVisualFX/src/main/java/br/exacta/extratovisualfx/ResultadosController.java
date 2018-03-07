@@ -54,8 +54,6 @@ public class ResultadosController implements Initializable {
 	private TextField txtCaminhoArquivo;
 	@FXML
 	private MenuButton brnResultadosRelatorios;
-	@FXML
-	private TextArea txtAreaJsonCompleta;
 
 	// PARA OS RESULTADOS
 	@FXML
@@ -103,8 +101,7 @@ public class ResultadosController implements Initializable {
 			// MANIPULACAO DO ARQUIVO JSON ESCOLHIDO;
 			UtilManipulacao manipula = new UtilManipulacao();
 			try {
-				txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
-
+				
 				if(manipula.CarregaResultadoJson(arquivo)) {
 					Config.caixaDialogo(Alert.AlertType.INFORMATION, "Resultados importados com sucesso!");
 				} else {
@@ -149,7 +146,7 @@ public class ResultadosController implements Initializable {
 	}
 
 	private void carregaTabela() {
-
+		
 		// COLUNAS DA TABLEVIEW
 		colOrdem.setCellValueFactory(new PropertyValueFactory<ListaResultadosDTO, String>("Ordem"));
 		colEquipamento.setCellValueFactory(new PropertyValueFactory<ListaResultadosDTO, String>("Equipamento"));

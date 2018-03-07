@@ -21,6 +21,8 @@ import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 public class UtilManipulacao {
 
@@ -66,6 +68,15 @@ public class UtilManipulacao {
 				// Le cada ordem
 				for (int nord = 0; nord < nordens; nord++) {
 
+					if(carDAO.getOrdensDistinct().contains(ordemproducao)) {
+						Alert alert;
+						alert = new Alert(Alert.AlertType.INFORMATION, "Já foram importados resultados para a ordem" + ordemproducao);
+						alert.initStyle(StageStyle.UTILITY);
+						alert.setTitle("MENSAGEM DO SISTEMA");
+						alert.showAndWait();
+						continue;
+					}
+					
 					JsonObject ordemObj = equipamentoObj.getJsonArray("ordens").getJsonObject(nord);
 
 					ordemproducao = ordemObj.getJsonString("ordemproducao").toString();
@@ -99,8 +110,6 @@ public class UtilManipulacao {
 						String receita = receitaJ.getString(ntrt);
 						System.out.println("Receita: " + receita);
 
-						System.out.println("\nCARREGAMENTO");
-
 						// Ingredientes do trato
 						ingredientes_trato = ingredientesJ.getJsonArray(ntrt);
 
@@ -125,9 +134,8 @@ public class UtilManipulacao {
 							car.setRdcPesorealizado(car_realizado == null || car_realizado.isEmpty() ? "0" : car_realizado);
 							car.setRdcCodigo(carDAO.getTodosCarregamentos().size());
 							carDAO.adicionarCarregamento(car);
-						}
 
-						System.out.println("\nDESCARREGAMENTO");
+						}
 
 						// Lista de currais da ordem
 						curraisJ = ordemObj.getJsonArray("currais");
@@ -161,7 +169,6 @@ public class UtilManipulacao {
 
 						}
 
-						System.out.println("------------------------------------------------------------------------------------");
 					}
 				}
 				reader.close();

@@ -6,6 +6,7 @@
 package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
+import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
 
 import java.io.Serializable;
@@ -152,6 +153,17 @@ public class DescarregamentoJpaController implements Serializable {
             em.close();
         }
     }
+    
+
+	public List<Carregamento> findOrdemDistinct() {
+		EntityManager em = getEntityManager();
+		try {
+			Query query = em.createNativeQuery("select DISTINCT RDC_ORDEM from DESCARREGAMENTO");
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
+	}
 
     public List<Descarregamento> findDescarregamentos(DescarregamentoJpaFilter filter) {
         EntityManager em = getEntityManager();
