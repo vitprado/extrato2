@@ -138,7 +138,7 @@ public class ProgramarListaController implements Initializable {
     			Alert alert;
     			
     			// TODO: Erro ao imprimir o caminho. Aparece "..."
-    			alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em" + file.getPath()");
+    			alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em" + file.getPath());
     			alert.initStyle(StageStyle.UTILITY);
     			alert.setTitle("MENSAGEM DO SISTEMA");
     			alert.showAndWait();
