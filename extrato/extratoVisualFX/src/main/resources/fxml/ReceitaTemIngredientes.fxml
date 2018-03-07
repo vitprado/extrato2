@@ -28,12 +28,7 @@
           </GridPane.margin>
         </TextField>
         <TextField fx:id="txtProporcao" prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="2" />
-        <Button id="btnAdicionarLIsta" fx:id="btnAdicionarLista" mnemonicParsing="false" prefWidth="118.0" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <stylesheets>
-                  <URL value="@../css/custom.css" />
-                  <URL value="@../css/default.css" />
-                  <URL value="@../css/app.css" />
-               </stylesheets></Button>
+        <Button id="btnAdicionarLIsta" fx:id="btnAdicionarLista" mnemonicParsing="false" prefWidth="118.0" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
         <Button fx:id="btnRemoverLista" mnemonicParsing="false" prefWidth="118.0" styleClass="acao-remover" text="Remover" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <ChoiceBox fx:id="cbbIngredientes" prefHeight="31.0" prefWidth="268.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
@@ -50,8 +45,4 @@
     </GridPane>
       <TableView layoutX="14.0" layoutY="193.0" prefHeight="200.0" prefWidth="572.0" />
   </children>
-   <stylesheets>
-      <URL value="@../css/default.css" />
-      <URL value="@../css/custom.css" />
-   </stylesheets>
 </AnchorPane>

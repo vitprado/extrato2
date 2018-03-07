@@ -37,31 +37,16 @@
                         <Font name="Segoe UI Semilight" size="15.0" />
                      </font>
                   </TextField>
-            <Button fx:id="btnImportar" mnemonicParsing="false" text="IMPORTAR">
-                                        <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-historico" />
-                        <String fx:value="menu-roxo" />
-                            </styleClass>
+            <Button fx:id="btnImportar" mnemonicParsing="false" text="Importar">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin></Button>
-            <Button fx:id="btnSalvar" mnemonicParsing="false" text="SALVAR">
-                                        <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-salvar" />
-                        <String fx:value="menu-green" />
-                            </styleClass>
+            <Button fx:id="btnSalvar" mnemonicParsing="false" text="Salvar">
               <HBox.margin>
                 <Insets left="10.0" />
               </HBox.margin>
             </Button>
-                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" text="RELATÓRIOS">
-                                              <styleClass>
-                                <String fx:value="menus-acoes" />
-                                <String fx:value="acao-relatorio" />
-                        <String fx:value="menu-roxo" />
-                            </styleClass>
+                  <MenuButton fx:id="brnResultadosRelatorios" mnemonicParsing="false" text="Relatorios">
                     <items>
                       <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
@@ -78,24 +63,16 @@
         </HBox>
             <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
               <tabs>
-                <Tab text="Lista de Resultados Importados">
+                <Tab text="Resultados Importados">
                      <content>
                         <VBox>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados do Carregamento">
-                                 <font>
-                                    <Font name="Segoe UI Semilight" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </Text>
                               <TableView fx:id="tbvDados" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                                 <columns>
                                   <TableColumn fx:id="colOrdem" prefWidth="75.0" text="Ordem" />
-                                    <TableColumn fx:id="colEquipamento" prefWidth="75.0" text="Equipamento" />
-                                    <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
-                                    <TableColumn fx:id="colAcao" prefWidth="75.0" text="Ação no Sistema" />
+                                    <TableColumn fx:id="colEquipamento" prefWidth="139.0" text="Equipamento" />
+                                    <TableColumn fx:id="colData" prefWidth="87.0" text="Data" />
+                                    <TableColumn fx:id="colAcao" prefWidth="193.0" text="Ação no Sistema" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />

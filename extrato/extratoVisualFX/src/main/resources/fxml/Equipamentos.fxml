@@ -55,8 +55,4 @@
          </children>
       </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../css/default.css" />
-      <URL value="@../css/custom.css" />
-   </stylesheets>
 </AnchorPane>

@@ -65,6 +65,8 @@ public class Config {
             AnchorPane.setLeftAnchor(ap, 0.0);
             AnchorPane.setRightAnchor(ap, 0.0);
             AnchorPane.setTopAnchor(ap, 0.0);
+            ap.getStylesheets().add("/css/default.css");
+            ap.getStylesheets().add("/css/custom.css");
             showDialog(ap);
 
             Config.changeScreen(str, ap);
