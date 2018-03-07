@@ -31,31 +31,40 @@
                </VBox.margin>
         </Text>
         <HBox prefHeight="0.0" prefWidth="800.0">
-          <children>
-                  <TextField fx:id="txtCaminhoArquivo" editable="false" minWidth="400.0" promptText="Procure, e selecione o arquivo programacao.json">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+        </HBox>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="txtCaminhoArquivo" editable="false" promptText="Procure, e selecione o arquivo programacao.json" GridPane.rowIndex="1">
                      <font>
                         <Font name="Segoe UI Semilight" size="15.0" />
                      </font>
                   </TextField>
-            <Button fx:id="btnImportar" minWidth="200.0" mnemonicParsing="false" styleClass="acao-importar" text="Importar">
-                     <HBox.margin>
+            <Button fx:id="btnImportar" minWidth="200.0" mnemonicParsing="false" styleClass="acao-importar" text="Importar" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
                         <Insets left="10.0" />
-                     </HBox.margin></Button>
-                  <MenuButton fx:id="brnResultadosRelatorios" minWidth="200.0" mnemonicParsing="false" styleClass="acao-relatorios" text="Relatorios">
+                     </GridPane.margin></Button>
+                  <MenuButton fx:id="brnResultadosRelatorios" minWidth="200.0" mnemonicParsing="false" styleClass="acao-relatorios" text="Relatorios" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <items>
                       <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
                       <MenuItem fx:id="btnRelatorioResumoCarregamentoPDF" mnemonicParsing="false" text="RESUMO DE CARREGAMENTO (PDF)" />
                     </items>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
                   </MenuButton>
-          </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-        </HBox>
+               </children>
+            </GridPane>
             <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="SOMETIMES">
               <tabs>
                 <Tab text="Resultados Importados">
@@ -72,6 +81,9 @@
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>

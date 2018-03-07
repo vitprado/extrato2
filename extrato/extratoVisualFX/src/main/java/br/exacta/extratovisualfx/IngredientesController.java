@@ -31,94 +31,95 @@ import javafx.util.Callback;
  */
 public class IngredientesController implements Initializable {
 
-    @FXML
-    private Button btnRemover;
-    @FXML
-    private Button btnSalvar;
-    @FXML
-    private ListView<Ingredientes> ltvDados;
-    @FXML
-    private Text lblDescricao;
-    @FXML
-    private TextField txtDescricao;
-    @FXML
-    private TextField txtAbreviacao;
-    @FXML
-    private Text lblAbreviacao;
-    @FXML
-    private Text lblTolerancia;
-    @FXML
-    private TextField txtTolerancia;
+	@FXML
+	private Button btnRemover;
+	@FXML
+	private Button btnSalvar;
+	@FXML
+	private ListView<Ingredientes> ltvDados;
+	@FXML
+	private Text lblDescricao;
+	@FXML
+	private TextField txtDescricao;
+	@FXML
+	private TextField txtAbreviacao;
+	@FXML
+	private Text lblAbreviacao;
+	@FXML
+	private Text lblTolerancia;
+	@FXML
+	private TextField txtTolerancia;
 
-    private final ObservableList<Ingredientes> listaIngrediente = FXCollections.observableArrayList();
-    private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
+	private final ObservableList<Ingredientes> listaIngrediente = FXCollections.observableArrayList();
+	private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+	/**
+	 * Initializes the controller class.
+	 */
+	 @Override
+	 public void initialize(URL url, ResourceBundle rb) {
 
-        ltvDados.setItems(listaIngrediente);
-        listaIngrediente.addAll(ingredientesDAO.getTodosIngredientes());
+		 ltvDados.setItems(listaIngrediente);
+		 listaIngrediente.addAll(ingredientesDAO.getTodosIngredientes());
 
-        ltvDados.setCellFactory(new Callback<ListView<Ingredientes>, ListCell<Ingredientes>>() {
-            @Override
-            public ListCell<Ingredientes> call(ListView<Ingredientes> param) {
-                ListCell<Ingredientes> listCell;
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            Ingredientes ingredientes = (Ingredientes) item;
-                            setText(ingredientes.getIngNome() + "\t" + ingredientes.getIngAbreviacao() + "\t" + ingredientes.getIngTolerancia().toString());
-                        } else {
-                            setText("");
-                        }
-                    }
-                };
-                return listCell;
-            }
-        });
+		 ltvDados.setCellFactory(new Callback<ListView<Ingredientes>, ListCell<Ingredientes>>() {
+			 @Override
+			 public ListCell<Ingredientes> call(ListView<Ingredientes> param) {
+				 ListCell<Ingredientes> listCell;
+				 listCell = new ListCell() {
+					 @Override
+					 protected void updateItem(Object item, boolean empty) {
+						 super.updateItem(item, empty);
+						 if (item != null) {
+							 Ingredientes ingredientes = (Ingredientes) item;
+							 setText(ingredientes.getIngNome() + " \t\t" + ingredientes.getIngAbreviacao() + " \t\t" + ingredientes.getIngTolerancia().toString());
+						 } else {
+							 setText("");
+						 }
+					 }
+				 };
+				 return listCell;
+			 }
+		 });
 
-        // ADICIONAR  
-        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                
-                if (!txtDescricao.getText().trim().isEmpty() &&
-                    !txtAbreviacao.getText().trim().isEmpty() &&
-                    !txtTolerancia.getText().trim().isEmpty()) {
-                    Ingredientes novo = new Ingredientes();
-                    novo.setIngNome(txtDescricao.getText());
-                    novo.setIngAbreviacao(txtAbreviacao.getText());
-                    novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
+		 // ADICIONAR  
+		 btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+			 @Override
+			 public void handle(ActionEvent event) {
 
-                    try {
-                        ingredientesDAO.adicionarIngrediente(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaIngrediente.add(novo);
-                }
-            }
-        });
+				 if (!txtDescricao.getText().trim().isEmpty() &&
+						 !txtAbreviacao.getText().trim().isEmpty() &&
+						 !txtTolerancia.getText().trim().isEmpty()) {
 
-        // REMOVER 
-        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Ingredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        ingredientesDAO.removerIngrediente(itemSelecionado.getIngCodigo());
-                    } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaIngrediente.remove(itemSelecionado);
-                }
-            }
-        });
-    }
+					 Ingredientes novo = new Ingredientes();
+					 novo.setIngNome(txtDescricao.getText());
+					 novo.setIngAbreviacao(txtAbreviacao.getText());
+					 novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
+
+					 try {
+						 ingredientesDAO.adicionarIngrediente(novo);
+					 } catch (Exception ex) {
+						 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+					 }
+					 listaIngrediente.add(novo);
+				 }
+			 }
+		 });
+
+		 // REMOVER 
+		 btnRemover.setOnAction(new EventHandler<ActionEvent>() {
+			 @Override
+			 public void handle(ActionEvent event) {
+				 Ingredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+				 if (itemSelecionado != null) {
+					 try {
+						 ingredientesDAO.removerIngrediente(itemSelecionado.getIngCodigo());
+					 } catch (Exception ex) {
+						 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+					 }
+					 listaIngrediente.remove(itemSelecionado);
+				 }
+			 }
+		 });
+	 }
 }

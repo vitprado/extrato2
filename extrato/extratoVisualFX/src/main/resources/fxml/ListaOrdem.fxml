@@ -79,13 +79,16 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
-                <TableView fx:id="tvOrdens" prefHeight="389.0" prefWidth="962.0" VBox.vgrow="SOMETIMES">
+                <TableView fx:id="tvOrdens" VBox.vgrow="SOMETIMES">
                     <columns>
                         <TableColumn fx:id="colEquipamento" prefWidth="150.0" text="Equipamento" />
                         <TableColumn fx:id="colOrdem" prefWidth="200.0" text="Ordem de Produção" />
-                        <TableColumn fx:id="colReceita" prefWidth="150.0" text="Receita" />
-                        <TableColumn fx:id="colBotoes" prefWidth="150.0" text="Ações" />
+                        <TableColumn fx:id="colReceita" prefWidth="190.0" text="Receita" />
+                        <TableColumn fx:id="colBotoes" prefWidth="168.0" text="Ações" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>

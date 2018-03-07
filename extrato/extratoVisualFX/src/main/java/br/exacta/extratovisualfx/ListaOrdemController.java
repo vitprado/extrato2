@@ -161,7 +161,9 @@ public class ListaOrdemController implements Initializable {
             super.updateItem(record, empty);
             if (!empty) {
                 btnEditar.setText("Editar");
+                btnEditar.getStyleClass().add("acao-ditar");
                 btnExcluir.setText("Excluir");
+                btnExcluir.getStyleClass().add("acao-excluir");
                 Text espaco = new Text(" ");
                 HBox pane = new HBox(btnEditar, espaco, btnExcluir);
                 setGraphic(pane);

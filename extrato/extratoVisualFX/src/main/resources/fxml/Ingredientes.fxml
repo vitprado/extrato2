@@ -68,6 +68,16 @@
                </children>
             </GridPane>
             <ListView fx:id="ltvDados" VBox.vgrow="SOMETIMES" />
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="tbv_ingrediente" prefWidth="130.0" text="Ingrediente" />
+                <TableColumn fx:id="tbv_abreviacao" prefWidth="124.0" text="Abreviaçao" />
+                  <TableColumn fx:id="tbv_tolerancia" prefWidth="124.0" text="Tolerancia" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
          </children>
       </VBox>
    </children>

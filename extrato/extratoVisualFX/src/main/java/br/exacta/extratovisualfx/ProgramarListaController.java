@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -69,6 +70,7 @@ public class ProgramarListaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         componentes();
         configurarTabela();
+        pesquisarAction();
 
         btnPesquisar.setOnAction((ActionEvent event) -> {
             pesquisarAction();
@@ -132,6 +134,15 @@ public class ProgramarListaController implements Initializable {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), listConsultaOrdemDTO);
+                
+    			Alert alert;
+    			
+    			// TODO: Erro ao imprimir o caminho. Aparece "..."
+    			alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em" + file.getPath()");
+    			alert.initStyle(StageStyle.UTILITY);
+    			alert.setTitle("MENSAGEM DO SISTEMA");
+    			alert.showAndWait();
+    			
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
@@ -139,6 +150,12 @@ public class ProgramarListaController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+			Alert alert;
+			alert = new Alert(Alert.AlertType.ERROR, "Selecione pelo menos uma ordem!");
+			alert.initStyle(StageStyle.UTILITY);
+			alert.setTitle("MENSAGEM DO SISTEMA");
+			alert.showAndWait();
         }
     }
 
