@@ -117,8 +117,13 @@ public class ResultadosController implements Initializable {
             UtilManipulacao manipula = new UtilManipulacao();
             try {
             	txtAreaJsonCompleta.setText(manipula.VisualizaJsonCompleto(arquivo));
-            	manipula.CarregaResultadoJson(arquivo);                
-                
+              
+                if(manipula.CarregaResultadoJson(arquivo)) {
+                	Config.caixaDialogo(Alert.AlertType.INFORMATION, "Resultados importados com sucesso!");
+                } else {
+                	Config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível importar o arquivo");
+                }
+
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

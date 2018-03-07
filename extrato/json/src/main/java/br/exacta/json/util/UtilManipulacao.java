@@ -24,7 +24,7 @@ import br.exacta.persistencia.Descarregamento;
 
 public class UtilManipulacao {
 
-	public void CarregaResultadoJson(File arquivo) throws Exception {
+	public boolean CarregaResultadoJson(File arquivo) throws Exception {
 
 		String equipamento;
 		int nordens = 0;
@@ -110,7 +110,8 @@ public class UtilManipulacao {
 							String car_requisitado = pesosrequisitadosJ.getJsonArray(ntrt).getString(ing);
 							String car_realizado = pesosrealizadosJ.getJsonArray(ntrt).getString(ing);
 
-							System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
+							// DEBUG
+							// System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
 
 							// Grava descarregamento no banco de dados
 							Carregamento car = new Carregamento();
@@ -143,7 +144,8 @@ public class UtilManipulacao {
 							String des_requisitado = tratosrequisitadosJ.getJsonArray(ntrt).getString(curr);
 							String des_realizado = tratosrealizadosJ.getJsonArray(ntrt).getString(curr);
 
-							System.out.println("Curral: " + curral + " - Requisitado: " + des_requisitado + " - Realizado: " + des_realizado);
+							// DEBUG
+							// System.out.println("Curral: " + curral + " - Requisitado: " + des_requisitado + " - Realizado: " + des_realizado);
 
 							// Grava descarregamento no banco de dados
 							Descarregamento des = new Descarregamento();
@@ -165,8 +167,11 @@ public class UtilManipulacao {
 				reader.close();
 				fis.close();
 			}
+			return true;
+			
 		} catch (IOException ex) {
 			Logger.getLogger(UtilManipulacao.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
 		}
 	}
 

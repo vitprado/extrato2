@@ -82,8 +82,11 @@ public class CurralController implements Initializable {
                 } catch (Exception ex) {
                     Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                listaCurral.add(novo);
-                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
+                if(listaCurral.add(novo)) {
+                	Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
+                } else {
+                	Config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível cadastrar o curral");
+                }
             }
             else
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser salvo o novo curral!");
