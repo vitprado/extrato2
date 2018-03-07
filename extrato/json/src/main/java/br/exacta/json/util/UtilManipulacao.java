@@ -22,6 +22,7 @@ import br.exacta.dao.DescarregamentoDAO;
 import br.exacta.persistencia.Carregamento;
 import br.exacta.persistencia.Descarregamento;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
 
 public class UtilManipulacao {
@@ -67,20 +68,25 @@ public class UtilManipulacao {
 
 				// Le cada ordem
 				for (int nord = 0; nord < nordens; nord++) {
-
-					if(carDAO.getOrdensDistinct().contains(ordemproducao)) {
-						Alert alert;
-						alert = new Alert(Alert.AlertType.INFORMATION, "Já foram importados resultados para a ordem" + ordemproducao);
-						alert.initStyle(StageStyle.UTILITY);
-						alert.setTitle("MENSAGEM DO SISTEMA");
-						alert.showAndWait();
-						continue;
-					}
 					
 					JsonObject ordemObj = equipamentoObj.getJsonArray("ordens").getJsonObject(nord);
 
 					ordemproducao = ordemObj.getJsonString("ordemproducao").toString();
 					System.out.println("Ordem de Produção: " + ordemproducao);
+					
+
+					if(carDAO.getOrdensDistinct().contains(ordemproducao)) {
+						Alert alert = new Alert(Alert.AlertType.WARNING, "Ordem duplicada\n Deseja importar novamente?\n" + ordemproducao, 
+								ButtonType.YES, ButtonType.NO);
+						alert.initStyle(StageStyle.UTILITY);
+						alert.setTitle("MENSAGEM DO SISTEMA");
+
+						if (alert.showAndWait().get() == ButtonType.NO){
+							System.out.println("Pular ordem duplicada");
+							continue;
+						}
+						
+					}
 
 					// Pega a data
 					data = ordemObj.getString("data");
