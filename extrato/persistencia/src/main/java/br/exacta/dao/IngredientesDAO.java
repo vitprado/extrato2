@@ -82,7 +82,7 @@ public class IngredientesDAO {
         return ingredientesController.findIngredientes(id);
     }
 
-    public List<String> getNomesCurraisDistinct() {
+    public List<String> getNomesIngredientes() {
         return ingredientesController.findNameIngredientesDistinct();
     }
 }

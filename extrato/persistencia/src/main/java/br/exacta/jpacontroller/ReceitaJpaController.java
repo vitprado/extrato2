@@ -9,16 +9,13 @@ import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Receita;
 import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import br.exacta.persistencia.ReceitaTemIngredientes;
 import java.util.ArrayList;
 import java.util.List;
 import br.exacta.persistencia.Trato;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -49,7 +46,7 @@ public class ReceitaJpaController implements Serializable {
         }
     }
 
-    public void edit(Receita receita) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Receita receita) throws Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();

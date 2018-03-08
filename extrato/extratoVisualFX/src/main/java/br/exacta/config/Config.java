@@ -101,7 +101,7 @@ public class Config {
         Scene caixaDialogo = new Scene(anchorPane);
         stage.setScene(caixaDialogo);
         stage.setResizable(false);
-        stage.show();
+        stage.showAndWait();
     }
 
     public static void changeScreen(String src, Object userData) {

@@ -142,7 +142,14 @@ public class Ingredientes implements Serializable {
 
     @Override
     public String toString() {
-        return "br.exacta.persistencia.Ingredientes[ ingCodigo=" + ingCodigo + " ]";
+        final StringBuffer sb = new StringBuffer("Ingredientes{");
+        sb.append("ingCodigo=").append(ingCodigo);
+        sb.append(", ingNome='").append(ingNome).append('\'');
+        sb.append(", ingAbreviacao='").append(ingAbreviacao).append('\'');
+        sb.append(", ingTolerancia=").append(ingTolerancia);
+        sb.append(", ingDataCadastro=").append(ingDataCadastro);
+        sb.append(", receitaTemIngredientesList=").append(receitaTemIngredientesList);
+        sb.append('}');
+        return sb.toString();
     }
-    
 }

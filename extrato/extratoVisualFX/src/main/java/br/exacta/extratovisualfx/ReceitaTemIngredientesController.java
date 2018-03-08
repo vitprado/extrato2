@@ -7,29 +7,27 @@ package br.exacta.extratovisualfx;
 
 import br.exacta.config.Config;
 import br.exacta.dao.IngredientesDAO;
+import br.exacta.dao.ReceitaDAO;
 import br.exacta.dao.ReceitaTemIngredientesDAO;
+import br.exacta.persistencia.Ingredientes;
 import br.exacta.persistencia.Receita;
 import br.exacta.persistencia.ReceitaTemIngredientes;
+import br.exacta.persistencia.ReceitaTemIngredientesPK;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
+
 import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -43,7 +41,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     @FXML
     private TextField txtReceitaNome;
     @FXML
-    private ChoiceBox<String> cbbIngredientes;
+    private ChoiceBox<Ingredientes> cbbIngredientes;
     @FXML
     private TextField txtProporcao;
     @FXML
@@ -51,14 +49,25 @@ public class ReceitaTemIngredientesController implements Initializable {
     @FXML
     private Button btnRemoverLista;
     @FXML
-    private ListView<ReceitaTemIngredientes> ltvDados = new ListView<ReceitaTemIngredientes>();
+    private Button btnSalvarLista;
+    @FXML
+    private TableView<ReceitaTemIngredientes> ltvDados = new TableView<>();
+    @FXML
+    private TableColumn<ReceitaTemIngredientes, String> colIngrediente = new TableColumn<>();
+    @FXML
+    private TableColumn<ReceitaTemIngredientes, Integer> colProporcao = new TableColumn<>();
 
-    Config msgSistema = new Config();
-
-    private final ObservableList<String> comboIngredientes = FXCollections.observableArrayList();
-    private final IngredientesDAO IngredientesDAO = new IngredientesDAO();
+    private final ObservableList<Ingredientes> comboIngredientes = FXCollections.observableArrayList();
+    private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
     private final ObservableList<ReceitaTemIngredientes> listaReceitaTemIngredientes = FXCollections.observableArrayList();
-    private final ReceitaTemIngredientesDAO ReceitaTemIngredientesDAO = new ReceitaTemIngredientesDAO();
+    private final ReceitaTemIngredientesDAO receitaTemIngredientesDAO = new ReceitaTemIngredientesDAO();
+    private ReceitaDAO receitaDAO = new ReceitaDAO();
+
+    private final Receita receita;
+
+    public ReceitaTemIngredientesController(Receita receita) {
+        this.receita = receita;
+    }
 
     /**
      * Initializes the controller class.
@@ -66,89 +75,107 @@ public class ReceitaTemIngredientesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        txtReceitaNome.setText(receita.getRctNome());
+
         // PARA O COMBOX
         carregaComponentes();
 
         // PARA O LISTVIEW
+        listaReceitaTemIngredientes.addAll(receita.getReceitaTemIngredientesList());
         ltvDados.setItems(listaReceitaTemIngredientes);
-        listaReceitaTemIngredientes.addAll(ReceitaTemIngredientesDAO.getTodosIngredienteReceita()); // tenho o resultado de todos
-        ltvDados.setCellFactory(new Callback<ListView<ReceitaTemIngredientes>, ListCell<ReceitaTemIngredientes>>() {
-            @Override
-            public ListCell<ReceitaTemIngredientes> call(ListView<ReceitaTemIngredientes> param) {
-                ListCell<ReceitaTemIngredientes> listCell;
 
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            ReceitaTemIngredientes receitaIng = (ReceitaTemIngredientes) item;
-                            setText(receitaIng.getReceitaTemIngredientesPK().toString());
-                        } else {
-                            setText("");
-                        }
-                    }
-                };
-                return listCell;
-            }
-        });
         // ADICIONAR  
-        btnAdicionarLista.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        btnAdicionarLista.setOnAction(event -> {
 
-                Calendar d = Calendar.getInstance();
+            if (!txtReceitaNome.getText().trim().isEmpty()
+                    && !txtProporcao.getText().trim().isEmpty()
+                    && cbbIngredientes.getSelectionModel().getSelectedIndex() > -1) {
 
-                if (!txtReceitaNome.getText().trim().isEmpty()
-                        && !txtProporcao.getText().trim().isEmpty()
-                        && cbbIngredientes.getSelectionModel().getSelectedIndex() > -1) {
+                Ingredientes ingredienteSelecionado = cbbIngredientes.getSelectionModel().getSelectedItem();
 
-                    String ItemSelecionado = cbbIngredientes.getSelectionModel().getSelectedItem();
-                    Receita receitaTxt = new Receita();
+                ReceitaTemIngredientes novo = new ReceitaTemIngredientes();
+                novo.setReceitaTemIngredientesPK(new ReceitaTemIngredientesPK(receita.getRctCodigo(), ingredienteSelecionado.getIngCodigo()));
+                novo.setReceita(receita);
+                novo.setIngredientes(ingredienteSelecionado);
+                novo.setRtiProporcao(Integer.parseInt(txtProporcao.getText()));
+                novo.setRtiData(Calendar.getInstance().getTime());
 
-                    ReceitaTemIngredientes novo = new ReceitaTemIngredientes();
-                    //novo.setReceita(Receita.class(txtReceitaNome.getText()));
-                    //novo.setIngredientes();
-                    novo.setRtiProporcao(Integer.parseInt(txtProporcao.getText()));
-                    novo.setRtiData(d.getTime());
-
-                    try {
-                        ReceitaTemIngredientesDAO.adicionarIngredienteReceita(novo);
-                        msgSistema.caixaDialogo(Alert.AlertType.INFORMATION, "DADOS GRAVADOS COM SUCESSO!");
-                    } catch (Exception ex) {
-                        Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, ex);
-                        msgSistema.caixaDialogo(Alert.AlertType.WARNING, "OPSS, PROBLEMAS RELACIONADOS AO BANCO DE DADOS!");
-                    }
-                    listaReceitaTemIngredientes.add(novo);
-                } else {
-                    msgSistema.caixaDialogo(Alert.AlertType.ERROR, "PREENCHA TODOS OS CAMPOS!");
-                }
+                listaReceitaTemIngredientes.add(novo);
+                txtProporcao.clear();
+            } else {
+                Config.caixaDialogo(Alert.AlertType.ERROR, "PREENCHA TODOS OS CAMPOS!");
             }
         });
 
         // REMOVER 
-        btnRemoverLista.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ReceitaTemIngredientes itemSelecionado = (ReceitaTemIngredientes) ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        ReceitaTemIngredientesDAO.removerIngredienteReceita(itemSelecionado.getReceitaTemIngredientesPK());
-                    } catch (Exception ex) {
-                        Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaReceitaTemIngredientes.remove(itemSelecionado);
-                }
+        btnRemoverLista.setOnAction(event -> {
+            ReceitaTemIngredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            if (itemSelecionado != null) {
+//                try {
+//                    receitaTemIngredientesDAO.removerIngredienteReceita(itemSelecionado.getReceitaTemIngredientesPK());
+//                } catch (Exception ex) {
+//                    Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                listaReceitaTemIngredientes.remove(itemSelecionado);
             }
         });
 
+        btnSalvarLista.setOnAction(event -> {
+            try {
+                validaProporcao();
+
+                receitaTemIngredientesDAO.removeByReceita(receita.getRctCodigo());
+                for (ReceitaTemIngredientes receitaTemIngredientes : listaReceitaTemIngredientes) {
+                    receitaTemIngredientesDAO.adicionarIngredienteReceita(receitaTemIngredientes);
+                }
+
+                receita.getReceitaTemIngredientesList().clear();
+                receita.getReceitaTemIngredientesList().addAll(listaReceitaTemIngredientes);
+                receitaDAO.editarReceita(receita);
+
+                Config.caixaDialogo(Alert.AlertType.INFORMATION, "DADOS GRAVADOS COM SUCESSO!");
+            } catch (IllegalArgumentException ei) {//TODO criar exception específica
+                Config.caixaDialogo(Alert.AlertType.WARNING, "A soma dos valores das proporções precisam ser 100%!");
+            } catch (Exception e) {
+                Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, e);
+                Config.caixaDialogo(Alert.AlertType.WARNING, "OPSS, PROBLEMAS RELACIONADOS AO BANCO DE DADOS!");
+            }
+        });
+    }
+
+    private void validaProporcao() {
+        int proporcaoTotal = ltvDados.getItems().stream().mapToInt(ReceitaTemIngredientes::getRtiProporcao).sum();
+        if (proporcaoTotal != 100) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private void carregaComponentes() {
-        List<String> ingredientes;
-        ingredientes = IngredientesDAO.getNomesCurraisDistinct();
-        comboIngredientes.addAll(ingredientes);
+        cbbIngredientes.requestFocus();
+
+        List<Ingredientes> todosIngredientes = ingredientesDAO.getTodosIngredientes();
+        comboIngredientes.addAll(todosIngredientes);
         cbbIngredientes.setItems(comboIngredientes);
+        cbbIngredientes.setConverter(new StringConverter<Ingredientes>() {
+            @Override
+            public String toString(Ingredientes ingredientes) {
+                return ingredientes.getIngNome();
+            }
+
+            @Override
+            public Ingredientes fromString(String string) {
+                return comboIngredientes.stream()
+                        .filter(ingredientes -> string.equals(ingredientes.getIngNome()))
+                        .findFirst().get();
+            }
+        });
+
+        carregaTabela();
+    }
+
+    private void carregaTabela() {
+        colIngrediente.setCellValueFactory(new PropertyValueFactory<>("IngredienteNome"));
+        colProporcao.setCellValueFactory(new PropertyValueFactory<>("rtiProporcao"));
     }
 
 }

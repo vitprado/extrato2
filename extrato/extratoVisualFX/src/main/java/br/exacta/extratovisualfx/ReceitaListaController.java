@@ -8,15 +8,10 @@ package br.exacta.extratovisualfx;
 import br.exacta.config.Config;
 import br.exacta.dao.ReceitaDAO;
 import br.exacta.persistencia.Receita;
-import java.net.URL;
-import java.util.Calendar;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.exacta.persistencia.ReceitaTemIngredientes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,7 +20,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
+
+import java.net.URL;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 /**
  * FXML Controller class
@@ -52,6 +54,7 @@ public class ReceitaListaController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -68,7 +71,17 @@ public class ReceitaListaController implements Initializable {
                     super.updateItem(item, empty);
                     if (item != null) {
                         Receita receitas = (Receita) item;
-                        setText(receitas.getRctNome());
+
+                        StringJoiner joiner = new StringJoiner("%, ", "[", "]");
+                        List<ReceitaTemIngredientes> receitaTemIngredientesList = receitas.getReceitaTemIngredientesList();
+                        for (ReceitaTemIngredientes r : receitaTemIngredientesList) {
+                            String s = String.format("%s = %s", r.getIngredienteNome(), isNull(r.getRtiProporcao()) ? "" : r.getRtiProporcao());
+
+                            joiner.add(s);
+                        }
+                        String collect = joiner.toString();
+
+                        setText(receitas.getRctNome() + " " + collect);
                     } else {
                         setText("");
                     }
@@ -80,12 +93,13 @@ public class ReceitaListaController implements Initializable {
         // ADICIONAR  
         btnSalvarListar.setOnAction((ActionEvent event) -> {
             Calendar d = Calendar.getInstance();
-            
+
             if (!txtNome.getText().trim().isEmpty()) {
                 Receita novo = new Receita();
                 novo.setRctNome(txtNome.getText());
                 novo.setRctDataCadastro(d.getTime());
-                
+                novo.setReceitaTemIngredientesList(new ArrayList<>());
+
                 try {
                     receitaDAO.adicionarReceita(novo);
                 } catch (Exception ex) {
@@ -98,13 +112,15 @@ public class ReceitaListaController implements Initializable {
         // CLIQUE DE UM ELEMENTO DA LISTA
         ltvDados.setOnMouseClicked((MouseEvent event) -> {
             if (event.getClickCount() == 2) {
-                System.out.println("Clicou duas vezes!");
                 Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
                 if (itemSelecionado != null) {
-                    // QUERO ABRIR OUTRA TELA QUANDO CLICAR DUAS VEZES NO ITEM SELECIONADO
                     String strTela = "ReceitaTemIngredientes";
                     Config config = new Config();
-                    config.carregarAnchorPaneDialog(strTela);
+                    ReceitaTemIngredientesController receitaTemIngredientesController = new ReceitaTemIngredientesController(itemSelecionado);
+                    config.carregarAnchorPaneDialog(strTela, receitaTemIngredientesController);
+
+                    listaReceita.clear();
+                    listaReceita.addAll(receitaDAO.getTodoReceitas());
                 }
             }
         });

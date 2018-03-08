@@ -100,6 +100,10 @@ public class ReceitaTemIngredientes implements Serializable {
         this.receita = receita;
     }
 
+    public String getIngredienteNome() {
+        return ingredientes.getIngNome();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

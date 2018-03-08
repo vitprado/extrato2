@@ -60,6 +60,10 @@ public class ReceitaTemIngredientesDAO {
         receitaTemIngController.destroy(id);
     }
 
+    public void removeByReceita(int rctCodigo) throws Exception {
+        receitaTemIngController.deleteByReceita(rctCodigo);
+    }
+
     // LISTAR TODOS
     /**
      *

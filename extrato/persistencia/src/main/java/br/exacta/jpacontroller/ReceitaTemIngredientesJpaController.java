@@ -162,6 +162,21 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
         }
     }
 
+    public boolean deleteByReceita(int rctCodigo) {
+        EntityManager em = getEntityManager();
+        try {
+
+            em.getTransaction().begin();
+            Query nativeQuery = em.createNativeQuery("delete from RECEITA_TEM_INGREDIENTES where RCT_CODIGO = " + rctCodigo);
+            int i = nativeQuery.executeUpdate();
+            em.getTransaction().commit();
+
+            return i > 0;
+        } finally {
+            em.close();
+        }
+    }
+
     public List<ReceitaTemIngredientes> findReceitaTemIngredientesEntities() {
         return findReceitaTemIngredientesEntities(true, -1, -1);
     }
