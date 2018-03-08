@@ -164,7 +164,7 @@ public class ConsultaOrdemJpaController {
     }
 
     private String getFindReceitaIngrediente(Integer rctCodigo) {
-        StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ReceitaIngredienteDTO(r.rctNome, i.ingNome, i.ingTolerancia, rti.rtiProporcao) " +
+        StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ReceitaIngredienteDTO(r.rctNome, i.ingAbreviacao, i.ingTolerancia, rti.rtiProporcao) " +
                 " FROM ReceitaTemIngredientes rti, Receita r, Ingredientes i " +
                 " WHERE r.rctCodigo = rti.receita.rctCodigo and " +
                 " rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' ", rctCodigo.toString()));

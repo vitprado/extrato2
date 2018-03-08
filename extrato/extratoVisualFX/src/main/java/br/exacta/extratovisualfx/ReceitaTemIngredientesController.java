@@ -111,11 +111,6 @@ public class ReceitaTemIngredientesController implements Initializable {
         btnRemoverLista.setOnAction(event -> {
             ReceitaTemIngredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
-//                try {
-//                    receitaTemIngredientesDAO.removerIngredienteReceita(itemSelecionado.getReceitaTemIngredientesPK());
-//                } catch (Exception ex) {
-//                    Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
                 listaReceitaTemIngredientes.remove(itemSelecionado);
             }
         });
