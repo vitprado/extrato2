@@ -76,8 +76,25 @@ public class ProgramarListaController implements Initializable {
             pesquisarAction();
         });
 
+        cbbEquipamento.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Equipamento>() {
+            @Override
+            public void changed(ObservableValue<? extends Equipamento> observable, Equipamento oldValue, Equipamento newValue) {
+                if (newValue != null) {
+                    pesquisarAction();
+                }
+            }
+        });
+
         btnProgramar.setOnAction((ActionEvent event) -> {
-            programarAction();
+            if (cbbEquipamento.getSelectionModel().getSelectedItem() != null) {
+                programarAction();
+            } else {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR, "Filtro de equipamento obrigatório!");
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("MENSAGEM DO SISTEMA");
+                alert.showAndWait();
+            }
         });
     }
 
@@ -108,39 +125,31 @@ public class ProgramarListaController implements Initializable {
         tvProgramarLista.setItems(observableArrayList(listProgramarListaDTO));
     }
 
-    public void programarAction() {
-        List<ConsultaOrdemDTO> listConsultaOrdemDTO = new ArrayList<>();
+    private void programarAction() {
+        ConsultaOrdemDTO consultaOrdemDTO = new ConsultaOrdemDTO();
+        consultaOrdemDTO.setEquipamento(cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
+        consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
 
         for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
             if (programarListaDTO.isCheck()) {
-                Boolean novoEquipamento = true;
-                for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdemDTO) {
-                    if (consultaOrdemDTO.getEquipamento().equals(programarListaDTO.getEquipamento())) {
-                        consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
-                        consultaOrdemDTO.getOrdens().add(programarListaDTO.getOrdemTratosDTO());
-                        novoEquipamento = false;
-                    }
-                }
-                if (novoEquipamento) {
-                    listConsultaOrdemDTO.add(new ConsultaOrdemDTO(programarListaDTO.getEquipamento(), 1, programarListaDTO.getOrdemTratosDTO()));
-                }
+                consultaOrdemDTO.getOrdens().add(programarListaDTO.getOrdemTratosDTO());
             }
         }
 
-        if (!listConsultaOrdemDTO.isEmpty()) {
+        if (!consultaOrdemDTO.getOrdens().isEmpty()) {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File file = directoryChooser.showDialog(null);
 
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), listConsultaOrdemDTO);
-                
-    			Alert alert;
-    			alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em\n" + file.getPath());
-    			alert.initStyle(StageStyle.UTILITY);
-    			alert.setTitle("MENSAGEM DO SISTEMA");
-    			alert.showAndWait();
-    			
+                objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), consultaOrdemDTO);
+
+                Alert alert;
+                alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em\n" + file.getPath());
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("MENSAGEM DO SISTEMA");
+                alert.showAndWait();
+
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
@@ -149,11 +158,11 @@ public class ProgramarListaController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-			Alert alert;
-			alert = new Alert(Alert.AlertType.ERROR, "Selecione pelo menos uma ordem!");
-			alert.initStyle(StageStyle.UTILITY);
-			alert.setTitle("MENSAGEM DO SISTEMA");
-			alert.showAndWait();
+            Alert alert;
+            alert = new Alert(Alert.AlertType.ERROR, "Selecione pelo menos uma ordem!");
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("MENSAGEM DO SISTEMA");
+            alert.showAndWait();
         }
     }
 
