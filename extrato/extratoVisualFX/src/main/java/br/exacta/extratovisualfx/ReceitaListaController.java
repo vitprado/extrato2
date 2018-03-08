@@ -72,10 +72,10 @@ public class ReceitaListaController implements Initializable {
                     if (item != null) {
                         Receita receitas = (Receita) item;
 
-                        StringJoiner joiner = new StringJoiner("%, ", "[", "]");
+                        StringJoiner joiner = new StringJoiner(", ", "[", "]");
                         List<ReceitaTemIngredientes> receitaTemIngredientesList = receitas.getReceitaTemIngredientesList();
                         for (ReceitaTemIngredientes r : receitaTemIngredientesList) {
-                            String s = String.format("%s = %s", r.getIngredienteNome(), isNull(r.getRtiProporcao()) ? "" : r.getRtiProporcao());
+                            String s = String.format("%s = %s", r.getIngredienteNome(), isNull(r.getRtiProporcao()) ? "" : r.getRtiProporcao()+"%");
 
                             joiner.add(s);
                         }

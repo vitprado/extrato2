@@ -136,7 +136,7 @@ public class ConsultaOrdemDTODAO {
 
             Integer pesoTotalComProporcao = pesoTotal * receitaIngrediente.getProporcao() / 100;
 
-            Integer tolerancia  = (receitaIngrediente.getTolerancia() / 100) * pesoTotalComProporcao;
+            Integer tolerancia  =  pesoTotalComProporcao * receitaIngrediente.getTolerancia() / 100;
 
             novaOrdemTrato.getTolerancias().get(novaOrdemTrato.getTolerancias().size() - 1).add(tolerancia.toString());
             novaOrdemTrato.getPesosrequisitados().get(novaOrdemTrato.getPesosrequisitados().size() - 1).add(String.valueOf(pesoTotalComProporcao));
