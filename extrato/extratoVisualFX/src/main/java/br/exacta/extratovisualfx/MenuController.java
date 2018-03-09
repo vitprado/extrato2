@@ -5,17 +5,20 @@
  */
 package br.exacta.extratovisualfx;
 
-import br.exacta.config.Config;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import br.exacta.config.Config;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -117,6 +120,17 @@ public class MenuController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 config.carregarAnchorPane(apDados, "Resultados");
+            }
+        });
+        // BOTAO SUPORTE
+        btnSuporte.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            	Alert alert = new Alert(Alert.AlertType.WARNING, "Acesse\n Deseja importar novamente?\n");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setTitle("MENSAGEM DO SISTEMA");
+				alert.showAndWait();
             }
         });
         // BOTAO DE SOBRE
