@@ -62,6 +62,7 @@ public class Trato implements Serializable {
                     itemTrato.getIttCodigo(),
                     itemTrato.getIttPeso(),
                     itemTrato.getCurral(),
+                    itemTrato.getIttSequencia(),
                     this);
             this.itemTratos.add(novoItemTrato);
         }

@@ -37,7 +37,7 @@ public class ConsultaOrdemJpaController {
                 " WHERE ie.eqpCodigo = iop.equipamento.eqpCodigo AND ie.eqpCodigo = e.eqpCodigo) , " +
                 " op.ordCodigo) " +
                 " FROM OrdemProducao op JOIN Equipamento e WHERE op.equipamento.eqpCodigo =  e.eqpCodigo " +
-                " ORDER BY e.eqpDescricao");
+                " ORDER BY e.eqpDescricao,  op.ordCodigo ");
 
         return stringBuilder.toString();
     }
@@ -65,7 +65,7 @@ public class ConsultaOrdemJpaController {
                 " WHERE e.eqpCodigo = op.equipamento.eqpCodigo ");
 
         if (filter.getEquipamento() != null) {
-            stringBuilder.append(format("AND e.eqpCodigo = '%s' ORDER BY e.eqpDescricao",
+            stringBuilder.append(format("AND e.eqpCodigo = '%s' ORDER BY op.ordCodigo ",
                     filter.getEquipamento().getEqpCodigo()));
         }
 
@@ -92,7 +92,7 @@ public class ConsultaOrdemJpaController {
                 " AND op.ord_codigo = t.ord_codigo " +
                 " AND t.rct_codigo = r.rct_codigo " +
                 " AND op.ord_codigo = '%s' " +
-                " ORDER BY op.ord_Codigo ", eqpCodigo.toString()));
+                " ORDER BY op.ord_Codigo, t.trtCodigo ", eqpCodigo.toString()));
 
         return stringBuilder.toString();
     }
@@ -118,7 +118,8 @@ public class ConsultaOrdemJpaController {
                 " t.trtCodigo, " +
                 " t.receita.rctCodigo) " +
                 " FROM OrdemProducao op JOIN Trato t " +
-                " WHERE op.ordCodigo = t.ordemProducao.ordCodigo AND op.ordCodigo =  '%s' ", ordCodigo.toString()));
+                " WHERE op.ordCodigo = t.ordemProducao.ordCodigo AND op.ordCodigo =  '%s' " +
+                " ORDER BY t.trtNumero ", ordCodigo.toString()));
 
         return stringBuilder.toString();
     }
@@ -145,7 +146,7 @@ public class ConsultaOrdemJpaController {
                 " , it.ittPeso) " +
                 " FROM ItemTrato it JOIN Curral c " +
                 " WHERE it.curral.curCodigo = c.curCodigo AND it.trato.trtCodigo = '%s' " +
-                " ORDER BY c.curDescricao", trtCodigo.toString(), trtCodigo.toString()));
+                " ORDER BY it.ittSequencia ", trtCodigo.toString(), trtCodigo.toString()));
 
         return stringBuilder.toString();
     }
@@ -167,7 +168,8 @@ public class ConsultaOrdemJpaController {
         StringBuilder stringBuilder = new StringBuilder(format("SELECT new br.exacta.dto.ReceitaIngredienteDTO(r.rctNome, i.ingAbreviacao, i.ingTolerancia, rti.rtiProporcao) " +
                 " FROM ReceitaTemIngredientes rti, Receita r, Ingredientes i " +
                 " WHERE r.rctCodigo = rti.receita.rctCodigo and " +
-                " rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' ", rctCodigo.toString()));
+                " rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' " +
+                " ORDER BY i.ingCodigo ", rctCodigo.toString()));
 
         return stringBuilder.toString();
     }

@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Equipamento.findAll", query = "SELECT e FROM Equipamento e")
     , @NamedQuery(name = "Equipamento.findByEqpCodigo", query = "SELECT e FROM Equipamento e WHERE e.eqpCodigo = :eqpCodigo")
-    , @NamedQuery(name = "Equipamento.findByEpqPlaca", query = "SELECT e FROM Equipamento e WHERE e.epqPlaca = :epqPlaca")
     , @NamedQuery(name = "Equipamento.findByEqpDataCadastro", query = "SELECT e FROM Equipamento e WHERE e.eqpDataCadastro = :eqpDataCadastro")
+    , @NamedQuery(name = "Equipamento.findByEqpCapacidade", query = "SELECT e FROM Equipamento e WHERE e.eqpCapacidade = :eqpCapacidade")
     , @NamedQuery(name = "Equipamento.findByEqpDescricao", query = "SELECT e FROM Equipamento e WHERE e.eqpDescricao = :eqpDescricao")})
 public class Equipamento implements Serializable {
 
@@ -41,13 +41,13 @@ public class Equipamento implements Serializable {
     @Basic(optional = false)
     @Column(name = "EQP_CODIGO")
     private Integer eqpCodigo;
-    @Column(name = "EPQ_PLACA")
-    private String epqPlaca;
     @Column(name = "EQP_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date eqpDataCadastro;
     @Column(name = "EQP_DESCRICAO")
     private String eqpDescricao;
+    @Column(name = "EQP_CAPACIDADE")
+    private Integer eqpCapacidade;
 
     public Equipamento() {
     }
@@ -62,14 +62,6 @@ public class Equipamento implements Serializable {
 
     public void setEqpCodigo(Integer eqpCodigo) {
         this.eqpCodigo = eqpCodigo;
-    }
-
-    public String getEpqPlaca() {
-        return epqPlaca;
-    }
-
-    public void setEpqPlaca(String epqPlaca) {
-        this.epqPlaca = epqPlaca;
     }
 
     public Date getEqpDataCadastro() {
@@ -88,6 +80,14 @@ public class Equipamento implements Serializable {
         this.eqpDescricao = eqpDescricao;
     }
 
+    public Integer getEqpCapacidade() {
+        return eqpCapacidade;
+    }
+
+    public void setEqpCapacidade(Integer eqpCapacidade) {
+        this.eqpCapacidade = eqpCapacidade;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,7 +97,6 @@ public class Equipamento implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Equipamento)) {
             return false;
         }

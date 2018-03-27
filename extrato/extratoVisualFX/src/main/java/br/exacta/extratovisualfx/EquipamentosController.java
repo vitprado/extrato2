@@ -6,24 +6,21 @@
 package br.exacta.extratovisualfx;
 
 import br.exacta.dao.EquipamentoDAO;
+import br.exacta.dto.EquipamentoDTO;
 import br.exacta.persistencia.Equipamento;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.StageStyle;
+
 import java.net.URL;
+import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
-import java.util.Calendar;
 
 /**
  * FXML Controller class
@@ -33,92 +30,80 @@ import java.util.Calendar;
 public class EquipamentosController implements Initializable {
 
     @FXML
-    private TextField txtPlaca;
-    @FXML
     private Button btnRemover;
     @FXML
     private Button btnSalvar;
     @FXML
-    private Text lblPlaca;
-    @FXML
     private TextField txtDescricao;
     @FXML
-    private Text lblDescricao;
+    private TextField txtCapacidade;
     @FXML
-    private ListView<Equipamento> ltvDados;
+    private TableView<EquipamentoDTO> tvEquipamentos;
+    @FXML
+    private TableColumn<EquipamentoDTO, String> colDescricao;
+    @FXML
+    private TableColumn<EquipamentoDTO, Integer> colCapacidade;
 
-    private final ObservableList<Equipamento> listaEquipamento = FXCollections.observableArrayList();
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
-    
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        carregaComponentes();
 
-        ltvDados.setItems(listaEquipamento);
-        listaEquipamento.addAll(equipamentoDAO.getTodosEquipamentos());
-
-        ltvDados.setCellFactory(new Callback<ListView<Equipamento>, ListCell<Equipamento>>() {
-            @Override
-            public ListCell<Equipamento> call(ListView<Equipamento> param) {
-                ListCell<Equipamento> listCell;
-                listCell = new ListCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            Equipamento equipamento = (Equipamento) item;
-                            //setText(equipamento.getEpqPlaca());
-                            setText(equipamento.getEqpDescricao());
-                        } else {
-                            setText("");
-                        }
-                    }
-                };
-                return listCell;
-            }
+        btnSalvar.setOnAction((ActionEvent event) -> {
+            btnSalvarAction();
         });
 
-        // ADICIONAR  
-        btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                Calendar d = Calendar.getInstance();
-
-                if (!txtDescricao.getText().trim().isEmpty()) {
-                    Equipamento novo = new Equipamento();
-                    novo.setEpqPlaca(txtPlaca.getText());
-                    novo.setEqpDescricao(txtDescricao.getText());
-                    novo.setEqpDataCadastro(d.getTime());
-
-                    try {
-                        equipamentoDAO.adicionarEquipamento(novo);
-                    } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaEquipamento.add(novo);
-                }
-            }
+        btnRemover.setOnAction((ActionEvent event) -> {
+            btnRemoverAction();
         });
+    }
 
-        // REMOVER 
-        btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Equipamento itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-                if (itemSelecionado != null) {
-                    try {
-                        equipamentoDAO.removerEquipamento(itemSelecionado.getEqpCodigo());
-                    } catch (Exception ex) {
-                        Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    listaEquipamento.remove(itemSelecionado);
-                }
+    private void carregaComponentes() {
+        List<Equipamento> listEquipamentos = equipamentoDAO.getTodosEquipamentos();
+        listEquipamentos.forEach(equipamento -> tvEquipamentos.getItems().add(new EquipamentoDTO(equipamento)));
+        configuracaoTabela();
+    }
+
+    private void configuracaoTabela() {
+        colDescricao.setCellValueFactory(new PropertyValueFactory<EquipamentoDTO, String>("descricao"));
+        colCapacidade.setCellValueFactory(new PropertyValueFactory<EquipamentoDTO, Integer>("capacidade"));
+    }
+
+    private void btnSalvarAction() {
+        Calendar d = Calendar.getInstance();
+
+        if (!txtDescricao.getText().trim().isEmpty()
+                && !txtCapacidade.getText().trim().isEmpty()) {
+            Equipamento novo = new Equipamento();
+            novo.setEqpDescricao(txtDescricao.getText());
+            novo.setEqpCapacidade(Integer.parseInt(txtCapacidade.getText()));
+            novo.setEqpDataCadastro(d.getTime());
+
+            try {
+                equipamentoDAO.adicionarEquipamento(novo);
+                tvEquipamentos.getItems().add(new EquipamentoDTO(novo));
+            } catch (Exception ex) {
+                Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }
+    }
+
+    private void btnRemoverAction() {
+        EquipamentoDTO itemSelecionado = tvEquipamentos.getSelectionModel().getSelectedItem();
+        if (itemSelecionado != null) {
+            try {
+                equipamentoDAO.removerEquipamento(itemSelecionado.getEquipamento().getEqpCodigo());
+                tvEquipamentos.getItems().remove(itemSelecionado);
+            } catch (Exception ex) {
+                Alert alert;
+                alert = new Alert(Alert.AlertType.ERROR, "Este equipamento contem ordem de produção registrata! \n" +
+                        "Por favor, remova todas as ordens de produção deste equipamento antes.");
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setTitle("MENSAGEM DO SISTEMA");
+                alert.showAndWait();
+                Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

@@ -130,6 +130,7 @@ public class OrdemController implements Initializable {
                                     }
                                     itemTrato.setIttPeso(new BigDecimal(tabela.getPeso()));
                                     itemTrato.setCurral(tabela.getCurralEntity());
+                                    itemTrato.setIttSequencia(tratoDTO.getListCurralPeso().indexOf(tabela));
                                     items.add(itemTrato);
                                 });
 
@@ -263,7 +264,7 @@ public class OrdemController implements Initializable {
             });
             btnExcluir = new Button("Excluir");
             btnExcluir.setOnAction((ActionEvent event) -> {
-               btnExcluirAction();
+                btnExcluirAction();
             });
         }
 

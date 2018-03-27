@@ -6,8 +6,11 @@
 package br.exacta.extratovisualfx;
 
 import br.exacta.dao.IngredientesDAO;
+import br.exacta.dto.IngredienteDTO;
 import br.exacta.persistencia.Ingredientes;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +20,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 /**
@@ -36,90 +38,82 @@ public class IngredientesController implements Initializable {
 	@FXML
 	private Button btnSalvar;
 	@FXML
-	private ListView<Ingredientes> ltvDados;
-	@FXML
-	private Text lblDescricao;
-	@FXML
 	private TextField txtDescricao;
 	@FXML
 	private TextField txtAbreviacao;
 	@FXML
-	private Text lblAbreviacao;
-	@FXML
-	private Text lblTolerancia;
-	@FXML
 	private TextField txtTolerancia;
+	@FXML
+	private TableView<IngredienteDTO> tvIngredientes;
+	@FXML
+	private TableColumn<IngredienteDTO, String> colAbreviacao;
+	@FXML
+	private TableColumn<IngredienteDTO, Integer> colTolerancia;
 
-	private final ObservableList<Ingredientes> listaIngrediente = FXCollections.observableArrayList();
 	private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
 
-	/**
-	 * Initializes the controller class.
-	 */
-	 @Override
-	 public void initialize(URL url, ResourceBundle rb) {
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
 
-		 ltvDados.setItems(listaIngrediente);
-		 listaIngrediente.addAll(ingredientesDAO.getTodosIngredientes());
+		carregaComponentes();
 
-		 ltvDados.setCellFactory(new Callback<ListView<Ingredientes>, ListCell<Ingredientes>>() {
-			 @Override
-			 public ListCell<Ingredientes> call(ListView<Ingredientes> param) {
-				 ListCell<Ingredientes> listCell;
-				 listCell = new ListCell() {
-					 @Override
-					 protected void updateItem(Object item, boolean empty) {
-						 super.updateItem(item, empty);
-						 if (item != null) {
-							 Ingredientes ingredientes = (Ingredientes) item;
-							 setText(ingredientes.getIngNome() + " \t\t" + ingredientes.getIngAbreviacao() + " \t\t" + ingredientes.getIngTolerancia().toString());
-						 } else {
-							 setText("");
-						 }
-					 }
-				 };
-				 return listCell;
-			 }
-		 });
+		btnSalvar.setOnAction((ActionEvent event) -> {
+			btnSalvarAction();
+		});
 
-		 // ADICIONAR  
-		 btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
-			 @Override
-			 public void handle(ActionEvent event) {
+		btnRemover.setOnAction((ActionEvent event) -> {
+			btnRemoverAction();
+		});
+	}
 
-				 if (!txtDescricao.getText().trim().isEmpty() &&
-						 !txtAbreviacao.getText().trim().isEmpty() &&
-						 !txtTolerancia.getText().trim().isEmpty()) {
+	private void carregaComponentes() {
+		List<Ingredientes> listIngredientes = ingredientesDAO.getTodosIngredientes();
+		listIngredientes.forEach(ingrediente -> tvIngredientes.getItems().add(new IngredienteDTO(ingrediente)));
+		configuracaoTabela();
+	}
 
-					 Ingredientes novo = new Ingredientes();
-					 novo.setIngNome(txtDescricao.getText());
-					 novo.setIngAbreviacao(txtAbreviacao.getText());
-					 novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
+	private void configuracaoTabela() {
+		colAbreviacao.setCellValueFactory(new PropertyValueFactory<IngredienteDTO, String>("abreviacao"));
+		colTolerancia.setCellValueFactory(new PropertyValueFactory<IngredienteDTO, Integer>("tolerancia"));
+	}
 
-					 try {
-						 ingredientesDAO.adicionarIngrediente(novo);
-					 } catch (Exception ex) {
-						 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-					 }
-					 listaIngrediente.add(novo);
-				 }
-			 }
-		 });
+	private void btnSalvarAction() {
+		Calendar d = Calendar.getInstance();
 
-		 // REMOVER 
-		 btnRemover.setOnAction(new EventHandler<ActionEvent>() {
-			 @Override
-			 public void handle(ActionEvent event) {
-				 Ingredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
-				 if (itemSelecionado != null) {
-					 try {
-						 ingredientesDAO.removerIngrediente(itemSelecionado.getIngCodigo());
-					 } catch (Exception ex) {
-						 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
-					 }
-					 listaIngrediente.remove(itemSelecionado);
-				 }
-			 }
-		 });
-	 }
+		if (!txtDescricao.getText().trim().isEmpty() &&
+				!txtAbreviacao.getText().trim().isEmpty() &&
+				!txtTolerancia.getText().trim().isEmpty()) {
+
+			Ingredientes novo = new Ingredientes();
+			novo.setIngNome(txtDescricao.getText());
+			novo.setIngAbreviacao(txtAbreviacao.getText());
+			novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
+			novo.setIngDataCadastro(d.getTime());
+
+			try {
+				ingredientesDAO.adicionarIngrediente(novo);
+				tvIngredientes.getItems().add(new IngredienteDTO(novo));
+			} catch (Exception ex) {
+				Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+
+	private void btnRemoverAction() {
+		IngredienteDTO itemSelecionado = tvIngredientes.getSelectionModel().getSelectedItem();
+		if (itemSelecionado != null) {
+			try {
+				ingredientesDAO.removerIngrediente(itemSelecionado.getIngrediente().getIngCodigo());
+				tvIngredientes.getItems().remove(itemSelecionado);
+			} catch (Exception ex) {
+				Alert alert;
+				alert = new Alert(Alert.AlertType.ERROR, "Este ingrediente esta em uma receita registrata! \n " +
+						"Por favor, remova este ingrediente de todas as receitas que faça parte antes.");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setTitle("MENSAGEM DO SISTEMA");
+				alert.showAndWait();
+				Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
 }

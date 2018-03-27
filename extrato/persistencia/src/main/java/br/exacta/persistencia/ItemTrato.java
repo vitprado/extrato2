@@ -14,6 +14,7 @@ import java.util.Objects;
         , @NamedQuery(name = "ItemTrato.findByIttCodigo", query = "SELECT it FROM ItemTrato it WHERE it.ittCodigo = :ittCodigo")
         , @NamedQuery(name = "ItemTrato.findByIttPeso", query = "SELECT it FROM ItemTrato it WHERE it.ittPeso = :ittPeso")
         , @NamedQuery(name = "ItemTrato.findByTrtCodigo", query = "SELECT it FROM ItemTrato it WHERE it.trato = :trato")
+        , @NamedQuery(name = "ItemTrato.findByIttSequencia", query = "SELECT it FROM ItemTrato it WHERE it.ittSequencia = :ittSequencia")
 })
 public class ItemTrato implements Serializable {
 
@@ -25,6 +26,8 @@ public class ItemTrato implements Serializable {
     private Integer ittCodigo;
     @Column(name = "ITT_PESO")
     private BigDecimal ittPeso;
+    @Column(name = "ITT_SEQUENCIA")
+    private Integer ittSequencia;
 
     @ManyToOne
     @JoinColumn(name = "CUR_CODIGO", referencedColumnName = "CUR_CODIGO")
@@ -37,11 +40,12 @@ public class ItemTrato implements Serializable {
     public ItemTrato() {
     }
 
-    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Curral curral, Trato trato) {
+    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Curral curral,Integer ittSequencia , Trato trato) {
         this();
         this.ittCodigo = ittCodigo;
         this.ittPeso = ittPeso;
         this.curral = curral;
+        this.ittSequencia = ittSequencia;
         this.trato = trato;
     }
 
@@ -75,6 +79,14 @@ public class ItemTrato implements Serializable {
 
     public void setTrato(Trato trato) {
         this.trato = trato;
+    }
+
+    public Integer getIttSequencia() {
+        return ittSequencia;
+    }
+
+    public void setIttSequencia(Integer ittSequencia) {
+        this.ittSequencia = ittSequencia;
     }
 
     @Override
