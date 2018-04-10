@@ -110,7 +110,7 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </TitledPane>
-            <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Produção" textAlignment="CENTER">
+            <TitledPane alignment="CENTER" contentDisplay="CENTER" text="Produção" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
