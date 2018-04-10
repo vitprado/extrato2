@@ -128,11 +128,11 @@ public class ProgramarListaController implements Initializable {
     private void programarAction() {
         ConsultaOrdemDTO consultaOrdemDTO = new ConsultaOrdemDTO();
         consultaOrdemDTO.setEquipamento(cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
-        consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
 
         for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
             if (programarListaDTO.isCheck()) {
                 consultaOrdemDTO.getOrdens().add(programarListaDTO.getOrdemTratosDTO());
+                consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
             }
         }
 
