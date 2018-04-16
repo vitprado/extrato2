@@ -29,6 +29,10 @@ public class CurralPesoDTO {
         return peso.get();
     }
 
+    public BigDecimal getPesoBigDecimal() {
+        return new BigDecimal(peso.get());
+    }
+
     public void setPeso(String peso) {
         this.peso.set(peso);
     }

@@ -71,6 +71,7 @@ public class InserirTratoController implements Initializable {
                     tratoDTO.setReceita(cbbReceitas.getValue().getRctNome());
                     tratoDTO.getListCurralPeso().clear();
                     tratoDTO.getListCurralPeso().addAll(tvTabela.getItems());
+                    tratoDTO.setPesoTotal(tratoDTO.calculaPesoTotal());
                 }
                 ordem.carregarTabela();
                 Stage stage = (Stage) btnSalvar.getScene().getWindow();

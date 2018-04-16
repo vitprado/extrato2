@@ -17,6 +17,7 @@ public class TratoDTO {
     private Trato trato;
     private SimpleIntegerProperty numero;
     private SimpleStringProperty receita;
+    private SimpleStringProperty pesoTotal;
 
     public TratoDTO(List<CurralPesoDTO> listCurralPeso, Receita receita, Integer numero) {
         this.listCurralPeso = listCurralPeso;
@@ -36,6 +37,12 @@ public class TratoDTO {
         });
 
         trato.setItemTratos(tratos);
+        this.pesoTotal = new SimpleStringProperty(calculaPesoTotal());
+    }
+
+    public String calculaPesoTotal(){
+        BigDecimal pesoTotal = listCurralPeso.stream().map(CurralPesoDTO::getPesoBigDecimal).reduce(new BigDecimal("0"),(a, b) -> a.add(b));
+        return pesoTotal.toString();
     }
 
     public CurralPesoDTO getCurralPeso(Curral curral){
@@ -85,5 +92,17 @@ public class TratoDTO {
 
     public void setReceita(String receita) {
         this.receita.set(receita);
+    }
+
+    public String getPesoTotal() {
+        return pesoTotal.get();
+    }
+
+    public SimpleStringProperty pesoTotalProperty() {
+        return pesoTotal;
+    }
+
+    public void setPesoTotal(String pesoTotal) {
+        this.pesoTotal.set(pesoTotal);
     }
 }

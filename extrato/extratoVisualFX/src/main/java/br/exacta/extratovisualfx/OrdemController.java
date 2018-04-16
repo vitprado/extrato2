@@ -14,6 +14,8 @@ import br.exacta.dto.TratoDTO;
 import br.exacta.persistencia.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,6 +47,8 @@ public class OrdemController implements Initializable {
     @FXML
     private TextField txtOrdem;
     @FXML
+    private TextField txtCapacidade;
+    @FXML
     private Button btnCriarListaCurrais;
     @FXML
     private Button btnFinalizarOrdem;
@@ -58,6 +62,8 @@ public class OrdemController implements Initializable {
     private TableColumn<TratoDTO, String> colNumeroTrato;
     @FXML
     private TableColumn<TratoDTO, String> colReceita;
+    @FXML
+    private TableColumn<TratoDTO, String> colPesoTotal;
     @FXML
     private TableColumn<TratoDTO, TratoDTO> colAcao;
 
@@ -173,6 +179,7 @@ public class OrdemController implements Initializable {
     private void configuracaoTabela() {
         colNumeroTrato.setCellValueFactory(new PropertyValueFactory<TratoDTO, String>("numero"));
         colReceita.setCellValueFactory(new PropertyValueFactory<TratoDTO, String>("receita"));
+        colPesoTotal.setCellValueFactory(new PropertyValueFactory<TratoDTO, String>("pesoTotal"));
         colAcao.setCellFactory(new Callback<TableColumn<TratoDTO, TratoDTO>, TableCell<TratoDTO, TratoDTO>>() {
             @Override
             public TableCell<TratoDTO, TratoDTO> call(TableColumn<TratoDTO, TratoDTO> param) {
@@ -182,7 +189,6 @@ public class OrdemController implements Initializable {
     }
 
     private void carregaComponentes() {
-
         // CRIA NUMERAÇÃO PARA ORDEM
         String ORDEM = criaNroOrdem();
         txtOrdem.setText(ORDEM);
@@ -205,6 +211,13 @@ public class OrdemController implements Initializable {
             }
         });
 
+        cbbEquipamento.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                txtCapacidade.setText(String.valueOf(observableEquipamentos.get(newValue.intValue()).getEqpCapacidade()));
+            }
+        });
+
     }
 
     private String criaNroOrdem() {
@@ -223,6 +236,7 @@ public class OrdemController implements Initializable {
             ordemProducao =  new OrdemProcucaoDAO().getOrdemProcucao(ordCodigo);
             txtOrdem.setText(ordemProducao.getOrdDescricao());
             cbbEquipamento.setValue(ordemProducao.getEquipamento());
+            txtCapacidade.setText(String.valueOf(ordemProducao.getEquipamento().getEqpCapacidade()));
             ordemProducao.getTratos().sort(new Comparator<Trato>() {
                 @Override
                 public int compare(Trato o1, Trato o2) {

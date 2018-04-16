@@ -28,9 +28,6 @@
                         </Text>
                         <TextField fx:id="txtOrdem" editable="false" minWidth="300.0" GridPane.columnIndex="1"
                                    GridPane.rowIndex="1"/>
-                        <Button id="btnCurrais" fx:id="btnCriarListaCurrais" alignment="CENTER" minWidth="300.0"
-                                mnemonicParsing="false" styleClass="acao-adicionar" text="Lista de Currais"
-                                GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento:"
                               GridPane.rowIndex="2">
                             <font>
@@ -40,12 +37,8 @@
                                 <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <Button id="btnSalvar" fx:id="btnFinalizarOrdem" alignment="CENTER" minWidth="300.0"
-                                mnemonicParsing="false" styleClass="acao-salvar" text="SALVAR" GridPane.columnIndex="1"
-                                GridPane.rowIndex="6"/>
-                        <ChoiceBox fx:id="cbbEquipamento" minWidth="300.0" GridPane.columnIndex="1"
-                                   GridPane.rowIndex="2"/>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais:"
+
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade:"
                               GridPane.rowIndex="3">
                             <font>
                                 <Font name="Segoe UI Semilight" size="16.0"/>
@@ -54,15 +47,35 @@
                                 <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <Button id="btnTrato" fx:id="btnInserirTrato" alignment="CENTER" minWidth="300.0"
-                                mnemonicParsing="false" styleClass="acao-adicionar" text="Novo Trato"
+                        <TextField fx:id="txtCapacidade" editable="false" minWidth="300.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="3"/>
+
+                        <ChoiceBox fx:id="cbbEquipamento" minWidth="300.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="2"/>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais:"
+                              GridPane.rowIndex="4">
+                            <font>
+                                <Font name="Segoe UI Semilight" size="16.0"/>
+                            </font>
+                            <GridPane.margin>
+                                <Insets right="10.0"/>
+                            </GridPane.margin>
+                        </Text>
+                        <Button id="btnCurrais" fx:id="btnCriarListaCurrais" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-adicionar" text="Lista de Currais"
                                 GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Trato" wrappingWidth="130.0"
-                              GridPane.rowIndex="4">
+                              GridPane.rowIndex="5">
                             <font>
                                 <Font size="16.0"/>
                             </font>
                         </Text>
+                        <Button id="btnTrato" fx:id="btnInserirTrato" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-adicionar" text="Novo Trato"
+                                GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Button id="btnSalvar" fx:id="btnFinalizarOrdem" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-salvar" text="SALVAR" GridPane.columnIndex="1"
+                                GridPane.rowIndex="6"/>
                     </children>
                     <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0"
@@ -86,6 +99,7 @@
                     <columns>
                         <TableColumn fx:id="colNumeroTrato" prefWidth="180" text="NÚMERO TRATO"/>
                         <TableColumn fx:id="colReceita" prefWidth="150" text="RECEITA"/>
+                        <TableColumn fx:id="colPesoTotal" prefWidth="100" text="PESO"/>
                         <TableColumn fx:id="colAcao" prefWidth="150" text="AÇÃO"/>
                     </columns>
                 </TableView>
