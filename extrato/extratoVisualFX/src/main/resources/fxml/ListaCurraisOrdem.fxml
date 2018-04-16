@@ -30,7 +30,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Button>
-            <ChoiceBox fx:id="cbbCurrais" maxWidth="286.0" prefWidth="286.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cbbCurrais" maxWidth="286.0" prefWidth="286.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button fx:id="btnRemoverLista" mnemonicParsing="false" prefHeight="62.0" prefWidth="200.0" text="REMOVER CURRAL" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />

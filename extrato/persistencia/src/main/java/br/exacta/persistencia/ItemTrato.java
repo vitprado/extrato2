@@ -40,7 +40,7 @@ public class ItemTrato implements Serializable {
     public ItemTrato() {
     }
 
-    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Curral curral,Integer ittSequencia , Trato trato) {
+    public ItemTrato(Integer ittCodigo, BigDecimal ittPeso, Curral curral, Integer ittSequencia, Trato trato) {
         this();
         this.ittCodigo = ittCodigo;
         this.ittPeso = ittPeso;

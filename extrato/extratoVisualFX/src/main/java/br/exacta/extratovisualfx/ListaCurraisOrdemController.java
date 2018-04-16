@@ -11,25 +11,24 @@ import br.exacta.dao.ItemTratoDAO;
 import br.exacta.dto.CurralPesoDTO;
 import br.exacta.dto.TratoDTO;
 import br.exacta.persistencia.Curral;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -45,7 +44,7 @@ public class ListaCurraisOrdemController implements Initializable {
     @FXML
     private Button btnSalvar;
     @FXML
-    private ChoiceBox<Curral> cbbCurrais;
+    private ComboBox<Curral> cbbCurrais;
     @FXML
     private ListView<Curral> ltvDados;
 
@@ -64,20 +63,19 @@ public class ListaCurraisOrdemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         carregaComponentes();
 
-        // ADICIONAR  
+        // ADICIONAR
         btnInserirCurral.setOnAction((ActionEvent event) -> {
             if (cbbCurrais.getValue() != null) {
                 Acao novaAcao = new Acao();
                 novaAcao.adicionar(ltvDados.getItems().size(), cbbCurrais.getValue());
                 listAcao.add(novaAcao);
                 ltvDados.getItems().add(cbbCurrais.getValue());
-
             } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Erro ao inserir curral na lista!");
             }
         });
 
-        // REMOVER 
+        // REMOVER
         btnRemoverLista.setOnAction((ActionEvent event) -> {
             Curral itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
@@ -102,13 +100,38 @@ public class ListaCurraisOrdemController implements Initializable {
 
     private void carregaComponentes() {
         this.ltvDados.getItems().addAll(ordem.getCurralList());
-        observableCurrais.addAll(curralDAO.getTodosCurrais());
-        cbbCurrais.setItems(observableCurrais);
+        cbbCurrais.setEditable(true);
+        List<Curral> todosCurrais = curralDAO.getTodosCurrais();
+        observableCurrais.addAll(todosCurrais);
+        FilteredList<Curral> filteredItems = new FilteredList(observableCurrais, p -> true);
+
+        cbbCurrais.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            final TextField editor = cbbCurrais.getEditor();
+            final Curral selected = cbbCurrais.getSelectionModel().getSelectedItem();
+
+            Platform.runLater(() -> {
+                if (selected == null || !selected.getCurDescricao().equals(editor.getText())) {
+                    filteredItems.setPredicate(item -> {
+                        if (item.getCurDescricao().toUpperCase().startsWith(newValue.toUpperCase())) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+            });
+        });
+
+        cbbCurrais.setItems(filteredItems);
 
         cbbCurrais.setConverter(new StringConverter<Curral>() {
             @Override
             public String toString(Curral object) {
-                return object.getCurDescricao();
+                if (!Objects.isNull(object)) {
+                    return object.getCurDescricao();
+                }
+
+                return "";
             }
 
             @Override
@@ -121,22 +144,22 @@ public class ListaCurraisOrdemController implements Initializable {
     }
 
     private void enviaDadosGUI() {
-        if (ordem.getCurralList().isEmpty()){
+        if (ordem.getCurralList().isEmpty()) {
             ordem.getCurralList().addAll(ltvDados.getItems());
         } else {
-            if (!listAcao.isEmpty()){
-                for (Acao acao: listAcao){
-                    if (acao.getTipo().equals("adicionar")){
+            if (!listAcao.isEmpty()) {
+                for (Acao acao : listAcao) {
+                    if (acao.getTipo().equals("adicionar")) {
                         ordem.getCurralList().add(acao.getCurral());
-                        for (TratoDTO trato: ordem.getListTratoDTO()){
+                        for (TratoDTO trato : ordem.getListTratoDTO()) {
                             trato.getListCurralPeso().add(new CurralPesoDTO(acao.getCurral(), new BigDecimal("0")));
                         }
                     }
-                    if (acao.getTipo().equals("remover")){
+                    if (acao.getTipo().equals("remover")) {
                         ordem.getCurralList().remove(acao.getCurral());
-                        for (TratoDTO tratoDTO: ordem.getListTratoDTO()){
+                        for (TratoDTO tratoDTO : ordem.getListTratoDTO()) {
                             CurralPesoDTO curralPesoDTO = tratoDTO.getCurralPeso(acao.getCurral());
-                            if (curralPesoDTO != null && curralPesoDTO.getIttCodigo() != null){
+                            if (curralPesoDTO != null && curralPesoDTO.getIttCodigo() != null) {
                                 try {
                                     new ItemTratoDAO().removerItemTrato(curralPesoDTO.getIttCodigo());
                                 } catch (Exception e) {
@@ -151,7 +174,7 @@ public class ListaCurraisOrdemController implements Initializable {
         }
     }
 
-    public class Acao{
+    public class Acao {
         private Integer local;
         private Curral curral;
         private String tipo;
@@ -159,13 +182,13 @@ public class ListaCurraisOrdemController implements Initializable {
         public Acao() {
         }
 
-        public void adicionar(Integer local, Curral curral){
+        public void adicionar(Integer local, Curral curral) {
             this.local = local;
             this.curral = curral;
             this.tipo = "adicionar";
         }
 
-        public void remover(Integer local, Curral curral){
+        public void remover(Integer local, Curral curral) {
             this.local = local;
             this.curral = curral;
             this.tipo = "remover";
