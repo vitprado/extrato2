@@ -6,21 +6,20 @@ public class ResumoCarregamentoDTO implements Serializable {
 
     private String receita;
     private String data;
-    private String roteiro = "Roteiro";
     private Integer trato;
     private String motorista = "Motorista";
     private String equipamento;
-    private Integer codigo;
+    private String ordem;
     private String descricao;
     private String valorPrevisto;
     private String valorRealizado;
 
-    public ResumoCarregamentoDTO(String receita, String data, Integer trato, String equipamento, Integer codigo, String descricao, String valorPrevisto, String valorRealizado) {
+    public ResumoCarregamentoDTO(String receita, String data, Integer trato, String equipamento, String ordem, String descricao, String valorPrevisto, String valorRealizado) {
         this.receita = receita;
         this.data = data;
         this.trato = trato;
         this.equipamento = equipamento;
-        this.codigo = codigo;
+        this.ordem = ordem;
         this.descricao = descricao;
         this.valorPrevisto = valorPrevisto;
         this.valorRealizado = valorRealizado;
@@ -40,14 +39,6 @@ public class ResumoCarregamentoDTO implements Serializable {
 
     public void setData(String data) {
         this.data = data;
-    }
-
-    public String getRoteiro() {
-        return roteiro;
-    }
-
-    public void setRoteiro(String roteiro) {
-        this.roteiro = roteiro;
     }
 
     public Integer getTrato() {
@@ -74,12 +65,12 @@ public class ResumoCarregamentoDTO implements Serializable {
         this.equipamento = equipamento;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public String getOrdem() {
+        return ordem;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setOrdem(String ordem) {
+        this.ordem = ordem;
     }
 
     public String getDescricao() {

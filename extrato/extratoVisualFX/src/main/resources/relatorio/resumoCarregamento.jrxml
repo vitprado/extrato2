@@ -12,9 +12,6 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="codigo" class="java.lang.Integer">
-		<fieldDescription><![CDATA[codigo]]></fieldDescription>
-	</field>
 	<field name="receita" class="java.lang.String">
 		<fieldDescription><![CDATA[receita]]></fieldDescription>
 	</field>
@@ -36,11 +33,11 @@
 	<field name="trato" class="java.lang.Integer">
 		<fieldDescription><![CDATA[trato]]></fieldDescription>
 	</field>
-	<field name="roteiro" class="java.lang.String">
-		<fieldDescription><![CDATA[roteiro]]></fieldDescription>
-	</field>
 	<field name="descricao" class="java.lang.String">
 		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="ordem" class="java.lang.String">
+		<fieldDescription><![CDATA[ordem]]></fieldDescription>
 	</field>
 	<variable name="total_previsto" class="java.math.BigDecimal" resetType="Group" resetGroup="group_trato" calculation="Sum">
 		<variableExpression><![CDATA[new BigDecimal($F{valorPrevisto})]]></variableExpression>
@@ -81,7 +78,7 @@
 	<group name="group_just_date">
 		<groupExpression><![CDATA[$F{data}]]></groupExpression>
 		<groupFooter>
-			<band height="15">
+			<band height="28">
 				<textField pattern="#,##0.00#">
 					<reportElement x="405" y="1" width="40" height="14" uuid="188b4f33-c230-4d5b-a9f7-ac53faff8581"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -117,44 +114,56 @@
 	<group name="group_receita_data">
 		<groupExpression><![CDATA[$F{receita}+$F{data}]]></groupExpression>
 		<groupHeader>
-			<band height="42">
-				<line>
-					<reportElement x="0" y="20" width="555" height="1" uuid="d950bafd-86e7-4cfd-8103-2840b96da84a"/>
-				</line>
+			<band height="21">
 				<staticText>
-					<reportElement x="0" y="0" width="43" height="20" uuid="7a977486-0b75-4612-a82d-cab43d053b22"/>
+					<reportElement x="0" y="0" width="43" height="20" uuid="9543d85b-1319-4a3d-be15-94f9c84210eb"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
+						<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
-					<text><![CDATA[Receita:]]></text>
+					<text><![CDATA[Ordem:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="43" y="0" width="100" height="20" uuid="f93a62c0-753a-4113-bc5b-cc6b12edf4c2"/>
-					<textElement verticalAlignment="Middle" markup="none">
-						<font fontName="Arial" size="9" isBold="true"/>
-						<paragraph leftIndent="1"/>
+					<reportElement x="43" y="0" width="112" height="20" uuid="e00aecf3-e777-4a65-be79-86d5d533392a"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ordem}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="0" width="100" height="20" uuid="9cc17fce-74fd-4952-aac1-a43b11f5b43d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{receita}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="221" y="0" width="49" height="20" uuid="668a8498-3b77-43bb-a2f6-387071d20196"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Data:]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="270" y="0" width="80" height="20" uuid="45c69e89-6ac5-490b-b126-ac30b9c939dc"/>
+					<reportElement x="340" y="0" width="100" height="20" uuid="bf8d01e7-8277-4fa9-be20-c2daa3ee1253"/>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="9"/>
-						<paragraph leftIndent="1"/>
+						<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="157" y="0" width="43" height="20" uuid="a4d45996-4ba6-4f7b-ac85-2135659929df"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Receita:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="312" y="0" width="28" height="20" uuid="f8803fd8-7581-4e2c-a176-b12c9e3b384e"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Data:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="20" width="555" height="1" uuid="d950bafd-86e7-4cfd-8103-2840b96da84a"/>
+				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="15">
+			<band height="21">
 				<textField pattern="#,##0.00#">
 					<reportElement x="405" y="1" width="40" height="14" uuid="b51971fc-20ec-44da-92ee-90f7dfb41732"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -192,21 +201,14 @@
 		<groupHeader>
 			<band height="17">
 				<staticText>
-					<reportElement x="0" y="0" width="60" height="16" uuid="801ae529-b4f9-4cb6-9f02-b9aae050a26e"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<text><![CDATA[Roteiro]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="62" y="0" width="20" height="16" uuid="9be16c3a-f2bb-4151-af07-2c45f6beef5c"/>
+					<reportElement x="10" y="0" width="20" height="16" uuid="9be16c3a-f2bb-4151-af07-2c45f6beef5c"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
 					<text><![CDATA[Trato]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="83" y="0" width="78" height="16" uuid="4b8d9a6d-6157-44bf-8c03-0f4225b2a90d"/>
+					<reportElement x="50" y="0" width="78" height="16" uuid="4b8d9a6d-6157-44bf-8c03-0f4225b2a90d"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8"/>
 					</textElement>
@@ -218,13 +220,6 @@
 						<font fontName="Arial" size="8"/>
 					</textElement>
 					<text><![CDATA[Equipamento]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="250" y="0" width="44" height="16" uuid="40137778-692c-4ac4-af7a-a3cd86d26926"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial" size="8"/>
-					</textElement>
-					<text><![CDATA[Código]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="296" y="0" width="104" height="16" uuid="071b8bf5-6ad9-4546-a0b4-f48cbf1f7dbf"/>
@@ -263,7 +258,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="15">
+			<band height="20">
 				<line>
 					<reportElement x="405" y="0" width="40" height="1" uuid="a92e341b-fe36-4897-a0aa-3ffe15c6041e"/>
 				</line>
@@ -303,9 +298,9 @@
 	<title>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="30" uuid="9c1241a9-5cb0-43cf-a51a-2d47e3da213d"/>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" size="20" isBold="true"/>
+				<reportElement x="0" y="0" width="555" height="30" uuid="ef6ad23f-4993-4494-a6fe-0f5c7b1ccd90"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="20" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Relatório de Resumo de Carregamento]]></text>
 			</staticText>
@@ -370,25 +365,16 @@
 	<detail>
 		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="60" height="14" isPrintInFirstWholeBand="true" uuid="f4ccb34f-695f-49a7-ab8a-7cc070cb44c8">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed81d153-ec2c-4c20-ac5f-145b7a6666a8"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{roteiro}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="62" y="0" width="20" height="14" isPrintInFirstWholeBand="true" uuid="6e653536-9dbe-4906-8129-be4004221ea9">
+				<reportElement x="11" y="0" width="20" height="14" isPrintInFirstWholeBand="true" uuid="6e653536-9dbe-4906-8129-be4004221ea9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3495e9bb-db50-41a0-82bc-7ccd83c4904f"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{trato}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="83" y="0" width="78" height="14" isPrintInFirstWholeBand="true" uuid="6cab9735-b7e2-45fe-abe3-7c6eb55e0083">
+				<reportElement x="50" y="-1" width="78" height="14" isPrintInFirstWholeBand="true" uuid="6cab9735-b7e2-45fe-abe3-7c6eb55e0083">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ebdcee1d-8eaf-4820-8439-e9504113ed29"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -404,15 +390,6 @@
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{equipamento}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="251" y="0" width="44" height="14" uuid="222eb5d3-00a1-4f6b-a16a-7c6e35d2f003">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6db3990b-72ce-4cd1-8362-235b2dffcaba"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="296" y="0" width="104" height="14" uuid="edb9bf70-c968-43b5-99ea-542849e74f10">

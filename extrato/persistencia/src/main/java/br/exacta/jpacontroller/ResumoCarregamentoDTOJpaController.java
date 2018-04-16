@@ -38,7 +38,7 @@ public class ResumoCarregamentoDTOJpaController {
                 "  c.rdcDataJson         ," +
                 "  c.rdcNumtrato         ," +
                 "  c.rdcEquipamento      ," +
-                "  c.rdcCodigo           ," +
+                "  c.rdcOrdem            ," +
                 "  c.rdcIngrediente      ," +
                 "  c.rdcPesorequisitado  ," +
                 "  c.rdcPesorealizado)    " +
@@ -47,7 +47,7 @@ public class ResumoCarregamentoDTOJpaController {
 
         applyFilter(filter, stringBuilder);
 
-        stringBuilder.append(" ORDER BY c.rdcReceita, c.rdcDataJson, c.rdcNumtrato, c.rdcIngrediente ");
+        stringBuilder.append(" ORDER BY c.rdcOrdem, c.rdcReceita, c.rdcDataJson, c.rdcNumtrato, c.rdcIngrediente ");
 
         return stringBuilder.toString();
     }
