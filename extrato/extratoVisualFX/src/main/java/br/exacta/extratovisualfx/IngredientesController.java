@@ -93,6 +93,9 @@ public class IngredientesController implements Initializable {
 			try {
 				ingredientesDAO.adicionarIngrediente(novo);
 				tvIngredientes.getItems().add(new IngredienteDTO(novo));
+				txtDescricao.setText("");
+				txtAbreviacao.setText("");
+				txtTolerancia.setText("");
 			} catch (Exception ex) {
 				Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
 			}

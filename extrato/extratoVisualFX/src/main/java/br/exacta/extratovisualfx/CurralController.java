@@ -5,11 +5,11 @@
  */
 package br.exacta.extratovisualfx;
 
-//import br.exacta.persistencia.Curral;
 import br.exacta.config.Config;
 import br.exacta.dao.CurralDAO;
 import br.exacta.persistencia.Curral;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -71,25 +73,15 @@ public class CurralController implements Initializable {
             return listCell;
         });
 
+        txtNome.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                adicionarAction();
+            }
+        });
+
         // ADICIONAR  
         btnSalvar.setOnAction((ActionEvent event) -> {
-            if (!txtNome.getText().trim().isEmpty()) {
-                Curral novo = new Curral();
-                novo.setCurDescricao(txtNome.getText());
-                
-                try {
-                    curralDAO.adicionarCurral(novo);
-                } catch (Exception ex) {
-                    Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if(listaCurral.add(novo)) {
-                	Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
-                } else {
-                	Config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível cadastrar o curral");
-                }
-            }
-            else
-                Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser salvo o novo curral!");
+            adicionarAction();
         });
 
         // REMOVER 
@@ -103,9 +95,31 @@ public class CurralController implements Initializable {
                 }
                 listaCurral.remove(itemSelecionado);
                 Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral removido com sucesso!");
-            }
-            else
+            } else
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser remover o curral selecionado!");
         });
     }// Fim initialize
+
+    private void adicionarAction() {
+        Calendar d = Calendar.getInstance();
+
+        if (!txtNome.getText().trim().isEmpty()) {
+            Curral novo = new Curral();
+            novo.setCurDescricao(txtNome.getText());
+            novo.setCurDataCadastro(d.getTime());
+
+            try {
+                curralDAO.adicionarCurral(novo);
+            } catch (Exception ex) {
+                Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (listaCurral.add(novo)) {
+                txtNome.setText("");
+                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
+            } else {
+                Config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível cadastrar o curral");
+            }
+        } else
+            Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser salvo o novo curral!");
+    }
 }

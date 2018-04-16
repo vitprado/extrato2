@@ -83,6 +83,8 @@ public class EquipamentosController implements Initializable {
             try {
                 equipamentoDAO.adicionarEquipamento(novo);
                 tvEquipamentos.getItems().add(new EquipamentoDTO(novo));
+                txtDescricao.setText("");
+                txtCapacidade.setText("");
             } catch (Exception ex) {
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -10,12 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -34,6 +32,10 @@ public class InserirTratoController implements Initializable {
     private ChoiceBox<Receita> cbbReceitas;
     @FXML
     private TableView<CurralPesoDTO> tvTabela;
+    @FXML
+    private TableColumn<CurralPesoDTO, String> colCurral;
+    @FXML
+    private TableColumn<CurralPesoDTO, String> colPeso;
 
     private OrdemController ordem;
     private TratoDTO tratoDTO;
@@ -55,6 +57,7 @@ public class InserirTratoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         componentes();
+        tvTabela.setItems(data);
         carregarTabelaNova();
         configurarTabela();
 
@@ -68,7 +71,6 @@ public class InserirTratoController implements Initializable {
                     tratoDTO.setReceita(cbbReceitas.getValue().getRctNome());
                     tratoDTO.getListCurralPeso().clear();
                     tratoDTO.getListCurralPeso().addAll(tvTabela.getItems());
-//                    ordem.getListTratoDTO().set(tableRow, new TratoDTO(tvTabela.getItems(), cbbReceitas.getValue(), tableRow + 1));
                 }
                 ordem.carregarTabela();
                 Stage stage = (Stage) btnSalvar.getScene().getWindow();
@@ -89,33 +91,42 @@ public class InserirTratoController implements Initializable {
     }
 
     private void configurarTabela() {
-        tvTabela.setEditable(true);
-        TableColumn curralCol = new TableColumn("CURRAL");
-        curralCol.setMinWidth(150);
-        curralCol.setCellValueFactory(
-                new PropertyValueFactory<CurralPesoDTO, String>("Curral"));
+        colCurral.setCellValueFactory(new PropertyValueFactory<CurralPesoDTO, String>("curral"));
 
-        TableColumn pesoCol = new TableColumn("PESO");
-        pesoCol.setMinWidth(100);
-        pesoCol.setCellValueFactory(new PropertyValueFactory<CurralPesoDTO, String>("Peso"));
-        pesoCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        pesoCol.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<CurralPesoDTO, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<CurralPesoDTO, String> event) {
-                        ((CurralPesoDTO) event.getTableView().getItems().get(
-                                event.getTablePosition().getRow())
-                        ).setPeso(event.getNewValue());
-                    }
-                }
-        );
+        colPeso.setCellValueFactory(new PropertyValueFactory<CurralPesoDTO, String>("peso"));
+        setupPesoColumn();
 
         // single cell selection mode
-        tvTabela.getSelectionModel().setCellSelectionEnabled(true);
+        tvTabela.setEditable(true);
+        tvTabela.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
-        tvTabela.setItems(data);
-        tvTabela.getColumns().addAll(curralCol, pesoCol);
+        tvTabela.setOnKeyPressed(event -> {
+            if (event.getCode().isLetterKey() || event.getCode().isDigitKey()) {
+                editFocusedCell();
+            } else if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+                tvTabela.getSelectionModel().selectBelowCell();
+//                event.consume();
+            }
+        });
     }
+
+    private void editFocusedCell() {
+        final TablePosition<CurralPesoDTO, ?> focusedCell = tvTabela
+                .focusModelProperty().get().focusedCellProperty().get();
+        tvTabela.edit(focusedCell.getRow(), focusedCell.getTableColumn());
+    }
+
+    private void setupPesoColumn() {
+        colPeso.setCellFactory(EditCell.forTableColumn());
+        colPeso.setOnEditCommit(event -> {
+            final String value = event.getNewValue() != null
+                    ? event.getNewValue() : event.getOldValue();
+            ((CurralPesoDTO) event.getTableView().getItems()
+                    .get(event.getTablePosition().getRow())).setPeso(value);
+            tvTabela.refresh();
+        });
+    }
+
 
     private void componentes() {
         observableReceitas.addAll(receitaDAO.getTodaReceitaAtiva());
