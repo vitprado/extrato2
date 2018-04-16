@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 import br.exacta.dao.CarregamentoDAO;
 import br.exacta.dao.DescarregamentoDAO;
-import br.exacta.dto.ResumoCarregamentoDTO;
-import br.exacta.dto.ResumoCarregamentoDTODAO;
+import br.exacta.dto.CarregamentoResumoDTO;
+import br.exacta.dto.CarregamentoDTODAO;
 import br.exacta.jpacontroller.CarregamentoJpaFilter;
 import br.exacta.jpacontroller.DescarregamentoJpaFilter;
 import br.exacta.persistencia.Carregamento;
@@ -55,7 +55,7 @@ public class DataEquipamentoEscolhaModalController implements Initializable {
 
 	private final CarregamentoDAO carregamentoDAO = new CarregamentoDAO();
 	private final DescarregamentoDAO descarregamentoDAO = new DescarregamentoDAO();
-	private final ResumoCarregamentoDTODAO resumoCarregamentoDTODAO = new ResumoCarregamentoDTODAO();
+	private final CarregamentoDTODAO carregamentoDTODAO = new CarregamentoDTODAO();
 	private final ObservableList<String> comboEquipamentos = FXCollections.observableArrayList();
 
 	@Override
@@ -105,7 +105,7 @@ public class DataEquipamentoEscolhaModalController implements Initializable {
 					carregamentoJpaFilter.setEquipamento(cbEquipamento.getValue());
 					carregamentoJpaFilter.setDataInicio(dpDataInicial.getValue());
 					carregamentoJpaFilter.setDatafim(dpDataFinal.getValue());
-					List<ResumoCarregamentoDTO> resumoCarregamentos = resumoCarregamentoDTODAO.buscaTodos(carregamentoJpaFilter);
+					List<CarregamentoResumoDTO> resumoCarregamentos = carregamentoDTODAO.buscaTodos(carregamentoJpaFilter);
 					RelatorioResumoCarregamentoPDF relatorioResumoCarregamentoPDF = new RelatorioResumoCarregamentoPDF(carregamentoJpaFilter);
 					try {
 						relatorioResumoCarregamentoPDF.geraRelatorio(resumoCarregamentos);
@@ -146,7 +146,7 @@ public class DataEquipamentoEscolhaModalController implements Initializable {
 		}
 
 		if (origem == CARREGAMENTO_ORIGEM_PDF) {
-			List<String> equipamentos = resumoCarregamentoDTODAO.getEquipamentosDistinct();
+			List<String> equipamentos = carregamentoDTODAO.getEquipamentosDistinct();
 			comboEquipamentos.addAll(equipamentos);
 			cbEquipamento.setItems(comboEquipamentos);
 		}

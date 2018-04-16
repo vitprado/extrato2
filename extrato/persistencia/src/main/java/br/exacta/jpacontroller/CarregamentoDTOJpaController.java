@@ -1,6 +1,7 @@
 package br.exacta.jpacontroller;
 
-import br.exacta.dto.ResumoCarregamentoDTO;
+import br.exacta.dto.CarregamentoDTO;
+import br.exacta.dto.CarregamentoResumoDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,19 +11,18 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class ResumoCarregamentoDTOJpaController {
+public class CarregamentoDTOJpaController {
 
     private EntityManagerFactory emf = null;
 
-    public ResumoCarregamentoDTOJpaController(EntityManagerFactory emf) {
+    public CarregamentoDTOJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-
-    public List<ResumoCarregamentoDTO> buscaTodos(CarregamentoJpaFilter filter) {
+    public List<CarregamentoResumoDTO> buscaTodos(CarregamentoJpaFilter filter) {
         EntityManager entityManager = emf.createEntityManager();
         try {
-            Query nativeQuery = entityManager.createQuery(getSql(filter), ResumoCarregamentoDTO.class);
+            Query nativeQuery = entityManager.createQuery(getSql(filter), CarregamentoResumoDTO.class);
 
             return nativeQuery.getResultList();
         } finally {
@@ -33,7 +33,7 @@ public class ResumoCarregamentoDTOJpaController {
     }
 
     private String getSql(CarregamentoJpaFilter filter) {
-        StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.ResumoCarregamentoDTO( " +
+        StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.CarregamentoResumoDTO( " +
                 "  c.rdcReceita          ," +
                 "  c.rdcDataJson         ," +
                 "  c.rdcNumtrato         ," +
@@ -77,5 +77,29 @@ public class ResumoCarregamentoDTOJpaController {
         } finally {
             em.close();
         }
+    }
+
+    public List<CarregamentoDTO> findCarregamentoDTO() {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            Query nativeQuery = entityManager.createQuery(sqlFindCarregamentoDTO(), CarregamentoDTO.class);
+
+            return nativeQuery.getResultList();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+    }
+
+    private String sqlFindCarregamentoDTO() {
+        StringBuilder stringBuilder = new StringBuilder("SELECT new br.exacta.dto.CarregamentoDTO( " +
+                " c.rdcOrdem       , " +
+                " c.rdcEquipamento , " +
+                " c.rdcDataJson)     " +
+                " FROM Carregamento c " +
+                " GROUP BY c.rdcOrdem, c.rdcEquipamento, c.rdcDataJson ");
+
+        return stringBuilder.toString();
     }
 }

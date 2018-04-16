@@ -1,6 +1,6 @@
 package br.exacta.relatorio.pdf;
 
-import br.exacta.dto.ResumoCarregamentoDTO;
+import br.exacta.dto.CarregamentoResumoDTO;
 import br.exacta.jpacontroller.CarregamentoJpaFilter;
 import javafx.stage.DirectoryChooser;
 import net.sf.jasperreports.engine.*;
@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public class RelatorioResumoCarregamentoPDF {
         }
     }
 
-    public void geraRelatorio(List<ResumoCarregamentoDTO> resumoCarregamentos) throws IOException {
+    public void geraRelatorio(List<CarregamentoResumoDTO> resumoCarregamentos) throws IOException {
         try {
             JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/resumoCarregamento.jrxml"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(resumoCarregamentos));

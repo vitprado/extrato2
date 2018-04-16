@@ -27,7 +27,7 @@ import static java.lang.String.format;
 public class CarregamentoJpaController implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -92,6 +92,25 @@ public class CarregamentoJpaController implements Serializable {
 			}
 			em.remove(carregamento);
 			em.getTransaction().commit();
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
+	public void destroy(String ordem) throws NonexistentEntityException {
+		EntityManager em = null;
+		try {
+			em = getEntityManager();
+			em.getTransaction().begin();
+			StringBuilder stringBuilder = new StringBuilder(" delete from Carregamento c where c.rdcOrdem = :ordem ");
+			Query query = em.createQuery(stringBuilder.toString(), Carregamento.class);
+			query.setParameter("ordem", ordem);
+			query.executeUpdate();
+			em.getTransaction().commit();
+		} catch (EntityNotFoundException enfe) {
+			throw new NonexistentEntityException("The carregamento with ordem " + ordem + " no longer exists.", enfe);
 		} finally {
 			if (em != null) {
 				em.close();

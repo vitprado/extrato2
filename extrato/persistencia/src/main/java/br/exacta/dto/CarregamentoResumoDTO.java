@@ -2,7 +2,7 @@ package br.exacta.dto;
 
 import java.io.Serializable;
 
-public class ResumoCarregamentoDTO implements Serializable {
+public class CarregamentoResumoDTO implements Serializable {
 
     private String receita;
     private String data;
@@ -14,7 +14,8 @@ public class ResumoCarregamentoDTO implements Serializable {
     private String valorPrevisto;
     private String valorRealizado;
 
-    public ResumoCarregamentoDTO(String receita, String data, Integer trato, String equipamento, String ordem, String descricao, String valorPrevisto, String valorRealizado) {
+    public CarregamentoResumoDTO(String receita, String data, Integer trato, String equipamento, String ordem,
+                                 String descricao, String valorPrevisto, String valorRealizado) {
         this.receita = receita;
         this.data = data;
         this.trato = trato;

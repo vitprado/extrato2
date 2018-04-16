@@ -22,63 +22,36 @@ public class CarregamentoDAO {
     private final CarregamentoJpaController carregamentoController;
     private final EntityManagerFactory emf;
 
-    /**
-     *
-     */
     public CarregamentoDAO() {
         emf = Persistence.createEntityManagerFactory("br.exacta_Persistencia_jar_1.0.0PU");
         carregamentoController = new CarregamentoJpaController(emf);
     }
 
-    // MÉTODOS DE ACESSO 
-    /* CRUD - CREATE, READ, UPDATE e DELETE, respectivamente serão aqui tratados como:
-            - ADICIONAR, LISTAR, EDITAR, E REMOVER
-     */
-    // ADICIONAR 
-    /**
-     *
-     * @param curral
-     * @throws Exception
-     */
+    // ADICIONAR
     public void adicionarCarregamento(Carregamento carregamento) throws Exception {
         carregamentoController.create(carregamento);
     }
 
-    // EDITAR 
-    /**
-     *
-     * @param curral
-     * @throws Exception
-     */
+    // EDITAR
     public void editarCarregamento(Carregamento carregamento) throws Exception {
         carregamentoController.edit(carregamento);
     }
 
-    // REMOVER 
-    /**
-     *
-     * @param id
-     * @throws java.lang.Exception
-     */
+    // REMOVER
     public void removerCarregamento(int id) throws Exception {
         carregamentoController.destroy(id);
     }
 
+    public void removerCarregamento(String ordem) throws Exception {
+        carregamentoController.destroy(ordem);
+    }
+
     // LISTAR TODOS
-    /**
-     *
-     * @return
-     */
     public List<Carregamento> getTodosCarregamentos() {
         return carregamentoController.findCarregamentoEntities();
     }
 
     // LISTAR POR ID
-    /**
-     *
-     * @param id
-     * @return
-     */
     public Carregamento getCarregamentoId(int id) {
         return carregamentoController.findCarregamento(id);
     }
