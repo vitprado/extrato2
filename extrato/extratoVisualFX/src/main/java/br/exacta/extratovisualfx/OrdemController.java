@@ -29,10 +29,7 @@ import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -226,6 +223,13 @@ public class OrdemController implements Initializable {
             ordemProducao =  new OrdemProcucaoDAO().getOrdemProcucao(ordCodigo);
             txtOrdem.setText(ordemProducao.getOrdDescricao());
             cbbEquipamento.setValue(ordemProducao.getEquipamento());
+            ordemProducao.getTratos().sort(new Comparator<Trato>() {
+                @Override
+                public int compare(Trato o1, Trato o2) {
+                    return o1.getTrtNumero().compareTo(o2.getTrtNumero());
+                }
+            });
+
             if (!ordemProducao.getTratos().isEmpty()){
                 if (!ordemProducao.getTratos().get(0).getItemTratos().isEmpty()){
                     for (ItemTrato itemTrato: ordemProducao.getTratos().get(0).getItemTratos()){

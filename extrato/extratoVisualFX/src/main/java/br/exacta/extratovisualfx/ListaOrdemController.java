@@ -5,6 +5,9 @@ import br.exacta.dao.EquipamentoDAO;
 import br.exacta.dao.OrdemProcucaoDAO;
 import br.exacta.dto.*;
 import br.exacta.persistencia.Equipamento;
+import br.exacta.persistencia.ItemTrato;
+import br.exacta.persistencia.OrdemProducao;
+import br.exacta.persistencia.Trato;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -127,6 +131,7 @@ public class ListaOrdemController implements Initializable {
     private class Botoes extends TableCell<EquipamentoConsultaOrdemDTO, EquipamentoConsultaOrdemDTO> {
         private Button btnEditar;
         private Button btnExcluir;
+        private Button btnClonar;
         private OrdemController ordem;
 
         public Botoes() {
@@ -138,12 +143,50 @@ public class ListaOrdemController implements Initializable {
             btnExcluir.setOnAction((ActionEvent event) -> {
                 btnExcluirAction();
             });
+            btnClonar = new Button("Clonar");
+            btnClonar.setOnAction((ActionEvent event) -> {
+                btnClonarAction();
+            });
+
         }
 
         private void btnEditarAction() {
             ordem = new OrdemController(ListaOrdemController.this, tvOrdens.getItems().get(getTableRow().getIndex()).getOrdCodigo());
             Config config = new Config();
             config.carregarAnchorPaneDialog("Ordem", ordem);
+        }
+
+        private void btnClonarAction() {
+            Integer ordemProducaoAtualCodigo = tvOrdens.getItems().get(getTableRow().getIndex()).getOrdCodigo();
+            try {
+                OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
+                OrdemProducao ordemProducaoAtual = ordemProcucaoDAO.getOrdemProcucao(ordemProducaoAtualCodigo);
+                OrdemProducao ordemProducaoClone =  new OrdemProducao();
+                List<Trato> listTratoClone = ordemProducaoAtual.getTratos().stream()
+                        .map(trato -> {
+                            Trato tratoClone = new Trato();
+                            tratoClone.setReceita(trato.getReceita());
+                            tratoClone.setTrtNumero(trato.getTrtNumero());
+                            tratoClone.setOrdemProducao(ordemProducaoClone);
+                            tratoClone.setItemTratos(trato.getItemTratos().stream()
+                                    .map(itemTrato -> {
+                                        ItemTrato itemTratoClone = new ItemTrato();
+                                        itemTratoClone.setIttSequencia(itemTrato.getIttSequencia());
+                                        itemTratoClone.setIttPeso(itemTrato.getIttPeso());
+                                        itemTratoClone.setCurral(itemTrato.getCurral());
+                                        itemTratoClone.setTrato(tratoClone);
+                                        return itemTratoClone;
+                                    }).collect(Collectors.toList()));
+                            return tratoClone;
+                        }).collect(Collectors.toList());
+                ordemProducaoClone.setEquipamento(ordemProducaoAtual.getEquipamento());
+                ordemProducaoClone.setOrdDescricao(ordemProducaoAtual.getOrdDescricao());
+                ordemProducaoClone.setTratos(listTratoClone);
+                ordemProcucaoDAO.adicionarOrdemProcucao(ordemProducaoClone);
+                pesquisarAction();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         private void btnExcluirAction() {
@@ -161,11 +204,10 @@ public class ListaOrdemController implements Initializable {
             super.updateItem(record, empty);
             if (!empty) {
                 btnEditar.setText("Editar");
-                btnEditar.getStyleClass().add("acao-ditar");
+                btnEditar.getStyleClass().add("acao-editar");
                 btnExcluir.setText("Excluir");
                 btnExcluir.getStyleClass().add("acao-excluir");
-                Text espaco = new Text(" ");
-                HBox pane = new HBox(btnEditar, espaco, btnExcluir);
+                HBox pane = new HBox(btnEditar, new Text(" "), btnExcluir, new Text(" "), btnClonar);
                 setGraphic(pane);
             } else {
                 setGraphic(null);
