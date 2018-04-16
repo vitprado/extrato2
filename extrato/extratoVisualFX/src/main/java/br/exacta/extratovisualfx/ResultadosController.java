@@ -7,9 +7,12 @@ package br.exacta.extratovisualfx;
 
 import br.exacta.config.Config;
 import br.exacta.dao.CarregamentoDAO;
+import br.exacta.dao.DescarregamentoDAO;
 import br.exacta.dao.OrdemProcucaoDAO;
 import br.exacta.dto.CarregamentoDTO;
 import br.exacta.dto.CarregamentoDTODAO;
+import br.exacta.dto.DescarregamentoDTO;
+import br.exacta.dto.DescarregamentoDTODAO;
 import br.exacta.json.util.UtilManipulacao;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,7 +59,21 @@ public class ResultadosController implements Initializable {
 	@FXML
 	private TableColumn<CarregamentoDTO, CarregamentoDTO> colCarAcao;
 
+	// TABELA DESCARREGAMENTO
+	@FXML
+	private TableView<DescarregamentoDTO> tvDescarregamento;
+	@FXML
+	private TableColumn<DescarregamentoDTO, String> colDesOrdem;
+	@FXML
+	private TableColumn<DescarregamentoDTO, String> colDesEquipamento;
+	@FXML
+	private TableColumn<DescarregamentoDTO, String> colDesDataOrdem;
+	@FXML
+	private TableColumn<DescarregamentoDTO, DescarregamentoDTO> colDesAcao;
+
+
 	private final CarregamentoDTODAO cDTODAO = new CarregamentoDTODAO();
+	private final DescarregamentoDTODAO dDTODAO = new DescarregamentoDTODAO();
 
 	Config config = new Config();
 
@@ -70,12 +87,12 @@ public class ResultadosController implements Initializable {
 	public void initialize(final URL url, final ResourceBundle rb) {
 
 		configuracaoTabela();
-		carregarTabela();
+		carregarTabelaCarregamento();
+		carregarTabelaDescarregamento();
 
 		// PARA IMPORTAR ARQUIVO JSON
 		btnImportar.setOnAction((ActionEvent event) -> {
-			// SEQUENCIA DE PASSOS PARA ABRIR UMA CAIXA DE DIALOGO ESCOLHENDO O ARQUIVO DE
-			// EXTENSÃO JSON
+			// SEQUENCIA DE PASSOS PARA ABRIR UMA CAIXA DE DIALOGO ESCOLHENDO O ARQUIVO DE EXTENSÃO JSON
 			FileChooser escolherArquivo = new FileChooser();
 			escolherArquivo.setTitle("Selecione o arquivo JSON");
 			escolherArquivo.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON", "*.json"));
@@ -90,7 +107,7 @@ public class ResultadosController implements Initializable {
 
 				if (manipula.CarregaResultadoJson(arquivo)) {
 					config.caixaDialogo(Alert.AlertType.INFORMATION, "Resultados importados com sucesso!");
-					carregarTabela();
+					carregarTabelaCarregamento();
 				} else {
 					config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível importar o arquivo");
 				}
@@ -115,7 +132,6 @@ public class ResultadosController implements Initializable {
 			public void handle(ActionEvent event) {
 				DataEquipamentoEscolhaModalController controller = new DataEquipamentoEscolhaModalController(
 						DataEquipamentoEscolhaModalController.CARREGAMENTO_ORIGEM_XLS);
-//				Config config = new Config();
 				config.carregarAnchorPaneDialog("DataEquipamentoEscolhaModal", controller);
 			}
 		});
@@ -133,26 +149,44 @@ public class ResultadosController implements Initializable {
 	private void configuracaoTabela() {
 		colCarOrdem.setCellValueFactory(new PropertyValueFactory<CarregamentoDTO, String>("ordem"));
 		colCarEquipamento.setCellValueFactory(new PropertyValueFactory<CarregamentoDTO, String>("equipamento"));
-		colCarDataOrdem.setCellValueFactory(new PropertyValueFactory<CarregamentoDTO, String>("dataOrdem"));
+		colCarDataOrdem.setCellValueFactory(new PropertyValueFactory<CarregamentoDTO, String>("dataJson"));
 		colCarAcao.setCellFactory(new Callback<TableColumn<CarregamentoDTO, CarregamentoDTO>, TableCell<CarregamentoDTO, CarregamentoDTO>>() {
 			@Override
 			public TableCell<CarregamentoDTO, CarregamentoDTO> call(TableColumn<CarregamentoDTO, CarregamentoDTO> param) {
-				return new Botoes();
+				return new BotoesCarregamento();
 			}
 		});
+
+		colDesOrdem.setCellValueFactory(new PropertyValueFactory<DescarregamentoDTO, String>("ordem"));
+		colDesEquipamento.setCellValueFactory(new PropertyValueFactory<DescarregamentoDTO, String>("equipamento"));
+		colDesDataOrdem.setCellValueFactory(new PropertyValueFactory<DescarregamentoDTO, String>("dataJson"));
+		colDesAcao.setCellFactory(new Callback<TableColumn<DescarregamentoDTO, DescarregamentoDTO>, TableCell<DescarregamentoDTO, DescarregamentoDTO>>() {
+			@Override
+			public TableCell<DescarregamentoDTO, DescarregamentoDTO> call(TableColumn<DescarregamentoDTO, DescarregamentoDTO> param) {
+				return new BotoesDescarregamento();
+			}
+		});
+
 	}
 
-	private void carregarTabela() {
+	private void carregarTabelaCarregamento() {
 		if (!tvCarregamento.getItems().isEmpty()) {
 			tvCarregamento.getItems().clear();
 		}
 		tvCarregamento.getItems().addAll(cDTODAO.findCarregamentoDTO());
 	}
 
-	private class Botoes extends TableCell<CarregamentoDTO, CarregamentoDTO> {
+	private void carregarTabelaDescarregamento() {
+		if (!tvDescarregamento.getItems().isEmpty()) {
+			tvDescarregamento.getItems().clear();
+		}
+		tvDescarregamento.getItems().addAll(dDTODAO.findDescarregamentoDTO());
+	}
+
+	private class BotoesCarregamento extends TableCell<CarregamentoDTO, CarregamentoDTO> {
 		private Button btnExcluir;
 
-		public Botoes() {
+		public BotoesCarregamento() {
 			btnExcluir = new Button("Excluir");
 			btnExcluir.setOnAction((ActionEvent event) -> {
 				btnExcluirAction();
@@ -170,6 +204,37 @@ public class ResultadosController implements Initializable {
 
 		@Override
 		protected void updateItem(final CarregamentoDTO record, boolean empty) {
+			super.updateItem(record, empty);
+			if (!empty) {
+				btnExcluir.setText("Excluir");
+				setGraphic(btnExcluir);
+			} else {
+				setGraphic(null);
+			}
+		}
+	}
+
+	private class BotoesDescarregamento extends TableCell<DescarregamentoDTO, DescarregamentoDTO> {
+		private Button btnExcluir;
+
+		public BotoesDescarregamento() {
+			btnExcluir = new Button("Excluir");
+			btnExcluir.setOnAction((ActionEvent event) -> {
+				btnExcluirAction();
+			});
+		}
+
+		private void btnExcluirAction() {
+			try {
+				new DescarregamentoDAO().removerDescarregamento(tvDescarregamento.getItems().get(getTableRow().getIndex()).getOrdem());
+				tvDescarregamento.getItems().remove(getTableRow().getIndex());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		protected void updateItem(final DescarregamentoDTO record, boolean empty) {
 			super.updateItem(record, empty);
 			if (!empty) {
 				btnExcluir.setText("Excluir");

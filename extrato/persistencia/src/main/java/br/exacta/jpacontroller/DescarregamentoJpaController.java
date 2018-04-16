@@ -98,6 +98,25 @@ public class DescarregamentoJpaController implements Serializable {
         }
     }
 
+    public void destroy(String ordem) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            StringBuilder stringBuilder = new StringBuilder(" delete from Descarregamento c where c.rdgOrdem = :ordem ");
+            Query query = em.createQuery(stringBuilder.toString(), Descarregamento.class);
+            query.setParameter("ordem", ordem);
+            query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException enfe) {
+            throw new NonexistentEntityException("The descarregamento with ordem " + ordem + " no longer exists.", enfe);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
     public List<Descarregamento> findDescarregamentoEntities() {
         return findDescarregamentoEntities(true, -1, -1);
     }

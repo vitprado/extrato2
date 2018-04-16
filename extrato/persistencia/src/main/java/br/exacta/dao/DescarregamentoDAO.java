@@ -34,51 +34,31 @@ public class DescarregamentoDAO {
     /* CRUD - CREATE, READ, UPDATE e DELETE, respectivamente serão aqui tratados como:
             - ADICIONAR, LISTAR, EDITAR, E REMOVER
      */
-    // ADICIONAR 
-    /**
-     *
-     * @param curral
-     * @throws Exception
-     */
+    // ADICIONAR
     public void adicionarDescarregamento(Descarregamento descarregamento) throws Exception {
         descarregamentoController.create(descarregamento);
     }
 
-    // EDITAR 
-    /**
-     *
-     * @param curral
-     * @throws Exception
-     */
+    // EDITAR
     public void editarDescarregamento(Descarregamento descarregamento) throws Exception {
         descarregamentoController.edit(descarregamento);
     }
 
-    // REMOVER 
-    /**
-     *
-     * @param id
-     * @throws java.lang.Exception
-     */
+    // REMOVER
     public void removerDescarregamento(int id) throws Exception {
         descarregamentoController.destroy(id);
     }
 
+    public void removerDescarregamento(String ordem) throws Exception {
+        descarregamentoController.destroy(ordem);
+    }
+
     // LISTAR TODOS
-    /**
-     *
-     * @return
-     */
     public List<Descarregamento> getTodosDescarregamentos() {
         return descarregamentoController.findDescarregamentoEntities();
     }
 
     // LISTAR POR ID
-    /**
-     *
-     * @param id
-     * @return
-     */
     public Descarregamento getDescarregamentolId(int id) {
         return descarregamentoController.findDescarregamento(id);
     }
