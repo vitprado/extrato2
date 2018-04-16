@@ -10,7 +10,9 @@ import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Receita;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import br.exacta.persistencia.ReceitaTemIngredientes;
 import java.util.ArrayList;
@@ -141,6 +143,22 @@ public class ReceitaJpaController implements Serializable {
         try {
             Query query;
             query = em.createNativeQuery("select DISTINCT RCT_NOME from RECEITA");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Receita> findReceitaEntitiesAtiva() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaBuilder cb  = em.getCriteriaBuilder();
+            CriteriaQuery<Receita> q = cb.createQuery(Receita.class);
+            Root<Receita> c = q.from(Receita.class);
+            ParameterExpression<Boolean> p = cb.parameter(Boolean.class);
+            q.select(c).where(cb.equal(c.get("rctAtivo"), p));
+            TypedQuery<Receita> query = em.createQuery(q);
+            query.setParameter(p, true);
             return query.getResultList();
         } finally {
             em.close();

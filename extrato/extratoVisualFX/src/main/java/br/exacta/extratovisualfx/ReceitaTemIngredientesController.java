@@ -15,11 +15,14 @@ import br.exacta.persistencia.ReceitaTemIngredientes;
 import br.exacta.persistencia.ReceitaTemIngredientesPK;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -51,17 +54,24 @@ public class ReceitaTemIngredientesController implements Initializable {
     @FXML
     private Button btnSalvarLista;
     @FXML
-    private TableView<ReceitaTemIngredientes> ltvDados = new TableView<>();
+    private TableView<ReceitaTemIngredientes> tvDados = new TableView<>();
     @FXML
     private TableColumn<ReceitaTemIngredientes, String> colIngrediente = new TableColumn<>();
     @FXML
     private TableColumn<ReceitaTemIngredientes, Integer> colProporcao = new TableColumn<>();
+    @FXML
+    private Label lbMensagem;
+    @FXML
+    private Label lbPorcentagem;
+
+    private Stage stage;
 
     private final ObservableList<Ingredientes> comboIngredientes = FXCollections.observableArrayList();
     private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
     private final ObservableList<ReceitaTemIngredientes> listaReceitaTemIngredientes = FXCollections.observableArrayList();
     private final ReceitaTemIngredientesDAO receitaTemIngredientesDAO = new ReceitaTemIngredientesDAO();
     private ReceitaDAO receitaDAO = new ReceitaDAO();
+    private Integer porcentagemTotal;
 
     private final Receita receita;
 
@@ -82,7 +92,8 @@ public class ReceitaTemIngredientesController implements Initializable {
 
         // PARA O LISTVIEW
         listaReceitaTemIngredientes.addAll(receita.getReceitaTemIngredientesList());
-        ltvDados.setItems(listaReceitaTemIngredientes);
+        tvDados.setItems(listaReceitaTemIngredientes);
+        verificaProporcao();
 
         // ADICIONAR  
         btnAdicionarLista.setOnAction(event -> {
@@ -102,6 +113,7 @@ public class ReceitaTemIngredientesController implements Initializable {
 
                 listaReceitaTemIngredientes.add(novo);
                 txtProporcao.clear();
+                verificaProporcao();
             } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "PREENCHA TODOS OS CAMPOS!");
             }
@@ -109,15 +121,23 @@ public class ReceitaTemIngredientesController implements Initializable {
 
         // REMOVER 
         btnRemoverLista.setOnAction(event -> {
-            ReceitaTemIngredientes itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
+            ReceitaTemIngredientes itemSelecionado = tvDados.getSelectionModel().getSelectedItem();
             if (itemSelecionado != null) {
                 listaReceitaTemIngredientes.remove(itemSelecionado);
             }
+            verificaProporcao();
         });
 
         btnSalvarLista.setOnAction(event -> {
             try {
-                validaProporcao();
+                if (porcentagemTotal < 100){
+                    Config.caixaDialogoMedio(Alert.AlertType.INFORMATION, "A RECEITA SERÁ SALVA, MAS SOMENTE ESTARÁ ATIVA QUANDO FOR REVISADA E A SOMA DAS PROPORÇÕES TOTALIZAR 100%.");
+                    receita.setRctAtivo(false);
+                    receitaDAO.editarReceita(receita);
+                } else {
+                    receita.setRctAtivo(true);
+                    receitaDAO.editarReceita(receita);
+                }
 
                 receitaTemIngredientesDAO.removeByReceita(receita.getRctCodigo());
                 for (ReceitaTemIngredientes receitaTemIngredientes : listaReceitaTemIngredientes) {
@@ -129,8 +149,6 @@ public class ReceitaTemIngredientesController implements Initializable {
                 receitaDAO.editarReceita(receita);
 
                 Config.caixaDialogo(Alert.AlertType.INFORMATION, "DADOS GRAVADOS COM SUCESSO!");
-            } catch (IllegalArgumentException ei) {//TODO criar exception específica
-                Config.caixaDialogo(Alert.AlertType.WARNING, "A soma dos valores das proporções precisam ser 100%!");
             } catch (Exception e) {
                 Logger.getLogger(ReceitaTemIngredientesController.class.getName()).log(Level.SEVERE, null, e);
                 Config.caixaDialogo(Alert.AlertType.WARNING, "OPSS, PROBLEMAS RELACIONADOS AO BANCO DE DADOS!");
@@ -138,10 +156,18 @@ public class ReceitaTemIngredientesController implements Initializable {
         });
     }
 
-    private void validaProporcao() {
-        int proporcaoTotal = ltvDados.getItems().stream().mapToInt(ReceitaTemIngredientes::getRtiProporcao).sum();
-        if (proporcaoTotal != 100) {
-            throw new IllegalArgumentException();
+    private void verificaProporcao() {
+        porcentagemTotal = tvDados.getItems().stream().mapToInt(ReceitaTemIngredientes::getRtiProporcao).sum();
+        lbPorcentagem.setText("Total: "+String.valueOf(porcentagemTotal)+ "%");
+        if (porcentagemTotal > 100){
+            lbMensagem.setText("A soma das proporções não pode ultrapassar os 100%. Corrija a receita para poder salvar.");
+            btnSalvarLista.setDisable(true);
+        } else if (porcentagemTotal < 100){
+            lbMensagem.setText("Ainda tem sobrando mais " + String.valueOf(100-porcentagemTotal)+"%");
+            btnSalvarLista.setDisable(false);
+        } else {
+            lbMensagem.setText("A receita pode ser salva e utilizada sem problemas!");
+            btnSalvarLista.setDisable(false);
         }
     }
 
@@ -171,6 +197,25 @@ public class ReceitaTemIngredientesController implements Initializable {
     private void carregaTabela() {
         colIngrediente.setCellValueFactory(new PropertyValueFactory<>("IngredienteNome"));
         colProporcao.setCellValueFactory(new PropertyValueFactory<>("rtiProporcao"));
+    }
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if (porcentagemTotal > 100){
+                    if (Config.caixaDialogoCondicional("O CADASTRO DESTA RECEITA SERÁ PERDIDO. DESEJA REALMENTE FINALIZAR O CADASTRO?")){
+                        stage.close();
+                    }
+                    event.consume();
+                }
+            }
+        });
+        this.stage.showAndWait();
     }
 
 }

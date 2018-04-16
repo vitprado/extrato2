@@ -38,6 +38,8 @@ public class Receita implements Serializable {
     @Column(name = "RCT_DATA_CADASTRO")
     @Temporal(TemporalType.DATE)
     private Date rctDataCadastro;
+    @Column(name = "RCT_ATIVO")
+    private Boolean rctAtivo;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "receita")
     private List<ReceitaTemIngredientes> receitaTemIngredientesList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "receita")
@@ -77,6 +79,14 @@ public class Receita implements Serializable {
 
     public void setRctDataCadastro(Date rctDataCadastro) {
         this.rctDataCadastro = rctDataCadastro;
+    }
+
+    public Boolean getRctAtivo() {
+        return rctAtivo;
+    }
+
+    public void setRctAtivo(Boolean rctAtivo) {
+        this.rctAtivo = rctAtivo;
     }
 
     @XmlTransient

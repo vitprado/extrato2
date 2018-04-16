@@ -118,7 +118,7 @@ public class InserirTratoController implements Initializable {
     }
 
     private void componentes() {
-        observableReceitas.addAll(receitaDAO.getTodoReceitas());
+        observableReceitas.addAll(receitaDAO.getTodaReceitaAtiva());
         cbbReceitas.setItems(observableReceitas);
 
         cbbReceitas.setConverter(new StringConverter<Receita>() {

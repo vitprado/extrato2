@@ -1,14 +1,17 @@
 package br.exacta.config;
 
+import br.exacta.extratovisualfx.ReceitaTemIngredientesController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Config {
 
@@ -37,6 +40,28 @@ public class Config {
         alert.initStyle(StageStyle.UTILITY);
         alert.setTitle("MENSAGEM DO SISTEMA");
         alert.showAndWait();
+    }
+
+    public static void caixaDialogoMedio(Alert.AlertType alertType, String s) {
+        Alert alert = new Alert(alertType, s);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setResizable(false);
+        alert.setHeight(200.0d);
+        alert.setWidth(400.0d);
+        alert.getDialogPane().setMinSize(400.0d, 200.0d);
+        alert.setTitle("MENSAGEM DO SISTEMA");
+        alert.showAndWait();
+    }
+
+    public static Boolean caixaDialogoCondicional(String s) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, s);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("MENSAGEM DO SISTEMA");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
     }
 
     public void carregarAnchorPane(AnchorPane ap, String str) {
@@ -96,12 +121,37 @@ public class Config {
         }
     }
 
+    public void carregarAnchorPaneStage(String str, Object controller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + str + ".fxml"));
+        loader.setController(controller);
+        try {
+            AnchorPane anchorPane = loader.load();
+
+            anchorPane.getStylesheets().add("/css/default.css");
+            anchorPane.getStylesheets().add("/css/custom.css");
+            ((ReceitaTemIngredientesController) controller).setStage(getShowDialog(anchorPane));
+
+            Config.changeScreen(str, controller);
+            System.out.println("GUI: " + str + ", Dados da GUI: " + controller);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showDialog(AnchorPane anchorPane) {
         Stage stage = new Stage();
         Scene caixaDialogo = new Scene(anchorPane);
         stage.setScene(caixaDialogo);
         stage.setResizable(false);
         stage.showAndWait();
+    }
+
+    public Stage getShowDialog(AnchorPane anchorPane) {
+        Stage stage = new Stage();
+        Scene caixaDialogo = new Scene(anchorPane);
+        stage.setScene(caixaDialogo);
+        stage.setResizable(false);
+        return stage;
     }
 
     public static void changeScreen(String src, Object userData) {

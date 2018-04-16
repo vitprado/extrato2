@@ -97,6 +97,7 @@ public class ReceitaListaController implements Initializable {
             if (!txtNome.getText().trim().isEmpty()) {
                 Receita novo = new Receita();
                 novo.setRctNome(txtNome.getText());
+                novo.setRctAtivo(false);
                 novo.setRctDataCadastro(d.getTime());
                 novo.setReceitaTemIngredientesList(new ArrayList<>());
 
@@ -117,7 +118,7 @@ public class ReceitaListaController implements Initializable {
                     String strTela = "ReceitaTemIngredientes";
                     Config config = new Config();
                     ReceitaTemIngredientesController receitaTemIngredientesController = new ReceitaTemIngredientesController(itemSelecionado);
-                    config.carregarAnchorPaneDialog(strTela, receitaTemIngredientesController);
+                    config.carregarAnchorPaneStage(strTela, receitaTemIngredientesController);
 
                     listaReceita.clear();
                     listaReceita.addAll(receitaDAO.getTodoReceitas());

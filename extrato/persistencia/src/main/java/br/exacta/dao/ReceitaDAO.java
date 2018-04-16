@@ -86,4 +86,5 @@ public class ReceitaDAO {
         return receitaController.findNameReceitasDistinct();
     }
 
+    public List<Receita> getTodaReceitaAtiva() { return receitaController.findReceitaEntitiesAtiva(); }
 }
