@@ -68,6 +68,7 @@
                 </GridPane>
                 <TableView fx:id="tvIngredientes" VBox.vgrow="SOMETIMES">
                     <columns>
+                        <TableColumn fx:id="colDescricao" prefWidth="200.0" text="Descrição"/>
                         <TableColumn fx:id="colAbreviacao" prefWidth="200.0" text="Abreviação"/>
                         <TableColumn fx:id="colTolerancia" prefWidth="200.0" text="Tolerancia"/>
                     </columns>
