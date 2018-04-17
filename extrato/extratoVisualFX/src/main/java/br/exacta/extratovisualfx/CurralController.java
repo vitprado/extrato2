@@ -115,7 +115,7 @@ public class CurralController implements Initializable {
             }
             if (listaCurral.add(novo)) {
                 txtNome.setText("");
-                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
+                //Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral salvo com sucesso!");
             } else {
                 Config.caixaDialogo(Alert.AlertType.ERROR, "Não foi possível cadastrar o curral");
             }
