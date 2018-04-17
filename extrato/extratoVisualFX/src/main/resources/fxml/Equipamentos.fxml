@@ -37,7 +37,7 @@
                         </Text>
                         <TextField fx:id="txtDescricao" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                        <Text fx:id="lblCapacidade" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade:" GridPane.rowIndex="1">
+                        <Text fx:id="lblCapacidade" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade [kg]:" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Segoe UI Semilight" size="16.0" />
                             </font>
@@ -54,8 +54,11 @@
                 <TableView fx:id="tvEquipamentos" VBox.vgrow="SOMETIMES">
                     <columns>
                         <TableColumn fx:id="colDescricao" prefWidth="300" text="Identificação" />
-                        <TableColumn fx:id="colCapacidade" prefWidth="200" text="Capacidade" />
+                        <TableColumn fx:id="colCapacidade" prefWidth="200" text="Capacidade [kg]" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>
