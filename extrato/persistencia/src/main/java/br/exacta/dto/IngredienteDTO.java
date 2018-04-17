@@ -7,17 +7,31 @@ import javafx.beans.property.SimpleStringProperty;
 public class IngredienteDTO {
 
     private Ingredientes ingrediente;
+    private SimpleStringProperty descricao;
     private SimpleStringProperty abreviacao;
     private SimpleIntegerProperty tolerancia;
 
     public IngredienteDTO(Ingredientes ingrediente) {
         this.ingrediente = ingrediente;
+        this.descricao = new SimpleStringProperty(ingrediente.getIngNome());
         this.abreviacao = new SimpleStringProperty(ingrediente.getIngAbreviacao());
         this.tolerancia = new SimpleIntegerProperty(ingrediente.getIngTolerancia());
     }
 
     public Ingredientes getIngrediente() {
         return ingrediente;
+    }
+
+    public String getDescricao() {
+        return descricao.get();
+    }
+
+    public SimpleStringProperty descricaoProperty() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao.set(descricao);
     }
 
     public void setIngrediente(Ingredientes ingrediente) {

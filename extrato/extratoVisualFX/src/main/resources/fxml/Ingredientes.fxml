@@ -68,8 +68,8 @@
                 </GridPane>
                 <TableView fx:id="tvIngredientes" VBox.vgrow="SOMETIMES">
                     <columns>
-                        <TableColumn fx:id="colAbreviacao" prefWidth="200.0" text="Abreviação" />
-                        <TableColumn fx:id="colTolerancia" prefWidth="200.0" text="Tolerancia [%]" />
+                        <TableColumn fx:id="colAbreviacao" prefWidth="200.0" text="Abreviação"/>
+                        <TableColumn fx:id="colTolerancia" prefWidth="200.0" text="Tolerancia"/>
                     </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

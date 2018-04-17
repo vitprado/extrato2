@@ -20,6 +20,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -105,6 +106,10 @@ public class ListaCurraisOrdemController implements Initializable {
         observableCurrais.addAll(todosCurrais);
         FilteredList<Curral> filteredItems = new FilteredList(observableCurrais, p -> true);
 
+        cbbCurrais.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            cbbCurrais.show();
+        });
+
         cbbCurrais.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             final TextField editor = cbbCurrais.getEditor();
             final Curral selected = cbbCurrais.getSelectionModel().getSelectedItem();
@@ -130,7 +135,6 @@ public class ListaCurraisOrdemController implements Initializable {
                 if (!Objects.isNull(object)) {
                     return object.getCurDescricao();
                 }
-
                 return "";
             }
 

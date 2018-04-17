@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.StageStyle;
 
 import java.net.URL;
@@ -57,6 +59,18 @@ public class EquipamentosController implements Initializable {
         btnRemover.setOnAction((ActionEvent event) -> {
             btnRemoverAction();
         });
+
+        txtDescricao.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                btnSalvarAction();
+            }
+        });
+
+        txtCapacidade.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                btnSalvarAction();
+            }
+        });
     }
 
     private void carregaComponentes() {
@@ -88,7 +102,10 @@ public class EquipamentosController implements Initializable {
             } catch (Exception ex) {
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            msgSistema("É necessário o preenchimento de todos os campos para o cadastro!");
         }
+
     }
 
     private void btnRemoverAction() {
@@ -98,14 +115,18 @@ public class EquipamentosController implements Initializable {
                 equipamentoDAO.removerEquipamento(itemSelecionado.getEquipamento().getEqpCodigo());
                 tvEquipamentos.getItems().remove(itemSelecionado);
             } catch (Exception ex) {
-                Alert alert;
-                alert = new Alert(Alert.AlertType.ERROR, "Este equipamento contem ordem de produção registrata! \n" +
+                msgSistema("Este equipamento contem ordem de produção registrata! \n" +
                         "Por favor, remova todas as ordens de produção deste equipamento antes.");
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("MENSAGEM DO SISTEMA");
-                alert.showAndWait();
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void msgSistema(String msg) {
+        Alert alert;
+        alert = new Alert(Alert.AlertType.ERROR, msg);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.setTitle("MENSAGEM DO SISTEMA");
+        alert.showAndWait();
     }
 }

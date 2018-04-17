@@ -1,6 +1,8 @@
 package br.exacta.dto;
 
+import br.exacta.dao.OrdemProcucaoDAO;
 import br.exacta.jpacontroller.ConsultaOrdemJpaController;
+import br.exacta.persistencia.OrdemProducao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -68,11 +70,17 @@ public class ConsultaOrdemDTODAO {
     private void preencherOrdemTrato(ConsultaOrdemDTO novaConsultaOrdem) {
         for (Integer ordem : novaConsultaOrdem.getListOrdCodigo()) {
             List<OrdemTratosDTO> listOrdemTrato = jpaController.findOrdemTrato(ordem);
-            if (listOrdemTrato.isEmpty())
-                break;
-            OrdemTratosDTO novaOrdemTrato = new OrdemTratosDTO(
-                    listOrdemTrato.get(0).getOrdemproducao(),
-                    listOrdemTrato.get(0).getNtratos());
+            OrdemTratosDTO novaOrdemTrato;
+            if (listOrdemTrato.isEmpty()) {
+                OrdemProducao ordemProducao = new OrdemProcucaoDAO().getOrdemProcucao(ordem);
+                novaOrdemTrato = new OrdemTratosDTO(
+                        ordemProducao.getOrdDescricao(),
+                        ordemProducao.getTratos().size());
+            } else {
+                novaOrdemTrato = new OrdemTratosDTO(
+                        listOrdemTrato.get(0).getOrdemproducao(),
+                        listOrdemTrato.get(0).getNtratos());
+            }
             Boolean primeiraVez = true;
             for (OrdemTratosDTO ordemTratosDTO : listOrdemTrato) {
                 novaOrdemTrato.getListTrtCodigo().add(ordemTratosDTO.getTrtCodigo());
@@ -136,7 +144,7 @@ public class ConsultaOrdemDTODAO {
 
             Integer pesoTotalComProporcao = pesoTotal * receitaIngrediente.getProporcao() / 100;
 
-            Integer tolerancia  =  pesoTotalComProporcao * receitaIngrediente.getTolerancia() / 100;
+            Integer tolerancia = pesoTotalComProporcao * receitaIngrediente.getTolerancia() / 100;
 
             novaOrdemTrato.getTolerancias().get(novaOrdemTrato.getTolerancias().size() - 1).add(tolerancia.toString());
             novaOrdemTrato.getPesosrequisitados().get(novaOrdemTrato.getPesosrequisitados().size() - 1).add(String.valueOf(pesoTotalComProporcao));
