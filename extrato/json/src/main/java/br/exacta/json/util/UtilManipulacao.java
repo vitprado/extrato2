@@ -108,9 +108,9 @@ public class UtilManipulacao {
 					pesosrealizadosJ = ordemObj.getJsonArray("pesosrealizados");
 
 					// Le cada trato
-					for (int ntrt = 1; ntrt < (ntratos+1); ntrt++) {
+					for (int ntrt = 0; ntrt < ntratos; ntrt++) {
 
-						System.out.println("Trato: " + (ntrt));
+						System.out.println("Trato: " + (ntrt+1));
 
 						// Receita do trato
 						String receita = receitaJ.getString(ntrt);
@@ -128,10 +128,10 @@ public class UtilManipulacao {
 							// DEBUG
 							// System.out.println("Ingrediente: " + ingrediente + " - Requisitado: " + car_requisitado + " - Realizados: " + car_realizado);
 
-							// Grava descarregamento no banco de dados
+							// Grava carregamento no banco de dados
 							Carregamento car = new Carregamento();
 							car.setRdcOrdem(ordemproducao);
-							car.setRdcNumtrato(ntrt);
+							car.setRdcNumtrato(ntrt+1);
 							car.setRdcEquipamento(equipamento);
 							car.setRdcDataJson(data);
 							car.setRdcReceita(receita);
@@ -164,7 +164,7 @@ public class UtilManipulacao {
 							// Grava descarregamento no banco de dados
 							Descarregamento des = new Descarregamento();
 							des.setRdgOrdem(ordemproducao);
-							des.setRdgNumtrato(ntrt);
+							des.setRdgNumtrato(ntrt+1);
 							des.setRdgEquipamento(equipamento);
 							des.setRdgDatajson(data);
 							des.setRdgCurral(curral);
