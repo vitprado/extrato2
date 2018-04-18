@@ -108,9 +108,9 @@ public class UtilManipulacao {
 					pesosrealizadosJ = ordemObj.getJsonArray("pesosrealizados");
 
 					// Le cada trato
-					for (int ntrt = 0; ntrt < ntratos; ntrt++) {
+					for (int ntrt = 1; ntrt < (ntratos+1); ntrt++) {
 
-						System.out.println("Trato: " + (ntrt + 1));
+						System.out.println("Trato: " + (ntrt));
 
 						// Receita do trato
 						String receita = receitaJ.getString(ntrt);
