@@ -145,6 +145,7 @@ public class ConsultaOrdemJpaController {
                 " , c.curDescricao " +
                 " , it.ittPeso) " +
                 " FROM ItemTrato it JOIN Curral c " +
+                " WHERE it.curral.curCodigo = c.curCodigo AND it.trato.trtCodigo = '%s' " +
                 " ORDER BY it.ittSequencia", trtCodigo.toString(), trtCodigo.toString()));
 
         return stringBuilder.toString();
