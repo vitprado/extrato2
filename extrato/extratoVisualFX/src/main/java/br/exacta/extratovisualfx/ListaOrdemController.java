@@ -196,7 +196,7 @@ public class ListaOrdemController implements Initializable {
             String NUMERO_ORDEM;
             OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
 
-            NUMERO_ORDEM = ANO + "-" + String.valueOf(ordemProcucaoDAO.countOrdemProcucao() + 1);
+            NUMERO_ORDEM = ANO + "-" + String.valueOf(ordemProcucaoDAO.getOrdemProcucaoMaxNum() + 1);
             return NUMERO_ORDEM;
         }
 

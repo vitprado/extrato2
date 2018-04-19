@@ -30,4 +30,7 @@ public class OrdemProcucaoDAO {
     public int countOrdemProcucao(){ return ordemProcucaoController.getOrdemProcucaoCount();}
 
     public List<OrdemProducao> findAllOrdemProcucao() { return ordemProcucaoController.findOrdemProducaoEntities();}
+
+    public int getOrdemProcucaoMaxNum(){ return ordemProcucaoController.getOrdemProcucaoMaxNum();}
+
 }

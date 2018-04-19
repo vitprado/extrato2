@@ -147,5 +147,22 @@ public class OrdemProcucaoJpaController implements Serializable {
     }
 
     public List<OrdemProducao> findOrdemProducaoEntities() { return findOrdemProcucaoEntities(true, -1, -1);}
-    
+
+
+    public int getOrdemProcucaoMaxNum() {
+        EntityManager em = getEntityManager();
+        try {
+
+            em.getTransaction().begin();
+            Query nativeQuery = em.createNativeQuery("SELECT CAST(cod_int as int) as cod_int from "
+            		+ "(select SUBSTR(ORD_DESCRICAO, 6) as cod_int from "
+            		+ "ORDEM_PRODUCAO) as tabela_aux order by cod_int DESC FETCH FIRST 1 ROWS ONLY");
+
+            return (int) nativeQuery.getSingleResult();
+            
+        } finally {
+            em.close();
+        }
+
+    }
 }
