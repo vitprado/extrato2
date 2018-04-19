@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 public abstract class RelatorioXLS<T> {
@@ -49,7 +50,16 @@ public abstract class RelatorioXLS<T> {
 
     Boolean salvaNoCaminho(XSSFWorkbook workbook, File file) {
         try {
-            FileOutputStream outputStream = new FileOutputStream(String.format("%s/%s", file.getPath(), filename));
+        	
+        	Calendar c = Calendar.getInstance();
+            int ANO = c.get(Calendar.YEAR);
+            int MES = c.get(Calendar.MONTH);
+            int DIA = c.get(Calendar.DAY_OF_MONTH);
+            int HORA = c.get(Calendar.HOUR_OF_DAY);
+            int MIN = c.get(Calendar.MINUTE);
+            int SEG = c.get(Calendar.SECOND);
+
+            FileOutputStream outputStream = new FileOutputStream(String.format("%s/%s", file.getPath(), String.format("%s%s%s_%s%s%s_%s", String.format("%02d",ANO), String.format("%02d",MES), String.format("%02d",DIA), String.format("%02d",HORA), String.format("%02d",MIN), String.format("%02d",SEG), filename)));
             workbook.write(outputStream);
             workbook.close();
             return true;
