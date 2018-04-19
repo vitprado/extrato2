@@ -142,9 +142,9 @@ public class ConsultaOrdemDTODAO {
         for (ReceitaIngredienteDTO receitaIngrediente : listReceitaIngrediente) {
             novaOrdemTrato.getIngredientes().get(novaOrdemTrato.getIngredientes().size() - 1).add(receitaIngrediente.getIngrediente());
 
-            Integer pesoTotalComProporcao = pesoTotal * receitaIngrediente.getProporcao() / 100;
+            Double pesoTotalComProporcao = (pesoTotal * receitaIngrediente.getProporcao()) / 100;
 
-            Integer tolerancia = pesoTotalComProporcao * receitaIngrediente.getTolerancia() / 100;
+            Double tolerancia = (pesoTotalComProporcao * receitaIngrediente.getTolerancia()) / 100;
 
             novaOrdemTrato.getTolerancias().get(novaOrdemTrato.getTolerancias().size() - 1).add(tolerancia.toString());
             novaOrdemTrato.getPesosrequisitados().get(novaOrdemTrato.getPesosrequisitados().size() - 1).add(String.valueOf(pesoTotalComProporcao));

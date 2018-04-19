@@ -41,7 +41,7 @@ public class ReceitaTemIngredientes implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date rtiData;
     @Column(name = "RTI_PROPORCAO")
-    private Integer rtiProporcao;
+    private Double rtiProporcao;
     @JoinColumn(name = "ING_CODIGO", referencedColumnName = "ING_CODIGO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ingredientes ingredientes;
@@ -76,11 +76,11 @@ public class ReceitaTemIngredientes implements Serializable {
         this.rtiData = rtiData;
     }
 
-    public Integer getRtiProporcao() {
+    public Double getRtiProporcao() {
         return rtiProporcao;
     }
 
-    public void setRtiProporcao(Integer rtiProporcao) {
+    public void setRtiProporcao(Double rtiProporcao) {
         this.rtiProporcao = rtiProporcao;
     }
 

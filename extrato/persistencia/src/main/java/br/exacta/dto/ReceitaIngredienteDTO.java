@@ -5,19 +5,19 @@ public class ReceitaIngredienteDTO {
     private String receita;
     private String ingrediente;
     private Integer tolerancia;
-    private Integer proporcao;
+    private Double proporcao;
 
     public ReceitaIngredienteDTO() {
     }
 
-    public ReceitaIngredienteDTO(String receita, String ingrediente, Integer proporcao) {
+    public ReceitaIngredienteDTO(String receita, String ingrediente, Double proporcao) {
         this();
         this.receita = receita;
         this.ingrediente = ingrediente;
         this.proporcao = proporcao;
     }
     
-    public ReceitaIngredienteDTO(String receita, String ingrediente, Integer tolerancia, Integer proporcao) {
+    public ReceitaIngredienteDTO(String receita, String ingrediente, Integer tolerancia, Double proporcao) {
         this();
         this.receita = receita;
         this.ingrediente = ingrediente;
@@ -49,11 +49,11 @@ public class ReceitaIngredienteDTO {
         this.tolerancia = tolerancia;
     }
 
-    public Integer getProporcao() {
+    public Double getProporcao() {
         return proporcao;
     }
 
-    public void setProporcao(Integer proporcao) {
+    public void setProporcao(Double proporcao) {
         this.proporcao = proporcao;
     }
 }

@@ -71,7 +71,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     private final ObservableList<ReceitaTemIngredientes> listaReceitaTemIngredientes = FXCollections.observableArrayList();
     private final ReceitaTemIngredientesDAO receitaTemIngredientesDAO = new ReceitaTemIngredientesDAO();
     private ReceitaDAO receitaDAO = new ReceitaDAO();
-    private Integer porcentagemTotal;
+    private Double porcentagemTotal;
 
     private final Receita receita;
 
@@ -108,7 +108,7 @@ public class ReceitaTemIngredientesController implements Initializable {
                 novo.setReceitaTemIngredientesPK(new ReceitaTemIngredientesPK(receita.getRctCodigo(), ingredienteSelecionado.getIngCodigo()));
                 novo.setReceita(receita);
                 novo.setIngredientes(ingredienteSelecionado);
-                novo.setRtiProporcao(Integer.parseInt(txtProporcao.getText()));
+                novo.setRtiProporcao(Double.parseDouble(txtProporcao.getText()));
                 novo.setRtiData(Calendar.getInstance().getTime());
 
                 listaReceitaTemIngredientes.add(novo);
@@ -157,7 +157,7 @@ public class ReceitaTemIngredientesController implements Initializable {
     }
 
     private void verificaProporcao() {
-        porcentagemTotal = tvDados.getItems().stream().mapToInt(ReceitaTemIngredientes::getRtiProporcao).sum();
+        porcentagemTotal = tvDados.getItems().stream().mapToDouble(ReceitaTemIngredientes::getRtiProporcao).sum();
         lbPorcentagem.setText("Total: "+String.valueOf(porcentagemTotal)+ "%");
         if (porcentagemTotal > 100){
             lbMensagem.setText("A soma das proporções não pode ultrapassar os 100%. Corrija a receita para poder salvar.");
