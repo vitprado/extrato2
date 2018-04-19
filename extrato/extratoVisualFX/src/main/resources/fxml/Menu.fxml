@@ -185,7 +185,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TitledPane>
-                <Button fx:id="btnSuporte" alignment="TOP_LEFT" maxWidth="230.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" text="Suporte">                     
+                <Button fx:id="btnSuporte" alignment="TOP_LEFT" disable="true" maxWidth="230.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="230.0" text="Suporte" visible="false">                     
                     <VBox.margin>                        
                         <Insets top="10.0" />                     
                     </VBox.margin>

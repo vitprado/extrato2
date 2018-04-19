@@ -27,7 +27,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificação" GridPane.rowIndex="0">
+                        <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificação:" GridPane.rowIndex="0">
                             <font>
                                 <Font name="Segoe UI Semilight" size="16.0" />
                             </font>

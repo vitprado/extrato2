@@ -115,6 +115,7 @@ public class IngredientesController implements Initializable {
                 txtDescricao.setText("");
                 txtAbreviacao.setText("");
                 txtTolerancia.setText("");
+                txtDescricao.requestFocus();
             } catch (Exception ex) {
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -131,7 +132,7 @@ public class IngredientesController implements Initializable {
                 tvIngredientes.getItems().remove(itemSelecionado);
             } catch (Exception ex) {
                 msgSistema("Este ingrediente esta em uma receita registrata! \n " +
-                        "Por favor, remova este ingrediente de todas as receitas que faça parte antes.");
+                        "Por favor, remova este ingrediente de todas as receitas antes.");
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

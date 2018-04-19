@@ -99,6 +99,8 @@ public class EquipamentosController implements Initializable {
                 tvEquipamentos.getItems().add(new EquipamentoDTO(novo));
                 txtDescricao.setText("");
                 txtCapacidade.setText("");
+                txtDescricao.requestFocus();
+                
             } catch (Exception ex) {
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
             }

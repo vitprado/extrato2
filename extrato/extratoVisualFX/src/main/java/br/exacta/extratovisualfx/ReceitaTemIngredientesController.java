@@ -160,10 +160,10 @@ public class ReceitaTemIngredientesController implements Initializable {
         porcentagemTotal = tvDados.getItems().stream().mapToDouble(ReceitaTemIngredientes::getRtiProporcao).sum();
         lbPorcentagem.setText("Total: "+String.valueOf(porcentagemTotal)+ "%");
         if (porcentagemTotal > 100){
-            lbMensagem.setText("A soma das proporções não pode ultrapassar os 100%. Corrija a receita para poder salvar.");
+            lbMensagem.setText("A soma das proporções não pode ultrapassar 100%. Corrija a receita para poder salvar.");
             btnSalvarLista.setDisable(true);
         } else if (porcentagemTotal < 100){
-            lbMensagem.setText("Ainda tem sobrando mais " + String.valueOf(100-porcentagemTotal)+"%");
+            lbMensagem.setText("Ainda faltam " + String.valueOf(100-porcentagemTotal)+"%");
             btnSalvarLista.setDisable(false);
         } else {
             lbMensagem.setText("A receita pode ser salva e utilizada sem problemas!");
