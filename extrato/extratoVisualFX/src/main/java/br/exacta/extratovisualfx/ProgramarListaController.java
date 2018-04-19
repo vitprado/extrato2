@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -142,8 +143,15 @@ public class ProgramarListaController implements Initializable {
             File file = directoryChooser.showDialog(null);
 
             try {
+            	Calendar c = Calendar.getInstance();
+                int ANO = c.get(Calendar.YEAR);
+                int MES = c.get(Calendar.MONTH);
+                int DIA = c.get(Calendar.DAY_OF_MONTH);
+                
+                String filename = String.format("/%s%s%s_%s_prog.json", String.format("%02d",ANO), String.format("%02d",MES), String.format("%02d",DIA), cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
+
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.writeValue(new FileOutputStream(file.getPath() + "/programacao.json"), consultaOrdemDTO);
+                objectMapper.writeValue(new FileOutputStream(file.getPath() + filename), consultaOrdemDTO);
 
                 Alert alert;
                 alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em\n" + file.getPath());
