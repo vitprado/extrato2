@@ -70,6 +70,7 @@ public class ProgramarListaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         componentes();
         configurarTabela();
+        cbbEquipamento.getSelectionModel().selectFirst();
         pesquisarAction();
 
         btnPesquisar.setOnAction((ActionEvent event) -> {
