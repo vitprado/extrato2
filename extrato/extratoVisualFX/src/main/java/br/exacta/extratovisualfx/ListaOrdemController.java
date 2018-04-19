@@ -22,6 +22,7 @@ import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -180,13 +181,23 @@ public class ListaOrdemController implements Initializable {
                             return tratoClone;
                         }).collect(Collectors.toList());
                 ordemProducaoClone.setEquipamento(ordemProducaoAtual.getEquipamento());
-                ordemProducaoClone.setOrdDescricao(ordemProducaoAtual.getOrdDescricao());
+                ordemProducaoClone.setOrdDescricao(criaNroOrdem());
                 ordemProducaoClone.setTratos(listTratoClone);
                 ordemProcucaoDAO.adicionarOrdemProcucao(ordemProducaoClone);
                 pesquisarAction();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        
+        private String criaNroOrdem() {
+            Calendar c = Calendar.getInstance();
+            int ANO = c.get(Calendar.YEAR);
+            String NUMERO_ORDEM;
+            OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
+
+            NUMERO_ORDEM = ANO + "-" + String.valueOf(ordemProcucaoDAO.countOrdemProcucao() + 1);
+            return NUMERO_ORDEM;
         }
 
         private void btnExcluirAction() {
