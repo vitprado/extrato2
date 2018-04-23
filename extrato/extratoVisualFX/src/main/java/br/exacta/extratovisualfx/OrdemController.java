@@ -118,6 +118,10 @@ public class OrdemController implements Initializable {
                 if (cbbEquipamento.getValue() == null) {
                     return;
                 }
+                
+                if(curralList.size() < 1) {
+                	return;
+                }
 
                 OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
                 try {
@@ -141,6 +145,10 @@ public class OrdemController implements Initializable {
                                 return trato;
                             })
                             .collect(Collectors.toList());
+                    
+                    if(tratoList.size() < 1) {
+                    	return;
+                    }
 
                     ordemProducao = new OrdemProducao(txtOrdem.getText(), cbbEquipamento.getValue(), tratoList);
                     if (ordCodigo != -1){
