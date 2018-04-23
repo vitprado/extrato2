@@ -39,6 +39,8 @@ public class OrdemProducao implements Serializable {
     private Date ordDataCadastro;
     @Column(name = "ORD_DESCRICAO")
     private String ordDescricao;
+    @Column(name = "ORD_UTILIZADA")
+    private boolean ordUtilizada;
     @JoinColumn(name = "EQP_CODIGO", referencedColumnName = "EQP_CODIGO", nullable = false)
     @ManyToOne(optional = false)
     private Equipamento equipamento;

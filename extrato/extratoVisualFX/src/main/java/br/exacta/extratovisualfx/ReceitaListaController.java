@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -51,6 +53,9 @@ public class ReceitaListaController implements Initializable {
     private final ReceitaDAO receitaDAO = new ReceitaDAO();
     @FXML
     private Button btnAdd;
+
+	// Carrega as preferencias
+	Preferences userPrefs = Preferences.userNodeForPackage(EmpresaController.class);
 
     /**
      * Initializes the controller class.
@@ -100,6 +105,13 @@ public class ReceitaListaController implements Initializable {
                 novo.setRctAtivo(false);
                 novo.setRctDataCadastro(d.getTime());
                 novo.setReceitaTemIngredientesList(new ArrayList<>());
+                
+                if(receitaDAO.getNomesReceitasDistinct().contains(novo.getRctNome())
+                		&& !userPrefs.getBoolean("PERMITIR_RECEITA_DUPLICADA", true)) {
+                	
+                	Config.caixaDialogo(Alert.AlertType.ERROR, "Já existe receita com este nome.");
+                	return;
+                }
 
                 try {
                     receitaDAO.adicionarReceita(novo);

@@ -85,4 +85,8 @@ public class IngredientesDAO {
     public List<String> getNomesIngredientes() {
         return ingredientesController.findNameIngredientesDistinct();
     }
+    
+    public List<String> getAbreviacaoIngredientes() {
+        return ingredientesController.findAbrevIngredientesDistinct();
+    }
 }

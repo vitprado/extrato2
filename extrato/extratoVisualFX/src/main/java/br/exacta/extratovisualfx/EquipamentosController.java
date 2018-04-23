@@ -5,6 +5,7 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.EquipamentoDAO;
 import br.exacta.dto.EquipamentoDTO;
 import br.exacta.persistencia.Equipamento;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 /**
  * FXML Controller class
@@ -47,6 +49,9 @@ public class EquipamentosController implements Initializable {
     private TableColumn<EquipamentoDTO, Integer> colCapacidade;
 
     private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
+
+	// Carrega as preferencias
+	Preferences userPrefs = Preferences.userNodeForPackage(EmpresaController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,7 +98,14 @@ public class EquipamentosController implements Initializable {
             novo.setEqpDescricao(txtDescricao.getText());
             novo.setEqpCapacidade(Integer.parseInt(txtCapacidade.getText()));
             novo.setEqpDataCadastro(d.getTime());
-
+            
+            if(equipamentoDAO.getNomesEquipamentosDistinct().contains(novo.getEqpDescricao())
+            		&& !userPrefs.getBoolean("PERMITIR_EQUIP_DUPLICADO", true)) {
+            	
+            	Config.caixaDialogo(Alert.AlertType.ERROR, "Já existe equipamento com esta identificacao.");
+            	return;
+            }
+            
             try {
                 equipamentoDAO.adicionarEquipamento(novo);
                 tvEquipamentos.getItems().add(new EquipamentoDTO(novo));

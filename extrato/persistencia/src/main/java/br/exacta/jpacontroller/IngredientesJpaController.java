@@ -210,4 +210,14 @@ public class IngredientesJpaController implements Serializable {
         }
     }
 
+    public List<String> findAbrevIngredientesDistinct() {
+        EntityManager em = getEntityManager();
+        try {
+            Query query = em.createNativeQuery("select DISTINCT ING_ABREVIACAO from INGREDIENTES");
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

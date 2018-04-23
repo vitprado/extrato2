@@ -5,6 +5,7 @@
  */
 package br.exacta.extratovisualfx;
 
+import br.exacta.config.Config;
 import br.exacta.dao.IngredientesDAO;
 import br.exacta.dto.IngredienteDTO;
 import br.exacta.persistencia.Ingredientes;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 /**
  * FXML Controller class
@@ -51,6 +53,9 @@ public class IngredientesController implements Initializable {
     private TableColumn<IngredienteDTO, Integer> colTolerancia;
 
     private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
+
+	// Carrega as preferencias
+	Preferences userPrefs = Preferences.userNodeForPackage(EmpresaController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,6 +113,19 @@ public class IngredientesController implements Initializable {
             novo.setIngAbreviacao(txtAbreviacao.getText());
             novo.setIngTolerancia(Integer.parseInt(txtTolerancia.getText()));
             novo.setIngDataCadastro(d.getTime());
+
+            if(ingredientesDAO.getNomesIngredientes().contains(novo.getIngNome())
+            		&& !userPrefs.getBoolean("PERMITIR_ING_DUPLICADO", true)) {
+            	
+            	Config.caixaDialogo(Alert.AlertType.ERROR, "Já existe ingrediente com esta descrição.");
+            	return;
+            }
+            if(ingredientesDAO.getAbreviacaoIngredientes().contains(novo.getIngAbreviacao())
+            		&& !userPrefs.getBoolean("PERMITIR_ING_DUPLICADO", true)) {
+            	
+            	Config.caixaDialogo(Alert.AlertType.ERROR, "Já existe ingrediente com esta abreviação.");
+            	return;
+            }
 
             try {
                 ingredientesDAO.adicionarIngrediente(novo);
