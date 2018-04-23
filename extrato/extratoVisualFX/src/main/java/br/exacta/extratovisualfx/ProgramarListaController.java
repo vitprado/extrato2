@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -43,222 +44,232 @@ import static javafx.collections.FXCollections.observableArrayList;
  */
 public class ProgramarListaController implements Initializable {
 
-    @FXML
-    private Button btnProgramar;
-    @FXML
-    private Button btnPesquisar;
-    @FXML
-    private Button btnSelecionarTudo;
-    @FXML
-    private ChoiceBox<Equipamento> cbbEquipamento;
-    @FXML
-    private TableView<ProgramarListaDTO> tvProgramarLista;
-    @FXML
-    private TableColumn<ProgramarListaDTO, String> colOrdens;
-    @FXML
-    private TableColumn<ProgramarListaDTO, String> colReceitas;
-    @FXML
-    private TableColumn<ProgramarListaDTO, String> colTratos;
-    @FXML
-    private TableColumn<ProgramarListaDTO, String> colCurrais;
-    @FXML
-    private TableColumn<ProgramarListaDTO, Boolean> colSelect;
+	@FXML
+	private Button btnProgramar;
+	@FXML
+	private Button btnPesquisar;
+	@FXML
+	private Button btnSelecionarTudo;
+	@FXML
+	private ChoiceBox<Equipamento> cbbEquipamento;
+	@FXML
+	private TableView<ProgramarListaDTO> tvProgramarLista;
+	@FXML
+	private TableColumn<ProgramarListaDTO, String> colOrdens;
+	@FXML
+	private TableColumn<ProgramarListaDTO, String> colReceitas;
+	@FXML
+	private TableColumn<ProgramarListaDTO, String> colTratos;
+	@FXML
+	private TableColumn<ProgramarListaDTO, String> colCurrais;
+	@FXML
+	private TableColumn<ProgramarListaDTO, Boolean> colSelect;
 
-    private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
-    private final ObservableList<Equipamento> observableEquipamentos = observableArrayList();
+	private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
+	private final ObservableList<Equipamento> observableEquipamentos = observableArrayList();
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        componentes();
-        configurarTabela();
-        cbbEquipamento.getSelectionModel().selectFirst();
-        pesquisarAction();
+	// Carrega as preferencias
+	Preferences userPrefs = Preferences.userNodeForPackage(EmpresaController.class);
 
-        btnPesquisar.setOnAction((ActionEvent event) -> {
-            pesquisarAction();
-        });
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		componentes();
+		configurarTabela();
+		cbbEquipamento.getSelectionModel().selectFirst();
+		pesquisarAction();
 
-        cbbEquipamento.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Equipamento>() {
-            @Override
-            public void changed(ObservableValue<? extends Equipamento> observable, Equipamento oldValue, Equipamento newValue) {
-                if (newValue != null) {
-                    pesquisarAction();
-                }
-            }
-        });
+		btnPesquisar.setOnAction((ActionEvent event) -> {
+			pesquisarAction();
+		});
 
-        btnProgramar.setOnAction((ActionEvent event) -> {
-            if (cbbEquipamento.getSelectionModel().getSelectedItem() != null) {
-                programarAction();
-            } else {
-                Alert alert;
-                alert = new Alert(Alert.AlertType.ERROR, "Filtro de equipamento obrigatório!");
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("MENSAGEM DO SISTEMA");
-                alert.showAndWait();
-            }
-        });
-    }
+		cbbEquipamento.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Equipamento>() {
+			@Override
+			public void changed(ObservableValue<? extends Equipamento> observable, Equipamento oldValue,
+					Equipamento newValue) {
+				if (newValue != null) {
+					pesquisarAction();
+				}
+			}
+		});
 
-    private void pesquisarAction() {
-        ConsultaOrdemFilter consultaOrdemFilter = new ConsultaOrdemFilter();
-        consultaOrdemFilter.setEquipamento(cbbEquipamento.getValue());
-        List<ProgramarListaDTO> listProgramarListaDTO = new ArrayList<>();
-        List<ConsultaOrdemDTO> listConsultaOrdemDTO = new ArrayList<>();
+		btnProgramar.setOnAction((ActionEvent event) -> {
+			if (cbbEquipamento.getSelectionModel().getSelectedItem() != null) {
+				programarAction();
+			} else {
+				Alert alert;
+				alert = new Alert(Alert.AlertType.ERROR, "Filtro de equipamento obrigatório!");
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setTitle("MENSAGEM DO SISTEMA");
+				alert.showAndWait();
+			}
+		});
+	}
 
-        if (cbbEquipamento.getValue() == null) {
-            listConsultaOrdemDTO = new ConsultaOrdemDTODAO().findAll();
-        } else {
-            listConsultaOrdemDTO.add(new ConsultaOrdemDTODAO().findByFilter(consultaOrdemFilter));
-        }
+	private void pesquisarAction() {
+		ConsultaOrdemFilter consultaOrdemFilter = new ConsultaOrdemFilter();
+		consultaOrdemFilter.setEquipamento(cbbEquipamento.getValue());
+		List<ProgramarListaDTO> listProgramarListaDTO = new ArrayList<>();
+		List<ConsultaOrdemDTO> listConsultaOrdemDTO = new ArrayList<>();
 
-        for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdemDTO) {
-            for (OrdemTratosDTO ordemTratosDTO : consultaOrdemDTO.getOrdens()) {
-                listProgramarListaDTO.add(
-                        new ProgramarListaDTO(
-                                ordemTratosDTO.getOrdemproducao(),
-                                ordemTratosDTO.getReceitas(),
-                                ordemTratosDTO.getPesos(),
-                                ordemTratosDTO.getCurrais(),
-                                consultaOrdemDTO.getEquipamento(),
-                                ordemTratosDTO));
-            }
-        }
-        tvProgramarLista.setItems(observableArrayList(listProgramarListaDTO));
-    }
+		if (cbbEquipamento.getValue() == null) {
+			listConsultaOrdemDTO = new ConsultaOrdemDTODAO().findAll();
+		} else {
+			listConsultaOrdemDTO.add(new ConsultaOrdemDTODAO().findByFilter(consultaOrdemFilter));
+		}
 
-    private void programarAction() {
-        ConsultaOrdemDTO consultaOrdemDTO = new ConsultaOrdemDTO();
-        consultaOrdemDTO.setEquipamento(cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
+		for (ConsultaOrdemDTO consultaOrdemDTO : listConsultaOrdemDTO) {
+			for (OrdemTratosDTO ordemTratosDTO : consultaOrdemDTO.getOrdens()) {
+				listProgramarListaDTO.add(new ProgramarListaDTO(ordemTratosDTO.getOrdemproducao(),
+						ordemTratosDTO.getReceitas(), ordemTratosDTO.getPesos(), ordemTratosDTO.getCurrais(),
+						consultaOrdemDTO.getEquipamento(), ordemTratosDTO));
+			}
+		}
+		tvProgramarLista.setItems(observableArrayList(listProgramarListaDTO));
+	}
 
-        for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
-            if (programarListaDTO.isCheck()) {
-                consultaOrdemDTO.getOrdens().add(programarListaDTO.getOrdemTratosDTO());
-                consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
-            }
-        }
+	private void programarAction() {
+		ConsultaOrdemDTO consultaOrdemDTO = new ConsultaOrdemDTO();
+		consultaOrdemDTO.setEquipamento(cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
 
-        if (!consultaOrdemDTO.getOrdens().isEmpty()) {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            File file = directoryChooser.showDialog(null);
+		for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
+			if (programarListaDTO.isCheck()) {
+				consultaOrdemDTO.getOrdens().add(programarListaDTO.getOrdemTratosDTO());
+				consultaOrdemDTO.setNordens(consultaOrdemDTO.getNordens() + 1);
+			}
+		}
 
-            try {
-            	Calendar c = Calendar.getInstance();
-                int ANO = c.get(Calendar.YEAR);
-                int MES = c.get(Calendar.MONTH);
-                int DIA = c.get(Calendar.DAY_OF_MONTH);
-                
-                String filename = String.format("/%s%s%s_%s_prog.json", String.format("%02d",ANO), String.format("%02d",MES), String.format("%02d",DIA), cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
+		if (!consultaOrdemDTO.getOrdens().isEmpty()) {
+			DirectoryChooser directoryChooser = new DirectoryChooser();
+			File file = directoryChooser.showDialog(null);
 
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.writeValue(new FileOutputStream(file.getPath() + filename), consultaOrdemDTO);
+			try {
 
-                Alert alert;
-                alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em\n" + file.getPath());
-                alert.initStyle(StageStyle.UTILITY);
-                alert.setTitle("MENSAGEM DO SISTEMA");
-                alert.showAndWait();
+				Calendar c = Calendar.getInstance();
+				int ANO = c.get(Calendar.YEAR);
+				int MES = c.get(Calendar.MONTH);
+				int DIA = c.get(Calendar.DAY_OF_MONTH);
 
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Alert alert;
-            alert = new Alert(Alert.AlertType.ERROR, "Selecione pelo menos uma ordem!");
-            alert.initStyle(StageStyle.UTILITY);
-            alert.setTitle("MENSAGEM DO SISTEMA");
-            alert.showAndWait();
-        }
-    }
+				String filename = new String();
 
-    private void componentes() {
-        observableEquipamentos.addAll(equipamentoDAO.getTodosEquipamentos());
-        cbbEquipamento.setItems(observableEquipamentos);
-        cbbEquipamento.setConverter(new StringConverter<Equipamento>() {
-            @Override
-            public String toString(Equipamento object) {
-                return object.getEqpDescricao();
-            }
+				if (userPrefs.getBoolean("PROGRAMACAO_COM_ID_DATA", true)) {
+					
+					filename = String.format("/%s%s%s_%s_prog.json", String.format("%02d", ANO),
+							String.format("%02d", MES), String.format("%02d", DIA),
+							cbbEquipamento.getSelectionModel().getSelectedItem().getEqpDescricao());
 
-            @Override
-            public Equipamento fromString(String string) {
-                return observableEquipamentos.stream()
-                        .filter(equipamento -> string.equals(equipamento.getEqpDescricao()))
-                        .findFirst().get();
-            }
-        });
-    }
+				} else {
+					filename = "/programacao.json";
+				}
 
-    private void configurarTabela() {
-        colOrdens.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("ordem"));
-        colReceitas.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("receita"));
-        colTratos.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("trato"));
-        colCurrais.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("curral"));
-        colSelect.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, Boolean>("check"));
-        colSelect.setCellFactory(new Callback<TableColumn<ProgramarListaDTO, Boolean>, TableCell<ProgramarListaDTO, Boolean>>() {
-            @Override
-            public TableCell<ProgramarListaDTO, Boolean> call(TableColumn<ProgramarListaDTO, Boolean> param) {
-                return new BooleanCell();
-            }
-        });
+				ObjectMapper objectMapper = new ObjectMapper();
+				objectMapper.writeValue(new FileOutputStream(file.getPath() + filename), consultaOrdemDTO);
 
-        // Header CheckBox
-        CheckBox cb = new CheckBox();
-        cb.setUserData(this.colSelect);
-        cb.setOnAction(handleSelectAllCheckbox());
-        this.colSelect.setGraphic(cb);
-    }
+				Alert alert;
+				alert = new Alert(Alert.AlertType.INFORMATION, "Arquivo salvo em\n" + file.getPath());
+				alert.initStyle(StageStyle.UTILITY);
+				alert.setTitle("MENSAGEM DO SISTEMA");
+				alert.showAndWait();
 
-    private EventHandler<ActionEvent> handleSelectAllCheckbox() {
-        return new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                CheckBox cb = (CheckBox) event.getSource();
-                TableColumn column = (TableColumn) cb.getUserData();
-                if (cb.isSelected()) {
-                    for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
-                        programarListaDTO.setCheck(Boolean.TRUE);
-                    }
-                } else {
-                    for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
-                        programarListaDTO.setCheck(Boolean.FALSE);
-                    }
-                }
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Alert alert;
+			alert = new Alert(Alert.AlertType.ERROR, "Selecione pelo menos uma ordem!");
+			alert.initStyle(StageStyle.UTILITY);
+			alert.setTitle("MENSAGEM DO SISTEMA");
+			alert.showAndWait();
+		}
+	}
 
+	private void componentes() {
+		observableEquipamentos.addAll(equipamentoDAO.getTodosEquipamentos());
+		cbbEquipamento.setItems(observableEquipamentos);
+		cbbEquipamento.setConverter(new StringConverter<Equipamento>() {
+			@Override
+			public String toString(Equipamento object) {
+				return object.getEqpDescricao();
+			}
 
-            }
-        };
-    }
+			@Override
+			public Equipamento fromString(String string) {
+				return observableEquipamentos.stream()
+						.filter(equipamento -> string.equals(equipamento.getEqpDescricao())).findFirst().get();
+			}
+		});
+	}
 
-    private class BooleanCell extends TableCell<ProgramarListaDTO, Boolean> {
+	private void configurarTabela() {
+		colOrdens.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("ordem"));
+		colReceitas.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("receita"));
+		colTratos.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("trato"));
+		colCurrais.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, String>("curral"));
+		colSelect.setCellValueFactory(new PropertyValueFactory<ProgramarListaDTO, Boolean>("check"));
+		colSelect.setCellFactory(
+				new Callback<TableColumn<ProgramarListaDTO, Boolean>, TableCell<ProgramarListaDTO, Boolean>>() {
+					@Override
+					public TableCell<ProgramarListaDTO, Boolean> call(TableColumn<ProgramarListaDTO, Boolean> param) {
+						return new BooleanCell();
+					}
+				});
 
-        private CheckBox checkBox;
+		// Header CheckBox
+		CheckBox cb = new CheckBox();
+		cb.setUserData(this.colSelect);
+		cb.setOnAction(handleSelectAllCheckbox());
+		this.colSelect.setGraphic(cb);
+	}
 
-        public BooleanCell() {
-            checkBox = new CheckBox();
-            checkBox.setDisable(false);
-            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    tvProgramarLista.getItems().get(getTableRow().getIndex()).setCheck(newValue == null ? false : newValue);
-                }
-            });
-            this.setEditable(true);
-        }
+	private EventHandler<ActionEvent> handleSelectAllCheckbox() {
+		return new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				CheckBox cb = (CheckBox) event.getSource();
+				TableColumn column = (TableColumn) cb.getUserData();
+				if (cb.isSelected()) {
+					for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
+						programarListaDTO.setCheck(Boolean.TRUE);
+					}
+				} else {
+					for (ProgramarListaDTO programarListaDTO : tvProgramarLista.getItems()) {
+						programarListaDTO.setCheck(Boolean.FALSE);
+					}
+				}
 
-        @Override
-        public void updateItem(Boolean item, boolean empty) {
-            super.updateItem(item, empty);
-            if (!isEmpty()) {
-                this.setGraphic(checkBox);
-                this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                checkBox.setSelected(item);
-            } else {
-                setGraphic(null);
-            }
-        }
-    }
+			}
+		};
+	}
+
+	private class BooleanCell extends TableCell<ProgramarListaDTO, Boolean> {
+
+		private CheckBox checkBox;
+
+		public BooleanCell() {
+			checkBox = new CheckBox();
+			checkBox.setDisable(false);
+			checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					tvProgramarLista.getItems().get(getTableRow().getIndex())
+							.setCheck(newValue == null ? false : newValue);
+				}
+			});
+			this.setEditable(true);
+		}
+
+		@Override
+		public void updateItem(Boolean item, boolean empty) {
+			super.updateItem(item, empty);
+			if (!isEmpty()) {
+				this.setGraphic(checkBox);
+				this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+				checkBox.setSelected(item);
+			} else {
+				setGraphic(null);
+			}
+		}
+	}
 }

@@ -80,7 +80,7 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                                 </Button>
-                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa">
+                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Configurações">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
@@ -90,7 +90,7 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                         </Button>
-                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
+                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários" visible="false">
                                     <VBox.margin>
                                         <Insets bottom="10.0" />
                                     </VBox.margin>

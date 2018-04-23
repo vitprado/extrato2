@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -159,7 +160,9 @@ public class OrdemProcucaoJpaController implements Serializable {
             		+ "ORDEM_PRODUCAO) as tabela_aux order by cod_int DESC FETCH FIRST 1 ROWS ONLY");
 
             return (int) nativeQuery.getSingleResult();
-            
+        } catch (NoResultException e) {
+        	return 0;
+        	
         } finally {
             em.close();
         }
