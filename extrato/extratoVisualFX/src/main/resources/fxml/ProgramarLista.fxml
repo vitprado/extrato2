@@ -83,6 +83,9 @@
                         <TableColumn fx:id="colCurrais" prefWidth="200.0" text="Currais" />
                         <TableColumn fx:id="colTratos" prefWidth="260.0" text="Tratos" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>

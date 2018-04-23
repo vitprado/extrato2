@@ -55,7 +55,7 @@ public class RelatorioResumoCarregamentoPDF {
 
         	Calendar c = Calendar.getInstance();
             int ANO = c.get(Calendar.YEAR);
-            int MES = c.get(Calendar.MONTH);
+            int MES = c.get(Calendar.MONTH)+1;
             int DIA = c.get(Calendar.DAY_OF_MONTH);
             int HORA = c.get(Calendar.HOUR_OF_DAY);
             int MIN = c.get(Calendar.MINUTE);
