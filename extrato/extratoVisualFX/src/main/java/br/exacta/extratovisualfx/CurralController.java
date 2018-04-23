@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -44,6 +47,9 @@ public class CurralController implements Initializable {
 
     private final ObservableList<Curral> listaCurral = FXCollections.observableArrayList();
     private final CurralDAO curralDAO = new CurralDAO();
+    
+	// Carrega as preferencias
+	Preferences userPrefs = Preferences.userNodeForPackage(EmpresaController.class);
 
     /**
      * Initializes the controller class.
@@ -90,23 +96,34 @@ public class CurralController implements Initializable {
             if (itemSelecionado != null) {
                 try {
                     curralDAO.removerCurral(itemSelecionado.getCurCodigo());
+                    listaCurral.remove(itemSelecionado);
+                    Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral removido com sucesso!");
+                    
                 } catch (Exception ex) {
+
+                    Config.caixaDialogo(Alert.AlertType.ERROR, "Este curral esta em uma ordem registrada! \n " +
+                            "Por favor, remova este curral de todas as ordens antes.");
                     Logger.getLogger(CurralController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                listaCurral.remove(itemSelecionado);
-                Config.caixaDialogo(Alert.AlertType.INFORMATION, "Curral removido com sucesso!");
-            } else
-                Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser remover o curral selecionado!");
-        });
+            }
+            });
     }// Fim initialize
 
     private void adicionarAction() {
         Calendar d = Calendar.getInstance();
 
         if (!txtNome.getText().trim().isEmpty()) {
+        	
             Curral novo = new Curral();
             novo.setCurDescricao(txtNome.getText());
             novo.setCurDataCadastro(d.getTime());
+            
+            if(curralDAO.getNomesCurraisDistinct().contains(novo.getCurDescricao())
+            		&& !userPrefs.getBoolean("PERMITIR_CURRAL_DUPLICADO", true)) {
+            	
+            	Config.caixaDialogo(Alert.AlertType.ERROR, "Este curral já existe");
+            	return;
+            }
 
             try {
                 curralDAO.adicionarCurral(novo);
@@ -122,4 +139,5 @@ public class CurralController implements Initializable {
         } else
             Config.caixaDialogo(Alert.AlertType.ERROR, "Houve algum problema, e não foi possível ser salvo o novo curral!");
     }
+
 }
