@@ -42,6 +42,8 @@ public class MenuController implements Initializable {
     @FXML
     private Button btnReceitas;
     @FXML
+    private Button btnEmpresa;
+    @FXML
     private Button btnOrdemProducao;
     @FXML
     private Button btnProgramacao;
@@ -99,6 +101,14 @@ public class MenuController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 config.carregarAnchorPane(apDados, "ReceitaLista");
+            }
+        });
+        
+        // Botao Empresa
+        btnEmpresa.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                config.carregarAnchorPane(apDados, "Empresa");
             }
         });
         // BOTAO DA LISTA DE ORDENS DE PRODUCAO

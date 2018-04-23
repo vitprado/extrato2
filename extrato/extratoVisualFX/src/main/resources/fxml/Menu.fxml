@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-                <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
+                <TitledPane alignment="CENTER" contentDisplay="CENTER" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                 
                     <content>
                         <VBox>
@@ -72,7 +72,7 @@
                                 </Button>
                                 <Button fx:id="btnReceitas" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Receitas">
                                     <VBox.margin>
-                                        <Insets />
+                                        <Insets bottom="10.0" />
                                     </VBox.margin>
                            <styleClass>
                               <String fx:value="menus-acoes" />
@@ -80,17 +80,7 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                                 </Button>
-                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários" visible="false">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" />
-                                    </VBox.margin>
-                           <styleClass>
-                              <String fx:value="menus-acoes" />
-                              <String fx:value="acao-user" />
-                              <String fx:value="menu-azul-escuro" />
-                           </styleClass>
-                                </Button>
-                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" disable="true" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa" visible="false">
+                        <Button fx:id="btnEmpresa" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Empresa">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
@@ -100,6 +90,16 @@
                               <String fx:value="menu-azul-escuro" />
                            </styleClass>
                         </Button>
+                                <Button fx:id="btnUsuarios" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Usuários">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                           <styleClass>
+                              <String fx:value="menus-acoes" />
+                              <String fx:value="acao-user" />
+                              <String fx:value="menu-azul-escuro" />
+                           </styleClass>
+                                </Button>
                             </children>
                         </VBox>
                     </content>
