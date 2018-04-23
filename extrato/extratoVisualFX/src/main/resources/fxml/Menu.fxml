@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-                <TitledPane alignment="CENTER" contentDisplay="CENTER" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
+                <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false" text="Cadastros" textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                 
                     <content>
                         <VBox>

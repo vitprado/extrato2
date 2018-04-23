@@ -71,13 +71,13 @@
                                 </rowConstraints>
                                  <children>
                                     <CheckBox fx:id="chkProgIdData" mnemonicParsing="false" text="Programação com identificaçao e data" GridPane.rowIndex="1" />
-                                    <CheckBox fx:id="chkLimiteCapacidade" mnemonicParsing="false" text="Usar capacidade do equipamento para limitar trato" GridPane.rowIndex="4" />
-                                    <CheckBox fx:id="chkNImportarDuplicados" mnemonicParsing="false" text="Impedir importação de resultados duplicados" GridPane.rowIndex="2" />
-                                    <CheckBox fx:id="chkExportarUmaVez" mnemonicParsing="false" text="Limitar exportação de ordens" GridPane.rowIndex="3" />
-                                    <CheckBox fx:id="chkPermitirCurraisDuplicados" mnemonicParsing="false" text="Permitir Currais com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <CheckBox fx:id="chkPermitirIngDuplicados" mnemonicParsing="false" text="Permitir Ingredientes com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <CheckBox fx:id="chkPermitirReceitasDuplicadas" mnemonicParsing="false" text="Permitir Receitas com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <CheckBox fx:id="chkPermitirEquipDuplicados" mnemonicParsing="false" text="Permitir Equipamentos com nomess iguais guai" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <CheckBox fx:id="chkLimiteCapacidade" disable="true" mnemonicParsing="false" text="Usar capacidade do equipamento para limitar trato" GridPane.rowIndex="4" />
+                                    <CheckBox fx:id="chkNImportarDuplicados" disable="true" mnemonicParsing="false" text="Impedir importação de resultados duplicados" GridPane.rowIndex="2" />
+                                    <CheckBox fx:id="chkExportarUmaVez" disable="true" mnemonicParsing="false" text="Limitar exportação de ordens" GridPane.rowIndex="3" />
+                                    <CheckBox fx:id="chkPermitirCurraisDuplicados" disable="true" mnemonicParsing="false" text="Permitir Currais com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <CheckBox fx:id="chkPermitirIngDuplicados" disable="true" mnemonicParsing="false" text="Permitir Ingredientes com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <CheckBox fx:id="chkPermitirReceitasDuplicadas" disable="true" mnemonicParsing="false" text="Permitir Receitas com nomes iguais" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <CheckBox fx:id="chkPermitirEquipDuplicados" disable="true" mnemonicParsing="false" text="Permitir Equipamentos com nomess iguais guai" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                            </children>
