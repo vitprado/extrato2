@@ -36,10 +36,10 @@ public class ReceitaTemIngredientes implements Serializable {
     private Date rtiData;
     @Column(name = "RTI_PROPORCAO")
     private Double rtiProporcao;
-    @JoinColumn(name = "ING_CODIGO", referencedColumnName = "ING_CODIGO", insertable = false, updatable = false)
+    @JoinColumn(name = "ING_CODIGO", referencedColumnName = "ING_CODIGO")
     @ManyToOne(optional = false)
     private Ingredientes ingredientes;
-    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO", insertable = false, updatable = false)
+    @JoinColumn(name = "RCT_CODIGO", referencedColumnName = "RCT_CODIGO")
     @ManyToOne(optional = false)
     private Receita receita;
 
