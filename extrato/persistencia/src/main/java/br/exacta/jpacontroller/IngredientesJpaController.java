@@ -8,19 +8,19 @@ package br.exacta.jpacontroller;
 import br.exacta.jpacontroller.exceptions.IllegalOrphanException;
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.persistencia.Ingredientes;
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import br.exacta.persistencia.ReceitaTemIngredientes;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
  * @author Thales
  */
 public class IngredientesJpaController implements Serializable {
@@ -28,6 +28,7 @@ public class IngredientesJpaController implements Serializable {
     public IngredientesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -44,7 +45,7 @@ public class IngredientesJpaController implements Serializable {
             em.getTransaction().begin();
             List<ReceitaTemIngredientes> attachedReceitaTemIngredientesList = new ArrayList<ReceitaTemIngredientes>();
             for (ReceitaTemIngredientes receitaTemIngredientesListReceitaTemIngredientesToAttach : ingredientes.getReceitaTemIngredientesList()) {
-                receitaTemIngredientesListReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListReceitaTemIngredientesToAttach.getReceitaTemIngredientesPK());
+                receitaTemIngredientesListReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListReceitaTemIngredientesToAttach.getRtiCodigo());
                 attachedReceitaTemIngredientesList.add(receitaTemIngredientesListReceitaTemIngredientesToAttach);
             }
             ingredientes.setReceitaTemIngredientesList(attachedReceitaTemIngredientesList);
@@ -88,7 +89,7 @@ public class IngredientesJpaController implements Serializable {
             }
             List<ReceitaTemIngredientes> attachedReceitaTemIngredientesListNew = new ArrayList<ReceitaTemIngredientes>();
             for (ReceitaTemIngredientes receitaTemIngredientesListNewReceitaTemIngredientesToAttach : receitaTemIngredientesListNew) {
-                receitaTemIngredientesListNewReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getReceitaTemIngredientesPK());
+                receitaTemIngredientesListNewReceitaTemIngredientesToAttach = em.getReference(receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getClass(), receitaTemIngredientesListNewReceitaTemIngredientesToAttach.getRtiCodigo());
                 attachedReceitaTemIngredientesListNew.add(receitaTemIngredientesListNewReceitaTemIngredientesToAttach);
             }
             receitaTemIngredientesListNew = attachedReceitaTemIngredientesListNew;

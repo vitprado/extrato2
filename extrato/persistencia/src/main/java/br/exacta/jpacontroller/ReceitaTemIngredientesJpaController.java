@@ -7,21 +7,20 @@ package br.exacta.jpacontroller;
 
 import br.exacta.jpacontroller.exceptions.NonexistentEntityException;
 import br.exacta.jpacontroller.exceptions.PreexistingEntityException;
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import br.exacta.persistencia.Ingredientes;
 import br.exacta.persistencia.Receita;
 import br.exacta.persistencia.ReceitaTemIngredientes;
-import br.exacta.persistencia.ReceitaTemIngredientesPK;
-import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author Thales
  */
 public class ReceitaTemIngredientesJpaController implements Serializable {
@@ -29,6 +28,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
     public ReceitaTemIngredientesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -36,11 +36,6 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
     }
 
     public void create(ReceitaTemIngredientes receitaTemIngredientes) throws PreexistingEntityException, Exception {
-        if (receitaTemIngredientes.getReceitaTemIngredientesPK() == null) {
-            receitaTemIngredientes.setReceitaTemIngredientesPK(new ReceitaTemIngredientesPK());
-        }
-        receitaTemIngredientes.getReceitaTemIngredientesPK().setRctCodigo(receitaTemIngredientes.getReceita().getRctCodigo());
-        receitaTemIngredientes.getReceitaTemIngredientesPK().setIngCodigo(receitaTemIngredientes.getIngredientes().getIngCodigo());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -66,7 +61,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findReceitaTemIngredientes(receitaTemIngredientes.getReceitaTemIngredientesPK()) != null) {
+            if (findReceitaTemIngredientes(receitaTemIngredientes.getRtiCodigo()) != null) {
                 throw new PreexistingEntityException("ReceitaTemIngredientes " + receitaTemIngredientes + " already exists.", ex);
             }
             throw ex;
@@ -78,13 +73,11 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
     }
 
     public void edit(ReceitaTemIngredientes receitaTemIngredientes) throws NonexistentEntityException, Exception {
-        receitaTemIngredientes.getReceitaTemIngredientesPK().setRctCodigo(receitaTemIngredientes.getReceita().getRctCodigo());
-        receitaTemIngredientes.getReceitaTemIngredientesPK().setIngCodigo(receitaTemIngredientes.getIngredientes().getIngCodigo());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ReceitaTemIngredientes persistentReceitaTemIngredientes = em.find(ReceitaTemIngredientes.class, receitaTemIngredientes.getReceitaTemIngredientesPK());
+            ReceitaTemIngredientes persistentReceitaTemIngredientes = em.find(ReceitaTemIngredientes.class, receitaTemIngredientes.getRtiCodigo());
             Ingredientes ingredientesOld = persistentReceitaTemIngredientes.getIngredientes();
             Ingredientes ingredientesNew = receitaTemIngredientes.getIngredientes();
             Receita receitaOld = persistentReceitaTemIngredientes.getReceita();
@@ -118,7 +111,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                ReceitaTemIngredientesPK id = receitaTemIngredientes.getReceitaTemIngredientesPK();
+                Integer id = receitaTemIngredientes.getRtiCodigo();
                 if (findReceitaTemIngredientes(id) == null) {
                     throw new NonexistentEntityException("The receitaTemIngredientes with id " + id + " no longer exists.");
                 }
@@ -131,7 +124,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
         }
     }
 
-    public void destroy(ReceitaTemIngredientesPK id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -139,7 +132,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
             ReceitaTemIngredientes receitaTemIngredientes;
             try {
                 receitaTemIngredientes = em.getReference(ReceitaTemIngredientes.class, id);
-                receitaTemIngredientes.getReceitaTemIngredientesPK();
+                receitaTemIngredientes.getRtiCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The receitaTemIngredientes with id " + id + " no longer exists.", enfe);
             }
@@ -201,7 +194,7 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
         }
     }
 
-    public ReceitaTemIngredientes findReceitaTemIngredientes(ReceitaTemIngredientesPK id) {
+    public ReceitaTemIngredientes findReceitaTemIngredientes(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(ReceitaTemIngredientes.class, id);
@@ -222,5 +215,5 @@ public class ReceitaTemIngredientesJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

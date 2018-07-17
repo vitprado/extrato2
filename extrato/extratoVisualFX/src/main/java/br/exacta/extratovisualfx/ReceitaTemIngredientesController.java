@@ -12,7 +12,6 @@ import br.exacta.dao.ReceitaTemIngredientesDAO;
 import br.exacta.persistencia.Ingredientes;
 import br.exacta.persistencia.Receita;
 import br.exacta.persistencia.ReceitaTemIngredientes;
-import br.exacta.persistencia.ReceitaTemIngredientesPK;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -105,7 +104,6 @@ public class ReceitaTemIngredientesController implements Initializable {
                 Ingredientes ingredienteSelecionado = cbbIngredientes.getSelectionModel().getSelectedItem();
 
                 ReceitaTemIngredientes novo = new ReceitaTemIngredientes();
-                novo.setReceitaTemIngredientesPK(new ReceitaTemIngredientesPK(receita.getRctCodigo(), ingredienteSelecionado.getIngCodigo()));
                 novo.setReceita(receita);
                 novo.setIngredientes(ingredienteSelecionado);
                 novo.setRtiProporcao(Double.parseDouble(txtProporcao.getText()));
@@ -130,7 +128,7 @@ public class ReceitaTemIngredientesController implements Initializable {
 
         btnSalvarLista.setOnAction(event -> {
             try {
-                if (porcentagemTotal < 100){
+                if (porcentagemTotal < 100) {
                     Config.caixaDialogoMedio(Alert.AlertType.INFORMATION, "A RECEITA SERÁ SALVA, MAS SOMENTE ESTARÁ ATIVA QUANDO FOR REVISADA E A SOMA DAS PROPORÇÕES TOTALIZAR 100%.");
                     receita.setRctAtivo(false);
                     receitaDAO.editarReceita(receita);
@@ -158,12 +156,12 @@ public class ReceitaTemIngredientesController implements Initializable {
 
     private void verificaProporcao() {
         porcentagemTotal = tvDados.getItems().stream().mapToDouble(ReceitaTemIngredientes::getRtiProporcao).sum();
-        lbPorcentagem.setText("Total: "+String.valueOf(porcentagemTotal)+ "%");
-        if (porcentagemTotal > 100){
+        lbPorcentagem.setText("Total: " + String.valueOf(porcentagemTotal) + "%");
+        if (porcentagemTotal > 100) {
             lbMensagem.setText("A soma das proporções não pode ultrapassar 100%. Corrija a receita para poder salvar.");
             btnSalvarLista.setDisable(true);
-        } else if (porcentagemTotal < 100){
-            lbMensagem.setText("Ainda faltam " + String.valueOf(100-porcentagemTotal)+"%");
+        } else if (porcentagemTotal < 100) {
+            lbMensagem.setText("Ainda faltam " + String.valueOf(100 - porcentagemTotal) + "%");
             btnSalvarLista.setDisable(false);
         } else {
             lbMensagem.setText("A receita pode ser salva e utilizada sem problemas!");
@@ -198,6 +196,7 @@ public class ReceitaTemIngredientesController implements Initializable {
         colIngrediente.setCellValueFactory(new PropertyValueFactory<>("IngredienteNome"));
         colProporcao.setCellValueFactory(new PropertyValueFactory<>("rtiProporcao"));
     }
+
     public Stage getStage() {
         return stage;
     }
@@ -207,8 +206,8 @@ public class ReceitaTemIngredientesController implements Initializable {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                if (porcentagemTotal > 100){
-                    if (Config.caixaDialogoCondicional("O CADASTRO DESTA RECEITA SERÁ PERDIDO. DESEJA REALMENTE FINALIZAR O CADASTRO?")){
+                if (porcentagemTotal > 100) {
+                    if (Config.caixaDialogoCondicional("O CADASTRO DESTA RECEITA SERÁ PERDIDO. DESEJA REALMENTE FINALIZAR O CADASTRO?")) {
                         stage.close();
                     }
                     event.consume();

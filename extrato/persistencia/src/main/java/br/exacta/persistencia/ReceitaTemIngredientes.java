@@ -5,38 +5,32 @@
  */
 package br.exacta.persistencia;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author Thales
  */
 @Entity
 @Table(name = "RECEITA_TEM_INGREDIENTES")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReceitaTemIngredientes.findAll", query = "SELECT r FROM ReceitaTemIngredientes r")
-    , @NamedQuery(name = "ReceitaTemIngredientes.findByRctCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.receitaTemIngredientesPK.rctCodigo = :rctCodigo")
-    , @NamedQuery(name = "ReceitaTemIngredientes.findByIngCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.receitaTemIngredientesPK.ingCodigo = :ingCodigo")
-    , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiData", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiData = :rtiData")
-    , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiProporcao", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiProporcao = :rtiProporcao")})
+        @NamedQuery(name = "ReceitaTemIngredientes.findAll", query = "SELECT r FROM ReceitaTemIngredientes r")
+        , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiCodigo = :rtiCodigo")
+        , @NamedQuery(name = "ReceitaTemIngredientes.findByRctCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.receita.rctCodigo = :rctCodigo")
+        , @NamedQuery(name = "ReceitaTemIngredientes.findByIngCodigo", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.ingredientes.ingCodigo = :ingCodigo")
+        , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiData", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiData = :rtiData")
+        , @NamedQuery(name = "ReceitaTemIngredientes.findByRtiProporcao", query = "SELECT r FROM ReceitaTemIngredientes r WHERE r.rtiProporcao = :rtiProporcao")})
 public class ReceitaTemIngredientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ReceitaTemIngredientesPK receitaTemIngredientesPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "RTI_CODIGO")
+    private Integer rtiCodigo;
     @Column(name = "RTI_DATA")
     @Temporal(TemporalType.DATE)
     private Date rtiData;
@@ -52,20 +46,12 @@ public class ReceitaTemIngredientes implements Serializable {
     public ReceitaTemIngredientes() {
     }
 
-    public ReceitaTemIngredientes(ReceitaTemIngredientesPK receitaTemIngredientesPK) {
-        this.receitaTemIngredientesPK = receitaTemIngredientesPK;
+    public Integer getRtiCodigo() {
+        return rtiCodigo;
     }
 
-    public ReceitaTemIngredientes(int rctCodigo, int ingCodigo) {
-        this.receitaTemIngredientesPK = new ReceitaTemIngredientesPK(rctCodigo, ingCodigo);
-    }
-
-    public ReceitaTemIngredientesPK getReceitaTemIngredientesPK() {
-        return receitaTemIngredientesPK;
-    }
-
-    public void setReceitaTemIngredientesPK(ReceitaTemIngredientesPK receitaTemIngredientesPK) {
-        this.receitaTemIngredientesPK = receitaTemIngredientesPK;
+    public void setRtiCodigo(Integer rtiCodigo) {
+        this.rtiCodigo = rtiCodigo;
     }
 
     public Date getRtiData() {
@@ -107,7 +93,7 @@ public class ReceitaTemIngredientes implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (receitaTemIngredientesPK != null ? receitaTemIngredientesPK.hashCode() : 0);
+        hash += (rtiCodigo != null ? rtiCodigo.hashCode() : 0);
         return hash;
     }
 
@@ -118,7 +104,7 @@ public class ReceitaTemIngredientes implements Serializable {
             return false;
         }
         ReceitaTemIngredientes other = (ReceitaTemIngredientes) object;
-        if ((this.receitaTemIngredientesPK == null && other.receitaTemIngredientesPK != null) || (this.receitaTemIngredientesPK != null && !this.receitaTemIngredientesPK.equals(other.receitaTemIngredientesPK))) {
+        if ((this.rtiCodigo == null && other.rtiCodigo != null) || (this.rtiCodigo != null && !this.rtiCodigo.equals(other.rtiCodigo))) {
             return false;
         }
         return true;
@@ -126,7 +112,7 @@ public class ReceitaTemIngredientes implements Serializable {
 
     @Override
     public String toString() {
-        return "br.exacta.persistencia.ReceitaTemIngredientes[ receitaTemIngredientesPK=" + receitaTemIngredientesPK + " ]";
+        return "br.exacta.persistencia.ReceitaTemIngredientes[ rtiCodigo=" + rtiCodigo + " ]";
     }
-    
+
 }

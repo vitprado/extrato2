@@ -7,13 +7,12 @@ package br.exacta.dao;
 
 import br.exacta.jpacontroller.ReceitaTemIngredientesJpaController;
 import br.exacta.persistencia.ReceitaTemIngredientes;
-import br.exacta.persistencia.ReceitaTemIngredientesPK;
-import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 /**
- *
  * @author Thales
  */
 public class ReceitaTemIngredientesDAO {
@@ -31,8 +30,8 @@ public class ReceitaTemIngredientesDAO {
             - ADICIONAR, LISTAR, EDITAR, E REMOVER
      */
     // ADICIONAR 
+
     /**
-     *
      * @param receita
      * @throws Exception
      */
@@ -41,8 +40,8 @@ public class ReceitaTemIngredientesDAO {
     }
 
     // EDITAR 
+
     /**
-     *
      * @param receita
      * @throws Exception
      */
@@ -51,12 +50,12 @@ public class ReceitaTemIngredientesDAO {
     }
 
     // REMOVER 
+
     /**
-     *
      * @param id
      * @throws java.lang.Exception
      */
-    public void removerIngredienteReceita(ReceitaTemIngredientesPK id) throws Exception {
+    public void removerIngredienteReceita(Integer id) throws Exception {
         receitaTemIngController.destroy(id);
     }
 
@@ -65,8 +64,8 @@ public class ReceitaTemIngredientesDAO {
     }
 
     // LISTAR TODOS
+
     /**
-     *
      * @return
      */
     public List<ReceitaTemIngredientes> getTodosIngredienteReceita() {
@@ -74,12 +73,12 @@ public class ReceitaTemIngredientesDAO {
     }
 
     // LISTAR POR ID
+
     /**
-     *
      * @param id
      * @return
      */
-    public ReceitaTemIngredientes getIngredienteReceitaId(ReceitaTemIngredientesPK id) {
+    public ReceitaTemIngredientes getIngredienteReceitaId(Integer id) {
         return receitaTemIngController.findReceitaTemIngredientes(id);
     }
 }

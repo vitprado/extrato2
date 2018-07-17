@@ -169,7 +169,7 @@ public class ConsultaOrdemJpaController {
                 " FROM ReceitaTemIngredientes rti, Receita r, Ingredientes i " +
                 " WHERE r.rctCodigo = rti.receita.rctCodigo and " +
                 " rti.ingredientes.ingCodigo = i.ingCodigo AND r.rctCodigo =  '%s' " +
-                " ORDER BY i.ingCodigo ", rctCodigo.toString()));
+                " ORDER BY rti.rtiCodigo ", rctCodigo.toString()));
 
         return stringBuilder.toString();
     }
