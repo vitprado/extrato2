@@ -12,8 +12,6 @@ import br.exacta.dao.TratoDAO;
 import br.exacta.dto.CurralPesoDTO;
 import br.exacta.dto.TratoDTO;
 import br.exacta.persistencia.*;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -31,11 +29,13 @@ import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static javafx.collections.FXCollections.observableArrayList;
-import static javafx.collections.FXCollections.observableList;
 
 /**
  * FXML Controller class
@@ -77,14 +77,14 @@ public class OrdemController implements Initializable {
     private ListaOrdemController listaOrdemController;
     private Integer ordCodigo;
 
-    public OrdemController(){
+    public OrdemController() {
         this.listaOrdemController = null;
         this.ordCodigo = -1;
         curralList = new ArrayList<>();
         listTratoDTO = new ArrayList<>();
     }
 
-    public OrdemController(ListaOrdemController listaOrdemController, Integer ordCodigo){
+    public OrdemController(ListaOrdemController listaOrdemController, Integer ordCodigo) {
         this.listaOrdemController = listaOrdemController;
         this.ordCodigo = ordCodigo;
         curralList = new ArrayList<>();
@@ -118,9 +118,9 @@ public class OrdemController implements Initializable {
                 if (cbbEquipamento.getValue() == null) {
                     return;
                 }
-                
-                if(curralList.size() < 1) {
-                	return;
+
+                if (curralList.size() < 1) {
+                    return;
                 }
 
                 OrdemProcucaoDAO ordemProcucaoDAO = new OrdemProcucaoDAO();
@@ -132,7 +132,7 @@ public class OrdemController implements Initializable {
 
                                 tratoDTO.getListCurralPeso().forEach(tabela -> {
                                     ItemTrato itemTrato = new ItemTrato();
-                                    if (tabela.getIttCodigo() != null){
+                                    if (tabela.getIttCodigo() != null) {
                                         itemTrato.setIttCodigo(tabela.getIttCodigo());
                                     }
                                     itemTrato.setIttPeso(new BigDecimal(tabela.getPeso()));
@@ -145,13 +145,13 @@ public class OrdemController implements Initializable {
                                 return trato;
                             })
                             .collect(Collectors.toList());
-                    
-                    if(tratoList.size() < 1) {
-                    	return;
+
+                    if (tratoList.size() < 1) {
+                        return;
                     }
 
                     ordemProducao = new OrdemProducao(txtOrdem.getText(), cbbEquipamento.getValue(), tratoList);
-                    if (ordCodigo != -1){
+                    if (ordCodigo != -1) {
                         ordemProducao.setOrdCodigo(ordCodigo);
                         ordemProcucaoDAO.editarOrdemProcucao(ordemProducao);
                         listaOrdemController.pesquisarAction();
@@ -168,13 +168,13 @@ public class OrdemController implements Initializable {
         });
     }
 
-    private void btnCriarListaCurraisAction(){
+    private void btnCriarListaCurraisAction() {
         ListaCurraisOrdemController curraisOrdemController = new ListaCurraisOrdemController(OrdemController.this);
         Config config = new Config();
         config.carregarAnchorPaneDialog("ListaCurraisOrdem", curraisOrdemController);
     }
 
-    private void btnInserirTratoAction(){
+    private void btnInserirTratoAction() {
         InserirTratoController inserirTratoController = new InserirTratoController(OrdemController.this);
         Config config = new Config();
         config.carregarAnchorPaneDialog("InserirTrato", inserirTratoController);
@@ -240,33 +240,27 @@ public class OrdemController implements Initializable {
 
 
     private void atualizaListaItensCadastrados() {
-        if (ordCodigo != -1){
+        if (ordCodigo != -1) {
             curralList.clear();
-            ordemProducao =  new OrdemProcucaoDAO().getOrdemProcucao(ordCodigo);
+            ordemProducao = new OrdemProcucaoDAO().getOrdemProcucao(ordCodigo);
             txtOrdem.setText(ordemProducao.getOrdDescricao());
             cbbEquipamento.setValue(ordemProducao.getEquipamento());
             txtCapacidade.setText(String.valueOf(ordemProducao.getEquipamento().getEqpCapacidade()));
-            ordemProducao.getTratos().sort(new Comparator<Trato>() {
-                @Override
-                public int compare(Trato o1, Trato o2) {
-                    return o1.getTrtNumero().compareTo(o2.getTrtNumero());
-                }
-            });
 
-            if (!ordemProducao.getTratos().isEmpty()){
-                if (!ordemProducao.getTratos().get(0).getItemTratos().isEmpty()){
-                    for (ItemTrato itemTrato: ordemProducao.getTratos().get(0).getItemTratos()){
+            if (!ordemProducao.getTratos().isEmpty()) {
+                if (!ordemProducao.getTratos().get(0).getItemTratos().isEmpty()) {
+                    for (ItemTrato itemTrato : ordemProducao.getTratos().get(0).getItemTratos()) {
                         curralList.add(itemTrato.getCurral());
                     }
                     listTratoDTO = new ArrayList<>();
-                    for (Trato trato: ordemProducao.getTratos()){
+                    for (Trato trato : ordemProducao.getTratos()) {
                         List<CurralPesoDTO> curralPesoList = new ArrayList<>();
-                        for (ItemTrato itemTrato: trato.getItemTratos()){
+                        for (ItemTrato itemTrato : trato.getItemTratos()) {
                             CurralPesoDTO curralPesoDTO = new CurralPesoDTO(itemTrato.getCurral(), itemTrato.getIttPeso());
                             curralPesoDTO.setIttCodigo(itemTrato.getIttCodigo());
                             curralPesoList.add(curralPesoDTO);
                         }
-                        if (trato.getTrtNumero() > numeroTrato){
+                        if (trato.getTrtNumero() > numeroTrato) {
                             numeroTrato = trato.getTrtNumero();
                         }
                         TratoDTO tratoDTO = new TratoDTO(curralPesoList, trato.getReceita(), trato.getTrtNumero());
@@ -279,12 +273,12 @@ public class OrdemController implements Initializable {
         }
     }
 
-    private class Botoes extends TableCell<TratoDTO, TratoDTO>{
+    private class Botoes extends TableCell<TratoDTO, TratoDTO> {
         private Button btnEditar;
         private Button btnExcluir;
         InserirTratoController inserirTratoController;
 
-        public Botoes(){
+        public Botoes() {
             btnEditar = new Button("Editar");
             btnEditar.setOnAction((ActionEvent event) -> {
                 btnEditarAction();
@@ -295,15 +289,15 @@ public class OrdemController implements Initializable {
             });
         }
 
-        private void btnEditarAction(){
+        private void btnEditarAction() {
             inserirTratoController = new InserirTratoController(OrdemController.this, tvTratos.getItems().get(getTableRow().getIndex()));
             Config config = new Config();
             config.carregarAnchorPaneDialog("InserirTrato", inserirTratoController);
         }
 
-        private void btnExcluirAction(){
+        private void btnExcluirAction() {
             TratoDTO tratoDTOExcluir = OrdemController.this.getListTratoDTO().get(getTableRow().getIndex());
-            if (ordCodigo != -1){
+            if (ordCodigo != -1) {
                 try {
                     if (tratoDTOExcluir.getTrato().getTrtCodigo() != null)
                         new TratoDAO().removerTrato(tratoDTOExcluir.getTrato().getTrtCodigo());
@@ -314,7 +308,7 @@ public class OrdemController implements Initializable {
             OrdemController.this.getListTratoDTO().remove(tratoDTOExcluir);
 
             Integer index = 0;
-            for (TratoDTO tratoDTO : OrdemController.this.getListTratoDTO()){
+            for (TratoDTO tratoDTO : OrdemController.this.getListTratoDTO()) {
                 index++;
                 tratoDTO.setNumero(index);
                 tratoDTO.getTrato().setTrtNumero(index);
@@ -324,7 +318,7 @@ public class OrdemController implements Initializable {
         }
 
         @Override
-        protected void updateItem(final TratoDTO record, boolean empty){
+        protected void updateItem(final TratoDTO record, boolean empty) {
             super.updateItem(record, empty);
             if (!empty) {
                 btnEditar.setText("Editar");
