@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class CarregamentoFX {
 
     private static final long serialVersionUID = 1L;
-    
+
     private SimpleIntegerProperty rdcCodigo;
     private SimpleStringProperty rdcOrdem;
     private SimpleStringProperty rdcEquipamento;
@@ -28,9 +28,9 @@ public class CarregamentoFX {
     public CarregamentoFX(SimpleIntegerProperty rdcCodigo) {
         this.rdcCodigo = rdcCodigo;
     }
-    
-    public CarregamentoFX(int codigo, String ordem, String equipamento, int numtrato, String ingrediente, String pesorequisitado, String pesorealizado, String data, String receita){
-        this.rdcCodigo =  new SimpleIntegerProperty(codigo);
+
+    public CarregamentoFX(int codigo, String ordem, String equipamento, int numtrato, String ingrediente, String pesorequisitado, String pesorealizado, String data, String receita) {
+        this.rdcCodigo = new SimpleIntegerProperty(codigo);
         this.rdcOrdem = new SimpleStringProperty(ordem);
         this.rdcEquipamento = new SimpleStringProperty(equipamento);
         this.rdcNumtrato = new SimpleIntegerProperty(numtrato);
@@ -111,5 +111,5 @@ public class CarregamentoFX {
 
     public void setRdcReceitaProperty(SimpleStringProperty rdcReceita) {
         this.rdcReceita = rdcReceita;
-    }    
+    }
 }
