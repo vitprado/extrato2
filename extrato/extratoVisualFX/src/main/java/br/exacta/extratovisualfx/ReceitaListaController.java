@@ -127,10 +127,9 @@ public class ReceitaListaController implements Initializable {
             if (event.getClickCount() == 2) {
                 Receita itemSelecionado = ltvDados.getSelectionModel().getSelectedItem();
                 if (itemSelecionado != null) {
-                    String strTela = "ReceitaTemIngredientes";
                     Config config = new Config();
                     ReceitaTemIngredientesController receitaTemIngredientesController = new ReceitaTemIngredientesController(itemSelecionado);
-                    config.carregarAnchorPaneStage(strTela, receitaTemIngredientesController);
+                    config.carregarAnchorPaneStage("ReceitaTemIngredientes", receitaTemIngredientesController);
 
                     listaReceita.clear();
                     listaReceita.addAll(receitaDAO.getTodoReceitas());

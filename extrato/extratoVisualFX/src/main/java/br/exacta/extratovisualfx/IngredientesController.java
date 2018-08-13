@@ -149,6 +149,7 @@ public class IngredientesController implements Initializable {
                 ingredientesDAO.removerIngrediente(itemSelecionado.getIngrediente().getIngCodigo());
                 tvIngredientes.getItems().remove(itemSelecionado);
             } catch (Exception ex) {
+
                 msgSistema("Este ingrediente esta em uma receita registrada! \n " +
                         "Por favor, remova este ingrediente de todas as receitas antes.");
                 Logger.getLogger(NivelAcessoController.class.getName()).log(Level.SEVERE, null, ex);
