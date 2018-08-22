@@ -1,58 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="600.0" styleClass="background" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.LoginController">
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="154.0" prefHeight="35.0" prefWidth="600.0" text="Autenticação do Usuário">
-         <font>
-            <Font name="Segoe UI Semibold" size="30.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="imgSenha" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true" styleClass="senha" />
-      <ImageView fx:id="imgUser" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" styleClass="nome" />
-      <ImageView fx:id="imgExtratoLogo2" fitHeight="82.0" fitWidth="113.0" layoutX="165.0" layoutY="38.0" opacity="0.68" pickOnBounds="true" preserveRatio="true" styleClass="X-logo" />
-      <Text layoutX="233.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Trato Bovino">
-         <font>
-            <Font name="Segoe UI" size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="lblNomeLogo" fontSmoothingType="LCD" layoutX="143.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="e   Trato">
-         <font>
-            <Font name="Aquawax Medium" size="60.0" />
-         </font>
-      </Text>
-      <Text layoutX="390.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versão 1.0.0" wrappingWidth="82.0">
-         <font>
-            <Font name="Segoe UI" size="14.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtLogin" layoutX="188.0" layoutY="234.0" prefHeight="31.0" prefWidth="252.0" promptText="Informe seu usuário">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <PasswordField fx:id="txtSenha" layoutX="188.0" layoutY="285.0" prefHeight="31.0" prefWidth="252.0" promptText="Informe sua senha">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </PasswordField>
-      <Button fx:id="btnEntrar" layoutX="146.0" layoutY="355.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="151.0" styleClass="bt-logar" text="ENTRAR">
-         <font>
-            <Font name="Segoe UI Semibold" size="24.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnSair" layoutX="304.0" layoutY="355.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="151.0" styleClass="bt-sair" text="SAIR">
-         <font>
-            <Font name="Segoe UI Semibold" size="24.0" />
-         </font>
-      </Button>
-   </children>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="600.0" styleClass="background" stylesheets="@../css/login.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.exacta.extratovisualfx.LoginController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="154.0" prefHeight="35.0"
+               prefWidth="600.0" text="Autenticação do Usuário">
+            <font>
+                <Font name="Segoe UI Semibold" size="30.0"/>
+            </font>
+        </Label>
+        <ImageView fx:id="imgSenha" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="289.0" pickOnBounds="true"
+                   preserveRatio="true" styleClass="senha"/>
+        <ImageView fx:id="imgUser" fitHeight="34.0" fitWidth="31.0" layoutX="149.0" layoutY="238.0" pickOnBounds="true"
+                   preserveRatio="true" styleClass="nome"/>
+        <ImageView fx:id="imgExtratoLogo2" fitHeight="82.0" fitWidth="113.0" layoutX="165.0" layoutY="38.0"
+                   opacity="0.68" pickOnBounds="true" preserveRatio="true" styleClass="X-logo"/>
+        <Text layoutX="233.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Trato Bovino">
+            <font>
+                <Font name="Segoe UI" size="18.0"/>
+            </font>
+        </Text>
+        <Text fx:id="lblNomeLogo" fontSmoothingType="LCD" layoutX="143.0" layoutY="96.0" strokeType="OUTSIDE"
+              strokeWidth="0.0" text="e   Trato">
+            <font>
+                <Font name="Aquawax Medium" size="60.0"/>
+            </font>
+        </Text>
+        <Text layoutX="390.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Versão 1.0.0"
+              wrappingWidth="82.0">
+            <font>
+                <Font name="Segoe UI" size="14.0"/>
+            </font>
+        </Text>
+        <TextField fx:id="txtLogin" layoutX="188.0" layoutY="234.0" prefHeight="31.0" prefWidth="252.0"
+                   promptText="Informe seu usuário">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </TextField>
+        <PasswordField fx:id="txtSenha" layoutX="188.0" layoutY="285.0" prefHeight="31.0" prefWidth="252.0"
+                       promptText="Informe sua senha">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </PasswordField>
+        <Button fx:id="btnEntrar" layoutX="146.0" layoutY="355.0" mnemonicParsing="false" prefHeight="69.0"
+                prefWidth="151.0" styleClass="bt-logar" text="ENTRAR">
+            <font>
+                <Font name="Segoe UI Semibold" size="24.0"/>
+            </font>
+        </Button>
+        <Button fx:id="btnSair" layoutX="304.0" layoutY="355.0" mnemonicParsing="false" prefHeight="69.0"
+                prefWidth="151.0" styleClass="bt-sair" text="SAIR">
+            <font>
+                <Font name="Segoe UI Semibold" size="24.0"/>
+            </font>
+        </Button>
+    </children>
 </AnchorPane>

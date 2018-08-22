@@ -1,95 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" prefHeight="664.0" prefWidth="962.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" prefHeight="664.0" prefWidth="962.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <VBox prefHeight="664.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="664.0" prefWidth="962.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem de Produção">
                     <font>
-                        <Font name="Segoe UI Semilight" size="48.0" />
+                        <Font name="Segoe UI Semilight" size="48.0"/>
                     </font>
                 </Text>
                 <GridPane prefWidth="948.0">
                     <children>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem de Produção:" GridPane.rowIndex="1">
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordem de Produção:"
+                              GridPane.rowIndex="1">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtOrdem" editable="false" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento:" GridPane.rowIndex="2">
+                        <TextField fx:id="txtOrdem" editable="false" minWidth="300.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamento:"
+                              GridPane.rowIndex="2">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
 
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade:" GridPane.rowIndex="3">
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade:"
+                              GridPane.rowIndex="3">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtCapacidade" editable="false" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtCapacidade" editable="false" minWidth="300.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="3"/>
 
-                        <ChoiceBox fx:id="cbbEquipamento" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais:" GridPane.rowIndex="4">
+                        <ChoiceBox fx:id="cbbEquipamento" minWidth="300.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="2"/>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Currais:"
+                              GridPane.rowIndex="4">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <Button id="btnCurrais" fx:id="btnCriarListaCurrais" alignment="CENTER" minWidth="300.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Lista de Currais" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Trato" wrappingWidth="130.0" GridPane.rowIndex="5">
+                        <Button id="btnCurrais" fx:id="btnCriarListaCurrais" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-adicionar" text="Lista de Currais"
+                                GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adicionar Trato" wrappingWidth="130.0"
+                              GridPane.rowIndex="5">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="16.0"/>
                             </font>
                         </Text>
-                        <Button id="btnTrato" fx:id="btnInserirTrato" alignment="CENTER" minWidth="300.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Novo Trato" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Button id="btnSalvar" fx:id="btnFinalizarOrdem" alignment="CENTER" minWidth="300.0" mnemonicParsing="false" styleClass="acao-salvar" text="SALVAR" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Button id="btnTrato" fx:id="btnInserirTrato" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-adicionar" text="Novo Trato"
+                                GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Button id="btnSalvar" fx:id="btnFinalizarOrdem" alignment="CENTER" minWidth="300.0"
+                                mnemonicParsing="false" styleClass="acao-salvar" text="SALVAR" GridPane.columnIndex="1"
+                                GridPane.rowIndex="6"/>
                     </children>
                     <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="150.0" />
-                        <ColumnConstraints fillWidth="false" hgrow="NEVER" />
-                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0" minWidth="10.0" prefWidth="181.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0"
+                                           prefWidth="150.0"/>
+                        <ColumnConstraints fillWidth="false" hgrow="NEVER"/>
+                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" maxWidth="381.0"
+                                           minWidth="10.0" prefWidth="181.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                 </GridPane>
                 <TableView fx:id="tvTratos" prefHeight="389.0" prefWidth="962.0" VBox.vgrow="SOMETIMES">
                     <columns>
-                        <TableColumn fx:id="colNumeroTrato" prefWidth="180" text="NÚMERO TRATO" />
-                        <TableColumn fx:id="colReceita" prefWidth="150" text="RECEITA" />
-                        <TableColumn fx:id="colPesoTotal" prefWidth="100" text="PESO" />
-                        <TableColumn fx:id="colAcao" prefWidth="150" text="AÇÃO" />
+                        <TableColumn fx:id="colNumeroTrato" prefWidth="180" text="NÚMERO TRATO" sortable="false"/>
+                        <TableColumn fx:id="colReceita" prefWidth="150" text="RECEITA" sortable="false"/>
+                        <TableColumn fx:id="colPesoTotal" prefWidth="100" text="PESO" sortable="false"/>
+                        <TableColumn fx:id="colAcao" prefWidth="150" text="AÇÃO" sortable="false"/>
                     </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>

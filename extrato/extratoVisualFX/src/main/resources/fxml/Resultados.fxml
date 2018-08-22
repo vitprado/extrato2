@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="674.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.ResultadosController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0"
+            prefHeight="674.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.exacta.extratovisualfx.ResultadosController">
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados">
                     <font>
-                        <Font name="Segoe UI Semilight" size="48.0" />
+                        <Font name="Segoe UI Semilight" size="48.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="10.0"/>
                     </VBox.margin>
                 </Text>
                 <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="txtCaminhoArquivo" editable="false" promptText="Procure, e selecione o arquivo programacao.json" GridPane.rowIndex="1">
+                        <TextField fx:id="txtCaminhoArquivo" editable="false"
+                                   promptText="Procure, e selecione o arquivo programacao.json" GridPane.rowIndex="1">
                             <font>
-                                <Font name="Segoe UI Semilight" size="15.0" />
+                                <Font name="Segoe UI Semilight" size="15.0"/>
                             </font>
                         </TextField>
-                        <Button fx:id="btnImportar" minWidth="200.0" mnemonicParsing="false" styleClass="acao-importar" text="Importar" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Button fx:id="btnImportar" minWidth="200.0" mnemonicParsing="false" styleClass="acao-importar"
+                                text="Importar" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <GridPane.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </GridPane.margin>
                         </Button>
-                        <MenuButton fx:id="brnResultadosRelatorios" minWidth="200.0" mnemonicParsing="false" styleClass="acao-relatorios" text="Relatorios" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <MenuButton fx:id="brnResultadosRelatorios" minWidth="200.0" mnemonicParsing="false"
+                                    styleClass="acao-relatorios" text="Relatorios" GridPane.columnIndex="2"
+                                    GridPane.rowIndex="1">
                             <items>
-                                <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false" text="CARREGAMENTO (XLS)" />
-                                <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false" text="DESCARREGAMENTO (XLS)" />
-                                <MenuItem fx:id="btnRelatorioResumoCarregamentoPDF" mnemonicParsing="false" text="RESUMO DE CARREGAMENTO (PDF)" />
+                                <MenuItem fx:id="btnRelatorioCarregamentoXLS" mnemonicParsing="false"
+                                          text="CARREGAMENTO (XLS)"/>
+                                <MenuItem fx:id="btnRelatorioDescarregamentoXLS" mnemonicParsing="false"
+                                          text="DESCARREGAMENTO (XLS)"/>
+                                <MenuItem fx:id="btnRelatorioResumoCarregamentoPDF" mnemonicParsing="false"
+                                          text="RESUMO DE CARREGAMENTO (PDF)"/>
                             </items>
                         </MenuButton>
                     </children>
@@ -58,16 +65,16 @@
                             <content>
                                 <TableView fx:id="tvCarregamento">
                                     <columns>
-                                        <TableColumn fx:id="colCarOrdem" text="Ordem" />
-                                        <TableColumn fx:id="colCarEquipamento" text="Equipamento" />
-                                        <TableColumn fx:id="colCarDataOrdem" text="Data Json" />
-                                        <TableColumn fx:id="colCarAcao" text="Ação" />
+                                        <TableColumn fx:id="colCarOrdem" text="Ordem" sortable="false"/>
+                                        <TableColumn fx:id="colCarEquipamento" text="Equipamento" sortable="false"/>
+                                        <TableColumn fx:id="colCarDataOrdem" text="Data Json" sortable="false"/>
+                                        <TableColumn fx:id="colCarAcao" text="Ação" sortable="false"/>
                                     </columns>
                                     <VBox.margin>
-                                        <Insets top="10.0" />
+                                        <Insets top="10.0"/>
                                     </VBox.margin>
                                     <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
                                 </TableView>
                             </content>
@@ -76,16 +83,16 @@
                             <content>
                                 <TableView fx:id="tvDescarregamento">
                                     <columns>
-                                        <TableColumn fx:id="colDesOrdem" text="Ordem" />
-                                        <TableColumn fx:id="colDesEquipamento" text="Equipamento" />
-                                        <TableColumn fx:id="colDesDataOrdem" text="Data Json" />
-                                        <TableColumn fx:id="colDesAcao" text="Ação" />
+                                        <TableColumn fx:id="colDesOrdem" text="Ordem" sortable="false"/>
+                                        <TableColumn fx:id="colDesEquipamento" text="Equipamento" sortable="false"/>
+                                        <TableColumn fx:id="colDesDataOrdem" text="Data Json" sortable="false"/>
+                                        <TableColumn fx:id="colDesAcao" text="Ação" sortable="false"/>
                                     </columns>
                                     <VBox.margin>
-                                        <Insets top="10.0" />
+                                        <Insets top="10.0"/>
                                     </VBox.margin>
                                     <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
                                 </TableView>
                             </content>

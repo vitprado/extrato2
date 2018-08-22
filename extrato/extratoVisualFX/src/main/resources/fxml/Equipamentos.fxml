@@ -1,64 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentosController">
+<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.exacta.extratovisualfx.EquipamentosController">
     <children>
-        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos">
                     <font>
-                        <Font name="Segoe UI Semilight" size="48.0" />
+                        <Font name="Segoe UI Semilight" size="48.0"/>
                     </font>
                 </Text>
                 <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificação:" GridPane.rowIndex="0">
+                        <Text fx:id="lblDescricao" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Identificação:" GridPane.rowIndex="0">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtDescricao" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField fx:id="txtDescricao" minWidth="200.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
 
-                        <Text fx:id="lblCapacidade" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Capacidade [kg]:" GridPane.rowIndex="1">
+                        <Text fx:id="lblCapacidade" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Capacidade [kg]:" GridPane.rowIndex="1">
                             <font>
-                                <Font name="Segoe UI Semilight" size="16.0" />
+                                <Font name="Segoe UI Semilight" size="16.0"/>
                             </font>
                             <GridPane.margin>
-                                <Insets right="10.0" />
+                                <Insets right="10.0"/>
                             </GridPane.margin>
                         </Text>
-                        <TextField fx:id="txtCapacidade" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtCapacidade" minWidth="200.0" GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
 
-                        <Button fx:id="btnSalvar" alignment="CENTER" minWidth="200.0" mnemonicParsing="false" styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Button fx:id="btnRemover" alignment="CENTER" minWidth="200.0" mnemonicParsing="false" styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button fx:id="btnSalvar" alignment="CENTER" minWidth="200.0" mnemonicParsing="false"
+                                styleClass="acao-adicionar" text="Adicionar" GridPane.columnIndex="2"
+                                GridPane.rowIndex="0"/>
+                        <Button fx:id="btnRemover" alignment="CENTER" minWidth="200.0" mnemonicParsing="false"
+                                styleClass="acao-excluir" text="Excluir" GridPane.columnIndex="2"
+                                GridPane.rowIndex="1"/>
                     </children>
                 </GridPane>
                 <TableView fx:id="tvEquipamentos" VBox.vgrow="SOMETIMES">
                     <columns>
-                        <TableColumn fx:id="colDescricao" prefWidth="300" text="Identificação" />
-                        <TableColumn fx:id="colCapacidade" prefWidth="200" text="Capacidade [kg]" />
+                        <TableColumn fx:id="colDescricao" prefWidth="300" text="Identificação" sortable="false"/>
+                        <TableColumn fx:id="colCapacidade" prefWidth="200" text="Capacidade [kg]" sortable="false"/>
                     </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
                 </TableView>
             </children>
         </VBox>
