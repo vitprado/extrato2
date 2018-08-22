@@ -66,7 +66,7 @@ public class Config {
 
     public void carregarAnchorPane(AnchorPane ap, String str) {
         try {
-            AnchorPane novaChamdada = FXMLLoader.load(getClass().getResource("/fxml/" + str + ".fxml"));
+            AnchorPane novaChamdada = FXMLLoader.load(this.getClass().getClassLoader().getResource("resources/fxml/" + str + ".fxml"));
             AnchorPane.setBottomAnchor(novaChamdada, 0.0);
             AnchorPane.setLeftAnchor(novaChamdada, 0.0);
             AnchorPane.setRightAnchor(novaChamdada, 0.0);
@@ -85,13 +85,13 @@ public class Config {
     public void carregarAnchorPaneDialog(String str) {
         try {
             AnchorPane ap;
-            ap = FXMLLoader.load(getClass().getResource("/fxml/" + str + ".fxml"));
+            ap = FXMLLoader.load(this.getClass().getClassLoader().getResource("resources/fxml/" + str + ".fxml"));
             AnchorPane.setBottomAnchor(ap, 0.0);
             AnchorPane.setLeftAnchor(ap, 0.0);
             AnchorPane.setRightAnchor(ap, 0.0);
             AnchorPane.setTopAnchor(ap, 0.0);
-            ap.getStylesheets().add("/css/default.css");
-            ap.getStylesheets().add("/css/custom.css");
+            ap.getStylesheets().add("resources/css/default.css");
+            ap.getStylesheets().add("resources/css/custom.css");
             showDialog(ap);
 
             Config.changeScreen(str, ap);
@@ -104,13 +104,13 @@ public class Config {
     }
 
     public void carregarAnchorPaneDialog(String str, Object controller) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + str + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getClassLoader().getResource("resources/fxml/" + str + ".fxml"));
         loader.setController(controller);
         try {
             AnchorPane anchorPane = loader.load();
 
-            anchorPane.getStylesheets().add("/css/default.css");
-            anchorPane.getStylesheets().add("/css/custom.css");
+            anchorPane.getStylesheets().add("resources/css/default.css");
+            anchorPane.getStylesheets().add("resources/css/custom.css");
             
             showDialog(anchorPane);
 
@@ -122,13 +122,13 @@ public class Config {
     }
 
     public void carregarAnchorPaneStage(String str, Object controller) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + str + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getClassLoader().getResource("resources/fxml/" + str + ".fxml"));
         loader.setController(controller);
         try {
             AnchorPane anchorPane = loader.load();
 
-            anchorPane.getStylesheets().add("/css/default.css");
-            anchorPane.getStylesheets().add("/css/custom.css");
+            anchorPane.getStylesheets().add("resources/css/default.css");
+            anchorPane.getStylesheets().add("resources/css/custom.css");
             ((ReceitaTemIngredientesController) controller).setStage(getShowDialog(anchorPane));
 
             Config.changeScreen(str, controller);

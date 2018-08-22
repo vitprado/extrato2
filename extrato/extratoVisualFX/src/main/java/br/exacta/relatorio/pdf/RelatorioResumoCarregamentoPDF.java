@@ -46,7 +46,8 @@ public class RelatorioResumoCarregamentoPDF {
 
     public void geraRelatorio(List<CarregamentoResumoDTO> resumoCarregamentos) throws IOException {
         try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/resumoCarregamento.jrxml"));
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getClassLoader().getResourceAsStream("resources/relatorio/resumoCarregamento.jrxml"));
+//            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorio/resumoCarregamento.jrxml"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(resumoCarregamentos));
             JRPdfExporter jrPdfExporter = new JRPdfExporter();
             SimpleExporterInput exportInput = new SimpleExporterInput(jasperPrint);

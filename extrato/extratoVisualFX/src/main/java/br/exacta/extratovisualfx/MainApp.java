@@ -11,11 +11,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent fxmlMain = FXMLLoader.load(this.getClass().getResource("/fxml/Menu.fxml"));
+		Parent fxmlMain = FXMLLoader.load(MainApp.class.getClassLoader().getResource("resources/fxml/Menu.fxml"));
         Scene mainScene = new Scene(fxmlMain);
-        Image imgExtrato = new Image(getClass().getResourceAsStream("/img/icon/icone-mini.png"));
+        Image imgExtrato = new Image(MainApp.class.getClassLoader().getResourceAsStream("resources/img/icon/icone-mini.png"));
         
-        mainScene.getStylesheets().add("/css/login.css");
+        mainScene.getStylesheets().add("resources/css/login.css");
         primaryStage.getIcons().add(imgExtrato);        
 
         primaryStage.setTitle("exTrato - Sistema de Trato Bovino");
